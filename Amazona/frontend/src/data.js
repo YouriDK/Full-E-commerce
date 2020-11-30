@@ -1,6 +1,7 @@
 export default {
   products: [
     {
+      _id: "1",
       name: "Slim Shirt",
       category: "Shirts",
       image: "/images/d1.jpg",
@@ -10,6 +11,7 @@ export default {
       numReviews: 10,
     },
     {
+      _id: "2",
       name: "Slim Shirt",
       category: "Shirts",
       image: "/images/d1.jpg",
@@ -19,7 +21,18 @@ export default {
       numReviews: 20,
     },
     {
+      _id: "3",
       name: "Pants jogging",
+      category: "Pants",
+      image: "/images/d1.jpg",
+      price: 80,
+      brand: "Nike",
+      rating: 3,
+      numReviews: 15,
+    },
+    {
+      _id: "4",
+      name: "Leggings",
       category: "Pants",
       image: "/images/d1.jpg",
       price: 80,
