@@ -1,0 +1,7 @@
+{
+    "presets": [
+        [// Allow to run express
+            "@babel/preset-env"
+        ]
+    ]
+}

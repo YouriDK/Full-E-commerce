@@ -1,5 +1,3 @@
-/* * unused */
-
 export default {
   products: [
     {
