@@ -13,8 +13,6 @@ function HomeScreen(props) {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(listProducts());
-
-    //fetchData();
     return () => {
       /* *  return nothing*/
     };

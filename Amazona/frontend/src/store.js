@@ -1,5 +1,8 @@
 import { applyMiddleware, combineReducers, createStore, compose } from "redux";
-import { productListReducer } from "./reducers/productReducers";
+import {
+  productListReducer,
+  productDetailsReducer,
+} from "./reducers/productReducers";
 import thunk from "redux-thunk"; /* * Middleware pour React*/
 
 const initialState = {};
@@ -7,6 +10,7 @@ const initialState = {};
 /* *  Get a state and a action and return a new state of that action*/
 const reducer = combineReducers({
   productList: productListReducer,
+  productDetails: productDetailsReducer,
 });
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
