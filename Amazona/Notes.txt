@@ -1,0 +1,5 @@
+Les notions à comprendre :
+- dispatch
+- useSelector
+
+Default font size in browser is 16 px so 16 * 62.5% = 10 px = 1rem 

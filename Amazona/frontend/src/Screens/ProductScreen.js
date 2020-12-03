@@ -69,7 +69,9 @@ function ProductScreen(props) {
                   }}
                 >
                   {[...Array(product.countInStock).keys()].map((x) => (
-                    <option value={x + 1}>{x + 1}</option>
+                    <option key={x} value={x + 1}>
+                      {x + 1}
+                    </option>
                   ))}
                 </select>
               </li>
