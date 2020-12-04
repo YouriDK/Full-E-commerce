@@ -1,5 +1,3 @@
-/* * unused */
-
 export default {
   products: [
     {
@@ -11,6 +9,7 @@ export default {
       brand: "Nike",
       rating: 4.5,
       numReviews: 10,
+      countInStock: 0,
     },
     {
       _id: "2",
@@ -21,6 +20,7 @@ export default {
       brand: "Nike",
       rating: 5,
       numReviews: 20,
+      countInStock: 9,
     },
     {
       _id: "3",
@@ -31,6 +31,7 @@ export default {
       brand: "Nike",
       rating: 3,
       numReviews: 15,
+      countInStock: 10,
     },
     {
       _id: "4",
@@ -41,6 +42,7 @@ export default {
       brand: "Nike",
       rating: 5,
       numReviews: 35,
+      countInStock: 25,
     },
     {
       _id: "5",
@@ -51,6 +53,7 @@ export default {
       brand: "Nike",
       rating: 1,
       numReviews: 10,
+      countInStock: 12,
     },
     {
       _id: "6",
@@ -61,6 +64,7 @@ export default {
       brand: "Nike",
       rating: 3.5,
       numReviews: 30,
+      countInStock: 2,
     },
   ],
 };

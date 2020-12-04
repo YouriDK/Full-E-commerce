@@ -1,8 +1,8 @@
 import React from "react";
-import data from "./data";
-import HomeScreen from "./Screens/HomeScreen";
-import ProductScreen from "./Screens/ProductScreen";
+import HomeScreen from "./screens/HomeScreen";
+import ProductScreen from "./screens/ProductScreen";
 import { BrowserRouter, Route, Link } from "react-router-dom";
+import CartScreen from "./screens/CartScreen";
 
 function App() {
   const openMenu = () => {
@@ -44,6 +44,7 @@ function App() {
         <main className="main">
           <div className="content">
             <Route path="/product/:id" component={ProductScreen} />
+            <Route path="/cart/:id?" exact={true} component={CartScreen} />
             <Route path="/" exact={true} component={HomeScreen} />
           </div>
         </main>
@@ -54,3 +55,5 @@ function App() {
 }
 
 export default App;
+
+// * Le ? après id montre que c'est optionnel et ça va fonctionner même si il n'y en a pas

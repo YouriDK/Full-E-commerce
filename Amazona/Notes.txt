@@ -1,0 +1,19 @@
+Les notions à comprendre :
+- dispatch
+- useSelector
+
+Default font size in browser is 16 px so 16 * 62.5% = 10 px = 1rem 
+
+Pour connecter à la base de données : 
+Il faut définir l'url donc : 
+
+1 - New file  : .env ( file de config )
+2 - Mettre le lien de la base
+3 - install dotenv
+4 - New file : config.js
+5 -  Mettre le lien de la base aussi
+6 - Rajouter le tout dans server.js pour import config
+7 -  En utlisang aussi dotenv.config
+8 -  Téléchargement de MobgoCompass
+9 - Ensuite on crée le schema de construction 
+10 -  Puis la Route
