@@ -4,13 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    
-    "start" : "nodemon --watch backend --exec babel-node backend/server.js"
+    "start": "nodemon --watch backend --exec babel-node backend/server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.11.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.8",

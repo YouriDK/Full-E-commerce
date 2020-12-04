@@ -1,6 +1,26 @@
 import express from "express";
 import data from "./data";
+import config from "./config";
+import doten from "dotenv";
+import mongoose from "mongoose";
+import userRoute from "./routes/userRoutes";
+
+doten.config();
+
+const mongodb_Url = config.MONGODB_URL;
+
+mongoose
+  .connect(mongodb_Url, {
+    useNewUrlParser: true,
+    // * Pour enlever les warnings
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+  })
+  .catch((error) => console.log(error.reason));
+
 const app = express();
+
+app.use("/api/users", userRoute);
 
 /* ! express understand only ES5 and we're in ES6  that's why we need babel*/
 
