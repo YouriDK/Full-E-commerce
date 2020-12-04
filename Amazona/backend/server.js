@@ -3,6 +3,7 @@ import data from "./data";
 import config from "./config";
 import doten from "dotenv";
 import mongoose from "mongoose";
+import bodyParser from "body-parser";
 import userRoute from "./routes/userRoutes";
 
 doten.config();
@@ -19,7 +20,7 @@ mongoose
   .catch((error) => console.log(error.reason));
 
 const app = express();
-
+app.use(bodyParser.json());
 app.use("/api/users", userRoute);
 
 /* ! express understand only ES5 and we're in ES6  that's why we need babel*/

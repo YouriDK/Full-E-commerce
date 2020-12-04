@@ -3,12 +3,24 @@ import HomeScreen from "./screens/HomeScreen";
 import ProductScreen from "./screens/ProductScreen";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 import CartScreen from "./screens/CartScreen";
+import SignInScreen from "./screens/SignInScreen";
+import RegisterScreen from "./screens/RegisterScreen";
+import { useSelector } from "react-redux";
+/*  
+TODO  : Faire la déconnection
+TODO  : Vérifier qu'on peut faire plusieurs compte
+TODO  : Trouver le soucis de useState
+*/
 
 function App() {
+  // * On récupère les infos user dans le Cookies
+
+  const userSignin = useSelector((state) => state.userSignin);
+  const { userInfo } = userSignin;
+
   const openMenu = () => {
     document.querySelector(".sidebar").classList.add("open");
   };
-
   const closeMenu = () => {
     document.querySelector(".sidebar").classList.remove("open");
   };
@@ -22,8 +34,12 @@ function App() {
             <Link to="/"> Amazona</Link>
           </div>
           <div className="header-links">
-            <a href="cart.html">Cart</a>
-            <a href="signin.html"> Sign In</a>
+            <a href="cart.html">Cart</a>{" "}
+            {userInfo ? (
+              <Link to="/profile">{userInfo.name}</Link>
+            ) : (
+              <Link to="signin">Sign In</Link>
+            )}
           </div>
         </header>
         <aside className="sidebar">
@@ -45,6 +61,8 @@ function App() {
           <div className="content">
             <Route path="/product/:id" component={ProductScreen} />
             <Route path="/cart/:id?" exact={true} component={CartScreen} />
+            <Route path="/signin" component={SignInScreen} />
+            <Route path="/register" component={RegisterScreen} />
             <Route path="/" exact={true} component={HomeScreen} />
           </div>
         </main>
