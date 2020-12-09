@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { listProducts, saveProduct } from "../actions/productActions";
+import {
+  listProducts,
+  saveProduct,
+  deleteProduct,
+} from "../actions/productActions";
 
 function Productscreen(props) {
   const [modalVisible, setModalVisible] = useState(false);
@@ -14,6 +18,12 @@ function Productscreen(props) {
   const [countInStock, setCountInStock] = useState("");
 
   const productSave = useSelector((state) => state.productSave);
+  const productDelete = useSelector((state) => state.productDelete);
+  const {
+    loading: loadingDelete,
+    success: successDelete,
+    error: errorDelete,
+  } = productDelete;
 
   const productList = useSelector((state) => state.productList);
   const { loading, products, error } = productList;
@@ -25,11 +35,12 @@ function Productscreen(props) {
 
   const dispatch = useDispatch();
   useEffect(() => {
+    if (successSave) setModalVisible(false);
     dispatch(listProducts());
     return () => {
       /* *  return nothing*/
     };
-  }, []);
+  }, [successSave, successDelete]);
   // ! If you don't put , [] at the end , he will start again over and over
 
   const openModal = (product) => {
@@ -37,6 +48,7 @@ function Productscreen(props) {
     setId(product._id);
     setName(product.name);
     setPrice(product.price);
+    setImage(product.image);
     setBrand(product.brand);
     setCategory(product.category);
     setCountInStock(product.countInStock);
@@ -46,6 +58,7 @@ function Productscreen(props) {
     e.preventDefault();
     dispatch(
       saveProduct({
+        _id: id,
         name,
         image,
         brand,
@@ -56,11 +69,18 @@ function Productscreen(props) {
       })
     );
   };
+
+  const deleteHandler = (product) => {
+    dispatch(deleteProduct(product._id));
+  };
   return (
     <div className=" content content-margined">
       <div className="product-header">
         <h3>Product</h3>
-        <button onClick={() => openModal({})}> Create Product </button>
+        <button className="button primary" onClick={() => openModal({})}>
+          {" "}
+          Create Product{" "}
+        </button>
       </div>
       {modalVisible && (
         <div className="form">
@@ -161,7 +181,7 @@ function Productscreen(props) {
         </div>
       )}
       <div className="product-list"></div>
-      <table>
+      <table className="table">
         <thead>
           <tr>
             <th>ID</th>
@@ -174,7 +194,7 @@ function Productscreen(props) {
         </thead>
         <tbody>
           {products.map((product) => (
-            <tr>
+            <tr key={product._id}>
               <td>{product._id}</td>
               <td>{product.name}</td>
               <td>{product.price}</td>
@@ -182,8 +202,16 @@ function Productscreen(props) {
               <td>{product.brand}</td>
               <td>
                 {" "}
-                <button onClick={() => openModal(product)}> Edit</button>
-                <button>Delete</button>
+                <button className="button" onClick={() => openModal(product)}>
+                  {" "}
+                  Edit
+                </button>{" "}
+                <button
+                  className="button"
+                  onClick={() => deleteHandler(product)}
+                >
+                  Delete
+                </button>
               </td>
             </tr>
           ))}
