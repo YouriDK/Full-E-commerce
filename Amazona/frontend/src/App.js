@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Link } from "react-router-dom";
 import CartScreen from "./screens/CartScreen";
 import SignInScreen from "./screens/SignInScreen";
 import RegisterScreen from "./screens/RegisterScreen";
+import ProductsScreen from "./screens/ProductsScreen";
 import { useSelector } from "react-redux";
 /*  
 TODO  : Faire la déconnection
@@ -59,6 +60,7 @@ function App() {
 
         <main className="main">
           <div className="content">
+            <Route path="/products" component={ProductsScreen} />
             <Route path="/product/:id" component={ProductScreen} />
             <Route path="/cart/:id?" exact={true} component={CartScreen} />
             <Route path="/signin" component={SignInScreen} />

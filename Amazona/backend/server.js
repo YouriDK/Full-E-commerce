@@ -5,6 +5,7 @@ import doten from "dotenv";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import userRoute from "./routes/userRoutes";
+import productRoute from "./routes/productsRoutes";
 
 doten.config();
 
@@ -22,8 +23,10 @@ mongoose
 const app = express();
 app.use(bodyParser.json());
 app.use("/api/users", userRoute);
+app.use("/api/products", productRoute);
 
 /* ! express understand only ES5 and we're in ES6  that's why we need babel*/
+/*
 
 app.get("/api/product/:id", (req, res) => {
   const productId = req.params.id;
@@ -31,7 +34,7 @@ app.get("/api/product/:id", (req, res) => {
 
   if (product) res.send(product);
   else res.status(404).send({ msg: " Product Not Found." });
-});
+});*/
 
 app.get("/api/products", (req, res) => {
   res.send(data.products);
