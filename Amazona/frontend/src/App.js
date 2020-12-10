@@ -7,6 +7,9 @@ import SignInScreen from "./screens/SignInScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 import ProductsScreen from "./screens/ProductsScreen";
 import { useSelector } from "react-redux";
+import ShippingScreen from "./screens/ShippingScreen";
+import PaymentScreen from "./screens/PaymentScreen";
+import PlaceOrderScreen from "./screens/PlaceOrderScreen";
 /*  
 TODO  : Faire la déconnection
 TODO  : Vérifier qu'on peut faire plusieurs compte
@@ -60,7 +63,10 @@ function App() {
 
         <main className="main">
           <div className="content">
+            <Route path="/payment" component={PaymentScreen} />
+            <Route path="/placeorder" component={PlaceOrderScreen} />
             <Route path="/products" component={ProductsScreen} />
+            <Route path="/shipping" component={ShippingScreen} />
             <Route path="/product/:id" component={ProductScreen} />
             <Route path="/cart/:id?" exact={true} component={CartScreen} />
             <Route path="/signin" component={SignInScreen} />

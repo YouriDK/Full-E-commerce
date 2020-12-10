@@ -16,7 +16,10 @@ import thunk from "redux-thunk"; /* * Middleware pour React*/
 const cartItems = Cookie.getJSON("cartItems") || [];
 const userInfo = Cookie.getJSON("userInfo") || null;
 
-const initialState = { userSignin: { userInfo }, cart: { cartItems } };
+const initialState = {
+  cart: { cartItems, shipping: {}, payment: {} },
+  userSignin: { userInfo },
+};
 
 /* *  Get a state and a action and return a new state of that action*/
 const reducer = combineReducers({

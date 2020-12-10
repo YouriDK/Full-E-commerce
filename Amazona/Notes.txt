@@ -17,3 +17,8 @@ Il faut définir l'url donc :
 8 -  Téléchargement de MobgoCompass
 9 - Ensuite on crée le schema de construction 
 10 -  Puis la Route
+
+
+Comprendre :
+ce que ça change de mettre HtmlFor
+comment fonctionne flex

@@ -3,18 +3,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { register } from "../actions/userActions";
 
-function SignInScreen(props) {
+function RegisterScreen(props) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rePassword, setRePassword] = useState("");
   const userRegister = useSelector((state) => state.userRegister);
   const { loading, userInfo, error } = userRegister;
+  const redirect = props.location.search
+    ? props.location.search.split("=")[1]
+    : "/"; // * Redirgier après un checkout
 
   const dispatch = useDispatch();
   useEffect(() => {
     if (userInfo) {
-      props.history.push("/");
+      props.history.push(redirect);
     }
     return () => {
       /* *  return nothing*/
@@ -83,8 +86,12 @@ function SignInScreen(props) {
           </li>
           <li>Already have an account ?</li>
           <li>
-            <Link to="/signin" className="button secondary text-center">
-              Sign-In
+            <Link
+              to={redirect === "/" ? "signin" : "signin?redirect=" + redirect}
+              className="button secondary text-center"
+            >
+              {" "}
+              Create your amazona account{" "}
             </Link>
           </li>
         </ul>
@@ -92,4 +99,4 @@ function SignInScreen(props) {
     </div>
   );
 }
-export default SignInScreen;
+export default RegisterScreen;

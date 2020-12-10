@@ -9,11 +9,13 @@ function SignInScreen(props) {
 
   const userSignin = useSelector((state) => state.userSignin);
   const { loading, userInfo, error } = userSignin;
-
+  const redirect = props.location.search
+    ? props.location.search.split("=")[1]
+    : "/"; // * Redirgier après un checkout
   const dispatch = useDispatch();
   useEffect(() => {
     if (userInfo) {
-      props.history.push("/");
+      props.history.push(redirect);
     }
     return () => {
       /* *  return nothing*/
@@ -62,7 +64,12 @@ function SignInScreen(props) {
           </li>
           <li>New to Amazona ?</li>
           <li>
-            <Link to="/register" className="button secondary text-center">
+            <Link
+              to={
+                redirect === "/" ? "register" : "register?redirect=" + redirect
+              }
+              className="button secondary text-center"
+            >
               {" "}
               Create your amazona account{" "}
             </Link>
