@@ -22,3 +22,5 @@ Il faut définir l'url donc :
 Comprendre :
 ce que ça change de mettre HtmlFor
 comment fonctionne flex
+Prodiver dans index 
+et à quoi sert store exactement

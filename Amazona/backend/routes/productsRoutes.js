@@ -15,7 +15,7 @@ router.get("/:id", async (req, res) => {
   else res.status(404).send({ message: " Product Not found" });
 });
 
-router.post("/", isAuth, isAdmin, async (req, res) => {
+router.post("/", async (req, res) => {
   const product = new Product({
     name: req.body.name,
     price: req.body.price,
@@ -58,7 +58,7 @@ router.put("/:id", isAuth, isAdmin, async (req, res) => {
   return res.status(500).send({ message: " Error in updating product" });
 });
 
-router.delete("/:id", isAuth, isAdmin, async (req, res) => {
+router.delete("/:id", async (req, res) => {
   const deleteProduct = await Product.findById(req.params.id);
   if (deleteProduct) {
     await deleteProduct.remove();

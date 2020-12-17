@@ -3,14 +3,13 @@ import { useDispatch } from "react-redux";
 import { saveShipping } from "../actions/cartActions";
 import CheckoutSteps from "../components/CheckOutStep";
 
-function ShippingScreen(props) {
+export default function ShippingScreen(props) {
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
   const [postalCode, setPostalCode] = useState("");
   const dispatch = useDispatch();
 
-  // ! If you don't put , [] at the end , he will start again over and over
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(saveShipping({ address, city, postalCode, country }));
@@ -80,4 +79,3 @@ function ShippingScreen(props) {
     </div>
   );
 }
-export default ShippingScreen;

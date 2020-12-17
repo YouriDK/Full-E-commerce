@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import CheckoutSteps from "../components/CheckOutStep";
 
-function PlaceOrderScreen(props) {
+export default function PlaceOrderScreen(props) {
   const cart = useSelector((state) => state.cart);
   const { cartItems, shipping, payment } = cart;
 
@@ -114,5 +114,3 @@ function PlaceOrderScreen(props) {
     </div>
   );
 }
-
-export default PlaceOrderScreen;

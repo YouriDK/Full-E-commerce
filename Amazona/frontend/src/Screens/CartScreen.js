@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { addToCart, removeFromCart } from "../actions/cartActions";
-
-function CartScreen(props) {
+import MessageBox from "../components/MessageBox";
+export default function CartScreen(props) {
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
 
@@ -27,68 +27,77 @@ function CartScreen(props) {
   }, []);
 
   return (
-    <div className="cart">
-      <div className="cart-list">
-        <ul className="cart-list-container">
-          <li>
-            <h3>Shopping Cart</h3>
-            <div>Price</div>
-          </li>
+    <div className="row top">
+      <div className="col-2">
+        <h1>Shopping Cart</h1>
 
-          {cartItems.length === 0 ? (
-            <div>Cart is empty</div>
-          ) : (
-            cartItems.map((item) => (
+        {cartItems.length === 0 ? (
+          <MessageBox>
+            Cart is empty. <Link to="/">Go Shopping</Link>
+          </MessageBox>
+        ) : (
+          <ul>
+            {cartItems.map((item) => (
               <li key={item.product}>
-                <div className="cart-image">
-                  <img src={item.image} alt="product" />
-                </div>
-                <div className="cart-name">
+                <div className="row">
                   <div>
+                    <img src={item.image} alt={item.name} className="small" />
+                  </div>
+                  <div className="min-30">
                     <Link to={"/product/" + item.product}>{item.name}</Link>
                   </div>
                   <div>
-                    Qty :
                     <select
                       value={item.qty}
                       onChange={(e) =>
                         dispatch(addToCart(item.product, e.target.value))
                       }
                     >
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
+                      {[...Array(item.countInStock).keys()].map((x) => (
+                        <option key={x} value={x + 1}>
+                          {x + 1}
+                        </option>
+                      ))}
                     </select>
-                    <button
-                      type="button"
-                      className="button"
-                      onClick={() => removeFromCardHandler(item.product)}
-                    >
-                      Delete
-                    </button>
+                    <div>
+                      <button
+                        type="button"
+                        // ! className="button"
+                        onClick={() => removeFromCardHandler(item.product)}
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </div>
+                  <div>${item.price}</div>
                 </div>
-                <div className="cart-price">${item.price}</div>
               </li>
-            ))
-          )}
-        </ul>
+            ))}
+          </ul>
+        )}
       </div>
-      <div className="cart-action">
-        <h3>
-          Subtotal ( {cartItems.reduce((a, c) => a + c.qty, 0)} items ) : $
-          {cartItems.reduce((a, c) => a + c.price * c.qty, 0)}
-        </h3>
-        <button
-          onClick={checkoutHandler}
-          className="button primary full-width"
-          disabled={cartItems.length === 0}
-        >
-          Proceed to Checkout
-        </button>
+      <div className="col-1">
+        <div className="card card-body">
+          <ul>
+            <li>
+              <h2>
+                Subtotal ( {cartItems.reduce((a, c) => a + c.qty, 0)} items ) :
+                ${cartItems.reduce((a, c) => a + c.price * c.qty, 0)}
+              </h2>
+            </li>
+            <li>
+              <button
+                type="button"
+                onClick={checkoutHandler}
+                className="primary block"
+                disabled={cartItems.length === 0}
+              >
+                Proceed to Checkout
+              </button>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   );
 }
-
-export default CartScreen;

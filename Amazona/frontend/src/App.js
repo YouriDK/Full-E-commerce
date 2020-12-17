@@ -6,21 +6,23 @@ import CartScreen from "./screens/CartScreen";
 import SignInScreen from "./screens/SignInScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 import ProductsScreen from "./screens/ProductsScreen";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ShippingScreen from "./screens/ShippingScreen";
 import PaymentScreen from "./screens/PaymentScreen";
 import PlaceOrderScreen from "./screens/PlaceOrderScreen";
+import { signout } from "./actions/userActions";
 /*  
-TODO  : Faire la déconnection
 TODO  : Vérifier qu'on peut faire plusieurs compte
 TODO  : Trouver le soucis de useState
 */
 
 function App() {
   // * On récupère les infos user dans le Cookies
-
+  const cart = useSelector((state) => state.cart);
+  const { cartItems } = cart;
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
+  const dispatch = useDispatch();
 
   const openMenu = () => {
     document.querySelector(".sidebar").classList.add("open");
@@ -28,53 +30,64 @@ function App() {
   const closeMenu = () => {
     document.querySelector(".sidebar").classList.remove("open");
   };
-
+  const signoutHandler = () => {
+    console.log("signoutHandler");
+    dispatch(signout());
+  };
+  // * la link stylesheet permet d'afficher les étoiles
   return (
     <BrowserRouter>
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+      ></link>
       <div className="grid-container">
-        <header className="header">
-          <div className="brand">
-            <button onClick={openMenu}>&#9776;</button>
-            <Link to="/"> Amazona</Link>
+        <header className="row">
+          <div>
+            <Link className="brand" to="/">
+              {" "}
+              Amazona
+            </Link>
           </div>
-          <div className="header-links">
-            <a href="cart.html">Cart</a>{" "}
+          <div>
+            <Link to="/cart/:id?">
+              Cart
+              {cartItems.length > 0 && (
+                <span className="badge">{cartItems.length}</span>
+              )}
+            </Link>
+            {"  "}
             {userInfo ? (
-              <Link to="/profile">{userInfo.name}</Link>
+              <div className="dropdown">
+                <Link to="#">
+                  {userInfo.name} <i className="fa fa-caret-down"></i>{" "}
+                </Link>
+                <ul className="dropdown-content">
+                  <li>
+                    <Link to="#signout" onClick={signoutHandler}>
+                      Sign Out
+                    </Link>
+                  </li>
+                </ul>
+              </div>
             ) : (
               <Link to="signin">Sign In</Link>
             )}
           </div>
         </header>
-        <aside className="sidebar">
-          <h3>Shopping categories</h3>
-          <button className="sidebar-close-button" onClick={closeMenu}>
-            x
-          </button>
-          <ul>
-            <li>
-              <a href="index.html">Pants </a>
-            </li>
-            <li>
-              <a href="index.html">Shirts </a>
-            </li>
-          </ul>
-        </aside>
 
-        <main className="main">
-          <div className="content">
-            <Route path="/payment" component={PaymentScreen} />
-            <Route path="/placeorder" component={PlaceOrderScreen} />
-            <Route path="/products" component={ProductsScreen} />
-            <Route path="/shipping" component={ShippingScreen} />
-            <Route path="/product/:id" component={ProductScreen} />
-            <Route path="/cart/:id?" exact={true} component={CartScreen} />
-            <Route path="/signin" component={SignInScreen} />
-            <Route path="/register" component={RegisterScreen} />
-            <Route path="/" exact={true} component={HomeScreen} />
-          </div>
+        <main>
+          <Route path="/payment" component={PaymentScreen} />
+          <Route path="/placeorder" component={PlaceOrderScreen} />
+          <Route path="/products" component={ProductsScreen} />
+          <Route path="/shipping" component={ShippingScreen} />
+          <Route path="/product/:id" component={ProductScreen} />
+          <Route path="/cart/:id?" exact={true} component={CartScreen} />
+          <Route path="/signin" component={SignInScreen} />
+          <Route path="/register" component={RegisterScreen} />
+          <Route path="/" exact={true} component={HomeScreen} />
         </main>
-        <footer className="footer">All right Reserved</footer>
+        <footer className="row center">All right Reserved</footer>
       </div>
     </BrowserRouter>
   );

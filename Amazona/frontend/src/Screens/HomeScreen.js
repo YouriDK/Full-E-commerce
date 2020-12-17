@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import LoadingBox from "../components/LoadingBox";
+import MessageBox from "../components/MessageBox";
 import { useDispatch, useSelector } from "react-redux";
 import { listProducts } from "../actions/productActions";
+import Product from "../components/Product";
 
-function HomeScreen(props) {
+export default function HomeScreen(props) {
   /* *  using Hooks*/
 
   const productList = useSelector((state) => state.productList);
@@ -17,36 +19,14 @@ function HomeScreen(props) {
   }, []);
 
   return loading ? (
-    <div> Loading...</div>
+    <LoadingBox></LoadingBox>
   ) : error ? (
-    <div>{error}</div>
+    <MessageBox variant="danger">{error}</MessageBox>
   ) : (
-    <ul className="products">
+    <ul className="row center">
       {products.map((product) => {
-        return (
-          <li key={product._id}>
-            <div className="product">
-              <Link to={"/product/" + product._id}>
-                <img
-                  className="product-image"
-                  src={product.image}
-                  alt="product"
-                />
-              </Link>
-              <div className="product-name">
-                <Link to={"/product/" + product._id}>{product.name}</Link>
-              </div>
-              <div className="product-brand">{product.brand}</div>
-              <div className="product-price">{product.price}</div>
-              <div className="product-rating">
-                {product.rating} Stars ({product.numReviews} reviews )
-              </div>
-            </div>
-          </li>
-        );
+        return <Product key={product._id} product={product} />;
       })}
     </ul>
   );
 }
-
-export default HomeScreen;

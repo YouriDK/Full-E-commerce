@@ -11,8 +11,11 @@ import {
   userRegisterReducer,
 } from "./reducers/userReducers";
 import { cartReducers } from "./reducers/cartReducers";
-import thunk from "redux-thunk"; /* * Middleware pour React*/
 
+// * Middleware pour React
+import thunk from "redux-thunk";
+
+// *  Permet de récupérer les infos stockées dans les cookies
 const cartItems = Cookie.getJSON("cartItems") || [];
 const userInfo = Cookie.getJSON("userInfo") || null;
 
@@ -32,6 +35,7 @@ const reducer = combineReducers({
   productDelete: productDeleteReducer,
 });
 
+// TODO comprendre la compose
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
   reducer,

@@ -6,7 +6,7 @@ import {
   deleteProduct,
 } from "../actions/productActions";
 
-function Productscreen(props) {
+export default function Productscreen(props) {
   const [modalVisible, setModalVisible] = useState(false);
   const [name, setName] = useState("");
   const [id, setId] = useState("");
@@ -16,6 +16,8 @@ function Productscreen(props) {
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
   const [countInStock, setCountInStock] = useState("");
+  const [rating, setRating] = useState("");
+  const [numReviews, setNumReviews] = useState("");
 
   const productSave = useSelector((state) => state.productSave);
   const productDelete = useSelector((state) => state.productDelete);
@@ -53,6 +55,8 @@ function Productscreen(props) {
     setCategory(product.category);
     setCountInStock(product.countInStock);
     setDescription(product.description);
+    setRating(product.rating);
+    setNumReviews(product, numReviews);
   };
   const submitHandler = (e) => {
     e.preventDefault();
@@ -66,6 +70,8 @@ function Productscreen(props) {
         category,
         countInStock,
         description,
+        rating,
+        numReviews,
       })
     );
   };
@@ -165,6 +171,26 @@ function Productscreen(props) {
                 ></textarea>
               </li>
               <li>
+                <label htmlFor="rating">Rating</label>
+                <input
+                  value={rating}
+                  type="text"
+                  name="rating"
+                  id="rating"
+                  onChange={(e) => setRating(e.target.value)}
+                ></input>
+              </li>
+              <li>
+                <label htmlFor="numReviews">Numbers of reviews</label>
+                <input
+                  value={numReviews}
+                  type="text"
+                  name="numReviews"
+                  id="numReviews"
+                  onChange={(e) => setNumReviews(e.target.value)}
+                ></input>
+              </li>
+              <li>
                 <button type="submit" className="button primary">
                   {id ? "Update" : "Create"}
                 </button>
@@ -220,4 +246,3 @@ function Productscreen(props) {
     </div>
   );
 }
-export default Productscreen;

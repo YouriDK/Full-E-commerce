@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { register } from "../actions/userActions";
 
-function RegisterScreen(props) {
+export default function RegisterScreen(props) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -99,4 +99,3 @@ function RegisterScreen(props) {
     </div>
   );
 }
-export default RegisterScreen;

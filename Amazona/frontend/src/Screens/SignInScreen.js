@@ -2,17 +2,25 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { signin } from "../actions/userActions";
+import LoadingBox from "../components/LoadingBox";
+import MessageBox from "../components/MessageBox";
 
-function SignInScreen(props) {
+export default function SignInScreen(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  // * Permet d'aller chercher les informations dans store avec le bon reducer
   const userSignin = useSelector((state) => state.userSignin);
   const { loading, userInfo, error } = userSignin;
+
+  // * Rediriger après un checkout
   const redirect = props.location.search
     ? props.location.search.split("=")[1]
-    : "/"; // * Redirgier après un checkout
+    : "/";
+
   const dispatch = useDispatch();
+
+  // ! If you don't put , [] at the end , he will start again over and over
   useEffect(() => {
     if (userInfo) {
       props.history.push(redirect);
@@ -21,62 +29,61 @@ function SignInScreen(props) {
       /* *  return nothing*/
     };
   }, [userInfo]);
-  // ! If you don't put , [] at the end , he will start again over and over
+
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(signin(email, password));
   };
+
   return (
-    <div className="form">
-      <form onSubmit={submitHandler}>
-        <ul className="form-container">
-          <li>
-            <h2 className="text-center">Sign-In</h2>
-          </li>
-          <li>
-            {loading && <div> Loading .. </div>}
-            {error && <div> Error .. </div>}
-          </li>
-          <li>
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              name="email"
-              id="email"
-              onChange={(e) => setEmail(e.target.value)}
-            ></input>
-          </li>
-          <li>
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-            ></input>
-          </li>
-          <li>
-            <button type="submit" className=" button primary">
-              Sign-In{" "}
-            </button>
-          </li>
-          <li>New to Amazona ?</li>
-          <li>
-            <Link
-              to={
-                redirect === "/" ? "register" : "register?redirect=" + redirect
-              }
-              className="button secondary text-center"
-            >
-              {" "}
-              Create your amazona account{" "}
-            </Link>
-          </li>
-        </ul>
+    <div>
+      <form className="form" onSubmit={submitHandler}>
+        <h1>Sign-In</h1>
+
+        {loading && <LoadingBox></LoadingBox>}
+        {error && <MessageBox variant="danger">{error}</MessageBox>}
+
+        <div>
+          <label htmlFor="email">Email</label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="Enter email"
+            required
+            onChange={(e) => setEmail(e.target.value)}
+          ></input>
+        </div>
+        <div>
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Enter password"
+            required
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+          ></input>
+        </div>
+        <div>
+          <button type="submit" className="primary">
+            Sign-In{" "}
+          </button>
+        </div>
+
+        <div>
+          {" "}
+          New ?
+          <Link
+            to={redirect === "/" ? "register" : "register?redirect=" + redirect}
+          >
+            {" "}
+            Create your account{" "}
+          </Link>
+        </div>
       </form>
     </div>
   );
 }
-export default SignInScreen;
