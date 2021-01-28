@@ -25,10 +25,7 @@ export default function SignInScreen(props) {
     if (userInfo) {
       props.history.push(redirect);
     }
-    return () => {
-      /* *  return nothing*/
-    };
-  }, [userInfo]);
+  }, [props.history, redirect, userInfo]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -38,8 +35,9 @@ export default function SignInScreen(props) {
   return (
     <div>
       <form className="form" onSubmit={submitHandler}>
-        <h1>Sign-In</h1>
-
+        <div>
+          <h1>Sign-In</h1>
+        </div>
         {loading && <LoadingBox></LoadingBox>}
         {error && <MessageBox variant="danger">{error}</MessageBox>}
 
@@ -74,13 +72,11 @@ export default function SignInScreen(props) {
         </div>
 
         <div>
-          {" "}
           New ?
           <Link
             to={redirect === "/" ? "register" : "register?redirect=" + redirect}
           >
-            {" "}
-            Create your account{" "}
+            Create your account
           </Link>
         </div>
       </form>

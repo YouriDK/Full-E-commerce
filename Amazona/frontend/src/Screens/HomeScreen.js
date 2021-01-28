@@ -5,11 +5,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { listProducts } from "../actions/productActions";
 import Product from "../components/Product";
 
-export default function HomeScreen(props) {
+export default function HomeScreen() {
   /* *  using Hooks*/
 
   const productList = useSelector((state) => state.productList);
   const { products, loading, error } = productList;
+  console.log("productList - ", productList);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(listProducts());
