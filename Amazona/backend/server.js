@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import userRoute from "./routes/userRoutes";
 import productRoute from "./routes/productsRoutes";
+import orderRoute from "./routes/orderRoutes";
 
 doten.config();
 
@@ -23,6 +24,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use("/api/users", userRoute);
 app.use("/api/products", productRoute);
+app.use("/api/orders", orderRoute);
 app.use("/api/product", productRoute); // ! Il fallait mettre cela pour pouvoir voir les détais du produit
 
 /* ! express understand only ES5 and we're in ES6  that's why we need babel*/

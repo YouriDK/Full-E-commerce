@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import CheckoutSteps from "../components/CheckOutStep";
 
@@ -41,19 +41,21 @@ export default function PlaceOrderScreen(props) {
           <div>
             <h3> Shipping</h3>{" "}
             <div>
-              {cart.shipping.address}, {cart.shipping.city},
-              {cart.shipping.postalCode}, {cart.shipping.Country}{" "}
+              <strong>Name : </strong>
+              {cart.shipping.fullName} <br />
+              <strong>Address : </strong> {cart.shipping.address},{" "}
+              {cart.shipping.city},{cart.shipping.postalCode},{" "}
+              {cart.shipping.country}{" "}
             </div>
           </div>
           <div>
             <h3> Payment</h3>
-            <div> Payment Method : {cart.payment}, </div>
+            <div> Payment Method : {cart.payment}. </div>
           </div>
           <div>
             <ul className="cart-list-container">
               <li>
                 <h3>Shopping Cart</h3>
-                <div>Price</div>
               </li>
 
               {cartItems.length === 0 ? (
@@ -61,16 +63,17 @@ export default function PlaceOrderScreen(props) {
               ) : (
                 cartItems.map((item) => (
                   <li key={item.product}>
-                    <div className="cart-image">
-                      <img src={item.image} alt="product" />
-                    </div>
-                    <div className="cart-name">
+                    <div className="row">
                       <div>
+                        <img className="small" src={item.image} alt="product" />
+                      </div>
+                      <div className="min-30">
                         <Link to={"/product/" + item.product}>{item.name}</Link>
                       </div>
-                      <div>Qty : {item.qty}</div>
+                      <div>
+                        {item.qty} x ${item.price} = ${item.qty * item.price}
+                      </div>
                     </div>
-                    <div className="cart-price">${item.price}</div>
                   </li>
                 ))
               )}
@@ -80,15 +83,6 @@ export default function PlaceOrderScreen(props) {
 
         <div className="placeorder-action">
           <ul>
-            <li>
-              <button
-                className="button primary full-width"
-                onClick={() => placeOrderHandler()}
-              >
-                {" "}
-                Place Order
-              </button>
-            </li>
             <li>
               <h3>Order Summary</h3>
             </li>
@@ -108,6 +102,15 @@ export default function PlaceOrderScreen(props) {
               <div>Order Total</div>
               <div>${totalPrice}</div>
             </li>
+            <div>
+              <button
+                className="button primary full-width"
+                onClick={() => placeOrderHandler()}
+              >
+                {" "}
+                Place Order
+              </button>
+            </div>
           </ul>
         </div>
       </div>

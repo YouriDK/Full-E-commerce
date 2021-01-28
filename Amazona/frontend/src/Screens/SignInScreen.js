@@ -72,7 +72,8 @@ export default function SignInScreen(props) {
         </div>
 
         <div>
-          New ?
+          You don't have you account ?
+          <br />
           <Link
             to={redirect === "/" ? "register" : "register?redirect=" + redirect}
           >

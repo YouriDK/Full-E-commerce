@@ -4,7 +4,13 @@ import { savePayment } from "../actions/cartActions";
 import CheckoutSteps from "../components/CheckOutStep";
 
 export default function PaymentScreen(props) {
-  const [paymentMethod, setPaymentMethod] = useState("");
+  const cart = useSelector((state) => state.cart);
+  const { shippingAddress } = cart;
+  if (!shippingAddress.address) {
+    console.log("PAS LA");
+    props.history.push("/shipping");
+  }
+  const [paymentMethod, setPaymentMethod] = useState("Paypal");
 
   const dispatch = useDispatch();
 
@@ -19,34 +25,44 @@ export default function PaymentScreen(props) {
       <CheckoutSteps step1 step2 step3>
         {" "}
       </CheckoutSteps>
-      <div className="form">
-        <form onSubmit={submitHandler}>
-          <ul className="form-container">
-            <li>
-              <h2 className="text-center">Payment</h2>
-            </li>
 
-            <li>
-              <div>
-                <input
-                  type="radio"
-                  value="paypal"
-                  name="paymentMethod"
-                  id="paymentMethod"
-                  onChange={(e) => setPaymentMethod(e.target.value)}
-                ></input>
-                <label htmlFor="paymentMethod">Paypal</label>
-              </div>
-            </li>
+      <form className="form" onSubmit={submitHandler}>
+        <div>
+          <h2 className="text-center">Payment method</h2>
+        </div>
 
-            <li>
-              <button type="submit" className=" button primary">
-                Continue{" "}
-              </button>
-            </li>
-          </ul>
-        </form>
-      </div>
+        <div>
+          <div>
+            <input
+              type="radio"
+              value="paypal"
+              name="paymentMethod"
+              required
+              checked
+              id="paymentMethod"
+              onChange={(e) => setPaymentMethod(e.target.value)}
+            ></input>
+            <label htmlFor="paymentMethod">Paypal</label>
+          </div>
+          <div>
+            <input
+              type="radio"
+              value="stripe"
+              name="paymentMethod"
+              id="paymentMethod"
+              required
+              onChange={(e) => setPaymentMethod(e.target.value)}
+            ></input>
+            <label htmlFor="paymentMethod">Stripe</label>
+          </div>
+        </div>
+
+        <div>
+          <button type="submit" className=" button primary">
+            Continue{" "}
+          </button>
+        </div>
+      </form>
     </div>
   );
 }

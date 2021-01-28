@@ -20,7 +20,15 @@ const cartItems = Cookie.getJSON("cartItems") || [];
 const userInfo = Cookie.getJSON("userInfo") || null;
 
 const initialState = {
-  cart: { cartItems, shipping: {}, payment: {} },
+  cart: {
+    cartItems,
+    shipping: {},
+    payment: {},
+    shippingAddress: localStorage.getItem("shippingAddress")
+      ? JSON.parse(localStorage.getItem("shippingAddress"))
+      : {},
+    paymentMethod: "Paypal",
+  },
   userSignin: { userInfo },
 };
 
