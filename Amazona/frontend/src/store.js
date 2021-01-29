@@ -7,6 +7,10 @@ import {
   productDeleteReducer,
 } from "./reducers/productReducers";
 import {
+  orderCreateReducer,
+  orderDetailsReducer,
+} from "./reducers/orderReducers";
+import {
   userSignInReducer,
   userRegisterReducer,
 } from "./reducers/userReducers";
@@ -41,6 +45,8 @@ const reducer = combineReducers({
   userRegister: userRegisterReducer,
   productSave: productSaveReducer,
   productDelete: productDeleteReducer,
+  orderCreate: orderCreateReducer,
+  orderDetails: orderDetailsReducer,
 });
 
 // TODO comprendre la compose
@@ -48,6 +54,7 @@ const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
   reducer,
   initialState,
+
   composeEnhancer(applyMiddleware(thunk))
 );
 

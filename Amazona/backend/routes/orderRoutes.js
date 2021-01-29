@@ -12,6 +12,7 @@ orderRoute.post(
     if (req.body.orderItems.length === 0) {
       res.status(400).send({ message: "Cart is empty" });
     } else {
+      console.log("REQ BODY", req.body.orderItems[0].name);
       const order = new Order({
         orderItems: req.body.orderItems,
         shippingAddress: req.body.shippingAddress,
@@ -20,11 +21,25 @@ orderRoute.post(
         shippingPrice: req.body.shippingPrice,
         taxPrice: req.body.taxPrice,
         totalPrice: req.body.totalPrice,
+        user: req.user._id,
       });
-      const createdOrder = await orders.save();
+      const createdOrder = await order.save();
       res
         .status(201)
         .send({ message: "New order Created", order: createdOrder });
+    }
+  })
+);
+
+orderRoute.get(
+  "/:id",
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const order = await Order.findById(req.params.id);
+    if (order) {
+      res.send(order);
+    } else {
+      res.status(404).send({ message: "Order not Found" });
     }
   })
 );

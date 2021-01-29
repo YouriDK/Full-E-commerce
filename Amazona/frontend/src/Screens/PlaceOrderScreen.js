@@ -1,35 +1,41 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { createOrder } from "../actions/orderActions";
 import CheckoutSteps from "../components/CheckOutStep";
+import { ORDER_CREATE_RESET } from "../constants/orderConstant";
+import LoadingBox from "../components/LoadingBox";
+import MessageBox from "../components/MessageBox";
 
 export default function PlaceOrderScreen(props) {
   const cart = useSelector((state) => state.cart);
-  const { cartItems, shipping, payment } = cart;
+  // * Il conserve dans cart pour écrire directement dedans ( Faster )
 
-  console.log("CART", cart);
-
-  if (!shipping.address) {
-    console.log(shipping.address);
-    props.history.push("/shipping");
-  } else if (!payment) {
+  const toPrice = (num) => Number(num.toFixed(2)); // 5.123 => "5.12" => 5.12
+  cart.itemsPrice = toPrice(
+    cart.cartItems.reduce((a, c) => a + c.qty * c.price, 0)
+  );
+  if (!cart.paymentMethod) {
     props.history.push("/payment");
   }
+  const orderCreate = useSelector((state) => state.orderCreate);
+  const { loading, success, order, error } = orderCreate;
 
-  const itemsPrice = cartItems.reduce((a, c) => a + c.price * c.qty, 0);
-  const shippingPrice = itemsPrice > 100 ? 0 : 10;
-  const taxPrice = 0.15 * itemsPrice;
-  const totalPrice = itemsPrice + shippingPrice + taxPrice;
+  cart.shippingPrice = cart.itemsPrice > 100 ? toPrice(0) : toPrice(10);
+  cart.taxPrice = toPrice(0.15 * cart.itemsPrice);
+  cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
 
+  const dispatch = useDispatch();
   const placeOrderHandler = () => {
-    // *  Create an order
+    dispatch(createOrder({ ...cart, orderItems: cart.cartItems }));
   };
 
-  const checkoutHandler = () => {
-    props.history.push("/signin?redirect=shipping");
-  };
-
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if (success) {
+      props.history.push(`/order/${order._id}`);
+      dispatch({ type: ORDER_CREATE_RESET });
+    }
+  }, [dispatch, order, props.history, success]);
 
   return (
     <div>
@@ -58,10 +64,10 @@ export default function PlaceOrderScreen(props) {
                 <h3>Shopping Cart</h3>
               </li>
 
-              {cartItems.length === 0 ? (
+              {cart.cartItems.length === 0 ? (
                 <div>Cart is empty</div>
               ) : (
-                cartItems.map((item) => (
+                cart.cartItems.map((item) => (
                   <li key={item.product}>
                     <div className="row">
                       <div>
@@ -88,19 +94,19 @@ export default function PlaceOrderScreen(props) {
             </li>
             <li>
               <div>Items</div>
-              <div>${itemsPrice}</div>
+              <div>${cart.itemsPrice}</div>
             </li>
             <li>
               <div>Shipping</div>
-              <div>${shippingPrice}</div>
+              <div>${cart.shippingPrice}</div>
             </li>
             <li>
               <div>Tax</div>
-              <div>${taxPrice}</div>
+              <div>${cart.taxPrice}</div>
             </li>
             <li>
               <div>Order Total</div>
-              <div>${totalPrice}</div>
+              <div>${cart.totalPrice}</div>
             </li>
             <div>
               <button
@@ -111,6 +117,8 @@ export default function PlaceOrderScreen(props) {
                 Place Order
               </button>
             </div>
+            {loading && <LoadingBox></LoadingBox>}
+            {error && <MessageBox variant="danger">{error}</MessageBox>}
           </ul>
         </div>
       </div>

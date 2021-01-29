@@ -11,6 +11,7 @@ import ShippingScreen from "./screens/ShippingScreen";
 import PaymentScreen from "./screens/PaymentScreen";
 import PlaceOrderScreen from "./screens/PlaceOrderScreen";
 import { signout } from "./actions/userActions";
+import OrderScreen from "./screens/OrderScreen";
 /*  
 TODO  : Vérifier qu'on peut faire plusieurs compte
 TODO  : Trouver le soucis de useState
@@ -86,6 +87,7 @@ function App() {
           <Route path="/signin" component={SignInScreen} />
           <Route path="/register" component={RegisterScreen} />
           <Route path="/" exact={true} component={HomeScreen} />
+          <Route path="/order/:id" component={OrderScreen} />
         </main>
         <footer className="row center">All right Reserved</footer>
       </div>
