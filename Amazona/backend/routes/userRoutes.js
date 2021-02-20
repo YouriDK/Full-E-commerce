@@ -1,6 +1,7 @@
 import express from "express";
 import User from "../models/userModels";
 import { getToken } from "../util";
+import expressAsyncHandler from "express-async-handler";
 
 const router = express.Router();
 
@@ -59,5 +60,18 @@ router.get("/createadmin", async (req, res) => {
     res.send({ msg: error.message });
   }
 });
+
+// * Récupère les infos du profil
+router.get(
+  "/:id",
+  expressAsyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id);
+    if (user) {
+      res.send(user);
+    } else {
+      res.status(404).send({ message: "User Not Found" });
+    }
+  })
+);
 
 export default router;

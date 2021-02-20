@@ -13,6 +13,7 @@ import {
 import {
   userSignInReducer,
   userRegisterReducer,
+  userDetailsReducer,
 } from "./reducers/userReducers";
 import { cartReducers } from "./reducers/cartReducers";
 
@@ -47,6 +48,7 @@ const reducer = combineReducers({
   productDelete: productDeleteReducer,
   orderCreate: orderCreateReducer,
   orderDetails: orderDetailsReducer,
+  userDetails: userDetailsReducer,
 });
 
 // TODO comprendre la compose

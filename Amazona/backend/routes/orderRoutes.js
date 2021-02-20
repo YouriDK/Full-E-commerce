@@ -12,7 +12,6 @@ orderRoute.post(
     if (req.body.orderItems.length === 0) {
       res.status(400).send({ message: "Cart is empty" });
     } else {
-      console.log("REQ BODY", req.body.orderItems[0].name);
       const order = new Order({
         orderItems: req.body.orderItems,
         shippingAddress: req.body.shippingAddress,

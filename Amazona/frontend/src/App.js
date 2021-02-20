@@ -12,6 +12,7 @@ import PaymentScreen from "./screens/PaymentScreen";
 import PlaceOrderScreen from "./screens/PlaceOrderScreen";
 import { signout } from "./actions/userActions";
 import OrderScreen from "./screens/OrderScreen";
+import ProfileScreen from "./screens/ProfileScreen";
 /*  
 TODO  : Vérifier qu'on peut faire plusieurs compte
 TODO  : Trouver le soucis de useState
@@ -47,7 +48,7 @@ function App() {
           <div>
             <Link className="brand" to="/">
               {" "}
-              Amazona
+              E-Shop
             </Link>
           </div>
           <div>
@@ -64,6 +65,11 @@ function App() {
                   {userInfo.name} <i className="fa fa-caret-down"></i>{" "}
                 </Link>
                 <ul className="dropdown-content">
+                  <li>
+                    <Link to="/profile" onClick={signoutHandler}>
+                      User Profile
+                    </Link>
+                  </li>
                   <li>
                     <Link to="#signout" onClick={signoutHandler}>
                       Sign Out
@@ -86,8 +92,11 @@ function App() {
           <Route path="/cart/:id?" exact={true} component={CartScreen} />
           <Route path="/signin" component={SignInScreen} />
           <Route path="/register" component={RegisterScreen} />
-          <Route path="/" exact={true} component={HomeScreen} />
+
           <Route path="/order/:id" component={OrderScreen} />
+          <Route path="/profile" component={ProfileScreen} />
+
+          <Route path="/" exact={true} component={HomeScreen} />
         </main>
         <footer className="row center">All right Reserved</footer>
       </div>
