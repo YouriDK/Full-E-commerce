@@ -47,7 +47,6 @@ export const detailsOrder = (orderId) => async (dispatch, getState) => {
       },
     });
     dispatch({ type: ORDER_DETAILS_SUCCESS, payload: data });
-    localStorage.removeItem("cartItems");
   } catch (error) {
     const message =
       error.response && error.response.data.message

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { saveShipping } from "../actions/cartActions";
 import CheckoutSteps from "../components/CheckOutStep";
@@ -7,9 +7,9 @@ export default function ShippingScreen(props) {
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
   if (!userInfo) {
-    console.log("PAS LA 2");
     props.history.push("/signin");
   }
+
   const cart = useSelector((state) => state.cart);
   const { shippingAddress } = cart;
 
@@ -25,8 +25,6 @@ export default function ShippingScreen(props) {
     dispatch(saveShipping({ fullName, address, city, postalCode, country }));
     props.history.push("/payment");
   };
-
-  useEffect(() => {}, []);
 
   return (
     <div>

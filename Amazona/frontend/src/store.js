@@ -14,27 +14,37 @@ import {
   userSignInReducer,
   userRegisterReducer,
   userDetailsReducer,
+  updateUserProfileReducer,
 } from "./reducers/userReducers";
 import { cartReducers } from "./reducers/cartReducers";
 
 // * Middleware pour React
 import thunk from "redux-thunk";
 
-// *  Permet de récupérer les infos stockées dans les cookies
-const cartItems = Cookie.getJSON("cartItems") || [];
-const userInfo = Cookie.getJSON("userInfo") || null;
+/*
+ * Permet de récupérer les infos stockées dans les cookies
+ * const cartItems = Cookie.getJSON("cartItems") || [];
+ * const userInfo = Cookie.getJSON("userInfo") || null;
+ */
 
+/*
+ * ON remplace les cookies par LocalStorage mais ce ne serait pas une solution fiable pour la production
+ */
 const initialState = {
+  userSignin: {
+    userInfo: localStorage.getItem("userInfo")
+      ? JSON.parse(localStorage.getItem("userInfo"))
+      : null,
+  },
   cart: {
-    cartItems,
-    shipping: {},
-    payment: {},
+    cartItems: localStorage.getItem("cartItems")
+      ? JSON.parse(localStorage.getItem("cartItems"))
+      : [],
     shippingAddress: localStorage.getItem("shippingAddress")
       ? JSON.parse(localStorage.getItem("shippingAddress"))
       : {},
-    paymentMethod: "Paypal",
+    paymentMethod: "PayPal",
   },
-  userSignin: { userInfo },
 };
 
 /* *  Get a state and a action and return a new state of that action*/
@@ -49,6 +59,7 @@ const reducer = combineReducers({
   orderCreate: orderCreateReducer,
   orderDetails: orderDetailsReducer,
   userDetails: userDetailsReducer,
+  updateUserProfile: updateUserProfileReducer,
 });
 
 // TODO comprendre la compose

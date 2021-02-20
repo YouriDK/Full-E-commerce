@@ -25,7 +25,6 @@ const listProducts = () => async (dispatch) => {
 };
 
 const saveProduct = (product) => async (dispatch, getState) => {
-  console.log(product);
   try {
     dispatch({ type: PRODUCT_SAVE_REQUEST, payload: product });
     const {
@@ -44,7 +43,6 @@ const saveProduct = (product) => async (dispatch, getState) => {
       dispatch({ type: PRODUCT_SAVE_SUCCESS, payload: data });
     }
   } catch (error) {
-    console.log("ERROR - saveProduct");
     dispatch({ type: PRODUCT_SAVE_FAIL, payload: error.message });
   }
 };

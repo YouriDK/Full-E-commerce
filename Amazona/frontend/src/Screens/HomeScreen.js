@@ -10,14 +10,14 @@ export default function HomeScreen() {
 
   const productList = useSelector((state) => state.productList);
   const { products, loading, error } = productList;
-  console.log("productList - ", productList);
+  console.log(localStorage);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(listProducts());
     return () => {
       /* *  return nothing*/
     };
-  }, []);
+  }, [dispatch]);
 
   return loading ? (
     <LoadingBox></LoadingBox>

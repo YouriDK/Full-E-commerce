@@ -25,15 +25,14 @@ function App() {
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
   const dispatch = useDispatch();
-
+  /*
   const openMenu = () => {
     document.querySelector(".sidebar").classList.add("open");
   };
   const closeMenu = () => {
     document.querySelector(".sidebar").classList.remove("open");
-  };
+  };*/
   const signoutHandler = () => {
-    console.log("signoutHandler");
     dispatch(signout());
   };
   // * la link stylesheet permet d'afficher les étoiles
@@ -66,9 +65,7 @@ function App() {
                 </Link>
                 <ul className="dropdown-content">
                   <li>
-                    <Link to="/profile" onClick={signoutHandler}>
-                      User Profile
-                    </Link>
+                    <Link to="/profile">User Profile</Link>
                   </li>
                   <li>
                     <Link to="#signout" onClick={signoutHandler}>

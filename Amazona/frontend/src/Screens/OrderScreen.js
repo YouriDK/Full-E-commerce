@@ -11,14 +11,14 @@ export default function OrderScreen(props) {
   const [sdkReady, setSdkReady] = useState(false);
   const orderId = props.match.params.id;
   const orderDetails = useSelector((state) => state.orderDetails);
-  console.log("ORDER", orderDetails);
+
   const { order, loading, error } = orderDetails;
   const dispatch = useDispatch();
 
   useEffect(() => {
     const addPayPalScript = async () => {
       const { data } = await Axios.get("/api/config/paypal");
-      console.log("DATA - ", data);
+
       // * Il faut créer un script pour utiliser Paypal
       const script = document.createElement("script");
       script.type = "text/javascript";
@@ -31,17 +31,14 @@ export default function OrderScreen(props) {
     };
     if (!order) {
       dispatch(detailsOrder(orderId));
-      console.log("DIPSATCH");
     } else {
       if (!order.isPaid) {
         //* Si le paiement n'est pas encore fait
-        console.log("UNPAID");
+
         if (!window.paypal) {
-          console.log("PAYPAL");
           //* si la page n'est pas encore chargé
           addPayPalScript(); // * On charge le script
         } else {
-          console.log("TRUE");
           setSdkReady(true);
         }
       }

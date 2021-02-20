@@ -7,7 +7,6 @@ export default function PaymentScreen(props) {
   const cart = useSelector((state) => state.cart);
   const { shippingAddress } = cart;
   if (!shippingAddress.address) {
-    console.log("PAS LA");
     props.history.push("/shipping");
   }
   const [paymentMethod, setPaymentMethod] = useState("Paypal");

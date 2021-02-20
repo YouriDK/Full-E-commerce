@@ -16,18 +16,23 @@ function cartReducers(
       const product = state.cartItems.find((x) => x.product === item.product);
       if (product) {
         return {
+          ...state,
           cartItems: state.cartItems.map((x) =>
             x.product === product.product ? item : x
           ),
         };
       }
-      return { cartItems: [...state.cartItems, item] };
+      return { ...state, cartItems: [...state.cartItems, item] };
     case CART_REMOVE_ITEM:
       return {
+        ...state,
         cartItems: state.cartItems.filter((x) => x.product !== action.payload),
       };
     case CART_SAVE_SHIPPING:
-      return { ...state, shipping: action.payload };
+      /*
+       * C'est avec ShippingAddress qu'on va transporter les informations
+       */
+      return { ...state, shippingAddress: action.payload };
     case CART_SAVE_PAYMENT:
       return { ...state, payment: action.payload };
     case CART_EMPTY:

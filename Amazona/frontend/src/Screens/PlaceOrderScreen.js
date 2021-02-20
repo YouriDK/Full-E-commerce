@@ -48,10 +48,10 @@ export default function PlaceOrderScreen(props) {
             <h3> Shipping</h3>{" "}
             <div>
               <strong>Name : </strong>
-              {cart.shipping.fullName} <br />
-              <strong>Address : </strong> {cart.shipping.address},{" "}
-              {cart.shipping.city},{cart.shipping.postalCode},{" "}
-              {cart.shipping.country}{" "}
+              {cart.shippingAddress.fullName} <br />
+              <strong>Address : </strong> {cart.shippingAddress.address},{" "}
+              {cart.shippingAddress.city},{cart.shippingAddress.postalCode},{" "}
+              {cart.shippingAddress.country}{" "}
             </div>
           </div>
           <div>

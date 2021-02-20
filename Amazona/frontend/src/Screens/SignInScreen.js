@@ -11,7 +11,7 @@ export default function SignInScreen(props) {
 
   // * Permet d'aller chercher les informations dans store avec le bon reducer
   const userSignin = useSelector((state) => state.userSignin);
-  const { loading, userInfo, error } = userSignin;
+  const { userInfo, loading, error } = userSignin;
 
   // * Rediriger après un checkout
   const redirect = props.location.search
