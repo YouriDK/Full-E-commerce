@@ -4,6 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    
+    "build" : "cd frontend && npm run build",
+    "install-client" : "cd frontend && npm install",
+    "keroku-postbuild" : "npm run install-client && npm run build",
     "start": "nodemon --watch backend --exec babel-node backend/server.js"
   },
   "author": "",
@@ -23,5 +27,6 @@
     "@babel/node": "^7.12.6",
     "@babel/preset-env": "^7.12.7",
     "nodemon": "^2.0.6"
-  }
+  },
+  "engines": {"node":"12.4.0", "npm": "6.9.0"}
 }
