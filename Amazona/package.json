@@ -1,7 +1,8 @@
 {
   "name": "amazona",
+  "type": "module",
   "version": "1.0.0",
-  "description": "",
+  "description": "E-shop to learn MERN stack",
   "main": "index.js",
   "scripts": {
     
@@ -28,6 +29,5 @@
     "@babel/preset-env": "^7.12.7",
     "nodemon": "^2.0.6"
   },
-  "engines": {"node":"12.4.0", "npm": "6.9.0"},
-  "type": "module"
+  "engines": {"node":"12.4.0", "npm": "6.9.0"}
 }
