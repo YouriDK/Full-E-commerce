@@ -1,11 +1,11 @@
 import express from "express";
-import config from "./config";
+import config from "./config.js";
 import doten from "dotenv";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
-import userRoute from "./routes/userRoutes";
-import productRoute from "./routes/productsRoutes";
-import orderRoute from "./routes/orderRoutes";
+import userRoute from "./routes/userRoutes.js";
+import productRoute from "./routes/productsRoutes.js";
+import orderRoute from "./routes/orderRoutes.js";
 
 doten.config();
 
