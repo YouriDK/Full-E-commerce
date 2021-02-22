@@ -13,6 +13,7 @@ import PlaceOrderScreen from "./screens/PlaceOrderScreen";
 import { signout } from "./actions/userActions";
 import OrderScreen from "./screens/OrderScreen";
 import ProfileScreen from "./screens/ProfileScreen";
+import PrivateRoute from "./components/PrivateRoute";
 /*  
 TODO  : Vérifier qu'on peut faire plusieurs compte
 TODO  : Trouver le soucis de useState
@@ -77,6 +78,27 @@ function App() {
             ) : (
               <Link to="signin">Sign In</Link>
             )}
+            {userInfo && userInfo.admin && (
+              <div className="dropdown">
+                <Link to="#admin">
+                  {" "}
+                  Admin <i className="fa fa-caret-down"></i>
+                </Link>
+
+                <ul className="dropdown-content">
+                  {" "}
+                  <li>
+                    <Link className="/dashboard"> Dashboard</Link>
+                  </li>
+                  <li>
+                    <Link className="/orders"> Orders</Link>
+                  </li>
+                  <li>
+                    <Link className="/userlist"> Users</Link>
+                  </li>
+                </ul>
+              </div>
+            )}
           </div>
         </header>
 
@@ -91,7 +113,7 @@ function App() {
           <Route path="/register" component={RegisterScreen} />
 
           <Route path="/order/:id" component={OrderScreen} />
-          <Route path="/profile" component={ProfileScreen} />
+          <PrivateRoute path="/profile" component={ProfileScreen} />
 
           <Route path="/" exact={true} component={HomeScreen} />
         </main>

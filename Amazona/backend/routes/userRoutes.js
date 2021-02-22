@@ -16,7 +16,7 @@ router.post("/signin", async (req, res) => {
       _id: signinUser.id,
       name: signinUser.name,
       email: signinUser.email,
-      isAdmin: signinUser.isAdmin,
+      admin: signinUser.admin,
       token: getToken(signinUser),
     });
   } else {
@@ -26,6 +26,7 @@ router.post("/signin", async (req, res) => {
 
 router.post("/register", async (req, res) => {
   const user = new User({
+    admin: true,
     name: req.body.email,
     email: req.body.email,
     password: req.body.password,
@@ -36,8 +37,8 @@ router.post("/register", async (req, res) => {
     res.send({
       _id: newUser.id,
       name: newUser.name,
-      email: newUser.email,
-      isAdmin: newUser.isAdmin,
+      email: newUser.admin,
+      admin: newUser.admin,
       token: getToken(newUser),
     });
   } else {
@@ -51,7 +52,7 @@ router.get("/createadmin", async (req, res) => {
       name: "Youri",
       email: "youri.choucoutou@gmail.com",
       password: "1234",
-      isAdmin: true,
+      admin: true,
     });
 
     const newUser = await user.save();
@@ -92,7 +93,7 @@ router.put(
         _id: updateUser._id,
         name: updateUser.name,
         email: updateUser.email,
-        isAdmin: updateUser.isAdmin,
+        admin: updateUser.admin,
         token: getToken(updateUser),
       });
     }

@@ -89,7 +89,7 @@ export default function ProfileScreen() {
               <label htmlFor="password">Password</label>
               <input
                 id="password"
-                type="text"
+                type="password"
                 placeholder="Enter password"
                 onChange={(e) => setPassword(e.target.value)}
               ></input>
@@ -98,7 +98,7 @@ export default function ProfileScreen() {
               <label htmlFor="confirmPassword">Confirm Password</label>
               <input
                 id="confirmPassword"
-                type="text"
+                type="password"
                 placeholder="Enter confirm password"
                 onChange={(e) => setConfirmPassword(e.target.value)}
               ></input>
