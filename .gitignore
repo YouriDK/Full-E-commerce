@@ -2,7 +2,14 @@
 
 # dependencies
 /Amazona/frontend/node_modules
-
-
+<<<<<<< HEAD
+/Amazona/node_modules
+Amazona/frontend/.eslintcache
+/node_modules
 
 node_modules
+=======
+/Amazona/node_modules
+Amazona/frontend/.eslintcache
+/node_modules
+>>>>>>> 183a493c4d9d731683286bf8627de2dbb98404d3

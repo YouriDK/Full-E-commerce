@@ -1,71 +1,128 @@
-import "./App.css";
-import data from "./data";
+import React from "react";
+import HomeScreen from "./screens/HomeScreen";
+import ProductScreen from "./screens/ProductScreen";
+import { BrowserRouter, Route, Link } from "react-router-dom";
+import CartScreen from "./screens/CartScreen";
+import SignInScreen from "./screens/SignInScreen";
+import RegisterScreen from "./screens/RegisterScreen";
+import ProductsScreen from "./screens/ProductsScreen";
+import { useDispatch, useSelector } from "react-redux";
+import ShippingScreen from "./screens/ShippingScreen";
+import PaymentScreen from "./screens/PaymentScreen";
+import PlaceOrderScreen from "./screens/PlaceOrderScreen";
+import { signout } from "./actions/userActions";
+import OrderScreen from "./screens/OrderScreen";
+import ProfileScreen from "./screens/ProfileScreen";
+import PrivateRoute from "./components/PrivateRoute";
+/*  
+TODO  : Vérifier qu'on peut faire plusieurs compte
+TODO  : Trouver le soucis de useState
+*/
 
 function App() {
+  // * On récupère les infos user dans le Cookies
+  const cart = useSelector((state) => state.cart);
+  const { cartItems } = cart;
+  const userSignin = useSelector((state) => state.userSignin);
+  const { userInfo } = userSignin;
+  const dispatch = useDispatch();
+  /*
   const openMenu = () => {
     document.querySelector(".sidebar").classList.add("open");
   };
-
   const closeMenu = () => {
     document.querySelector(".sidebar").classList.remove("open");
+  };*/
+  const signoutHandler = () => {
+    dispatch(signout());
   };
+  // * la link stylesheet permet d'afficher les étoiles
   return (
-    <div className="grid-container">
-      <header className="header">
-        <div className="brand">
-          <button onClick={openMenu}>&#9776;</button>
-          <a href="index.html">Amazona </a>
-        </div>
-        <div className="header-links">
-          <a href="cart.html">Cart</a>
-          <a href="signin.html"> Sign In</a>
-        </div>
-      </header>
-      <aside className="sidebar">
-        <h3>Shopping categories</h3>
-        <button className="sidebar-close-button" onClick={closeMenu}>
-          x
-        </button>
-        <ul>
-          <li>
-            <a href="index.html">Pants </a>
-          </li>
-          <li>
-            <a href="index.html">Shirts </a>
-          </li>
-        </ul>
-      </aside>
+    <BrowserRouter>
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+      ></link>
+      <div className="grid-container">
+        <header className="row">
+          <div>
+            <Link className="brand" to="/">
+              {" "}
+              E-Shop
+            </Link>
+          </div>
+          <div>
+            <Link to="/cart/:id?">
+              Cart
+              {cartItems.length > 0 && (
+                <span className="badge">{cartItems.length}</span>
+              )}
+            </Link>
+            {"  "}
+            {userInfo ? (
+              <div className="dropdown">
+                <Link to="#">
+                  {userInfo.name} <i className="fa fa-caret-down"></i>{" "}
+                </Link>
+                <ul className="dropdown-content">
+                  <li>
+                    <Link to="/profile">User Profile</Link>
+                  </li>
+                  <li>
+                    <Link to="#signout" onClick={signoutHandler}>
+                      Sign Out
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            ) : (
+              <Link to="signin">Sign In</Link>
+            )}
+            {userInfo && userInfo.admin && (
+              <div className="dropdown">
+                <Link to="#admin">
+                  {" "}
+                  Admin <i className="fa fa-caret-down"></i>
+                </Link>
 
-      <main className="main">
-        <div className="content">
-          <ul className="products">
-            {data.products.map((product) => {
-              return (
-                <li>
-                  <div className="product">
-                    <img
-                      className="product-image"
-                      src={product.image}
-                      alt="product"
-                    />
-                    <div className="product-name">
-                      <a href="Product.html"> {product.name} </a>
-                    </div>
-                    <div className="product-brand">{product.brand}</div>
-                    <div className="product-price">{product.price}</div>
-                    <div className="product-rating">
-                      {product.rating} Stars ({product.numReviews} reviews )
-                    </div>
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-      </main>
-      <footer className="footer">All right Reserved</footer>
-    </div>
+                <ul className="dropdown-content">
+                  {" "}
+                  <li>
+                    <Link className="/dashboard"> Dashboard</Link>
+                  </li>
+                  <li>
+                    <Link className="/orders"> Orders</Link>
+                  </li>
+                  <li>
+                    <Link className="/userlist"> Users</Link>
+                  </li>
+                </ul>
+              </div>
+            )}
+          </div>
+        </header>
+
+        <main>
+          <Route path="/payment" component={PaymentScreen} />
+          <Route path="/placeorder" component={PlaceOrderScreen} />
+          <Route path="/products" component={ProductsScreen} />
+          <Route path="/shipping" component={ShippingScreen} />
+          <Route path="/product/:id" component={ProductScreen} />
+          <Route path="/cart/:id?" exact={true} component={CartScreen} />
+          <Route path="/signin" component={SignInScreen} />
+          <Route path="/register" component={RegisterScreen} />
+
+          <Route path="/order/:id" component={OrderScreen} />
+          <PrivateRoute path="/profile" component={ProfileScreen} />
+
+          <Route path="/" exact={true} component={HomeScreen} />
+        </main>
+        <footer className="row center">All right Reserved</footer>
+      </div>
+    </BrowserRouter>
   );
 }
 
 export default App;
+
+// * Le ? après id montre que c'est optionnel et ça va fonctionner même si il n'y en a pas
