@@ -1,5 +1,5 @@
 import React from "react";
-
+// *  COmponent d'étoiles pour le notation
 export default function Rating(props) {
   const { rating, numReviews } = props;
   return (

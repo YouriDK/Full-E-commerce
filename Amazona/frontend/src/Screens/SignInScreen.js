@@ -5,6 +5,9 @@ import { signin } from "../actions/userActions";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 
+// *fait Centrer You don't ...
+// *fait Mettre Create dans un bouton
+
 export default function SignInScreen(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -36,7 +39,7 @@ export default function SignInScreen(props) {
     <div>
       <form className="form" onSubmit={submitHandler}>
         <div>
-          <h1>Sign-In</h1>
+          <h1 className="text-center font-title">Sign-In</h1>
         </div>
         {loading && <LoadingBox></LoadingBox>}
         {error && <MessageBox variant="danger">{error}</MessageBox>}
@@ -65,20 +68,26 @@ export default function SignInScreen(props) {
             }}
           ></input>
         </div>
+        <br />
         <div>
           <button type="submit" className="primary">
             Sign-In{" "}
           </button>
         </div>
+        <div className="text-center">
+          <strong>You don't have you account ?</strong>
+        </div>
 
         <div>
-          You don't have you account ?
-          <br />
-          <Link
-            to={redirect === "/" ? "register" : "register?redirect=" + redirect}
-          >
-            Create your account
-          </Link>
+          <button>
+            <Link
+              to={
+                redirect === "/" ? "register" : "register?redirect=" + redirect
+              }
+            >
+              Create your account
+            </Link>
+          </button>
         </div>
       </form>
     </div>

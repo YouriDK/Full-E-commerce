@@ -68,6 +68,7 @@ function App() {
                   <li>
                     <Link to="/profile">User Profile</Link>
                   </li>
+
                   <li>
                     <Link to="#signout" onClick={signoutHandler}>
                       Sign Out
@@ -92,6 +93,9 @@ function App() {
                   </li>
                   <li>
                     <Link className="/orders"> Orders</Link>
+                  </li>
+                  <li>
+                    <Link to="/products">Products</Link>
                   </li>
                   <li>
                     <Link className="/userlist"> Users</Link>

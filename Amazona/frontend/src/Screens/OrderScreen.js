@@ -6,7 +6,12 @@ import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 import { PayPalButton } from "react-paypal-button-v2";
 import Axios from "axios";
-
+/*
+ *fait  Espacer Nom et adresse ainsi que les alerts
+ *fait  Centrer Order *** ou ne pas mettre la réf de l'ordre
+ *fait  Aligner bouton et compteur
+ *fait  Agrandir le texte du nom du produit et le prix
+ */
 export default function OrderScreen(props) {
   const [sdkReady, setSdkReady] = useState(false);
   const orderId = props.match.params.id;
@@ -16,6 +21,12 @@ export default function OrderScreen(props) {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    // ! Pour avoir la commande actuel il faut actualiser la page donc :
+    if (order != undefined) {
+      if (order._id !== orderId) {
+        dispatch(detailsOrder(orderId));
+      }
+    }
     const addPayPalScript = async () => {
       const { data } = await Axios.get("/api/config/paypal");
 
@@ -27,7 +38,7 @@ export default function OrderScreen(props) {
       script.onload = () => {
         setSdkReady(true);
       };
-      document.body.appendChild(script); // *  ajout du script dans la page HTML en dernier
+      document.body.appendChild(script); // *  Ajout du script dans la page HTML en dernier
     };
     if (!order) {
       dispatch(detailsOrder(orderId));
@@ -55,18 +66,26 @@ export default function OrderScreen(props) {
     <MessageBox variant="danger">{error}</MessageBox>
   ) : (
     <div>
-      <h1>Order {order._id} </h1>
+      <h1 className="full-width font-title text-center ">Order {order._id} </h1>
       <div className="placeorder">
         <div className="placeorder-info">
           <div>
-            <h3> Shipping</h3>{" "}
+            <h3 className="font-title"> Shipping</h3>{" "}
             <div>
               <strong>Name : </strong>
-              {order.shippingAddress.fullName} <br />
-              <strong>Address : </strong> {order.shippingAddress.address},{" "}
-              {order.shippingAddress.city},{order.shippingAddress.postalCode},{" "}
-              {order.shippingAddress.country}{" "}
+              <span className="font-list">
+                {order.shippingAddress.fullName}
+              </span>{" "}
+              <br />
+              <strong>Address : </strong>{" "}
+              <span className="font-list">
+                {" "}
+                {order.shippingAddress.address}, {order.shippingAddress.city},{" "}
+                {order.shippingAddress.postalCode},{" "}
+                {order.shippingAddress.country}{" "}
+              </span>
             </div>
+            <br />
             {order.isDelivered ? (
               <MessageBox variant="success">
                 Delivered at {order.deliveredAt}{" "}
@@ -76,8 +95,13 @@ export default function OrderScreen(props) {
             )}
           </div>
           <div>
-            <h3> Payment</h3>
-            <div> Payment Method : {order.paymentMethod}. </div>
+            <h3 className="font-title"> Payment</h3>
+            <div>
+              {" "}
+              <strong>Payment Method : </strong>{" "}
+              <span className="font-list">{order.paymentMethod}.</span>{" "}
+            </div>
+            <br />
             {order.isPaid ? (
               <MessageBox variant="success">
                 Delivered at {order.paidAt}{" "}
@@ -87,24 +111,20 @@ export default function OrderScreen(props) {
             )}
           </div>
           <div>
+            <h3 className="font-title">Order Items</h3>
             <ul className="cart-list-container">
-              <li>
-                <h3>Shopping Cart</h3>
-              </li>
-
               {order.orderItems.length === 0 ? (
-                <div>Cart is empty</div>
+                <div className="font-title">Cart is empty</div>
               ) : (
                 order.orderItems.map((item) => (
                   <li key={item.product}>
-                    <div className="row">
-                      <div>
-                        <img className="small" src={item.image} alt="product" />
-                      </div>
-                      <div className="min-30">
+                    <div className="row full-width">
+                      <img className="small" src={item.image} alt="product" />
+
+                      <div className="min-30 font-list">
                         <Link to={"/product/" + item.product}>{item.name}</Link>
                       </div>
-                      <div>
+                      <div className="font-list">
                         {item.qty} x ${item.price} = ${item.qty * item.price}
                       </div>
                     </div>
@@ -116,25 +136,23 @@ export default function OrderScreen(props) {
         </div>
 
         <div className="placeorder-action">
+          <h3 className="center font-title">Order Summary</h3>
           <ul>
             <li>
-              <h3>Order Summary</h3>
+              <strong>Items</strong>
+              <div className="font-list">${order.itemsPrice}</div>
             </li>
             <li>
-              <div>Items</div>
-              <div>${order.itemsPrice}</div>
+              <strong>Shipping</strong>
+              <span className="font-list">Order </span>
             </li>
             <li>
-              <div>Shipping</div>
-              order{" "}
+              <strong>Tax</strong>
+              <div className="font-list">${order.taxPrice}</div>
             </li>
             <li>
-              <div>Tax</div>
-              <div>${order.taxPrice}</div>
-            </li>
-            <li>
-              <div>Order Total</div>
-              <div>${order.totalPrice}</div>
+              <strong>Order Total</strong>
+              <div className="font-list">${order.totalPrice}</div>
             </li>
             {!order.isPaid && (
               <div>

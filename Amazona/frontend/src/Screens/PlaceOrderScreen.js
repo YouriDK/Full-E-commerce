@@ -6,7 +6,8 @@ import CheckoutSteps from "../components/CheckOutStep";
 import { ORDER_CREATE_RESET } from "../constants/orderConstant";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
-
+/* // TODO Espacer Nom et adresse ainsi que les alerts
+ */
 export default function PlaceOrderScreen(props) {
   const cart = useSelector((state) => state.cart);
   // * Il conserve dans cart pour écrire directement dedans ( Faster )
@@ -20,7 +21,6 @@ export default function PlaceOrderScreen(props) {
   }
   const orderCreate = useSelector((state) => state.orderCreate);
   const { loading, success, order, error } = orderCreate;
-
   cart.shippingPrice = cart.itemsPrice > 100 ? toPrice(0) : toPrice(10);
   cart.taxPrice = toPrice(0.15 * cart.itemsPrice);
   cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
@@ -32,8 +32,8 @@ export default function PlaceOrderScreen(props) {
 
   useEffect(() => {
     if (success) {
-      props.history.push(`/order/${order._id}`);
       dispatch({ type: ORDER_CREATE_RESET });
+      props.history.push(`/order/${order._id}`);
     }
   }, [dispatch, order, props.history, success]);
 
@@ -45,35 +45,45 @@ export default function PlaceOrderScreen(props) {
       <div className="placeorder">
         <div className="placeorder-info">
           <div>
-            <h3> Shipping</h3>{" "}
+            <h3 className="font-title"> Shipping</h3>{" "}
             <div>
               <strong>Name : </strong>
-              {cart.shippingAddress.fullName} <br />
-              <strong>Address : </strong> {cart.shippingAddress.address},{" "}
-              {cart.shippingAddress.city},{cart.shippingAddress.postalCode},{" "}
-              {cart.shippingAddress.country}{" "}
+              <span className="font-list">
+                {cart.shippingAddress.fullName}{" "}
+              </span>
+              <br />
+              <strong>Address : </strong>{" "}
+              <span className="font-list">
+                {cart.shippingAddress.address}, {cart.shippingAddress.city},
+                {cart.shippingAddress.postalCode},{" "}
+                {cart.shippingAddress.country}{" "}
+              </span>
             </div>
           </div>
           <div>
-            <h3> Payment</h3>
-            <div> Payment Method : {cart.payment}. </div>
+            <h3 className="font-title"> Payment</h3>
+            <div>
+              {" "}
+              <strong>Payment Method :</strong>{" "}
+              <span className="font-list">{cart.payment}. </span>{" "}
+            </div>
           </div>
           <div>
             <ul className="cart-list-container">
               <li>
-                <h3>Shopping Cart</h3>
+                <h3 className="font-title">Shopping Cart</h3>
               </li>
 
               {cart.cartItems.length === 0 ? (
-                <div>Cart is empty</div>
+                <div className="font-title">Cart is empty</div>
               ) : (
                 cart.cartItems.map((item) => (
                   <li key={item.product}>
-                    <div className="row">
+                    <div className="row full-width">
                       <div>
                         <img className="small" src={item.image} alt="product" />
                       </div>
-                      <div className="min-30">
+                      <div className="min-30 font-list">
                         <Link to={"/product/" + item.product}>{item.name}</Link>
                       </div>
                       <div>
@@ -88,25 +98,23 @@ export default function PlaceOrderScreen(props) {
         </div>
 
         <div className="placeorder-action">
+          <h3 className="center font-title">Order Summary</h3>
           <ul>
             <li>
-              <h3>Order Summary</h3>
+              <strong>Items</strong>
+              <div className="font-list">${cart.itemsPrice}</div>
             </li>
             <li>
-              <div>Items</div>
-              <div>${cart.itemsPrice}</div>
+              <strong>Shipping</strong>
+              <div className="font-list">${cart.shippingPrice}</div>
             </li>
             <li>
-              <div>Shipping</div>
-              <div>${cart.shippingPrice}</div>
+              <strong>Tax</strong>
+              <div className="font-list">${cart.taxPrice}</div>
             </li>
             <li>
-              <div>Tax</div>
-              <div>${cart.taxPrice}</div>
-            </li>
-            <li>
-              <div>Order Total</div>
-              <div>${cart.totalPrice}</div>
+              <strong>Order Total</strong>
+              <div className="font-list">${cart.totalPrice}</div>
             </li>
             <div>
               <button

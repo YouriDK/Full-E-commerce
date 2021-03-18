@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import "./css/index.css";
+import "./css/cart.css";
 import "./css/sidebar.css";
 import "./css/product.css";
 import "./css/card.css";

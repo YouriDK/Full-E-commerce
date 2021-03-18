@@ -1,0 +1,73 @@
+[{
+
+  "price": 58,
+  "countInStock": 10,
+  "rating": 4.5,
+  "numReviews": 45,
+  "name": "Sweat",
+  "image": "/images/d1.jpg",
+  "brand": "Nike",
+  "category": "Shirts",
+  "description": "TEst",
+  "__v": 0
+},{
+
+  "price": 78,
+  "countInStock": 12,
+  "rating": 3,
+  "numReviews": 22,
+  "name": "Sweat",
+  "image": "/images/d2.jpg",
+  "brand": "Nike",
+  "category": "Shirts",
+  "description": "High quality",
+  "__v": 0
+},{
+
+  "price": 66,
+  "countInStock": 15,
+  "rating": 5,
+  "numReviews": 33,
+  "name": "Sweat Red",
+  "image": "/images/d3.jpg",
+  "brand": "Nike",
+  "category": "Shirts",
+  "description": "Red Sweat",
+  "__v": 0
+},{
+
+  "price": 155,
+  "countInStock": 30,
+  "rating": 1.5,
+  "numReviews": 10,
+  "name": "Air AMax",
+  "image": "/images/d4.jpg",
+  "brand": "Nike",
+  "category": "Shoes",
+  "description": "Nice AM",
+  "__v": 0
+},{
+
+  "price": 45,
+  "countInStock": 23,
+  "rating": 1,
+  "numReviews": 21,
+  "name": "Meggings",
+  "image": "/images/d5.jpg",
+  "brand": "Nike",
+  "category": "Pants",
+  "description": "Don't",
+  "__v": 0
+},{
+
+  "price": 75,
+  "countInStock": 10,
+  "rating": 5,
+  "numReviews": 6,
+  "name": "Jogging",
+  "image": "/images/d6.jpg",
+  "brand": "Adidas",
+  "category": "Pants",
+  "description": "Nice ones",
+  "__v": 0
+}]

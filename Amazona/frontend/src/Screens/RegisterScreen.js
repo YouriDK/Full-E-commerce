@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { register } from "../actions/userActions";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
-
+// TODO centrer Already Signed & Created account
 export default function RegisterScreen(props) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -33,10 +33,7 @@ export default function RegisterScreen(props) {
     if (userInfo) {
       props.history.push(redirect);
     }
-    return () => {
-      /* *  return nothing*/
-    };
-  }, [userInfo]);
+  }, [props.history, redirect, userInfo]);
 
   return (
     <div>

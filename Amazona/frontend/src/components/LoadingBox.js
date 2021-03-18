@@ -1,5 +1,5 @@
-import React from 'react';
-
+import React from "react";
+//  * Component de chargement
 export default function LoadingBox() {
   return (
     <div>

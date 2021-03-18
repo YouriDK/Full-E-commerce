@@ -5,6 +5,8 @@ import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 import { USER_UPDATE_RESET } from "../constants/userConstants";
 
+// *fait Centrer User Profile
+
 export default function ProfileScreen() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -33,7 +35,7 @@ export default function ProfileScreen() {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    // TODO dispatch upadte profile
+    // TODO dispatch update profile
     if (password !== confirmPassword) {
       alert("Password and Confirm Password are not matched");
     } else {
@@ -47,7 +49,7 @@ export default function ProfileScreen() {
       <form className="form" onSubmit={submitHandler}>
         <div>
           {" "}
-          <h1> User Profile </h1>
+          <h1 className="font-list text-center"> User Profile </h1>
         </div>
 
         {loading ? (
@@ -62,7 +64,7 @@ export default function ProfileScreen() {
             )}
             {successUpdate && (
               <MessageBox variant="success">
-                {"Profie updated successfully"}
+                Profile updated successfully
               </MessageBox>
             )}
             <div>

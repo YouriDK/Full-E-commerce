@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Rating from "./Rating";
 
+// * Comonente d'affichage pour un produit
 export default function Product(props) {
   const { product } = props;
   return (

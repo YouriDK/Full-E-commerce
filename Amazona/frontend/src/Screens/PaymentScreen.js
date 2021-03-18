@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { savePayment } from "../actions/cartActions";
 import CheckoutSteps from "../components/CheckOutStep";
-
+// *fait Centrer les méthodes de paiement
 export default function PaymentScreen(props) {
   const cart = useSelector((state) => state.cart);
   const { shippingAddress } = cart;
@@ -10,15 +10,13 @@ export default function PaymentScreen(props) {
     props.history.push("/shipping");
   }
   const [paymentMethod, setPaymentMethod] = useState("Paypal");
-
   const dispatch = useDispatch();
-
-  // ! If you don't put , [] at the end , he will start again over and over
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(savePayment(paymentMethod));
     props.history.push("placeorder");
   };
+
   return (
     <div>
       <CheckoutSteps step1 step2 step3>
@@ -31,7 +29,7 @@ export default function PaymentScreen(props) {
         </div>
 
         <div>
-          <div>
+          <div className="text-center">
             <input
               type="radio"
               value="paypal"
@@ -43,7 +41,8 @@ export default function PaymentScreen(props) {
             ></input>
             <label htmlFor="paymentMethod">Paypal</label>
           </div>
-          <div>
+          <br />
+          <div className="text-center">
             <input
               type="radio"
               value="stripe"
@@ -55,7 +54,7 @@ export default function PaymentScreen(props) {
             <label htmlFor="paymentMethod">Stripe</label>
           </div>
         </div>
-
+        <br />
         <div>
           <button type="submit" className=" button primary">
             Continue{" "}

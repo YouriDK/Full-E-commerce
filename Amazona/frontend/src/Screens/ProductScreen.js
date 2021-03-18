@@ -6,20 +6,23 @@ import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 import Rating from "../components/Rating";
 
+/* 
+*fait Arranger le lien back to result et le mettre dans un bouton
+*fait Mettre back to resulte dans un vrai bouton
+TODO Mettre une ombre dans la présentation du produit ou chercher un template cart
+*/
 export default function ProductScreen(props) {
   const [qty, setQty] = useState(1);
 
   const productDetails = useSelector((state) => state.productDetails);
   const { product, loading, error } = productDetails;
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(detailsProduct(props.match.params.id));
     return () => {
-      /* *  return nothing*/
+      // * Return nothing
     };
-  }, []);
-  // ! If you don't put , [] at the end , he will start again over and over
+  }, []); // ! If you don't put , [] at the end , he will start again over and over
 
   const handleAddtoCart = () => {
     props.history.push("/cart/" + props.match.params.id + "?qty=" + qty);
@@ -27,26 +30,37 @@ export default function ProductScreen(props) {
 
   return (
     <div>
-      <div className="back-to-result">
-        <Link to="/">Back to result</Link>
-      </div>
+      <button className="back-to-result">
+        <Link to="/">
+          <i className="fa fa-caret-left"></i> Back to result
+        </Link>
+      </button>
       {loading ? (
         <LoadingBox></LoadingBox>
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (
         <div className="row top">
-          <div className="col-2">
+          <div className="col-2 ">
             <img
               className="medium"
               src={product.image}
               alt={product.name}
             ></img>
           </div>
-          <div className="col-1">
+          <div className="col-1 card ">
             <ul>
               <li>
-                <h1> {product.name}</h1>
+                <h1 className="font-list"> {product.name}</h1>
+              </li>
+
+              <li>
+                <strong>Price :</strong> <b className="font-list">$</b>
+                <span className="font-list">{product.price}</span>
+              </li>
+              <li>
+                <strong>Description :</strong>{" "}
+                <span>{product.description}</span>
               </li>
               <li>
                 <Rating
@@ -54,11 +68,6 @@ export default function ProductScreen(props) {
                   numReviews={product.numReviews}
                 ></Rating>
               </li>
-              <li>
-                Price : <b>$</b>
-                {product.price}
-              </li>
-              <li>Description :{product.description}</li>
             </ul>
           </div>
           <div className="col-1">
@@ -66,14 +75,14 @@ export default function ProductScreen(props) {
               <ul>
                 <li>
                   <div className="row">
-                    <div>Prive</div>
-                    <div className="price">${product.price}</div>
+                    <strong>Price</strong>
+                    <div className="price font-list">${product.price}</div>
                   </div>
                 </li>
                 <li>
                   <div className="row">
-                    <div>Status</div>
-                    <div>
+                    <strong>Status</strong>
+                    <div className="font-list" >
                       {product.countInStock > 0 ? (
                         <span className="success">In Stock</span>
                       ) : (
@@ -85,8 +94,8 @@ export default function ProductScreen(props) {
                 {product.countInStock > 0 && (
                   <li>
                     <div className="row">
-                      <div>Qty : </div>
-                      <div>
+                      <strong >Quantity : </strong>
+                      <div className="font-list">
                         <select
                           value={qty}
                           onChange={(e) => {

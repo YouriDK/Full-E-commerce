@@ -4,7 +4,7 @@ import { Redirect, Route } from "react-router-dom";
 
 export default function PrivateRoute({ component: Component, ...rest }) {
   /*
-   * Permet de revenir à la page de connexion
+   * Permet de revenir à la page de connexion si jamais on est pas admin
    * rest représente tous les paramètres de Route
    *
    */

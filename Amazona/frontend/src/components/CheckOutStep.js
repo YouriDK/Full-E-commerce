@@ -1,5 +1,5 @@
 import React from "react";
-
+// * Simple components qui permet de voir om en est la progression
 function CheckoutSteps(props) {
   return (
     <div className="row checkout-steps">

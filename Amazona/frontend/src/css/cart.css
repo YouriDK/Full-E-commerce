@@ -19,9 +19,7 @@
 }
 
 .cart-list-container {
-  /* padding: 0;*/
   list-style-type: none;
-
   align-items: flex-end;
   padding: 1rem;
 }
@@ -56,4 +54,20 @@
   flex: 1 1;
   font-size: 2.5rem;
   text-align: right;
+}
+
+.product-list {
+  margin-left: 35px;
+  margin-right: 35px;
+}
+.flex {
+  display: flex;
+}
+
+.flex :nth-child(1) {
+  margin-right: 15px;
+}
+
+.cart-title {
+  margin-left: 15px;
 }

@@ -1,3 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=RocknRoll+One&display=swap");
+
+.font-list {
+  font-family: "Shippori Mincho B1", serif;
+}
+.font-title {
+  font-family: "RocknRoll One", sans-serif;
+}
 html {
   font-size: 62.5%; /* 16px x 62.5 = 10px = 1rem */
   box-sizing: border-box;
@@ -62,6 +71,16 @@ ul {
 li {
   margin-top: 1rem;
 }
+
+th {
+  font-family: "RocknRoll One", sans-serif;
+}
+td {
+  font-family: "Shippori Mincho B1", serif;
+}
+label {
+  font-family: "RocknRoll One", sans-serif;
+}
 input,
 select,
 textarea,
@@ -86,6 +105,7 @@ button:hover {
 }
 button.primary {
   background-color: #f0c040;
+  font-family: "RocknRoll One", sans-serif;
 }
 button.block {
   width: 100%;
@@ -218,4 +238,19 @@ img.large {
 
 .full-width {
   width: 100%;
+}
+
+.delay {
+  margin-left: 15px;
+}
+
+.center {
+  text-align: center;
+}
+.margin {
+  margin: auto;
+}
+
+strong {
+  font-family: "RocknRoll One", sans-serif;
 }

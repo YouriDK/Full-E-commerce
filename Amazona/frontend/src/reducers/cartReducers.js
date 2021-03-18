@@ -29,9 +29,7 @@ function cartReducers(
         cartItems: state.cartItems.filter((x) => x.product !== action.payload),
       };
     case CART_SAVE_SHIPPING:
-      /*
-       * C'est avec ShippingAddress qu'on va transporter les informations
-       */
+      // * C'est avec ShippingAddress qu'on va transporter les informations
       return { ...state, shippingAddress: action.payload };
     case CART_SAVE_PAYMENT:
       return { ...state, payment: action.payload };
