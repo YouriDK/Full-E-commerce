@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { detailsOrder } from "../actions/orderActions";
+import { deliverOrder, detailsOrder, payOrder } from "../actions/orderActions";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 import { PayPalButton } from "react-paypal-button-v2";
 import Axios from "axios";
+import {
+  ORDER_DELIVER_RESET,
+  ORDER_PAY_RESET,
+} from "../constants/orderConstant";
 /*
  *fait  Espacer Nom et adresse ainsi que les alerts
  *fait  Centrer Order *** ou ne pas mettre la réf de l'ordre
@@ -16,8 +20,22 @@ export default function OrderScreen(props) {
   const [sdkReady, setSdkReady] = useState(false);
   const orderId = props.match.params.id;
   const orderDetails = useSelector((state) => state.orderDetails);
-
+  const userSignin = useSelector((state) => state.userSignin);
+  const userInfo = userSignin;
   const { order, loading, error } = orderDetails;
+
+  const orderPay = useSelector((state) => state.orderPay);
+  const {
+    loading: loadingPay,
+    error: errorPay,
+    success: successPay,
+  } = orderPay;
+  const orderDeliver = useSelector((state) => state.orderDeliver);
+  const {
+    loading: loadingDeliver,
+    error: errorDeliver,
+    success: successDeliver,
+  } = orderDeliver;
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -40,24 +58,31 @@ export default function OrderScreen(props) {
       };
       document.body.appendChild(script); // *  Ajout du script dans la page HTML en dernier
     };
-    if (!order) {
+    if (
+      !order ||
+      successPay ||
+      successDeliver ||
+      (order && order._id !== orderId)
+    ) {
+      dispatch({ type: ORDER_PAY_RESET });
+      dispatch({ type: ORDER_DELIVER_RESET });
       dispatch(detailsOrder(orderId));
     } else {
       if (!order.isPaid) {
-        //* Si le paiement n'est pas encore fait
-
         if (!window.paypal) {
-          //* si la page n'est pas encore chargé
-          addPayPalScript(); // * On charge le script
+          addPayPalScript();
         } else {
           setSdkReady(true);
         }
       }
     }
-  }, [dispatch, order, orderId, sdkReady]);
+  }, [dispatch, order, orderId, sdkReady, successPay, successDeliver]);
 
-  const successPaymentHandler = () => {
-    // TODO : config the success Payment
+  const successPaymentHandler = (paymentResult) => {
+    dispatch(payOrder(order, paymentResult));
+  };
+  const deliverHandler = () => {
+    dispatch(deliverOrder(order._id));
   };
 
   return loading ? (
@@ -66,6 +91,17 @@ export default function OrderScreen(props) {
     <MessageBox variant="danger">{error}</MessageBox>
   ) : (
     <div>
+      {
+        (console.log("ORDER", order, "USER", userInfo),
+        console.log(
+          "admin",
+          userInfo.admin,
+          "isPaid",
+          order.isPaid,
+          "isDelivered",
+          !order.isDelivered
+        ))
+      }
       <h1 className="full-width font-title text-center ">Order {order._id} </h1>
       <div className="placeorder">
         <div className="placeorder-info">
@@ -165,6 +201,21 @@ export default function OrderScreen(props) {
                   ></PayPalButton>
                 )}
               </div>
+            )}
+            {userInfo.admin && order.isPaid && !order.isDelivered && (
+              <li>
+                {loadingDeliver && <LoadingBox></LoadingBox>}
+                {errorDeliver && (
+                  <MessageBox variant="danger">{errorDeliver}</MessageBox>
+                )}
+                <button
+                  type="button"
+                  className="primary block"
+                  onClick={deliverHandler}
+                >
+                  Deliver Order
+                </button>
+              </li>
             )}
           </ul>
         </div>

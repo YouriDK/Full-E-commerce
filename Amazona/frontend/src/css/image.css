@@ -8,6 +8,7 @@ img.small {
 }
 img.medium {
   max-width: 29rem;
+  max-height: 30rem;
   width: 100%;
 }
 img.large {

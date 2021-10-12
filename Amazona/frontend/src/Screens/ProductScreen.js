@@ -41,7 +41,7 @@ export default function ProductScreen(props) {
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (
         <div className="row top">
-          <div className="col-2 ">
+          <div className="col-2 center">
             <img
               className="medium"
               src={product.image}
@@ -82,7 +82,7 @@ export default function ProductScreen(props) {
                 <li>
                   <div className="row">
                     <strong>Status</strong>
-                    <div className="font-list" >
+                    <div className="font-list">
                       {product.countInStock > 0 ? (
                         <span className="success">In Stock</span>
                       ) : (
@@ -94,7 +94,7 @@ export default function ProductScreen(props) {
                 {product.countInStock > 0 && (
                   <li>
                     <div className="row">
-                      <strong >Quantity : </strong>
+                      <strong>Quantity : </strong>
                       <div className="font-list">
                         <select
                           value={qty}

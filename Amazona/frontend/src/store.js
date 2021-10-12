@@ -9,6 +9,11 @@ import {
 import {
   orderCreateReducer,
   orderDetailsReducer,
+  orderListReducer,
+  orderDeleteReducer,
+  orderMineListReducer,
+  orderPayReducer,
+  orderDeliverReducer,
 } from "./reducers/orderReducers";
 import {
   userSignInReducer,
@@ -58,6 +63,11 @@ const reducer = combineReducers({
   orderDetails: orderDetailsReducer,
   userDetails: userDetailsReducer,
   updateUserProfile: updateUserProfileReducer,
+  orderPay: orderPayReducer,
+  orderMineList: orderMineListReducer,
+  orderList: orderListReducer,
+  orderDeliver: orderDeliverReducer,
+  orderDelete: orderDeleteReducer,
 });
 
 // TODO comprendre la compose

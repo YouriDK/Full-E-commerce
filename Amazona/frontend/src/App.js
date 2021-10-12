@@ -13,7 +13,9 @@ import PlaceOrderScreen from "./screens/PlaceOrderScreen";
 import { signout } from "./actions/userActions";
 import OrderScreen from "./screens/OrderScreen";
 import ProfileScreen from "./screens/ProfileScreen";
+import AdminRoute from "./components/AdminRoute";
 import PrivateRoute from "./components/PrivateRoute";
+import OrderListScreen from "./screens/OrderListScreen";
 /*  
 TODO  : Vérifier qu'on peut faire plusieurs compte
 TODO  : Trouver le soucis de useState
@@ -92,7 +94,7 @@ function App() {
                     <Link className="/dashboard"> Dashboard</Link>
                   </li>
                   <li>
-                    <Link className="/orders"> Orders</Link>
+                    <Link to="/orderlist"> Orders</Link>
                   </li>
                   <li>
                     <Link to="/products">Products</Link>
@@ -118,6 +120,10 @@ function App() {
 
           <Route path="/order/:id" component={OrderScreen} />
           <PrivateRoute path="/profile" component={ProfileScreen} />
+          <AdminRoute
+            path="/orderlist"
+            component={OrderListScreen}
+          ></AdminRoute>
 
           <Route path="/" exact={true} component={HomeScreen} />
         </main>

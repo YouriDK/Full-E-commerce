@@ -14,3 +14,10 @@
 .price {
   font-size: 2rem;
 }
+
+.card-home {
+  min-height: 450px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
