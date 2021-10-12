@@ -1,0 +1,36 @@
+:root {
+  --dark-orange: #ff9f1c;
+  --orange: #ffbf69;
+  --white: #ffffff;
+  --cyan: #cbf3f0;
+  --clear-blue: #2ec4b6;
+  --basic: #ff0054;
+  --intermediate: #00509d;
+  --advanced: #9e0059;
+  --expert: #390099;
+}
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+div {
+  min-width: '100%';
+  min-height: '100%';
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  // background-color: var(--dark-orange);
+}

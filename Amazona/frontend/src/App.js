@@ -1,21 +1,22 @@
-import React from "react";
-import HomeScreen from "./screens/HomeScreen";
-import ProductScreen from "./screens/ProductScreen";
-import { BrowserRouter, Route, Link } from "react-router-dom";
-import CartScreen from "./screens/CartScreen";
-import SignInScreen from "./screens/SignInScreen";
-import RegisterScreen from "./screens/RegisterScreen";
-import ProductsScreen from "./screens/ProductsScreen";
-import { useDispatch, useSelector } from "react-redux";
-import ShippingScreen from "./screens/ShippingScreen";
-import PaymentScreen from "./screens/PaymentScreen";
-import PlaceOrderScreen from "./screens/PlaceOrderScreen";
-import { signout } from "./actions/userActions";
-import OrderScreen from "./screens/OrderScreen";
-import ProfileScreen from "./screens/ProfileScreen";
-import AdminRoute from "./components/AdminRoute";
-import PrivateRoute from "./components/PrivateRoute";
-import OrderListScreen from "./screens/OrderListScreen";
+import React from 'react';
+import HomeScreen from './Screens/HomeScreen';
+import ProductScreen from './Screens/ProductScreen';
+import { BrowserRouter, Route, Link } from 'react-router-dom';
+
+import SignInScreen from './Screens/SignInScreen';
+import RegisterScreen from './Screens/RegisterScreen';
+import CartScreen from './Screens/CartScreen';
+import ProductsScreen from './Screens/ProductsScreen';
+import { useDispatch, useSelector } from 'react-redux';
+import ShippingScreen from './Screens/ShippingScreen';
+import PaymentScreen from './Screens/PaymentScreen';
+import PlaceOrderScreen from './Screens/PlaceOrderScreen';
+import { signout } from './actions/userActions';
+import OrderScreen from './Screens/OrderScreen';
+import ProfileScreen from './Screens/ProfileScreen';
+import AdminRoute from './components/AdminRoute';
+import PrivateRoute from './components/PrivateRoute';
+import OrderListScreen from './Screens/OrderListScreen';
 /*  
 TODO  : Vérifier qu'on peut faire plusieurs compte
 TODO  : Trouver le soucis de useState
@@ -42,65 +43,65 @@ function App() {
   return (
     <BrowserRouter>
       <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+        rel='stylesheet'
+        href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'
       ></link>
-      <div className="grid-container">
-        <header className="row">
+      <div className='grid-container'>
+        <header className='row'>
           <div>
-            <Link className="brand" to="/">
-              {" "}
+            <Link className='brand' to='/'>
+              {' '}
               E-Shop
             </Link>
           </div>
           <div>
-            <Link to="/cart/:id?">
+            <Link to='/cart/:id?'>
               Cart
               {cartItems.length > 0 && (
-                <span className="badge">{cartItems.length}</span>
+                <span className='badge'>{cartItems.length}</span>
               )}
             </Link>
-            {"  "}
+            {'  '}
             {userInfo ? (
-              <div className="dropdown">
-                <Link to="#">
-                  {userInfo.name} <i className="fa fa-caret-down"></i>{" "}
+              <div className='dropdown'>
+                <Link to='#'>
+                  {userInfo.name} <i className='fa fa-caret-down'></i>{' '}
                 </Link>
-                <ul className="dropdown-content">
+                <ul className='dropdown-content'>
                   <li>
-                    <Link to="/profile">User Profile</Link>
+                    <Link to='/profile'>User Profile</Link>
                   </li>
 
                   <li>
-                    <Link to="#signout" onClick={signoutHandler}>
+                    <Link to='#signout' onClick={signoutHandler}>
                       Sign Out
                     </Link>
                   </li>
                 </ul>
               </div>
             ) : (
-              <Link to="signin">Sign In</Link>
+              <Link to='signin'>Sign In</Link>
             )}
             {userInfo && userInfo.admin && (
-              <div className="dropdown">
-                <Link to="#admin">
-                  {" "}
-                  Admin <i className="fa fa-caret-down"></i>
+              <div className='dropdown'>
+                <Link to='#admin'>
+                  {' '}
+                  Admin <i className='fa fa-caret-down'></i>
                 </Link>
 
-                <ul className="dropdown-content">
-                  {" "}
+                <ul className='dropdown-content'>
+                  {' '}
                   <li>
-                    <Link className="/dashboard"> Dashboard</Link>
+                    <Link className='/dashboard'> Dashboard</Link>
                   </li>
                   <li>
-                    <Link to="/orderlist"> Orders</Link>
+                    <Link to='/orderlist'> Orders</Link>
                   </li>
                   <li>
-                    <Link to="/products">Products</Link>
+                    <Link to='/products'>Products</Link>
                   </li>
                   <li>
-                    <Link className="/userlist"> Users</Link>
+                    <Link className='/userlist'> Users</Link>
                   </li>
                 </ul>
               </div>
@@ -109,25 +110,25 @@ function App() {
         </header>
 
         <main>
-          <Route path="/payment" component={PaymentScreen} />
-          <Route path="/placeorder" component={PlaceOrderScreen} />
-          <Route path="/products" component={ProductsScreen} />
-          <Route path="/shipping" component={ShippingScreen} />
-          <Route path="/product/:id" component={ProductScreen} />
-          <Route path="/cart/:id?" exact={true} component={CartScreen} />
-          <Route path="/signin" component={SignInScreen} />
-          <Route path="/register" component={RegisterScreen} />
+          <Route path='/payment' component={PaymentScreen} />
+          <Route path='/placeorder' component={PlaceOrderScreen} />
+          <Route path='/products' component={ProductsScreen} />
+          <Route path='/shipping' component={ShippingScreen} />
+          <Route path='/product/:id' component={ProductScreen} />
+          <Route path='/cart/:id?' exact={true} component={CartScreen} />
+          <Route path='/signin' component={SignInScreen} />
+          <Route path='/register' component={RegisterScreen} />
 
-          <Route path="/order/:id" component={OrderScreen} />
-          <PrivateRoute path="/profile" component={ProfileScreen} />
+          <Route path='/order/:id' component={OrderScreen} />
+          <PrivateRoute path='/profile' component={ProfileScreen} />
           <AdminRoute
-            path="/orderlist"
+            path='/orderlist'
             component={OrderListScreen}
           ></AdminRoute>
 
-          <Route path="/" exact={true} component={HomeScreen} />
+          <Route path='/' exact={true} component={HomeScreen} />
         </main>
-        <footer className="row center">All right Reserved</footer>
+        <footer className='row center'>All right Reserved</footer>
       </div>
     </BrowserRouter>
   );

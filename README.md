@@ -19,3 +19,10 @@ git push heroku master
 Bien aller dans Amazona pour le back et frontend pour le front
 Back : npm run start
 Front : npm start
+
+- Tout passé en TypeScript
+- Créer des composant génériques
+- Optimiser ce qui est possible
+- Mettre en place un vrai CSS et code Couleur
+- Regarder sur comment créer la partie Admin
+- Passer au SCCS

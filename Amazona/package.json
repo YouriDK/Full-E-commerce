@@ -5,10 +5,9 @@
   "description": "E-shop to learn MERN stack",
   "main": "index.js",
   "scripts": {
-    
     "start": "node backend/server.js",
-    "start-dev" : "nodemon --watch backend --exec babel-node backend/server.js",
-    "heroku-postbuild" : "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
+    "start-dev": "nodemon --watch backend --exec babel-node backend/server.js",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
   },
   "author": "",
   "license": "ISC",
@@ -20,7 +19,8 @@
     "express-async-handler": "^1.1.4",
     "fs": "0.0.1-security",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.11.13"
+    "mongoose": "^5.11.13",
+    "node-sass": "^6.0.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.8",
