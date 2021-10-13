@@ -1,6 +1,6 @@
-import config from "./Scripts/config.js";
-import doten from "dotenv";
-import mongoose from "mongoose";
+import config from './Scripts/config.js';
+import doten from 'dotenv';
+import mongoose from 'mongoose';
 
 doten.config();
 const mongo_atlas = config.MONGODB_URI;
@@ -15,9 +15,9 @@ export const connectDBAtlas = async () => {
         useUnifiedTopology: true,
         useCreateIndex: true,
       })
-      .catch((error) => console.log("FAIL", error));
+      .catch((error) => console.log('FAIL', error));
   } catch (error) {
-    console.log("Connection failed ! ");
+    console.log('Connection failed ! 😅');
     process.exit(1);
   }
 };

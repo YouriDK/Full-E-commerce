@@ -26,3 +26,7 @@ Front : npm start
 - Mettre en place un vrai CSS et code Couleur
 - Regarder sur comment créer la partie Admin
 - Passer au SCCS
+- Créer un json pour tous les texte du site
+- Changer le composant de chargement/Message-Box/Product/Rating
+- Composant générique : Input , titre strong
+- Changer couleur du site aussi

@@ -1,5 +1,5 @@
-import jwt from "jsonwebtoken";
-import config from "./Scripts/config.js";
+import jwt from 'jsonwebtoken';
+import config from './Scripts/config.js';
 
 // TODO Refaire selon la nouvelle version
 const getToken = (user) => {
@@ -12,7 +12,7 @@ const getToken = (user) => {
     },
     config.JWT_SECRET,
     {
-      expiresIn: "15d",
+      expiresIn: '15d',
     }
   );
 };
@@ -23,10 +23,10 @@ const isAuth = (req, res, next) => {
     const token = auth.slice(7, auth.length); // * Bearer XXXXX =>  on se débarasse de Bearer
     jwt.verify(
       token,
-      process.env.JWT_SECRET || "somethingsecret",
+      process.env.JWT_SECRET || 'somethingsecret',
       (err, decode) => {
         if (err) {
-          return res.status(401).send({ msg: "Invalid Token ! 🤷‍♂️" });
+          return res.status(401).send({ msg: 'Invalid Token ! 🤷‍♂️' });
         }
         req.user = decode;
         next();
@@ -34,17 +34,17 @@ const isAuth = (req, res, next) => {
       }
     );
   } else {
-    return res.status(401).send({ msg: "Token is not supplied ! " });
+    return res.status(401).send({ msg: 'Token is not supplied ! ' });
   }
 };
 
 // *  Verifie que la personne est admin avant de donner la suite
 const isAdmin = (req, res, next) => {
-  console.log(req.user && req.user.admin);
+  console.log('😎', req.user && req.user.admin);
   if (req.user && req.user.admin) {
     return next();
   }
-  return res.status(401).send({ msg: "Admin Token is not valid." });
+  return res.status(401).send({ msg: 'Admin Token is not valid.' });
 };
 
 export { getToken, isAdmin, isAuth };

@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { detailsProduct } from "../actions/productActions";
-import LoadingBox from "../components/LoadingBox";
-import MessageBox from "../components/MessageBox";
-import Rating from "../components/Rating";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { detailsProduct } from '../actions/productActions';
+import LoadingBox from '../components/LoadingBox';
+import MessageBox from '../components/MessageBox';
+import Rating from '../components/Rating';
 
 /* 
 *fait Arranger le lien back to result et le mettre dans un bouton
@@ -22,44 +22,43 @@ export default function ProductScreen(props) {
     return () => {
       // * Return nothing
     };
-  }, []); // ! If you don't put , [] at the end , he will start again over and over
-
+  }, []);
   const handleAddtoCart = () => {
-    props.history.push("/cart/" + props.match.params.id + "?qty=" + qty);
+    props.history.push('/cart/' + props.match.params.id + '?qty=' + qty);
   };
 
   return (
     <div>
-      <button className="back-to-result">
-        <Link to="/">
-          <i className="fa fa-caret-left"></i> Back to result
+      <button className='back-to-result'>
+        <Link to='/'>
+          <i className='fa fa-caret-left'></i> Back to result
         </Link>
       </button>
       {loading ? (
         <LoadingBox></LoadingBox>
       ) : error ? (
-        <MessageBox variant="danger">{error}</MessageBox>
+        <MessageBox variant='danger'>{error}</MessageBox>
       ) : (
-        <div className="row top">
-          <div className="col-2 center">
+        <div className='row top'>
+          <div className='col-2 center'>
             <img
-              className="medium"
+              className='medium'
               src={product.image}
               alt={product.name}
             ></img>
           </div>
-          <div className="col-1 card ">
+          <div className='col-1 card '>
             <ul>
               <li>
-                <h1 className="font-list"> {product.name}</h1>
+                <h1 className='font-list'> {product.name}</h1>
               </li>
 
               <li>
-                <strong>Price :</strong> <b className="font-list">$</b>
-                <span className="font-list">{product.price}</span>
+                <strong>Price :</strong> <b className='font-list'>$</b>
+                <span className='font-list'>{product.price}</span>
               </li>
               <li>
-                <strong>Description :</strong>{" "}
+                <strong>Description :</strong>{' '}
                 <span>{product.description}</span>
               </li>
               <li>
@@ -70,32 +69,32 @@ export default function ProductScreen(props) {
               </li>
             </ul>
           </div>
-          <div className="col-1">
-            <div className="card card-body">
+          <div className='col-1'>
+            <div className='card card-body'>
               <ul>
                 <li>
-                  <div className="row">
+                  <div className='row'>
                     <strong>Price</strong>
-                    <div className="price font-list">${product.price}</div>
+                    <div className='price font-list'>${product.price}</div>
                   </div>
                 </li>
                 <li>
-                  <div className="row">
+                  <div className='row'>
                     <strong>Status</strong>
-                    <div className="font-list">
+                    <div className='font-list'>
                       {product.countInStock > 0 ? (
-                        <span className="success">In Stock</span>
+                        <span className='success'>In Stock</span>
                       ) : (
-                        <span className="danger">Unavailable</span>
+                        <span className='danger'>Unavailable</span>
                       )}
                     </div>
                   </div>
                 </li>
                 {product.countInStock > 0 && (
                   <li>
-                    <div className="row">
+                    <div className='row'>
                       <strong>Quantity : </strong>
-                      <div className="font-list">
+                      <div className='font-list'>
                         <select
                           value={qty}
                           onChange={(e) => {
@@ -114,7 +113,7 @@ export default function ProductScreen(props) {
                 )}
                 <li>
                   {product.countInStock > 0 && (
-                    <button onClick={handleAddtoCart} className="primary block">
+                    <button onClick={handleAddtoCart} className='primary block'>
                       Add to Cart
                     </button>
                   )}

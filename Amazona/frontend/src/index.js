@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import './scss/Global.scss';
+import './css/global.css';
 import './css/index.css';
 import './css/cart.css';
 import './css/sidebar.css';
