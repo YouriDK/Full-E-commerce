@@ -6,7 +6,7 @@
 // Paiement
 // User
 // Shipping
-
+export const CSS = `margin : auto`;
 export const texte = {
   back: { fr: 'Retour', en: 'Back to result' },
   del_ord: {
