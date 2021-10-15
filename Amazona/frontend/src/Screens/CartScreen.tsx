@@ -32,9 +32,7 @@ const CartScreen: FC<any> = (props: any): JSX.Element => {
         <h1 className='cart-title'>Shopping Cart</h1>
 
         {cartItems.length === 0 ? (
-          <MessageBox>
-            Cart is empty. <Link to='/'>Go Shopping</Link>
-          </MessageBox>
+          <MessageBox variant='info' text='Cart is empty.' />
         ) : (
           <ul className='card'>
             {cartItems.map((item: any) => (

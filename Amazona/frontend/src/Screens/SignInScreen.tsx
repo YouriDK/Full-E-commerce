@@ -38,7 +38,7 @@ const SignInScreen: FC<any> = (props: any): JSX.Element => {
           <h1 className='text-center font-title'>Sign-In</h1>
         </div>
         {loading && <LoadingBox></LoadingBox>}
-        {error && <MessageBox variant='danger'>{error}</MessageBox>}
+        {error && <MessageBox variant='danger' text={error} />}
 
         <div>
           <label htmlFor='email'>Email</label>

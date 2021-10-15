@@ -124,7 +124,7 @@ const PlaceOrderScreen: FC<any> = (props: any): JSX.Element => {
               </button>
             </div>
             {loading && <LoadingBox></LoadingBox>}
-            {error && <MessageBox variant='danger'>{error}</MessageBox>}
+            {error && <MessageBox variant='danger' text={error} />}
           </ul>
         </div>
       </div>

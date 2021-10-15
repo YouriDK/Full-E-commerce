@@ -43,7 +43,7 @@ const RegisterScreen: FC<any> = (props: any): JSX.Element => {
           <h2>Create an account</h2>
         </div>
         {loading && <LoadingBox></LoadingBox>}
-        {error && <MessageBox variant='danger'>{error}</MessageBox>}
+        {error && <MessageBox variant='danger' text={error} />}
 
         <div>
           <label htmlFor='name'>Name</label>

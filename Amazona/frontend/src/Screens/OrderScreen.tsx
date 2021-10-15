@@ -107,11 +107,12 @@ const OrderScreen: FC<any> = (props: any): JSX.Element => {
             </div>
             <br />
             {order.isDelivered ? (
-              <MessageBox variant='success'>
-                Delivered at {order.deliveredAt}{' '}
-              </MessageBox>
+              <MessageBox
+                variant='success'
+                text={`Delivered at ${order.deliveredAt}`}
+              />
             ) : (
-              <MessageBox variant='danger'> Not Delivered </MessageBox>
+              <MessageBox variant='danger' text={`Not Delivered`} />
             )}
           </div>
           <div>
@@ -123,11 +124,12 @@ const OrderScreen: FC<any> = (props: any): JSX.Element => {
             </div>
             <br />
             {order.isPaid ? (
-              <MessageBox variant='success'>
-                Delivered at {order.paidAt}{' '}
-              </MessageBox>
+              <MessageBox
+                variant='success'
+                text={`Delivered at ${order.paidAt}`}
+              />
             ) : (
-              <MessageBox variant='danger'> Not Paid </MessageBox>
+              <MessageBox variant='danger' text={`Not Paid`} />
             )}
           </div>
           <div>
@@ -190,7 +192,7 @@ const OrderScreen: FC<any> = (props: any): JSX.Element => {
               <li>
                 {loadingDeliver && <LoadingBox></LoadingBox>}
                 {errorDeliver && (
-                  <MessageBox variant='danger'>{errorDeliver}</MessageBox>
+                  <MessageBox variant='danger' text={errorDeliver} />
                 )}
                 <button
                   type='button'

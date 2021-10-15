@@ -1,6 +1,14 @@
 import { FC } from 'react';
 import { Alert } from 'reactstrap';
-const MesssageBox: FC<any> = (text: string, variant: string): JSX.Element => {
+interface MesssageBoxProps {
+  text: string[] | string;
+  variant: string;
+}
+const MesssageBox: FC<MesssageBoxProps> = ({
+  text,
+  variant,
+}: MesssageBoxProps): JSX.Element => {
+  console.log(text[0]);
   return (
     <Alert color={variant} className={`center alert`}>
       {text[0]}

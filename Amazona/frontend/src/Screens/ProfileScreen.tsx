@@ -54,17 +54,16 @@ const ProfileScreen: FC<any> = (props: any): JSX.Element => {
         {loading ? (
           <LoadingBox></LoadingBox>
         ) : error ? (
-          <MessageBox variant='danger'>{error}</MessageBox>
+          <MessageBox variant='danger' text={error} />
         ) : (
           <>
             {loadingUpdate && <LoadingBox></LoadingBox>}
-            {errorUpdate && (
-              <MessageBox variant='danger'>{errorUpdate}</MessageBox>
-            )}
+            {errorUpdate && <MessageBox variant='danger' text={errorUpdate} />}
             {successUpdate && (
-              <MessageBox variant='success'>
-                Profile updated successfully
-              </MessageBox>
+              <MessageBox
+                variant='success'
+                text=' Profile updated successfully'
+              />
             )}
             <div>
               <label htmlFor='name'>Name</label>

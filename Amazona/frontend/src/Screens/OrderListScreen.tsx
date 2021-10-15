@@ -29,11 +29,11 @@ const OrderListScreen: FC<any> = (props: any): JSX.Element => {
     <div>
       <h1>Orders</h1>
       {loadingDelete && <LoadingBox></LoadingBox>}
-      {errorDelete && <MessageBox variant='danger'></MessageBox>}
+      {errorDelete && <MessageBox variant='danger' text={error} />}
       {loading ? (
         <LoadingBox></LoadingBox>
       ) : error ? (
-        <MessageBox variant='danger'>{error}</MessageBox>
+        <MessageBox variant='danger' text={error} />
       ) : (
         <table className='table'>
           <thead>

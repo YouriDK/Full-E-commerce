@@ -6,7 +6,10 @@
 // Paiement
 // User
 // Shipping
-export const CSS = `margin : auto`;
+export const CSS = `
+  margin : auto; 
+  top:50% ;
+  left:50% `;
 export const texte = {
   Ordre: {
     ord_sum: {
