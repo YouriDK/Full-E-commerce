@@ -5,7 +5,8 @@ import { detailsProduct } from '../actions/productActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MesssageBox';
 import Rating from '../components/Rating';
-
+import '../css/productPage.css';
+import { texte } from '../data';
 const ProductScreen: FC<any> = (props: any): JSX.Element => {
   const [qty, setQty] = useState(1);
 
@@ -22,104 +23,87 @@ const ProductScreen: FC<any> = (props: any): JSX.Element => {
     props.history.push('/cart/' + props.match.params.id + '?qty=' + qty);
   };
   return (
-    <div>
-      <button className='back-to-result'>
-        <Link to='/'>
-          <i className='fa fa-caret-left'></i> Back to result
-        </Link>
-      </button>
+    <>
       {loading ? (
         <LoadingBox></LoadingBox>
       ) : error ? (
-        <MessageBox variant='danger'>{error}</MessageBox>
+        <MessageBox variant='danger' text={error} />
       ) : (
-        <div className='row top'>
-          <div className='col-2 center'>
-            <img
-              className='medium'
-              src={product.image}
-              alt={product.name}
-            ></img>
+        <div className='card'>
+          <Link to='/'>
+            <div className='card__title icon'>
+              <i className='fa fa-arrow-left'></i>
+              <h3>{texte.Terms.back.en}</h3>
+            </div>
+          </Link>
+          <div className='card__body'>
+            <div className='half'>
+              <div className='image'>
+                <img
+                  className='large img'
+                  src={product.image}
+                  alt={product.name}
+                />
+              </div>
+            </div>
+            <div className='half flex columns around'>
+              <div className='featured_text'>
+                <h1>{product.brand}</h1>
+                <p className='sub'>{product.name}</p>
+                <p className='price'>${product.price}</p>
+              </div>
+              <div className='description'>
+                <p>{product.description}</p>
+              </div>
+              {product.countInStock > 0 && (
+                <div className='row'>
+                  <span className='stock'>
+                    <i className='fa fa-pen'></i>{' '}
+                    {product.countInStock > 0
+                      ? texte.Stock.in_stock.en
+                      : texte.Stock.no_sotck.en}
+                  </span>
+                  <div className='font-list'>
+                    <select
+                      value={qty}
+                      onChange={(e) => {
+                        setQty(e.target.value as any);
+                      }}
+                    >
+                      {[...(Array(product.countInStock).keys() as any)].map(
+                        (x) => (
+                          <option key={x} value={x + 1}>
+                            {x + 1}
+                          </option>
+                        )
+                      )}
+                    </select>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
-          <div className='col-1 card '>
-            <ul>
-              <li>
-                <h1 className='font-list'> {product.name}</h1>
-              </li>
-
-              <li>
-                <strong>Price :</strong> <b className='font-list'>$</b>
-                <span className='font-list'>{product.price}</span>
-              </li>
-              <li>
-                <strong>Description :</strong>{' '}
-                <span>{product.description}</span>
-              </li>
-              <li>
+          <div className='card__footer'>
+            <div className='recommend'>
+              <div className='reviews '>
                 <Rating
                   rating={product.rating}
                   numReviews={product.numReviews}
                 ></Rating>
-              </li>
-            </ul>
-          </div>
-          <div className='col-1'>
-            <div className='card card-body'>
-              <ul>
-                <li>
-                  <div className='row'>
-                    <strong>Price</strong>
-                    <div className='price font-list'>${product.price}</div>
-                  </div>
-                </li>
-                <li>
-                  <div className='row'>
-                    <strong>Status</strong>
-                    <div className='font-list'>
-                      {product.countInStock > 0 ? (
-                        <span className='success'>In Stock</span>
-                      ) : (
-                        <span className='danger'>Unavailable</span>
-                      )}
-                    </div>
-                  </div>
-                </li>
-                {product.countInStock > 0 && (
-                  <li>
-                    <div className='row'>
-                      <strong>Quantity : </strong>
-                      <div className='font-list'>
-                        <select
-                          value={qty}
-                          onChange={(e) => {
-                            setQty(e.target.value as any);
-                          }}
-                        >
-                          {[...(Array(product.countInStock).keys() as any)].map(
-                            (x) => (
-                              <option key={x} value={x + 1}>
-                                {x + 1}
-                              </option>
-                            )
-                          )}
-                        </select>
-                      </div>
-                    </div>
-                  </li>
-                )}
-                <li>
-                  {product.countInStock > 0 && (
-                    <button onClick={handleAddtoCart} className='primary block'>
-                      Add to Cart
-                    </button>
-                  )}
-                </li>
-              </ul>
+                <span>
+                  {product.numReviews} {texte.Terms.reviews.en}{' '}
+                </span>
+              </div>
+            </div>
+            <div className='action'>
+              <button type='button' onClick={handleAddtoCart}>
+                {texte.Panier.add.en}
+              </button>
             </div>
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 };
 export default ProductScreen;

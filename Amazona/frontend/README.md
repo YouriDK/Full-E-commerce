@@ -54,3 +54,5 @@ expressAsyncHandler permet de ne pas utiliser de try catch et sauver des lignes 
 
 git add .
 git push heroku master
+
+- Chercher des template pour afficher les produits

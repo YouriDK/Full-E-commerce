@@ -59,7 +59,7 @@ const Rating: FC<any> = (props: any): JSX.Element => {
           }
         ></i>
       </span>
-      <span>{numReviews + ' reviews'}</span>
+      <span>{''}</span>
     </div>
   );
 };

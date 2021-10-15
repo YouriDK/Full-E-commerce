@@ -17,6 +17,7 @@ import ProfileScreen from './Screens/ProfileScreen';
 import AdminRoute from './components/AdminRoute';
 import PrivateRoute from './components/PrivateRoute';
 import OrderListScreen from './Screens/OrderListScreen';
+import { texte } from './data';
 
 const App: FC<any> = (): JSX.Element => {
   const cart = useSelector((state: any) => state.cart);
@@ -44,13 +45,12 @@ const App: FC<any> = (): JSX.Element => {
         <header className='row'>
           <div>
             <Link className='brand' to='/'>
-              {' '}
-              E-Shop
+              {texte.Terms.site}
             </Link>
           </div>
           <div>
             <Link to='/cart/:id?'>
-              Cart
+              {texte.Cart.cart.en}
               {cartItems.length > 0 && (
                 <span className='badge'>{cartItems.length}</span>
               )}
@@ -63,7 +63,7 @@ const App: FC<any> = (): JSX.Element => {
                 </Link>
                 <ul className='dropdown-content'>
                   <li>
-                    <Link to='/profile'>User Profile</Link>
+                    <Link to='/profile'> {texte.Terms.user.en}</Link>
                   </li>
 
                   <li>
@@ -74,7 +74,7 @@ const App: FC<any> = (): JSX.Element => {
                 </ul>
               </div>
             ) : (
-              <Link to='signin'>Sign In</Link>
+              <Link to='signin'> {texte.Terms.sign.en}</Link>
             )}
             {userInfo && userInfo.admin && (
               <div className='dropdown'>

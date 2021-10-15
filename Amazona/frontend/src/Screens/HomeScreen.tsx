@@ -4,6 +4,7 @@ import MessageBox from '../components/MesssageBox';
 import { useDispatch, useSelector } from 'react-redux';
 import { listProducts } from '../actions/productActions';
 import Product from '../components/Product';
+import { ProductProps } from '../data';
 
 const HomeScreen: FC<any> = (): JSX.Element => {
   const productList = useSelector((state: any) => state.productList);
@@ -19,7 +20,7 @@ const HomeScreen: FC<any> = (): JSX.Element => {
     <MessageBox variant='danger' text={error} />
   ) : (
     <div className='row center'>
-      {products.map((product: any) => {
+      {products.map((product: ProductProps) => {
         return <Product key={product._id} product={product} />;
       })}
     </div>
