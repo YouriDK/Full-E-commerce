@@ -56,3 +56,4 @@ git add .
 git push heroku master
 
 - Chercher des template pour afficher les produits
+- Mettre mes vetements futurs dans le lot

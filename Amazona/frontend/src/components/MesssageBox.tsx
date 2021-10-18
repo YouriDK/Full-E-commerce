@@ -9,6 +9,7 @@ const MesssageBox: FC<MesssageBoxProps> = ({
   variant,
 }: MesssageBoxProps): JSX.Element => {
   console.log(text[0]);
+  console.log(text);
   return (
     <Alert color={variant} className={`center alert`}>
       {text[0]}

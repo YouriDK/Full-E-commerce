@@ -58,7 +58,7 @@ export const texte = {
     name: { fr: 'Nom', en: 'Name' },
     back: { fr: 'Retour', en: 'Back to result' },
     edit: { fr: 'Modifier', en: 'Edit' },
-    site: 'Shop-X',
+    site: 'ShopX',
     user: { fr: 'Profil utilisateur', en: 'User Profil' },
     updated: { fr: 'Poofil mis à jour', en: 'Profile updated successfully' },
     pwd: { fr: 'Mot de passe', en: 'password' },
@@ -72,7 +72,8 @@ export const texte = {
     reviews: { fr: 'avis', en: 'reviews' },
     category: { fr: 'Catégorie', en: 'Category' },
     brand: { fr: 'Marque', en: 'Brand' },
-
+    total: 'total',
+    devise: { en: '$', fr: '€' },
     details: {
       fr: 'détails',
       en: 'details',
@@ -101,6 +102,10 @@ export const texte = {
     cart: {
       fr: 'Panier',
       en: 'Shopping Cart',
+    },
+    tab: {
+      en: ['Product', 'Name', 'Quantity', 'Actions', 'Price'],
+      fr: ['Produit', 'Name', 'Quantité', 'Actions', 'Prix'],
     },
   },
   Stock: {

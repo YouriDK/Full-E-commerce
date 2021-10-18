@@ -1,8 +1,11 @@
 import React, { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Button } from 'reactstrap';
 import { addToCart, removeFromCart } from '../actions/cartActions';
 import MessageBox from '../components/MesssageBox';
+import { texte } from '../data';
+import { MdRestoreFromTrash } from 'react-icons/md';
 
 const CartScreen: FC<any> = (props: any): JSX.Element => {
   const cart = useSelector((state: any) => state.cart);
@@ -26,25 +29,32 @@ const CartScreen: FC<any> = (props: any): JSX.Element => {
       dispatch(addToCart(productId, qty));
     }
   }, []);
-  return (
-    <div className='row top'>
-      <div className='col-2'>
-        <h1 className='cart-title'>Shopping Cart</h1>
 
-        {cartItems.length === 0 ? (
-          <MessageBox variant='info' text='Cart is empty.' />
-        ) : (
-          <ul className='card'>
-            {cartItems.map((item: any) => (
-              <li key={item.product}>
-                <div className='row product-list'>
-                  <div>
+  return (
+    <>
+      {cartItems.length === 0 ? (
+        <MessageBox variant='info' text={texte.Panier.vide.en} />
+      ) : (
+        <div className='flex'>
+          <div className='table-users'>
+            <div className='header'>{texte.Cart.cart.en}</div>
+
+            <table className='table'>
+              <tr className='table-tr'>
+                {texte.Cart.tab.en.map((td: string) => (
+                  <td className='table-td'>{td}</td>
+                ))}
+              </tr>
+
+              {cartItems.map((item: any) => (
+                <tr className='table-tr'>
+                  <td className='table-td'>
                     <img src={item.image} alt={item.name} className='small' />
-                  </div>
-                  <div className='min-30 font-list'>
+                  </td>
+                  <td className='table-td'>
                     <Link to={'/product/' + item.product}>{item.name}</Link>
-                  </div>
-                  <div className='flex'>
+                  </td>
+                  <td className='table-td'>
                     <select
                       value={item.qty}
                       className='font-list'
@@ -60,47 +70,46 @@ const CartScreen: FC<any> = (props: any): JSX.Element => {
                         )
                       )}
                     </select>
-                    <div>
-                      <button
-                        type='button'
-                        className='font-list'
-                        onClick={() => removeFromCardHandler(item.product)}
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                  <div className='font-list'>${item.price}</div>
-                </div>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
-      <div className='col-1'>
-        <div className='card card-body'>
-          <ul>
-            <li>
-              <h2>
-                Subtotal ( {cartItems.reduce((a: any, c: any) => a + c.qty, 0)}{' '}
-                items ) : $
-                {cartItems.reduce((a: any, c: any) => a + c.price * c.qty, 0)}
-              </h2>
-            </li>
-            <li>
-              <button
-                type='button'
-                onClick={checkoutHandler}
-                className='primary block'
-                disabled={cartItems.length === 0}
-              >
-                Proceed to Checkout
-              </button>
-            </li>
-          </ul>
+                  </td>
+                  <td className='table-td'>
+                    <Button
+                      onClick={() => removeFromCardHandler(item.product)}
+                      color='danger'
+                    >
+                      <MdRestoreFromTrash size={25} />
+                    </Button>
+                  </td>
+                  <td className='table-td'>
+                    {item.price}
+                    {texte.Terms.devise.en}
+                  </td>
+                </tr>
+              ))}
+            </table>
+            <div className='header'>{texte.Terms.total}</div>
+            <table className='table'>
+              <tr className='table-tr'>
+                <td className='table-td'>
+                  {cartItems.reduce((a: any, c: any) => a + c.qty, 0)} Items
+                </td>
+                <td className='table-td'>
+                  {cartItems.reduce((a: any, c: any) => a + c.price * c.qty, 0)}
+                  {texte.Terms.devise.en}
+                </td>
+              </tr>
+            </table>
+            <button
+              type='button'
+              onClick={checkoutHandler}
+              className='primary block'
+              disabled={cartItems.length === 0}
+            >
+              {texte.Panier.checkout.en}
+            </button>
+          </div>
         </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 export default CartScreen;
