@@ -1,9 +1,13 @@
 import React, { FC, useEffect } from 'react';
+import { MdRestoreFromTrash } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
+import { Button } from 'reactstrap';
 import { deleteOrder, listOrders } from '../actions/orderActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MesssageBox';
 import { ORDER_DELETE_RESET } from '../constants/orderConstant';
+import { texte } from '../data';
+import { ImWrench } from 'react-icons/im';
 
 const OrderListScreen: FC<any> = (props: any): JSX.Element => {
   const orderList = useSelector((state: any) => state.orderList);
@@ -27,7 +31,6 @@ const OrderListScreen: FC<any> = (props: any): JSX.Element => {
   };
   return (
     <div>
-      <h1>Orders</h1>
       {loadingDelete && <LoadingBox></LoadingBox>}
       {errorDelete && <MessageBox variant='danger' text={error} />}
       {loading ? (
@@ -35,53 +38,49 @@ const OrderListScreen: FC<any> = (props: any): JSX.Element => {
       ) : error ? (
         <MessageBox variant='danger' text={error} />
       ) : (
-        <table className='table'>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>USER</th>
-              <th>DATE</th>
-              <th>TOTAL</th>
-              <th>PAID</th>
-              <th>DELIVERED</th>
-              <th>ACTIONS</th>
+        <div className='table-users' style={{ width: '80%' }}>
+          <div className='header'>Orders</div>
+          <table className='table'>
+            <tr className='table-tr'>
+              {texte.Ordre.order_list.en.map((td: string) => (
+                <td className='table-td' key={1}>
+                  {td}
+                </td>
+              ))}
             </tr>
-          </thead>
-          <tbody>
             {orders.map((order: any) => (
-              <tr key={order._id}>
-                <td>{order._id}</td>
-                <td>{order.user.name}</td>
-                <td>{order.createdAt.substring(0, 10)}</td>
-                <td>{order.totalPrice.toFixed(2)}</td>
-                <td>{order.isPaid ? order.paidAt.substring(0, 10) : 'No'}</td>
-                <td>
+              <tr className='table-tr' key={order._id}>
+                <td className='table-td'>{order._id}</td>
+                <td className='table-td'>{order.user.name}</td>
+                <td className='table-td'>{order.createdAt.substring(0, 10)}</td>
+                <td className='table-td'>{order.totalPrice.toFixed(2)}</td>
+                <td className='table-td'>
+                  {order.isPaid
+                    ? order.paidAt.substring(0, 10)
+                    : texte.Paiement.unpay.en}
+                </td>
+                <td className='table-td'>
                   {order.isDelivered
                     ? order.isDeliveredAt.substring(1, 10)
-                    : 'No '}
+                    : texte.Ordre.notdeli.en}
                 </td>
-                <td>
-                  <button
-                    type='button'
-                    className='small'
-                    onClick={() => {
-                      props.history.push(`/order/${order._id}`);
-                    }}
-                  >
-                    Details
-                  </button>{' '}
-                  <button
-                    type='button'
-                    className='small'
-                    onClick={() => deleteHandler(order)}
-                  >
-                    Delete
-                  </button>
+                <td className='table-td'>
+                  <>
+                    <Button
+                      onClick={() => props.history.push(`/order/${order._id}`)}
+                      color='info'
+                    >
+                      <ImWrench size={20} />
+                    </Button>
+                    <Button onClick={() => deleteHandler(order)} color='info'>
+                      <MdRestoreFromTrash size={20} />
+                    </Button>
+                  </>
                 </td>
               </tr>
             ))}
-          </tbody>
-        </table>
+          </table>
+        </div>
       )}
     </div>
   );

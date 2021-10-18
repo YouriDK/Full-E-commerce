@@ -1,10 +1,15 @@
 import React, { useEffect, useState, FC } from 'react';
+import { MdRestoreFromTrash } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
+import CustomInput from '../components/CustomInput';
+import { Button } from 'reactstrap';
 import {
   listProducts,
   saveProduct,
   deleteProduct,
 } from '../actions/productActions';
+import { texte } from '../data';
+import { AiTwotoneEdit } from 'react-icons/ai';
 
 const ProductsScreen: FC<any> = (props: any): JSX.Element => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -81,11 +86,19 @@ const ProductsScreen: FC<any> = (props: any): JSX.Element => {
   };
   return (
     <div className='content content-margined'>
-      <div className='product-header'>
-        <h3 className='font-title'>Products</h3>
-        <button className='button primary' onClick={() => openModal({})}>
-          {' '}
-          Create Product{' '}
+      <div className='flex' style={{ justifyContent: 'space-between' }}>
+        <Button
+          className='button secondary'
+          onClick={() => props.history.push('/')}
+        >
+          Back
+        </Button>
+        <button
+          className='button primary'
+          onClick={() => openModal({})}
+          disabled={modalVisible}
+        >
+          Create product
         </button>
       </div>
       {modalVisible && (
@@ -93,132 +106,77 @@ const ProductsScreen: FC<any> = (props: any): JSX.Element => {
           <form onSubmit={submitHandler}>
             <div className='form'>
               <div>
-                <h1 className='text-center font-title'>Create product</h1>
-              </div>
-              <div>
                 {loadingSave && <div> Loading .. </div>}
                 {errorSave && <div> {errorSave}</div>}
               </div>
-              <div>
-                <label htmlFor='name'>
-                  <strong>Name</strong>
-                </label>
-                <input
-                  value={name}
-                  type='text'
-                  name='name'
-                  id='name'
-                  onChange={(e) => setName(e.target.value)}
-                ></input>
-              </div>
-              <div>
-                <label htmlFor='price'>
-                  <strong>Price</strong>
-                </label>
-                <input
-                  value={price}
-                  type='text'
-                  name='price'
-                  id='price'
-                  onChange={(e) => setPrice(e.target.value)}
-                ></input>
-              </div>
-              <div>
-                <label htmlFor='image'>
-                  <strong>Image</strong>
-                </label>
-                <input
-                  value={image}
-                  type='text'
-                  name='image'
-                  id='image'
-                  onChange={(e) => setImage(e.target.value)}
-                ></input>
-              </div>
-              <div>
-                <label htmlFor='brand'>
-                  <strong>Brand</strong>
-                </label>
-                <input
-                  value={brand}
-                  type='text'
-                  name='brand'
-                  id='brand'
-                  onChange={(e) => setBrand(e.target.value)}
-                ></input>
-              </div>
-              <div>
-                <label htmlFor='brand'>
-                  <strong>Count in Stock</strong>
-                </label>
-                <input
-                  value={countInStock}
-                  type='text'
-                  name='countInStock'
-                  id='countInStock'
-                  onChange={(e) => setCountInStock(e.target.value)}
-                ></input>
-              </div>
-              <div>
-                <label htmlFor='category'>
-                  <strong>Category</strong>
-                </label>
-                <input
-                  value={category}
-                  type='text'
-                  name='category'
-                  id='category'
-                  onChange={(e) => setCategory(e.target.value)}
-                ></input>
-              </div>
-
-              <div>
-                <label htmlFor='description'>
-                  <strong>Description</strong>
-                </label>
-                <textarea
-                  value={description}
-                  name='description'
-                  id='description'
-                  onChange={(e) => setDescription(e.target.value)}
-                ></textarea>
-              </div>
-              <div>
-                <label htmlFor='rating'>
-                  <strong>Rating</strong>
-                </label>
-                <input
-                  value={rating}
-                  type='text'
-                  name='rating'
-                  id='rating'
-                  onChange={(e) => setRating(e.target.value)}
-                ></input>
-              </div>
-              <div>
-                <label htmlFor='numReviews'>
-                  <strong>Numbers of reviews</strong>
-                </label>
-                <input
-                  value={numReviews}
-                  type='text'
-                  name='numReviews'
-                  id='numReviews'
-                  onChange={(e) => setNumReviews(e.target.value)}
-                ></input>
-              </div>
+              <CustomInput
+                variable={name}
+                name='name'
+                label='Name'
+                type='text'
+                change={setName}
+              />
+              <CustomInput
+                variable={price}
+                name='price'
+                label='Price'
+                type='text'
+                change={setPrice}
+              />
+              <CustomInput
+                variable={image}
+                name='image'
+                label='Image'
+                type='text'
+                change={setImage}
+              />
+              <CustomInput
+                variable={brand}
+                name='brand'
+                label='Brand'
+                type='text'
+                change={setBrand}
+              />
+              <CustomInput
+                variable={countInStock}
+                name='countInStock'
+                label='Count in Stock'
+                type='text'
+                change={setCountInStock}
+              />
+              <CustomInput
+                variable={category}
+                name='category'
+                label='Category'
+                type='text'
+                change={setCategory}
+              />
+              <CustomInput
+                variable={description}
+                name='description'
+                label='Description'
+                type='text'
+                change={setDescription}
+                textarea
+              />
+              <CustomInput
+                variable={rating}
+                name='rating'
+                label='Rating'
+                type='text'
+                change={setRating}
+              />
+              <CustomInput
+                variable={numReviews}
+                name='numReviews'
+                label='Numbers of reviews'
+                type='text'
+                change={setNumReviews}
+              />
               <div>
                 <br />
                 <button type='submit' className='button primary'>
                   {id ? 'Update' : 'Create'}
-                </button>
-                <br />
-                <button
-                  onClick={() => setModalVisible(false)}
-                  type='submit'
-                  className='button secondary'
-                >
-                  Back{' '}
                 </button>
               </div>
             </div>
@@ -226,45 +184,32 @@ const ProductsScreen: FC<any> = (props: any): JSX.Element => {
         </div>
       )}
       {!modalVisible && (
-        <div className='product-list'>
+        <div className='table-users'>
+          <div className='header'>Products</div>
           <table className='table'>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Category</th>
-                <th>Brand</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {products.map((product: any) => (
-                <tr key={product._id}>
-                  <td>{product._id}</td>
-                  <td>{product.name}</td>
-                  <td>{product.price}</td>
-                  <td>{product.category}</td>
-                  <td>{product.brand}</td>
-                  <td>
-                    {' '}
-                    <button
-                      className='button'
-                      onClick={() => openModal(product)}
-                    >
-                      {' '}
-                      Edit
-                    </button>{' '}
-                    <button
-                      className='button'
-                      onClick={() => deleteHandler(product)}
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
+            <tr className='table-tr'>
+              {texte.Products.en.map((td: string) => (
+                <td className='table-td'>{td}</td>
               ))}
-            </tbody>
+            </tr>
+            {products.map((product: any) => (
+              <tr className='table-tr' key={product._id}>
+                <td className='table-td'>{product.name}</td>
+                <td className='table-td'>{product.price}</td>
+                <td className='table-td'>{product.category}</td>
+                <td className='table-td'>{product.brand}</td>
+                <td className='table-td'>
+                  <>
+                    <Button onClick={() => openModal(product)} color='info'>
+                      <AiTwotoneEdit size={20} />
+                    </Button>
+                    <Button onClick={() => deleteHandler(product)} color='info'>
+                      <MdRestoreFromTrash size={20} />
+                    </Button>
+                  </>
+                </td>
+              </tr>
+            ))}
           </table>
         </div>
       )}

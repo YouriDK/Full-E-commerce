@@ -102,6 +102,12 @@
   font-weight: 600;
   color: #a1cc16;
 }
+.card .card__body span.no_stock {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  text-align: center;
+  color: #cc1616;
+}
 .card .card__body .reviews .stars {
   display: inline-block;
   list-style: none;

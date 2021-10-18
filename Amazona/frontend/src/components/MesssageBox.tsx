@@ -11,7 +11,11 @@ const MesssageBox: FC<MesssageBoxProps> = ({
   console.log(text[0]);
   console.log(text);
   return (
-    <Alert color={variant} className={`center alert`}>
+    <Alert
+      color={variant}
+      className={`center alert`}
+      style={{ margin: 'auto' }}
+    >
       {text[0]}
     </Alert>
   );

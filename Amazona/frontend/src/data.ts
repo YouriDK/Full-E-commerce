@@ -114,12 +114,12 @@ export const texte = {
       en: 'Count in stock',
     },
     in_stock: { fr: 'En stock', en: 'In stock' },
-    no_sotck: { fr: 'Indisponible', en: 'In Stock' },
+    no_stock: { fr: 'Indisponible', en: 'Unvailable' },
   },
 
   Products: {
-    fr: ['ID', 'NOM', 'PRIX', 'CATEGORY', 'MARQUE', 'ACTION'],
-    en: ['ID', 'NAME', 'PRICE', 'CATEGORY', 'BRAND', 'ACTION'],
+    fr: ['NOM', 'PRIX', 'CATEGORY', 'MARQUE', 'ACTIONS'],
+    en: ['NAME', 'PRICE', 'CATEGORY', 'BRAND', 'ACTIONS'],
   },
 
   Panier: {

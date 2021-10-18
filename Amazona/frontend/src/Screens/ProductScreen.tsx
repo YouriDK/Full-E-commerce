@@ -1,6 +1,7 @@
 import React, { useEffect, FC, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Button } from 'reactstrap';
 import { detailsProduct } from '../actions/productActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MesssageBox';
@@ -55,13 +56,10 @@ const ProductScreen: FC<any> = (props: any): JSX.Element => {
               <div className='description'>
                 <p>{product.description}</p>
               </div>
-              {product.countInStock > 0 && (
+              {product.countInStock > 0 ? (
                 <div className='row'>
                   <span className='stock'>
-                    <i className='fa fa-pen'></i>{' '}
-                    {product.countInStock > 0
-                      ? texte.Stock.in_stock.en
-                      : texte.Stock.no_sotck.en}
+                    <i className='fa fa-pen'></i> {texte.Stock.in_stock.en}
                   </span>
                   <div className='font-list'>
                     <select
@@ -80,6 +78,8 @@ const ProductScreen: FC<any> = (props: any): JSX.Element => {
                     </select>
                   </div>
                 </div>
+              ) : (
+                <span className='no_stock'>{texte.Stock.no_stock.en}</span>
               )}
             </div>
           </div>
@@ -96,7 +96,11 @@ const ProductScreen: FC<any> = (props: any): JSX.Element => {
               </div>
             </div>
             <div className='action'>
-              <button type='button' onClick={handleAddtoCart}>
+              <button
+                type='button'
+                onClick={handleAddtoCart}
+                disabled={product.countInStock === 0}
+              >
                 {texte.Panier.add.en}
               </button>
             </div>
