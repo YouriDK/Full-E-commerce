@@ -55,5 +55,9 @@ expressAsyncHandler permet de ne pas utiliser de try catch et sauver des lignes 
 git add .
 git push heroku master
 
-- Chercher des template pour afficher les produits
 - Mettre mes vetements futurs dans le lot
+- Créer la route pour récupérer la liste des utilisateurs
+- Remplacer les input
+- Remplacer les buttons par Button
+
+-Le placeholder de Shipping screen est a configurer pour les deux langues

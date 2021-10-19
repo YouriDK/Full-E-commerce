@@ -19,9 +19,7 @@ const PaymentScreen: FC<any> = (props: any): JSX.Element => {
 
   return (
     <div>
-      <CheckoutSteps step1 step2 step3>
-        {' '}
-      </CheckoutSteps>
+      <CheckoutSteps step={2} />
 
       <form className='form' onSubmit={submitHandler}>
         <div>

@@ -74,7 +74,7 @@ const App: FC<any> = (): JSX.Element => {
                 </ul>
               </div>
             ) : (
-              <Link to='signin'> {texte.Terms.sign.en}</Link>
+              <Link to='/signin'> {texte.Terms.sign.en}</Link>
             )}
             {userInfo && userInfo.admin && (
               <div className='dropdown'>

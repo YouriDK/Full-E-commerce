@@ -37,9 +37,7 @@ const PlaceOrderScreen: FC<any> = (props: any): JSX.Element => {
   }, [dispatch, order, props.history, success]);
   return (
     <div>
-      <CheckoutSteps step1 step2 step3 step4>
-        {' '}
-      </CheckoutSteps>
+      <CheckoutSteps step={3} />
       <div className='placeorder'>
         <div className='placeorder-info'>
           <div>

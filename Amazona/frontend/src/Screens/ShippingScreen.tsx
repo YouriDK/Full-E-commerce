@@ -1,7 +1,9 @@
 import React, { useState, FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Button } from 'reactstrap';
 import { saveShipping } from '../actions/cartActions';
 import CheckoutSteps from '../components/CheckOutStep';
+import CustomInput from '../components/CustomInput';
 
 const ShippingScreen: FC<any> = (props: any): JSX.Element => {
   const userSignin = useSelector((state: any) => state.userSignin);
@@ -27,75 +29,65 @@ const ShippingScreen: FC<any> = (props: any): JSX.Element => {
   };
 
   return (
-    <div>
-      <CheckoutSteps step1 step2>
-        {' '}
-      </CheckoutSteps>
-
+    <>
+      <CheckoutSteps step={1} /*current='process'*/ />
       <form className='form' onSubmit={submitHandler}>
+        <CustomInput
+          variable={fullName}
+          name='fullName'
+          label='Full name'
+          type='text'
+          change={setfullName}
+          placeholder='Enter full name'
+        />
+        <CustomInput
+          variable={address}
+          name='address'
+          label='Address'
+          type='text'
+          change={setAddress}
+          placeholder='Enter address'
+        />
+        <CustomInput
+          variable={address}
+          name='address'
+          label='Address'
+          type='text'
+          change={setAddress}
+          placeholder='Enter address'
+        />
+        <CustomInput
+          variable={city}
+          name='city'
+          label='City'
+          type='text'
+          change={setCity}
+          placeholder='Enter city'
+        />
+        <CustomInput
+          variable={city}
+          name='postalCode'
+          label='Postal Code'
+          type='number'
+          change={setPostalCode}
+          placeholder='Enter postal code'
+        />
+        <CustomInput
+          variable={city}
+          name='country'
+          label='Country'
+          type='text'
+          change={setCountry}
+          placeholder='Enter country'
+        />
+        <br />
         <div>
-          <h2 className='text-center'>Shipping address</h2>
-        </div>
-        <div>
-          <label htmlFor='fullName'>Full name</label>
-          <input
-            placeholder='Enter full name'
-            type='text'
-            name='fullName'
-            id='fullName'
-            onChange={(e) => setfullName(e.target.value)}
-          ></input>
-        </div>
-        <div>
-          <label htmlFor='address'>Address</label>
-          <input
-            placeholder='Enter address'
-            type='text'
-            name='address'
-            id='address'
-            onChange={(e) => setAddress(e.target.value)}
-          ></input>
-        </div>
-        <div>
-          <label htmlFor='city'>City</label>
-          <input
-            placeholder='Enter city'
-            type='text'
-            name='city'
-            id='city'
-            onChange={(e) => setCity(e.target.value)}
-          ></input>
-        </div>
-
-        <div>
-          <label htmlFor='postal-code'>Postal Code</label>
-          <input
-            placeholder='Enter postal code'
-            type='numeric'
-            name='postalCode'
-            id='postalCode'
-            onChange={(e) => setPostalCode(e.target.value)}
-          ></input>
-        </div>
-        <div>
-          <label htmlFor='country'>Country</label>
-          <input
-            placeholder='Enter country'
-            type='text'
-            name='country'
-            id='country'
-            onChange={(e) => setCountry(e.target.value)}
-          ></input>
-        </div>
-
-        <div>
-          <label></label>
-          <button type='submit' className=' button primary'>
-            Continue{' '}
-          </button>
+          <Button type='submit' className=' button primary'>
+            Continue
+          </Button>
         </div>
       </form>
-    </div>
+    </>
   );
 };
 export default ShippingScreen;

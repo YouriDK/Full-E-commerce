@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 import { register } from '../actions/userActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MesssageBox';
+import CustomInput from '../components/CustomInput';
+import { Button } from 'reactstrap';
+import { texte } from '../data';
 
 const RegisterScreen: FC<any> = (props: any): JSX.Element => {
   const [name, setName] = useState('');
@@ -35,77 +38,62 @@ const RegisterScreen: FC<any> = (props: any): JSX.Element => {
     }
   }, [props.history, redirect, userInfo]);
 
-  return (
+  return loading ? (
+    <LoadingBox />
+  ) : error ? (
+    <MessageBox variant='danger' text={error} />
+  ) : (
     <div>
       <form className='form' onSubmit={submitHandler}>
         <div>
-          {' '}
-          <h2>Create an account</h2>
+          <h1 style={{ textAlign: 'center' }}>Create an account</h1>
         </div>
-        {loading && <LoadingBox></LoadingBox>}
-        {error && <MessageBox variant='danger' text={error} />}
+        <CustomInput
+          variable={name}
+          name='name'
+          label='Name'
+          type='text'
+          change={setName}
+        />
+        <CustomInput
+          variable={email}
+          name='email'
+          label='Email'
+          type='text'
+          change={setEmail}
+        />
+        <CustomInput
+          variable={password}
+          name='password'
+          label='Password'
+          type='password'
+          change={setPassword}
+        />
+        <CustomInput
+          variable={confirmPassword}
+          name='confirmPassword'
+          label='Re-Enter Password'
+          type='password'
+          change={setConfirmPassword}
+        />
 
         <div>
-          <label htmlFor='name'>Name</label>
-          <input
-            placeholder='Enter name'
-            type='name'
-            name='name'
-            id='name'
-            required
-            onChange={(e) => setName(e.target.value)}
-          ></input>
-        </div>
-        <div>
-          <label htmlFor='email'>Email</label>
-          <input
-            placeholder='Enter email'
-            type='email'
-            name='email'
-            id='email'
-            required
-            onChange={(e) => setEmail(e.target.value)}
-          ></input>
-        </div>
-        <div>
-          <label htmlFor='password'>Password</label>
-          <input
-            type='password'
-            id='password'
-            placeholder='Enter password'
-            name='password'
-            required
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-          ></input>
-        </div>
-        <div>
-          <label htmlFor='rePassword'>Re-Enter Password</label>
-          <input
-            type='password'
-            id='confirmPassword'
-            // confirmPassword
-            required
-            onChange={(e) => {
-              setConfirmPassword(e.target.value);
-            }}
-          ></input>
-        </div>
-        <div>
-          <button type='submit' className='primary'>
+          <Button type='submit' className='primary'>
             Register{' '}
-          </button>
+          </Button>
         </div>
         <div>
-          Already signed ? <br />
-          <br />
-          <Link
-            to={redirect === '/' ? 'signin' : 'signin?redirect=' + redirect}
-            className='button secondary text-center'
-          >
-            SIgn-In
-          </Link>
+          <span style={{ textAlign: 'center' }}>Already signed ?</span>
+        </div>
+        <div>
+          <Button>
+            <Link
+              to={redirect === '/' ? 'signin' : 'signin?redirect=' + redirect}
+              className='button secondary text-center'
+            >
+              {texte.Terms.sign.en}
+            </Link>
+          </Button>
         </div>
       </form>
     </div>
