@@ -146,6 +146,23 @@ export const texte = {
       en: 'Address',
     },
   },
+
+  Users: {
+    userList: {
+      en: ['ADMIN', 'NAME', 'EMAIL'],
+      fr: ['ADMIN', 'NOM', 'EMAIL'],
+    },
+    admin: {
+      isAdmin: {
+        en: 'Admin',
+        fr: 'Admin',
+      },
+      isNotAdmin: {
+        en: 'Not Admin',
+        fr: 'Non Admin',
+      },
+    },
+  },
 };
 
 export interface ProductProps {

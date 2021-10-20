@@ -30,7 +30,7 @@ const OrderListScreen: FC<any> = (props: any): JSX.Element => {
     }
   };
   return loading ? (
-    <LoadingBox></LoadingBox>
+    <LoadingBox />
   ) : error ? (
     <MessageBox variant='danger' text={error} />
   ) : (

@@ -13,6 +13,9 @@ import {
   USER_UPDATE_SUCCESS,
   USER_UPDATE_FAIL,
   USER_UPDATE_RESET,
+  USER_GET_REQUEST,
+  USER_GET_SUCCESS,
+  USER_GET_FAIL,
 } from '../constants/userConstants';
 
 export function userSignInReducer(state = {}, action: any) {
@@ -59,6 +62,19 @@ export const userDetailsReducer = (state = { loading: true }, action: any) => {
       return state;
   }
 };
+
+export function userListReducer(state = { users: [] }, action: any) {
+  switch (action.type) {
+    case USER_GET_REQUEST:
+      return { loading: true, users: [] };
+    case USER_GET_SUCCESS:
+      return { loading: false, users: action.payload };
+    case USER_GET_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+}
 
 export const updateUserProfileReducer = (state = {}, action: any) => {
   switch (action.type) {

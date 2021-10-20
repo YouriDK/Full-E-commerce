@@ -14,6 +14,9 @@ import {
   USER_UPDATE_REQUEST,
   USER_UPDATE_FAIL,
   USER_UPDATE_SUCCESS,
+  USER_GET_REQUEST,
+  USER_GET_SUCCESS,
+  USER_GET_FAIL,
 } from '../constants/userConstants';
 
 export const signin = (email: any, password: any) => async (dispatch: any) => {
@@ -118,3 +121,22 @@ export const updateUserProfile =
       dispatch({ type: USER_UPDATE_FAIL, payload: message });
     }
   };
+
+export const listUsers = () => async (dispatch: any, getState: any) => {
+  const {
+    userSignin: { userInfo },
+  } = getState();
+  try {
+    dispatch({ type: USER_GET_REQUEST });
+    const { data } = await Axios.get('/api/users/userlist', {
+      headers: { Authorization: `Bearer ${userInfo.token}` },
+    });
+    dispatch({ type: USER_GET_SUCCESS, payload: data });
+  } catch (error: any) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({ type: USER_GET_FAIL, payload: message });
+  }
+};

@@ -1,14 +1,14 @@
-import express from "express";
-import User from "../models/userModels.js";
-import { getToken, isAuth } from "../util.js";
-import expressAsyncHandler from "express-async-handler";
-import bcrypt from "bcryptjs";
+import express from 'express';
+import User from '../models/userModels.js';
+import { getToken, isAdmin, isAuth } from '../util.js';
+import expressAsyncHandler from 'express-async-handler';
+import bcrypt from 'bcryptjs';
 
 // TODO Créer un admin et 3 clients
 const router = express.Router();
 
 router.post(
-  "/signin",
+  '/signin',
   expressAsyncHandler(async (req, res) => {
     const user = await User.findOne({
       email: req.body.email,
@@ -25,12 +25,25 @@ router.post(
         });
       }
     } else {
-      res.status(401).send({ msg: "Invalid Email or Password 🤦‍♀️ ! " });
+      res.status(401).send({ msg: 'Invalid Email or Password 🤦‍♀️ ! ' });
     }
   })
 );
-
-router.post("/register", async (req, res) => {
+// * Récupère tous les user
+router.get(
+  '/userlist',
+  isAuth,
+  isAdmin,
+  expressAsyncHandler(async (req, res) => {
+    const users = await User.find();
+    if (users) {
+      res.send(users);
+    } else {
+      res.status(404).send({ message: 'User List Not Found' });
+    }
+  })
+);
+router.post('/register', async (req, res) => {
   const user = new User({
     admin: false,
     name: req.body.email,
@@ -48,7 +61,7 @@ router.post("/register", async (req, res) => {
       token: getToken(newUser),
     });
   } else {
-    res.status(401).send({ msg: "Invalid User Data !" });
+    res.status(401).send({ msg: 'Invalid User Data !' });
   }
 });
 
@@ -83,19 +96,19 @@ router.get("/createadmin", async (req, res) => {
 
 // * Récupère les infos du profil
 router.get(
-  "/:id",
+  '/:id',
   expressAsyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id);
     if (user) {
       res.send(user);
     } else {
-      res.status(404).send({ message: "User Not Found" });
+      res.status(404).send({ message: 'User Not Found' });
     }
   })
 );
 
 router.put(
-  "/profile",
+  '/profile',
   isAuth,
   expressAsyncHandler(async (req, res) => {
     const user = await User.findById(req.user._id);

@@ -90,7 +90,8 @@ const CartScreen: FC<any> = (props: any): JSX.Element => {
             <table className='table'>
               <tr className='table-tr'>
                 <td className='table-td'>
-                  {cartItems.reduce((a: any, c: any) => a + c.qty, 0)} Items
+                  {cartItems.reduce((a: any, c: any) => a + parseInt(c.qty), 0)}{' '}
+                  Items
                 </td>
                 <td className='table-td'>
                   {cartItems.reduce((a: any, c: any) => a + c.price * c.qty, 0)}

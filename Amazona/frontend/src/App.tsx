@@ -18,6 +18,7 @@ import AdminRoute from './components/AdminRoute';
 import PrivateRoute from './components/PrivateRoute';
 import OrderListScreen from './Screens/OrderListScreen';
 import { texte } from './data';
+import UserListScreen from './Screens/UserListScreen';
 
 const App: FC<any> = (): JSX.Element => {
   const cart = useSelector((state: any) => state.cart);
@@ -111,18 +112,19 @@ const App: FC<any> = (): JSX.Element => {
           <Route path='/product/:id' component={ProductScreen} />
           <Route path='/cart/:id?' exact={true} component={CartScreen} />
           <Route path='/signin' component={SignInScreen} />
-          <Route path='/register' component={RegisterScreen} />
-
           <Route path='/order/:id' component={OrderScreen} />
           <PrivateRoute path='/profile' component={ProfileScreen} />
           <AdminRoute
             path='/orderlist'
             component={OrderListScreen}
           ></AdminRoute>
+          <AdminRoute path='/userlist' component={UserListScreen}></AdminRoute>
 
           <Route path='/' exact={true} component={HomeScreen} />
         </main>
-        <footer className='row center'>All right Reserved</footer>
+        <footer className='row center'>
+          Shop X Production YC Developpment
+        </footer>
       </div>
     </BrowserRouter>
   );

@@ -32,7 +32,6 @@
 .table-td:last-child {
   font-size: 0.95em;
   line-height: 1.4;
-  text-align: left;
 }
 .table th {
   background-color: #daeff1;

@@ -20,6 +20,7 @@ import {
   userRegisterReducer,
   userDetailsReducer,
   updateUserProfileReducer,
+  userListReducer,
 } from './reducers/userReducers';
 import { cartReducers } from './reducers/cartReducers';
 
@@ -68,6 +69,7 @@ const reducer = combineReducers({
   orderList: orderListReducer,
   orderDeliver: orderDeliverReducer,
   orderDelete: orderDeleteReducer,
+  userList: userListReducer,
 });
 
 // TODO comprendre la compose

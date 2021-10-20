@@ -57,7 +57,11 @@ git push heroku master
 
 - Mettre mes vetements futurs dans le lot
 - Créer la route pour récupérer la liste des utilisateurs
-- Remplacer les input
+
 - Remplacer les buttons par Button
 
--Le placeholder de Shipping screen est a configurer pour les deux langues
+- Le placeholder de Shipping screen est a configurer pour les deux langues
+- Choisir les couleurs du WF
+- Rajouter un système de navigation sur le WF
+- Regarder le soucis de paypal
+- Refaire Garde robes
