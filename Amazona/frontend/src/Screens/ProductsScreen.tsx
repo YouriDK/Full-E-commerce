@@ -195,6 +195,15 @@ const ProductsScreen: FC<any> = (props: any): JSX.Element => {
             {products.map((product: any) => (
               <tr className='table-tr' key={product._id}>
                 <td className='table-td'>{product.name}</td>
+                <td className='table-td'>
+                  {' '}
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className='small'
+                  />
+                </td>
+
                 <td className='table-td'>{product.price}</td>
                 <td className='table-td'>{product.category}</td>
                 <td className='table-td'>{product.brand}</td>

@@ -118,8 +118,8 @@ export const texte = {
   },
 
   Products: {
-    fr: ['NOM', 'PRIX', 'CATEGORY', 'MARQUE', 'ACTIONS'],
-    en: ['NAME', 'PRICE', 'CATEGORY', 'BRAND', 'ACTIONS'],
+    fr: ['NOM', 'APERCU', 'PRIX', 'CATEGORY', 'MARQUE', 'ACTIONS'],
+    en: ['NAME', 'SAMPLE', 'PRICE', 'CATEGORY', 'BRAND', 'ACTIONS'],
   },
 
   Panier: {
@@ -151,16 +151,6 @@ export const texte = {
     userList: {
       en: ['ADMIN', 'NAME', 'EMAIL'],
       fr: ['ADMIN', 'NOM', 'EMAIL'],
-    },
-    admin: {
-      isAdmin: {
-        en: 'Admin',
-        fr: 'Admin',
-      },
-      isNotAdmin: {
-        en: 'Not Admin',
-        fr: 'Non Admin',
-      },
     },
   },
 };

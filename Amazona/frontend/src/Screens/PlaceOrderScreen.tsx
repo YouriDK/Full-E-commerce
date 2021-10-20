@@ -6,6 +6,8 @@ import CheckoutSteps from '../components/CheckOutStep';
 import { ORDER_CREATE_RESET } from '../constants/orderConstant';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MesssageBox';
+import { texte } from '../data';
+import MesssageBox from '../components/MesssageBox';
 
 const PlaceOrderScreen: FC<any> = (props: any): JSX.Element => {
   const cart = useSelector((state: any) => state.cart);
@@ -35,95 +37,105 @@ const PlaceOrderScreen: FC<any> = (props: any): JSX.Element => {
       props.history.push(`/order/${order._id}`);
     }
   }, [dispatch, order, props.history, success]);
-  return (
-    <div>
-      <CheckoutSteps step={3} />
-      <div className='placeorder'>
-        <div className='placeorder-info'>
+
+  return loading ? (
+    <LoadingBox />
+  ) : error ? (
+    <MesssageBox variant='danger' text={error} />
+  ) : (
+    <div style={{ display: 'flex' }}>
+      <div className='table-users placeorder-info' style={{ width: 'auto' }}>
+        <div className='header'>Order summary</div>
+        <table className='table'>
+          <tr className='table-tr'>
+            <td className='table-td'>Name</td>
+            <td className='table-td'> {cart.shippingAddress.fullName}</td>
+          </tr>
+          <tr className='table-tr'>
+            <td className='table-td'>Address</td>
+            <td className='table-td'> {cart.shippingAddress.address}</td>
+          </tr>
+          <tr className='table-tr'>
+            <td className='table-td'>City</td>
+            <td className='table-td'> {cart.shippingAddress.city}</td>
+          </tr>
+          <tr className='table-tr'>
+            <td className='table-td'>Postal Code</td>
+            <td className='table-td'> {cart.shippingAddress.postalCode}</td>
+          </tr>
+          <tr className='table-tr'>
+            <td className='table-td'>Country</td>
+            <td className='table-td'> {cart.shippingAddress.country}</td>
+          </tr>
+          <tr className='table-tr'>
+            <td className='table-td'>Payment Method</td>
+            <td className='table-td'> {cart.paymentMethod}</td>
+          </tr>
+        </table>
+        <div className='header'>Cart</div>
+        <table className='table'>
+          {cart.cartItems.length === 0 ? (
+            <tr className='table-tr'>
+              <td className='table-td'>Cart is Empty</td>
+              <td className='table-td'> Go Shopping</td>
+            </tr>
+          ) : (
+            <>
+              <tr className='table-tr'>
+                <td className='table-td'>Item</td>
+                <td className='table-td'> Name</td>
+                <td className='table-td'> Cost</td>
+              </tr>
+              {cart.cartItems.map((item: any) => (
+                <tr className='table-tr'>
+                  <td className='table-td'>
+                    {' '}
+                    <img className='small' src={item.image} alt='product' />
+                  </td>
+                  <td className='table-td'>
+                    {' '}
+                    <Link to={'/product/' + item.product}>{item.name}</Link>
+                  </td>
+                  <td className='table-td'>
+                    {' '}
+                    {item.qty} x ${item.price} = ${item.qty * item.price}
+                  </td>
+                </tr>
+              ))}
+            </>
+          )}
+        </table>
+      </div>
+      <div className='placeorder-action'>
+        <div className='table-users'>
+          <div className='header'>Order Summary</div>
+          <table className='table'>
+            <tr className='table-tr'>
+              <td className='table-td'>Items</td>
+              <td className='table-td'>${cart.itemsPrice}</td>
+            </tr>
+            <tr className='table-tr'>
+              <td className='table-td'>Shipping</td>
+              <td className='table-td'>${cart.shippingPrice}</td>
+            </tr>
+            <tr className='table-tr'>
+              <td className='table-td'>Tax</td>
+              <td className='table-td'>${cart.taxPrice}</td>
+            </tr>
+            <tr className='table-tr'>
+              <td className='table-td'>Order Total</td>
+              <td className='table-td'>${cart.totalPrice}</td>
+            </tr>
+          </table>
           <div>
-            <h3 className='font-title'> Shipping</h3>{' '}
-            <div>
-              <strong>Name : </strong>
-              <span className='font-list'>
-                {cart.shippingAddress.fullName}{' '}
-              </span>
-              <br />
-              <strong>Address : </strong>{' '}
-              <span className='font-list'>
-                {cart.shippingAddress.address}, {cart.shippingAddress.city},
-                {cart.shippingAddress.postalCode},{' '}
-                {cart.shippingAddress.country}{' '}
-              </span>
-            </div>
-          </div>
-          <div>
-            <h3 className='font-title'> Payment</h3>
-            <div>
+            <button
+              className='button primary full-width'
+              onClick={() => placeOrderHandler()}
+            >
               {' '}
-              <strong>Payment Method :</strong>{' '}
-              <span className='font-list'>{cart.payment}. </span>{' '}
-            </div>
+              Place Order
+            </button>
           </div>
-          <div>
-            <ul className='cart-list-container'>
-              <li>
-                <h3 className='font-title'>Shopping Cart</h3>
-              </li>
-
-              {cart.cartItems.length === 0 ? (
-                <div className='font-title'>Cart is empty</div>
-              ) : (
-                cart.cartItems.map((item: any) => (
-                  <li key={item.product}>
-                    <div className='row full-width'>
-                      <div>
-                        <img className='small' src={item.image} alt='product' />
-                      </div>
-                      <div className='min-30 font-list'>
-                        <Link to={'/product/' + item.product}>{item.name}</Link>
-                      </div>
-                      <div>
-                        {item.qty} x ${item.price} = ${item.qty * item.price}
-                      </div>
-                    </div>
-                  </li>
-                ))
-              )}
-            </ul>
-          </div>
-        </div>
-
-        <div className='placeorder-action'>
-          <h3 className='center font-title'>Order Summary</h3>
-          <ul>
-            <li>
-              <strong>Items</strong>
-              <div className='font-list'>${cart.itemsPrice}</div>
-            </li>
-            <li>
-              <strong>Shipping</strong>
-              <div className='font-list'>${cart.shippingPrice}</div>
-            </li>
-            <li>
-              <strong>Tax</strong>
-              <div className='font-list'>${cart.taxPrice}</div>
-            </li>
-            <li>
-              <strong>Order Total</strong>
-              <div className='font-list'>${cart.totalPrice}</div>
-            </li>
-            <div>
-              <button
-                className='button primary full-width'
-                onClick={() => placeOrderHandler()}
-              >
-                {' '}
-                Place Order
-              </button>
-            </div>
-            {loading && <LoadingBox></LoadingBox>}
-            {error && <MessageBox variant='danger' text={error} />}
-          </ul>
         </div>
       </div>
     </div>

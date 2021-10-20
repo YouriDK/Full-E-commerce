@@ -3,10 +3,12 @@ import { Alert } from 'reactstrap';
 interface MesssageBoxProps {
   text: string[] | string;
   variant: string;
+  notext?: boolean;
 }
 const MesssageBox: FC<MesssageBoxProps> = ({
   text,
   variant,
+  notext,
 }: MesssageBoxProps): JSX.Element => {
   console.log(text[0]);
   console.log(text);
@@ -16,7 +18,7 @@ const MesssageBox: FC<MesssageBoxProps> = ({
       className={`center alert`}
       style={{ margin: 'auto' }}
     >
-      {text[0]}
+      {notext ? text[0] : text}
     </Alert>
   );
 };

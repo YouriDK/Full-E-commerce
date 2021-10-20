@@ -10,6 +10,7 @@ import {
   ORDER_DELIVER_RESET,
   ORDER_PAY_RESET,
 } from '../constants/orderConstant';
+import MesssageBox from '../components/MesssageBox';
 
 const OrderScreen: FC<any> = (props: any): JSX.Element => {
   const [sdkReady, setSdkReady] = useState(false);
@@ -83,46 +84,105 @@ const OrderScreen: FC<any> = (props: any): JSX.Element => {
   return loading ? (
     <LoadingBox />
   ) : error ? (
-    <MessageBox variant='danger' text={error} />
+    <MesssageBox variant='danger' text={error} />
   ) : (
-    <div>
-      <h1 className='full-width font-title text-center '>Order {order._id} </h1>
-      <div className='placeorder'>
-        <div className='placeorder-info'>
+    <div style={{ display: 'flex' }}>
+      <div className='table-users placeorder-info' style={{ width: 'auto' }}>
+        <div className='header'>Shipping</div>
+        <table className='table'>
+          <tr className='table-tr'>
+            <td className='table-td'>Name</td>
+            <td className='table-td'> {order.shippingAddress.fullName}</td>
+          </tr>
+          <tr className='table-tr'>
+            <td className='table-td'>Address</td>
+            <td className='table-td'> {order.shippingAddress.address}</td>
+          </tr>
+          <tr className='table-tr'>
+            <td className='table-td'>City</td>
+            <td className='table-td'> {order.shippingAddress.city}</td>
+          </tr>
+          <tr className='table-tr'>
+            <td className='table-td'>Postal Code</td>
+            <td className='table-td'> {order.shippingAddress.postalCode}</td>
+          </tr>
+          <tr className='table-tr'>
+            <td className='table-td'>Country</td>
+            <td className='table-td'> {order.shippingAddress.country}</td>
+          </tr>
+          <tr className='table-tr'>
+            <td className='table-td'>Payment Method</td>
+            <td className='table-td'> {order.paymentMethod}</td>
+          </tr>
+        </table>
+        <div>
+          {' '}
+          {order.isDelivered ? (
+            <MessageBox
+              variant='success'
+              text={`Delivered at ${order.deliveredAt}`}
+            />
+          ) : (
+            <MessageBox variant='danger' text={`Not Delivered`} />
+          )}
+        </div>
+        <div className='header'>Order</div>
+        <table className='table'>
+          {order.orderItems.length === 0 ? (
+            <tr className='table-tr'>
+              <td className='table-td'>Cart is Empty</td>
+              <td className='table-td'> Go Shopping</td>
+            </tr>
+          ) : (
+            <>
+              <tr className='table-tr'>
+                <td className='table-td'>Item</td>
+                <td className='table-td'> Name</td>
+                <td className='table-td'> Cost</td>
+              </tr>
+              {order.orderItems.map((item: any) => (
+                <tr className='table-tr'>
+                  <td className='table-td'>
+                    {' '}
+                    <img className='small' src={item.image} alt='product' />
+                  </td>
+                  <td className='table-td'>
+                    {' '}
+                    <Link to={'/product/' + item.product}>{item.name}</Link>
+                  </td>
+                  <td className='table-td'>
+                    {' '}
+                    {item.qty} x ${item.price} = ${item.qty * item.price}
+                  </td>
+                </tr>
+              ))}
+            </>
+          )}
+        </table>
+      </div>
+      <div className='placeorder-action'>
+        <div className='table-users'>
+          <div className='header'>Order Summary</div>
+          <table className='table'>
+            <tr className='table-tr'>
+              <td className='table-td'>Items</td>
+              <td className='table-td'>${order.itemsPrice}</td>
+            </tr>
+            <tr className='table-tr'>
+              <td className='table-td'>Shipping</td>
+              <td className='table-td'>${order.shippingPrice}</td>
+            </tr>
+            <tr className='table-tr'>
+              <td className='table-td'>Tax</td>
+              <td className='table-td'>${order.taxPrice}</td>
+            </tr>
+            <tr className='table-tr'>
+              <td className='table-td'>Order Total</td>
+              <td className='table-td'>${order.totalPrice}</td>
+            </tr>
+          </table>
           <div>
-            <h3 className='font-title'> Shipping</h3>{' '}
-            <div>
-              <strong>Name : </strong>
-              <span className='font-list'>
-                {order.shippingAddress.fullName}
-              </span>{' '}
-              <br />
-              <strong>Address : </strong>{' '}
-              <span className='font-list'>
-                {' '}
-                {order.shippingAddress.address}, {order.shippingAddress.city},{' '}
-                {order.shippingAddress.postalCode},{' '}
-                {order.shippingAddress.country}{' '}
-              </span>
-            </div>
-            <br />
-            {order.isDelivered ? (
-              <MessageBox
-                variant='success'
-                text={`Delivered at ${order.deliveredAt}`}
-              />
-            ) : (
-              <MessageBox variant='danger' text={`Not Delivered`} />
-            )}
-          </div>
-          <div>
-            <h3 className='font-title'> Payment</h3>
-            <div>
-              {' '}
-              <strong>Payment Method : </strong>{' '}
-              <span className='font-list'>{order.paymentMethod}.</span>{' '}
-            </div>
-            <br />
+            {' '}
             {order.isPaid ? (
               <MessageBox
                 variant='success'
@@ -133,77 +193,15 @@ const OrderScreen: FC<any> = (props: any): JSX.Element => {
             )}
           </div>
           <div>
-            <h3 className='font-title'>Order Items</h3>
-            <ul className='cart-list-container'>
-              {order.orderItems.length === 0 ? (
-                <div className='font-title'>Cart is empty</div>
-              ) : (
-                order.orderItems.map((item: any) => (
-                  <li key={item.product}>
-                    <div className='row full-width'>
-                      <img className='small' src={item.image} alt='product' />
-
-                      <div className='min-30 font-list'>
-                        <Link to={'/product/' + item.product}>{item.name}</Link>
-                      </div>
-                      <div className='font-list'>
-                        {item.qty} x ${item.price} = ${item.qty * item.price}
-                      </div>
-                    </div>
-                  </li>
-                ))
-              )}
-            </ul>
+            {!sdkReady ? (
+              <LoadingBox></LoadingBox>
+            ) : (
+              <PayPalButton
+                amount={order.totalPrice}
+                onSuccess={successPaymentHandler}
+              ></PayPalButton>
+            )}
           </div>
-        </div>
-
-        <div className='placeorder-action'>
-          <h3 className='center font-title'>Order Summary</h3>
-          <ul>
-            <li>
-              <strong>Items</strong>
-              <div className='font-list'>${order.itemsPrice}</div>
-            </li>
-            <li>
-              <strong>Shipping</strong>
-              <span className='font-list'>Order </span>
-            </li>
-            <li>
-              <strong>Tax</strong>
-              <div className='font-list'>${order.taxPrice}</div>
-            </li>
-            <li>
-              <strong>Order Total</strong>
-              <div className='font-list'>${order.totalPrice}</div>
-            </li>
-            {!order.isPaid && (
-              <div>
-                {!sdkReady ? (
-                  <LoadingBox></LoadingBox>
-                ) : (
-                  <PayPalButton
-                    amount={order.totalPrice}
-                    onSuccess={successPaymentHandler}
-                  ></PayPalButton>
-                )}
-              </div>
-            )}
-            {userInfo.admin && order.isPaid && !order.isDelivered && (
-              <li>
-                {loadingDeliver && <LoadingBox></LoadingBox>}
-                {errorDeliver && (
-                  <MessageBox variant='danger' text={errorDeliver} />
-                )}
-                <button
-                  type='button'
-                  className='primary block'
-                  onClick={deliverHandler}
-                >
-                  Deliver Order
-                </button>
-              </li>
-            )}
-          </ul>
         </div>
       </div>
     </div>

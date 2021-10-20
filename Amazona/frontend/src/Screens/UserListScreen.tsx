@@ -32,7 +32,6 @@ const UserListScreen: FC<any> = (): JSX.Element => {
         </tr>
         {users.map((user: any) => (
           <tr className='table-tr' key={user._id}>
-            {console.log(user.admin)}
             <td className='table-td'>
               {user.admin ? <BsCheckLg /> : <GiCancel />}
             </td>

@@ -35,79 +35,75 @@ const CartScreen: FC<any> = (props: any): JSX.Element => {
       {cartItems.length === 0 ? (
         <MessageBox variant='info' text={texte.Panier.vide.en} />
       ) : (
-        <div className='flex'>
-          <div className='table-users'>
-            <div className='header'>{texte.Cart.cart.en}</div>
+        <div className='table-users' style={{ width: '80%' }}>
+          <div className='header'>{texte.Cart.cart.en}</div>
 
-            <table className='table'>
-              <tr className='table-tr'>
-                {texte.Cart.tab.en.map((td: string) => (
-                  <td className='table-td'>{td}</td>
-                ))}
-              </tr>
-
-              {cartItems.map((item: any) => (
-                <tr className='table-tr'>
-                  <td className='table-td'>
-                    <img src={item.image} alt={item.name} className='small' />
-                  </td>
-                  <td className='table-td'>
-                    <Link to={'/product/' + item.product}>{item.name}</Link>
-                  </td>
-                  <td className='table-td'>
-                    <select
-                      value={item.qty}
-                      className='font-list'
-                      onChange={(e) =>
-                        dispatch(addToCart(item.product, e.target.value))
-                      }
-                    >
-                      {[...(Array(item.countInStock).keys() as any)].map(
-                        (x) => (
-                          <option key={x} value={x + 1}>
-                            {x + 1}
-                          </option>
-                        )
-                      )}
-                    </select>
-                  </td>
-                  <td className='table-td'>
-                    <Button
-                      onClick={() => removeFromCardHandler(item.product)}
-                      color='danger'
-                    >
-                      <MdRestoreFromTrash size={25} />
-                    </Button>
-                  </td>
-                  <td className='table-td'>
-                    {item.price}
-                    {texte.Terms.devise.en}
-                  </td>
-                </tr>
+          <table className='table'>
+            <tr className='table-tr'>
+              {texte.Cart.tab.en.map((td: string) => (
+                <td className='table-td'>{td}</td>
               ))}
-            </table>
-            <div className='header'>{texte.Terms.total}</div>
-            <table className='table'>
+            </tr>
+
+            {cartItems.map((item: any) => (
               <tr className='table-tr'>
                 <td className='table-td'>
-                  {cartItems.reduce((a: any, c: any) => a + parseInt(c.qty), 0)}{' '}
-                  Items
+                  <img src={item.image} alt={item.name} className='small' />
                 </td>
                 <td className='table-td'>
-                  {cartItems.reduce((a: any, c: any) => a + c.price * c.qty, 0)}
+                  <Link to={'/product/' + item.product}>{item.name}</Link>
+                </td>
+                <td className='table-td'>
+                  <select
+                    value={item.qty}
+                    className='font-list'
+                    onChange={(e) =>
+                      dispatch(addToCart(item.product, e.target.value))
+                    }
+                  >
+                    {[...(Array(item.countInStock).keys() as any)].map((x) => (
+                      <option key={x} value={x + 1}>
+                        {x + 1}
+                      </option>
+                    ))}
+                  </select>
+                </td>
+                <td className='table-td'>
+                  <Button
+                    onClick={() => removeFromCardHandler(item.product)}
+                    color='danger'
+                  >
+                    <MdRestoreFromTrash size={25} />
+                  </Button>
+                </td>
+                <td className='table-td'>
+                  {item.price}
                   {texte.Terms.devise.en}
                 </td>
               </tr>
-            </table>
-            <button
-              type='button'
-              onClick={checkoutHandler}
-              className='primary block'
-              disabled={cartItems.length === 0}
-            >
-              {texte.Panier.checkout.en}
-            </button>
-          </div>
+            ))}
+          </table>
+          <div className='header'>{texte.Terms.total}</div>
+          <table className='table'>
+            <tr className='table-tr'>
+              <td className='table-td'>
+                {cartItems.reduce((a: any, c: any) => a + parseInt(c.qty), 0)}{' '}
+                Items
+              </td>
+              <td className='table-td'>
+                {cartItems.reduce((a: any, c: any) => a + c.price * c.qty, 0)}
+                {texte.Terms.devise.en}
+              </td>
+            </tr>
+          </table>
+          <button
+            type='button'
+            onClick={checkoutHandler}
+            className='primary block'
+            disabled={cartItems.length === 0}
+          >
+            {texte.Panier.checkout.en}
+          </button>
         </div>
       )}
     </>

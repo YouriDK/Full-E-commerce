@@ -48,14 +48,7 @@ const ShippingScreen: FC<any> = (props: any): JSX.Element => {
           change={setAddress}
           placeholder='Enter address'
         />
-        <CustomInput
-          variable={address}
-          name='address'
-          label='Address'
-          type='text'
-          change={setAddress}
-          placeholder='Enter address'
-        />
+
         <CustomInput
           variable={city}
           name='city'
@@ -65,15 +58,15 @@ const ShippingScreen: FC<any> = (props: any): JSX.Element => {
           placeholder='Enter city'
         />
         <CustomInput
-          variable={city}
+          variable={postalCode}
           name='postalCode'
           label='Postal Code'
           type='number'
           change={setPostalCode}
-          placeholder='Enter postal code'
+          placeholder={'00000'}
         />
         <CustomInput
-          variable={city}
+          variable={country}
           name='country'
           label='Country'
           type='text'
