@@ -58,23 +58,18 @@ git push heroku master
 - Esthétiques :
   Rétrécir taille cartscreen (Done)
   Mettre mes vetements futurs dans le lot
-  Choisir les couleurs thème du site
-  Chercher des polices aussi
+  Choisir les couleurs thème du site(Done)
+  Chercher des polices aussi(Done)
 
 - Fonctionnels
-  Configuration double langage
+  Configuration double langage(Abort)
   Rajouter un système de navigation sur le WF
   Payment test Paypal
   Système de livraision et validation de Livraison
-  Changer les Input de Profil Screen
 
 - Optimisation :
   Remplacer les buttons par Button
   Mettre un mode sombre
   Refaire Garde robes
-  Travailler le header & footer (Nom du site et couleur)
-  Nettoyer CSS
 
-- police titre tableau
-- police élément tableau
-- police
+  - Créer chemin pour update livraison et la valider

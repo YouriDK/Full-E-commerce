@@ -1,29 +1,29 @@
-import express from "express";
-import Product from "../models/productsModels.js";
-import expressAsyncHandler from "express-async-handler";
-import { isAuth, isAdmin } from "../util.js";
+import express from 'express';
+import Product from '../models/productsModels.js';
+import expressAsyncHandler from 'express-async-handler';
+import { isAuth, isAdmin } from '../util.js';
 
 const router = express.Router();
 
 router.get(
-  "/",
+  '/',
   expressAsyncHandler(async (req, res) => {
-    const products = await Product.find({});
+    const products = await Product.find();
     res.send(products);
   })
 );
 
 router.get(
-  "/:id",
+  '/:id',
   expressAsyncHandler(async (req, res) => {
     const product = await Product.findOne({ _id: req.params.id });
     if (product) res.send(product);
-    else res.status(404).send({ message: " Product Not found" });
+    else res.status(404).send({ message: ' Product Not found' });
   })
 );
 
 router.post(
-  "/",
+  '/',
   isAuth,
   isAdmin,
   expressAsyncHandler(async (req, res) => {
@@ -42,14 +42,14 @@ router.post(
     if (newProduct) {
       return res
         .status(201)
-        .send({ message: " New Product created ! ", data: newProduct });
+        .send({ message: ' New Product created ! ', data: newProduct });
     }
-    return res.status(500).send({ message: " Error in creating product" });
+    return res.status(500).send({ message: ' Error in creating product' });
   })
 );
 
 router.put(
-  "/:id",
+  '/:id',
   isAuth,
   isAdmin,
   expressAsyncHandler(async (req, res) => {
@@ -69,23 +69,23 @@ router.put(
     if (upatedProduct) {
       return res
         .status(201)
-        .send({ message: " Product Updated ", data: upatedProduct });
+        .send({ message: ' Product Updated ', data: upatedProduct });
     }
-    return res.status(500).send({ message: " Error in updating product" });
+    return res.status(500).send({ message: ' Error in updating product' });
   })
 );
 
 router.delete(
-  "/:id",
+  '/:id',
   isAuth,
   isAdmin,
   expressAsyncHandler(async (req, res) => {
     const deleteProduct = await Product.findById(req.params.id);
     if (deleteProduct) {
       await deleteProduct.remove();
-      res.send({ message: "Product Deleted" });
+      res.send({ message: 'Product Deleted' });
     }
-    res.send("Error in Deletion");
+    res.send('Error in Deletion');
   })
 );
 export default router;

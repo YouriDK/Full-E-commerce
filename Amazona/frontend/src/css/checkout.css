@@ -12,7 +12,7 @@
 
 .checkout-steps > div.active {
   border-top: 0.3rem #ff8000 solid;
-  color: var(--dark-orange);
+  color: var(--primary);
 }
 
 /* Place Order */

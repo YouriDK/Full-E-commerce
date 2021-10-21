@@ -14,11 +14,11 @@
   padding: 5px 50px;
   margin: 15px;
   border-radius: 25px;
-  background-color: var(--primary2);
+  background-color: var(--primary);
 }
 .card .card__title:hover {
-  background-color: var(--secondary2);
-  color: var(--primary2);
+  background-color: var(--secondary);
+  color: var(--primary);
 }
 .card .card__title h3 {
   flex: 0 1 200px;
@@ -32,7 +32,7 @@
 }
 .card .card__title .icon {
   flex: 1 0 10px;
-  background: var(--secondary2);
+  background: var(--secondary);
   color: var(--white);
   padding: 10px 10px;
   transition: 200ms;
@@ -108,13 +108,13 @@
 .card .card__body span.stock {
   font-family: 'Montserrat', sans-serif;
   font-weight: 600;
-  color: var(--secondary2);
+  color: var(--secondary);
 }
 .card .card__body span.no_stock {
   font-family: 'Montserrat', sans-serif;
   font-weight: 600;
   text-align: center;
-  color: var(--basic);
+  color: var(--red);
 }
 .card .card__body .reviews .stars {
   display: inline-block;
@@ -125,7 +125,7 @@
   display: inline-block;
 }
 .card .card__body .reviews .stars > li .fa {
-  color: var(--dark-orange);
+  color: var(--primary);
 }
 .card .card__body .reviews > span {
   font-family: 'Open Sans', sans-serif;
@@ -148,7 +148,7 @@
   left: 40px;
   width: calc(100% - 40px);
   height: 3px;
-  background: var(--secondary2);
+  background: var(--secondary);
 }
 .card .card__footer .recommend {
   flex: 1 0 10px;
@@ -171,15 +171,15 @@
 }
 .card .card__footer .action button {
   cursor: pointer;
-  border: 1px solid var(--secondary2);
+  border: 1px solid var(--secondary);
   padding: 14px 30px;
   border-radius: 200px;
-  color: var(--secondary2);
-  background: var(--primary2);
+  color: var(--secondary);
+  background: var(--primary);
   font-size: 16px;
   transition: 200ms;
 }
 .card .card__footer .action button:hover {
-  background: var(--secondary2);
-  color: var(--primary2);
+  background: var(--secondary);
+  color: var(--primary);
 }

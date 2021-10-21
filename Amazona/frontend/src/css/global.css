@@ -1,27 +1,16 @@
 :root {
-  --background2: #fefee3;
-  --primary2: #ff9f1c;
+  --background: #fefee3;
+  --primary: #ff9f1c;
   --ligth-bg: #ffc9b9;
-  --secondary2: #2c6e49;
-  --intermediate2: #4c956c;
+  --secondary: #2c6e49;
+  --intermediate: #4c956c;
 
-  --dark-orange: #ff9f1c;
   --orange: #ffbf69;
-  --white: #ffffff;
-  --cyan: #cbf3f0;
-  --clear-blue: #2ec4b6;
-  --basic: #ff0054;
-
-  --intermediate: #00509d;
-  --advanced: #9e0059;
-  --expert: #390099;
-  --background: #f7f7f7;
-
   --grey: #a19f9f;
-  --success: #15ff00;
   --black: #000000;
   --clear-black: #252525;
-
+  --white: #ffffff;
+  --success: #15ff00;
   --red: #ff0054;
 }
 *,
@@ -37,7 +26,7 @@ body,
   display: flex;
   min-height: 100vh;
   flex-direction: column;
-  background-color: var(--background2);
+  background-color: var(--background);
 }
 div {
   min-width: '100%';
@@ -117,11 +106,11 @@ select.primary {
 
 .link:visited {
   text-decoration: none;
-  color: var(--secondary2);
+  color: var(--secondary);
 }
 .link:hover {
   text-decoration: none;
-  color: var(--primary2);
+  color: var(--primary);
 }
 .fa-arrow-left {
   font-size: x-large !important;

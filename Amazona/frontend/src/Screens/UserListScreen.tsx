@@ -33,7 +33,11 @@ const UserListScreen: FC<any> = (): JSX.Element => {
         {users.map((user: any) => (
           <tr className='table-tr' key={user._id}>
             <td className='table-td font-secondary large xbold'>
-              {user.admin ? <BsCheckLg /> : <GiCancel />}
+              {user.admin ? (
+                <BsCheckLg color='#15ff00' />
+              ) : (
+                <GiCancel color='#ff0054' />
+              )}
             </td>
             <td className='table-td font-secondary large xbold'>{user.name}</td>
             <td className='table-td font-secondary large xbold'>

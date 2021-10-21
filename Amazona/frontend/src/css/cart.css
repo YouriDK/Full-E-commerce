@@ -1,5 +1,5 @@
 .header {
-  background-color: var(--secondary2);
+  background-color: var(--secondary);
   color: var(--white);
   font-size: 1.5em;
   padding: 1rem;
@@ -7,7 +7,6 @@
 
   text-transform: uppercase;
   font-family: 'Fredoka One', cursive;
-  /* font-size: large; */
 }
 
 .table-users {
@@ -50,12 +49,6 @@
     display: block;
   }
 
-  /* .table-td:first-child {
-     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 100px; 
-  } */
   .table-td:not(:first-child) {
     clear: both;
     margin-left: 100px;
@@ -70,18 +63,6 @@
     left: 0;
     position: absolute;
   }
-  /* .table-td:nth-child(2):before {
-    content: 'Name:';
-  }
-  .table-td:nth-child(3):before {
-    content: 'Email:';
-  }
-  .table-td:nth-child(4):before {
-    content: 'Phone:';
-  }
-  .table-td:nth-child(5):before {
-    content: 'Comments:';
-  } */
 
   .table-tr {
     padding: 10px 0;
@@ -91,7 +72,6 @@
     display: none;
   }
 }
-/* */
 @media screen and (max-width: 500px) {
   .header {
     background-color: transparent;

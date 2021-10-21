@@ -80,7 +80,7 @@ body {
 }
 header {
   grid-area: header;
-  background-color: var(--secondary2);
+  background-color: var(--secondary);
 }
 main {
   grid-area: main;
@@ -88,7 +88,7 @@ main {
 }
 footer {
   grid-area: footer;
-  background-color: var(--secondary2);
+  background-color: var(--secondary);
   color: var(--white);
 }
 /* Common */
@@ -105,7 +105,7 @@ a {
   text-decoration: none;
 }
 a:hover {
-  color: var(--dark-orange);
+  color: var(--primary);
 }
 ul {
   padding: 0;
@@ -150,23 +150,23 @@ textarea:hover {
 }
 
 button.primary:hover {
-  background-color: var(--secondary2);
-  color: var(--primary2);
+  background-color: var(--secondary);
+  color: var(--primary);
 }
 button.primary {
-  background-color: var(--primary2);
-  color: var(--secondary2);
+  background-color: var(--primary);
+  color: var(--secondary);
   font-family: 'Fredoka One', cursive;
   font-size: large;
 }
 button.secondary:hover {
-  background-color: var(--primary2);
-  color: var(--secondary2);
+  background-color: var(--primary);
+  color: var(--secondary);
 }
 
 button.secondary {
-  background-color: var(--secondary2);
-  color: var(--primary2);
+  background-color: var(--secondary);
+  color: var(--primary);
   font-family: 'Fredoka One', cursive;
   font-size: large;
 }
@@ -198,26 +198,9 @@ a.brand {
   justify-content: space-between;
   align-items: center;
 }
-
-/* Card */
-/* .card {
-  border: 0.1rem #c0c0c0 solid;
-  background-color: #f8f8f8;
-  border-radius: 0.5rem;
-  margin: 1rem;
-}
-.card-body {
-  padding: 1rem;
-}
-.card-body > * {
-  margin-bottom: 0.5rem;
-}
-.price {
-  font-size: 2rem;
-} */
 /* Rating */
 .rating span {
-  color: var(--dark-orange);
+  color: var(--primary);
   margin: 0.1rem;
 }
 .rating span:last-child {
@@ -251,7 +234,7 @@ a.brand {
   min-width: 12rem;
   padding: 1rem;
   z-index: 1;
-  background-color: var(--secondary2);
+  background-color: var(--secondary);
   margin: 0;
   margin-top: 0.4rem;
   border-radius: 0.5rem;
