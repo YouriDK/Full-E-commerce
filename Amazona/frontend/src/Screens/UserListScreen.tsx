@@ -25,18 +25,20 @@ const UserListScreen: FC<any> = (): JSX.Element => {
       <table className='table'>
         <tr className='table-tr'>
           {texte.Users.userList.en.map((td: string) => (
-            <td className='table-td' key={td}>
+            <td className='table-td  table-title' key={td}>
               {td}
             </td>
           ))}
         </tr>
         {users.map((user: any) => (
           <tr className='table-tr' key={user._id}>
-            <td className='table-td'>
+            <td className='table-td font-secondary large xbold'>
               {user.admin ? <BsCheckLg /> : <GiCancel />}
             </td>
-            <td className='table-td'>{user.name}</td>
-            <td className='table-td'>{user.email}</td>
+            <td className='table-td font-secondary large xbold'>{user.name}</td>
+            <td className='table-td font-secondary large xbold'>
+              {user.email}
+            </td>
           </tr>
         ))}
       </table>

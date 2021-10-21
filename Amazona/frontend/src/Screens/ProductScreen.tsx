@@ -32,7 +32,7 @@ const ProductScreen: FC<any> = (props: any): JSX.Element => {
       <Link to='/' className='link'>
         <div className='card__title icon'>
           <i className='fa fa-arrow-left' color='#2c6e49'></i>
-          <h3>{texte.Terms.back.en}</h3>
+          <h3 className='font-button'>{texte.Terms.back.en}</h3>
         </div>
       </Link>
       <div className='card__body'>
@@ -43,19 +43,19 @@ const ProductScreen: FC<any> = (props: any): JSX.Element => {
         </div>
         <div className='half flex columns around'>
           <div className='featured_text'>
-            <h1>{product.brand}</h1>
-            <p className='sub'>{product.name}</p>
-            <p className='price'>${product.price}</p>
+            <h1 className='font-secondary '>{product.brand}</h1>
+            <p className='sub font-primary'>{product.name}</p>
+            <p className='price font-secondary bold'>${product.price}</p>
           </div>
-          <div className='description'>
+          <div className='description font-secondary'>
             <p>{product.description}</p>
           </div>
           {product.countInStock > 0 ? (
             <div className='row'>
-              <span className='stock'>
+              <span className='stock large'>
                 <i className='fa fa-pen'></i> {texte.Stock.in_stock.en}
               </span>
-              <div className='font-list'>
+              <div>
                 <select
                   value={qty}
                   onChange={(e) => {
@@ -82,7 +82,7 @@ const ProductScreen: FC<any> = (props: any): JSX.Element => {
               rating={product.rating}
               numReviews={product.numReviews}
             ></Rating>
-            <span>
+            <span className='font-secondary xlarge bold'>
               {product.numReviews} {texte.Terms.reviews.en}{' '}
             </span>
           </div>
@@ -90,6 +90,7 @@ const ProductScreen: FC<any> = (props: any): JSX.Element => {
         <div className='action'>
           <button
             type='button'
+            className='primary'
             onClick={handleAddtoCart}
             disabled={product.countInStock === 0}
           >

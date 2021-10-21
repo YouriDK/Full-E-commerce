@@ -1,13 +1,51 @@
+/* * Police du texte button * */
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+/* * Police du texte Primaire * */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&display=swap');
+/* * Police du texte secondaire * */
+@import url('https://fonts.googleapis.com/css2?family=Scheherazade+New&display=swap');
 /* * Police du Site * */
 @import url('https://fonts.googleapis.com/css2?family=Rampart+One&display=swap');
 /** Police du footer **/
 @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+/** font-table**/
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+/* font input label*/
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500&display=swap');
+
+label span,
+.table-title {
+  font-family: 'Cinzel', serif;
+  font-weight: 600;
+}
+.font-button {
+  font-family: 'Fredoka One', cursive;
+  font-size: large;
+}
+.font-secondary {
+  font-family: 'Scheherazade New', serif;
+}
 .font-list {
   background-color: var(--ligth-bg);
 }
 .font-footer {
   font-family: 'Fredoka One', cursive;
   font-size: x-large;
+}
+.font-primary {
+  font-family: 'Playfair Display', serif;
+}
+.xlarge {
+  font-size: x-large;
+}
+.bold {
+  font-weight: 400;
+}
+.xbold {
+  font-weight: 600;
+}
+.large {
+  font-size: large;
 }
 .font-title {
   font-family: 'RocknRoll One', sans-serif;
@@ -16,6 +54,7 @@ html {
   font-size: 62.5%; /* 16px x 62.5 = 10px = 1rem */
   box-sizing: border-box;
 }
+
 body {
   margin: 0;
   height: 100vh;
@@ -106,17 +145,30 @@ button {
 }
 input:hover,
 select:hover,
-textarea:hover,
-button:hover {
-  border: 0.1rem var(--ligth-bg) solid;
+textarea:hover {
+  border: 0.1rem var(--clear-black) solid;
+}
+
+button.primary:hover {
+  background-color: var(--secondary2);
+  color: var(--primary2);
 }
 button.primary {
   background-color: var(--primary2);
-  font-family: 'RocknRoll One', sans-serif;
+  color: var(--secondary2);
+  font-family: 'Fredoka One', cursive;
+  font-size: large;
 }
+button.secondary:hover {
+  background-color: var(--primary2);
+  color: var(--secondary2);
+}
+
 button.secondary {
   background-color: var(--secondary2);
-  font-family: 'RocknRoll One', sans-serif;
+  color: var(--primary2);
+  font-family: 'Fredoka One', cursive;
+  font-size: large;
 }
 button.block {
   width: 100%;
@@ -199,7 +251,7 @@ a.brand {
   min-width: 12rem;
   padding: 1rem;
   z-index: 1;
-  background-color: #203040;
+  background-color: var(--secondary2);
   margin: 0;
   margin-top: 0.4rem;
   border-radius: 0.5rem;

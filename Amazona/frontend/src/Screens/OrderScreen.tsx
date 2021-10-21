@@ -91,28 +91,48 @@ const OrderScreen: FC<any> = (props: any): JSX.Element => {
         <div className='header'>Shipping</div>
         <table className='table'>
           <tr className='table-tr'>
-            <td className='table-td'>Name</td>
-            <td className='table-td'> {order.shippingAddress.fullName}</td>
+            <td className='table-td font-secondary large xbold'>Name</td>
+            <td className='table-td font-secondary large xbold'>
+              {' '}
+              {order.shippingAddress.fullName}
+            </td>
           </tr>
           <tr className='table-tr'>
-            <td className='table-td'>Address</td>
-            <td className='table-td'> {order.shippingAddress.address}</td>
+            <td className='table-td font-secondary large xbold'>Address</td>
+            <td className='table-td font-secondary large xbold'>
+              {' '}
+              {order.shippingAddress.address}
+            </td>
           </tr>
           <tr className='table-tr'>
-            <td className='table-td'>City</td>
-            <td className='table-td'> {order.shippingAddress.city}</td>
+            <td className='table-td font-secondary large xbold'>City</td>
+            <td className='table-td font-secondary large xbold'>
+              {' '}
+              {order.shippingAddress.city}
+            </td>
           </tr>
           <tr className='table-tr'>
-            <td className='table-td'>Postal Code</td>
-            <td className='table-td'> {order.shippingAddress.postalCode}</td>
+            <td className='table-td font-secondary large xbold'>Postal Code</td>
+            <td className='table-td font-secondary large xbold'>
+              {' '}
+              {order.shippingAddress.postalCode}
+            </td>
           </tr>
           <tr className='table-tr'>
-            <td className='table-td'>Country</td>
-            <td className='table-td'> {order.shippingAddress.country}</td>
+            <td className='table-td font-secondary large xbold'>Country</td>
+            <td className='table-td font-secondary large xbold'>
+              {' '}
+              {order.shippingAddress.country}
+            </td>
           </tr>
           <tr className='table-tr'>
-            <td className='table-td'>Payment Method</td>
-            <td className='table-td'> {order.paymentMethod}</td>
+            <td className='table-td font-secondary large xbold'>
+              Payment Method
+            </td>
+            <td className='table-td font-secondary large xbold'>
+              {' '}
+              {order.paymentMethod}
+            </td>
           </tr>
         </table>
         <div>
@@ -131,14 +151,17 @@ const OrderScreen: FC<any> = (props: any): JSX.Element => {
           {order.orderItems.length === 0 ? (
             <tr className='table-tr'>
               <td className='table-td'>Cart is Empty</td>
-              <td className='table-td'> Go Shopping</td>
+              <Link to='/' className='table-td link font-secondary large xbold'>
+                {' '}
+                Go Shopping
+              </Link>
             </tr>
           ) : (
             <>
               <tr className='table-tr'>
-                <td className='table-td'>Item</td>
-                <td className='table-td'> Name</td>
-                <td className='table-td'> Cost</td>
+                <td className='table-td font-secondary large xbold'>Item</td>
+                <td className='table-td font-secondary large xbold'> Name</td>
+                <td className='table-td font-secondary large xbold'> Cost</td>
               </tr>
               {order.orderItems.map((item: any) => (
                 <tr className='table-tr'>
@@ -148,9 +171,14 @@ const OrderScreen: FC<any> = (props: any): JSX.Element => {
                   </td>
                   <td className='table-td'>
                     {' '}
-                    <Link to={'/product/' + item.product}>{item.name}</Link>
+                    <Link
+                      className='link font-secondary large xbold'
+                      to={'/product/' + item.product}
+                    >
+                      {item.name}
+                    </Link>
                   </td>
-                  <td className='table-td'>
+                  <td className='table-td font-secondary large xbold'>
                     {' '}
                     {item.qty} x ${item.price} = ${item.qty * item.price}
                   </td>
@@ -165,20 +193,30 @@ const OrderScreen: FC<any> = (props: any): JSX.Element => {
           <div className='header'>Order Summary</div>
           <table className='table'>
             <tr className='table-tr'>
-              <td className='table-td'>Items</td>
-              <td className='table-td'>${order.itemsPrice}</td>
+              <td className='table-td font-secondary large xbold'>Items</td>
+              <td className='table-td font-secondary large xbold'>
+                ${order.itemsPrice}
+              </td>
             </tr>
             <tr className='table-tr'>
-              <td className='table-td'>Shipping</td>
-              <td className='table-td'>${order.shippingPrice}</td>
+              <td className='table-td font-secondary large xbold'>Shipping</td>
+              <td className='table-td font-secondary large xbold'>
+                ${order.shippingPrice}
+              </td>
             </tr>
             <tr className='table-tr'>
-              <td className='table-td'>Tax</td>
-              <td className='table-td'>${order.taxPrice}</td>
+              <td className='table-td font-secondary large xbold'>Tax</td>
+              <td className='table-td font-secondary large xbold'>
+                ${order.taxPrice}
+              </td>
             </tr>
             <tr className='table-tr'>
-              <td className='table-td'>Order Total</td>
-              <td className='table-td'>${order.totalPrice}</td>
+              <td className='table-td font-secondary large xbold'>
+                Order Total
+              </td>
+              <td className='table-td font-secondary large xbold'>
+                ${order.totalPrice}
+              </td>
             </tr>
           </table>
           <div>

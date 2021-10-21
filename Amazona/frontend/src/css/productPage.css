@@ -11,16 +11,23 @@
 .card .card__title {
   display: flex;
   align-items: center;
-  padding: 30px 40px;
+  padding: 5px 50px;
+  margin: 15px;
+  border-radius: 25px;
+  background-color: var(--primary2);
+}
+.card .card__title:hover {
+  background-color: var(--secondary2);
+  color: var(--primary2);
 }
 .card .card__title h3 {
   flex: 0 1 200px;
   text-align: right;
   margin: 0;
-  color: #252525;
-  font-family: sans-serif;
+  /* color: #252525; */
+  /* font-family: sans-serif;
   font-weight: 600;
-  font-size: 20px;
+  font-size: 20px; */
   text-transform: uppercase;
 }
 .card .card__title .icon {
@@ -53,9 +60,10 @@
 .card .card__body .featured_text h1 {
   margin: 0;
   padding: 0;
-  font-weight: 800;
-  font-family: 'Montserrat', sans-serif;
+  /* font-weight: 800;
+  font-family: 'Montserrat', sans-serif;*/
   font-size: 64px;
+  text-transform: uppercase;
   line-height: 50px;
   color: var(--clear-black);
 }
@@ -64,15 +72,15 @@
   padding: 0;
 }
 .card .card__body .featured_text p.sub {
-  font-family: 'Montserrat', sans-serif;
+  /* font-family: 'Montserrat', sans-serif; */
   font-size: 26px;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   color: var(--grey);
   font-weight: 300;
   margin-bottom: 5px;
 }
 .card .card__body .featured_text p.price {
-  font-family: 'Fjalla One', sans-serif;
+  /* font-family: 'Fjalla One', sans-serif; */
   color: var(--clear-black);
   font-size: 26px;
 }
@@ -91,10 +99,10 @@
 }
 .card .card__body .description p {
   margin: 0;
-  font-family: 'Open Sans', sans-serif;
+  /* font-family: 'Open Sans', sans-serif; */
   font-weight: 300;
   line-height: 27px;
-  font-size: 16px;
+  font-size: 24px;
   color: #555;
 }
 .card .card__body span.stock {
@@ -166,7 +174,7 @@
   border: 1px solid var(--secondary2);
   padding: 14px 30px;
   border-radius: 200px;
-  color: var(--clear-black);
+  color: var(--secondary2);
   background: var(--primary2);
   font-size: 16px;
   transition: 200ms;

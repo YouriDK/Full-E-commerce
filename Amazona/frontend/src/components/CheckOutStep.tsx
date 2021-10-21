@@ -7,12 +7,12 @@ interface StepProps {
 }
 const styleConf = {
   activeBgColor: '#ff9f1c',
-  activeTextColor: '#390099',
+  activeTextColor: '#2c6e49',
   labelFontSize: '1.5em',
   completedBgColor: '#ff9f1c',
-  completedTextColor: '#390099',
+  completedTextColor: '#2c6e49',
   inactiveBgColor: '#a19f9f',
-  inactiveTextColor: '#390099',
+  inactiveTextColor: '#000000',
   size: '2em',
   circleFontSize: '1.2em',
   borderRadius: '60px',
@@ -20,7 +20,12 @@ const styleConf = {
 };
 const CheckOutStep: FC<StepProps> = ({ step, error }): JSX.Element => {
   return (
-    <Stepper activeStep={step} connectorStateColors styleConfig={styleConf}>
+    <Stepper
+      activeStep={step}
+      className='font-button'
+      connectorStateColors
+      styleConfig={styleConf}
+    >
       <Step label='Sign In' />
       <Step label='Shipping' />
       <Step label='Payment' />

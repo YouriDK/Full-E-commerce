@@ -45,7 +45,9 @@ const App: FC<any> = (): JSX.Element => {
           </div>
           <div>
             <Link to='/cart/:id?'>
-              {texte.Cart.cart.en}
+              <span className='font-secondary xlarge'>
+                {texte.Cart.cart.en}
+              </span>
               {cartItems.length > 0 && (
                 <span className='badge'>{cartItems.length}</span>
               )}
@@ -53,44 +55,66 @@ const App: FC<any> = (): JSX.Element => {
             {'  '}
             {userInfo ? (
               <div className='dropdown'>
-                <Link to='#'>
+                <Link to='#' className='font-secondary xlarge'>
                   {userInfo.name} <i className='fa fa-caret-down'></i>{' '}
                 </Link>
                 <ul className='dropdown-content'>
                   <li>
-                    <Link to='/profile'> {texte.Terms.user.en}</Link>
+                    <Link to='/profile' className='font-secondary large'>
+                      {' '}
+                      {texte.Terms.user.en}
+                    </Link>
                   </li>
 
                   <li>
-                    <Link to='#signout' onClick={signoutHandler}>
+                    <Link
+                      to='#signout'
+                      className='font-secondary large'
+                      onClick={signoutHandler}
+                    >
                       Sign Out
                     </Link>
                   </li>
                 </ul>
               </div>
             ) : (
-              <Link to='/signin'> {texte.Terms.sign.en}</Link>
+              <Link to='/signin' className='font-secondary'>
+                {' '}
+                {texte.Terms.sign.en}
+              </Link>
             )}
             {userInfo && userInfo.admin && (
-              <div className='dropdown'>
+              <div className='dropdown font-secondary xlarge'>
                 <Link to='#admin'>
                   {' '}
-                  Admin <i className='fa fa-caret-down'></i>
+                  Admin
+                  <i className='fa fa-caret-down'></i>
                 </Link>
 
                 <ul className='dropdown-content'>
                   {' '}
                   <li>
-                    <Link to='/dashboard'> Dashboard</Link>
+                    <Link to='/dashboard' className='font-secondary large'>
+                      {' '}
+                      Dashboard
+                    </Link>
                   </li>
                   <li>
-                    <Link to='/orderlist'> Orders</Link>
+                    <Link to='/orderlist' className='font-secondary large'>
+                      {' '}
+                      Orders
+                    </Link>
                   </li>
                   <li>
-                    <Link to='/products'>Products</Link>
+                    <Link to='/products' className='font-secondary large'>
+                      Products
+                    </Link>
                   </li>
                   <li>
-                    <Link to='/userlist'> Users</Link>
+                    <Link to='/userlist' className='font-secondary large'>
+                      {' '}
+                      Users
+                    </Link>
                   </li>
                 </ul>
               </div>

@@ -38,24 +38,30 @@ const OrderListScreen: FC<any> = (props: any): JSX.Element => {
       <div className='header'>Orders</div>
       <table className='table'>
         <tr className='table-tr'>
-          {texte.Ordre.order_list.en.map((td: string) => (
-            <td className='table-td' key={1}>
+          {texte.Ordre.order_list.en.map((td: string, index: number) => (
+            <td className='table-td table-title' key={index}>
               {td}
             </td>
           ))}
         </tr>
         {orders.map((order: any) => (
           <tr className='table-tr' key={order._id}>
-            <td className='table-td'>{order._id}</td>
-            <td className='table-td'>{order.user.name}</td>
-            <td className='table-td'>{order.createdAt.substring(0, 10)}</td>
-            <td className='table-td'>{order.totalPrice.toFixed(2)}</td>
-            <td className='table-td'>
+            <td className='table-td font-secondary large xbold'>{order._id}</td>
+            <td className='table-td font-secondary large xbold'>
+              {order.user.name}
+            </td>
+            <td className='table-td font-secondary large xbold'>
+              {order.createdAt.substring(0, 10)}
+            </td>
+            <td className='table-td font-secondary large xbold '>
+              {order.totalPrice.toFixed(2)}
+            </td>
+            <td className='table-td font-secondary large xbold'>
               {order.isPaid
                 ? order.paidAt.substring(0, 10)
                 : texte.Paiement.unpay.en}
             </td>
-            <td className='table-td'>
+            <td className='table-td font-secondary large xbold'>
               {order.isDelivered
                 ? order.isDeliveredAt.substring(1, 10)
                 : texte.Ordre.notdeli.en}
@@ -64,11 +70,14 @@ const OrderListScreen: FC<any> = (props: any): JSX.Element => {
               <>
                 <Button
                   onClick={() => props.history.push(`/order/${order._id}`)}
-                  color='info'
+                  className='primary'
                 >
                   <ImWrench size={20} />
                 </Button>
-                <Button onClick={() => deleteHandler(order)} color='info'>
+                <Button
+                  className='secondary'
+                  onClick={() => deleteHandler(order)}
+                >
                   <MdRestoreFromTrash size={20} />
                 </Button>
               </>

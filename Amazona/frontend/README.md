@@ -74,3 +74,7 @@ git push heroku master
   Refaire Garde robes
   Travailler le header & footer (Nom du site et couleur)
   Nettoyer CSS
+
+- police titre tableau
+- police élément tableau
+- police

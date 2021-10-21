@@ -189,12 +189,14 @@ const ProductsScreen: FC<any> = (props: any): JSX.Element => {
           <table className='table'>
             <tr className='table-tr'>
               {texte.Products.en.map((td: string) => (
-                <td className='table-td'>{td}</td>
+                <td className='table-td table-title'>{td}</td>
               ))}
             </tr>
             {products.map((product: any) => (
               <tr className='table-tr' key={product._id}>
-                <td className='table-td'>{product.name}</td>
+                <td className='table-td font-secondary large xbold'>
+                  {product.name}
+                </td>
                 <td className='table-td'>
                   {' '}
                   <img
@@ -204,15 +206,27 @@ const ProductsScreen: FC<any> = (props: any): JSX.Element => {
                   />
                 </td>
 
-                <td className='table-td'>{product.price}</td>
-                <td className='table-td'>{product.category}</td>
-                <td className='table-td'>{product.brand}</td>
+                <td className='table-td font-secondary large xbold'>
+                  ${product.price}
+                </td>
+                <td className='table-td font-secondary large xbold'>
+                  {product.category}
+                </td>
+                <td className='table-td font-secondary large xbold'>
+                  {product.brand}
+                </td>
                 <td className='table-td'>
                   <>
-                    <Button onClick={() => openModal(product)} color='info'>
+                    <Button
+                      onClick={() => openModal(product)}
+                      className='primary'
+                    >
                       <AiTwotoneEdit size={20} />
                     </Button>
-                    <Button onClick={() => deleteHandler(product)} color='info'>
+                    <Button
+                      onClick={() => deleteHandler(product)}
+                      className='secondary'
+                    >
                       <MdRestoreFromTrash size={20} />
                     </Button>
                   </>

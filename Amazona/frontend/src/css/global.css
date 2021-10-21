@@ -123,3 +123,6 @@ select.primary {
   text-decoration: none;
   color: var(--primary2);
 }
+.fa-arrow-left {
+  font-size: x-large !important;
+}

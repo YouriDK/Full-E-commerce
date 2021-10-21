@@ -36,12 +36,12 @@ const CartScreen: FC<any> = (props: any): JSX.Element => {
         <MessageBox variant='info' text={texte.Panier.vide.en} />
       ) : (
         <div className='table-users' style={{ width: '80%' }}>
-          <div className='header'>{texte.Cart.cart.en}</div>
+          <div className='header '>{texte.Cart.cart.en}</div>
 
           <table className='table'>
-            <tr className='table-tr'>
+            <tr className='table-tr '>
               {texte.Cart.tab.en.map((td: string) => (
-                <td className='table-td'>{td}</td>
+                <td className='table-td font-secondary xlarge xbold'>{td}</td>
               ))}
             </tr>
 
@@ -51,13 +51,17 @@ const CartScreen: FC<any> = (props: any): JSX.Element => {
                   <img src={item.image} alt={item.name} className='small' />
                 </td>
                 <td className='table-td'>
-                  <Link to={'/product/' + item.product}>{item.name}</Link>
+                  <Link
+                    to={'/product/' + item.product}
+                    className='link font-secondary large xbold'
+                  >
+                    {item.name}
+                  </Link>
                 </td>
                 <td className='table-td'>
-                  {console.log(index)}
                   <select
                     value={item.qty}
-                    className={`font-list ${
+                    className={`font-secondary large xbold ${
                       index % 2 === 0 ? 'lightbg' : 'primary'
                     }`}
                     onChange={(e) =>
@@ -79,7 +83,7 @@ const CartScreen: FC<any> = (props: any): JSX.Element => {
                     <BsTrash size={25} color='#ffffff' />
                   </Button>
                 </td>
-                <td className='table-td'>
+                <td className='table-td font-secondary large xbold'>
                   {item.price}
                   {texte.Terms.devise.en}
                 </td>
@@ -89,11 +93,11 @@ const CartScreen: FC<any> = (props: any): JSX.Element => {
           <div className='header'>{texte.Terms.total}</div>
           <table className='table'>
             <tr className='table-tr'>
-              <td className='table-td'>
+              <td className='table-td font-secondary large xbold'>
                 {cartItems.reduce((a: any, c: any) => a + parseInt(c.qty), 0)}{' '}
                 Items
               </td>
-              <td className='table-td'>
+              <td className='table-td font-secondary large xbold'>
                 {cartItems.reduce((a: any, c: any) => a + c.price * c.qty, 0)}
                 {texte.Terms.devise.en}
               </td>

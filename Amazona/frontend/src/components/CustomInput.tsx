@@ -34,9 +34,10 @@ const CustomInput: FC<InputProps> = ({
   ) : (
     <div>
       <label htmlFor={name}>
-        <strong>{label}</strong>
+        <span>{label}</span>
       </label>
       <input
+        className='font-secondary bold'
         value={variable}
         type={type}
         name={name}

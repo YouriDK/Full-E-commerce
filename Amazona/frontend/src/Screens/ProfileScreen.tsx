@@ -4,6 +4,7 @@ import { detailsUser, updateUserProfile } from '../actions/userActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MesssageBox';
 import { USER_UPDATE_RESET } from '../constants/userConstants';
+import CustomInput from '../components/CustomInput';
 
 const ProfileScreen: FC<any> = (props: any): JSX.Element => {
   const [name, setName] = useState('');
@@ -48,7 +49,10 @@ const ProfileScreen: FC<any> = (props: any): JSX.Element => {
       <form className='form' onSubmit={submitHandler}>
         <div>
           {' '}
-          <h1 className='font-list text-center'> User Profile </h1>
+          <h1 className='text-center font-primary xlarge xbold'>
+            {' '}
+            User Profile{' '}
+          </h1>
         </div>
 
         {loading ? (
@@ -65,48 +69,41 @@ const ProfileScreen: FC<any> = (props: any): JSX.Element => {
                 text=' Profile updated successfully'
               />
             )}
-            <div>
-              <label htmlFor='name'>Name</label>
-              <input
-                id='name'
-                type='text'
-                placeholder='Enter name'
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              ></input>
-            </div>
-            <div>
-              <label htmlFor='email'>Email</label>
-              <input
-                id='email'
-                type='text'
-                placeholder='Enter email'
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              ></input>
-            </div>
-            <div>
-              <label htmlFor='password'>Password</label>
-              <input
-                id='password'
-                type='password'
-                placeholder='Enter password'
-                onChange={(e) => setPassword(e.target.value)}
-              ></input>
-            </div>
-            <div>
-              <label htmlFor='confirmPassword'>Confirm Password</label>
-              <input
-                id='confirmPassword'
-                type='password'
-                placeholder='Enter confirm password'
-                onChange={(e) => setConfirmPassword(e.target.value)}
-              ></input>
-            </div>
+            <CustomInput
+              variable={name}
+              name='name'
+              label='Name'
+              type='text'
+              change={setName}
+            />
+            <CustomInput
+              variable={email}
+              name='email'
+              label='Email'
+              type='email'
+              change={setEmail}
+            />
+            <CustomInput
+              variable={password}
+              name='password'
+              label='Password'
+              type='password'
+              change={setPassword}
+            />
+            <CustomInput
+              variable={confirmPassword}
+              name='confirmPassword'
+              label='Confirm Password'
+              type='password'
+              change={setConfirmPassword}
+            />
             <div>
               <label />
-              <button className='primary' type='submit'>
-                Update{' '}
+              <button
+                className='primary block font-secondary large xbold'
+                type='submit'
+              >
+                UPDATE{' '}
               </button>
             </div>{' '}
           </>

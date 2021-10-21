@@ -75,7 +75,7 @@ const ShippingScreen: FC<any> = (props: any): JSX.Element => {
         />
         <br />
         <div>
-          <Button type='submit' className=' button primary'>
+          <Button type='submit' className='primary '>
             Continue
           </Button>
         </div>

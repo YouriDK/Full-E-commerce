@@ -21,10 +21,14 @@ const Product: FC<Props> = ({ product }: Props): JSX.Element => {
                 />
                 <div className='img-info'>
                   <div className='info-inner'>
-                    <span className='p-name'>{product.name}</span>
-                    <span className='p-company'>{product.brand}</span>
+                    <span className='p-name font-primary xlarge bold'>
+                      {product.name}
+                    </span>
+                    <span className='p-company font-secondary'>
+                      {product.brand}
+                    </span>
                   </div>
-                  <div className='a-size'>
+                  <div className='a-size font-primary large bold'>
                     {product.numReviews} {texte.Terms.reviews.en}
                     <Rating
                       rating={product.rating}
@@ -42,7 +46,9 @@ const Product: FC<Props> = ({ product }: Props): JSX.Element => {
               <a className='cart' href={'/cart/' + product._id + '?qty=' + 1}>
                 <span className='price'>{product.price}</span>
                 <span className='add-to-cart'>
-                  <span className='txt'>{texte.Panier.add.en}</span>
+                  <span className='txt font-secondary large'>
+                    {texte.Panier.add.en}
+                  </span>
                 </span>
               </a>
             </div>

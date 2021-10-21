@@ -89,7 +89,7 @@ const RegisterScreen: FC<any> = (props: any): JSX.Element => {
           <Button>
             <Link
               to={redirect === '/' ? 'signin' : 'signin?redirect=' + redirect}
-              className='button secondary text-center'
+              className='button secondary text-center font-secondary xlarge xbold'
             >
               {texte.Terms.sign.en}
             </Link>

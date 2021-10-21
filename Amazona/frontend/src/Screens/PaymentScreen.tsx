@@ -23,11 +23,13 @@ const PaymentScreen: FC<any> = (props: any): JSX.Element => {
 
       <form className='form' onSubmit={submitHandler}>
         <div>
-          <h2 className='text-center'>Payment method</h2>
+          <h2 className='text-center font-secondary xlarge xbold'>
+            Payment method
+          </h2>
         </div>
 
         <div>
-          <div className='text-center'>
+          <div className='text-center '>
             <input
               type='radio'
               value='paypal'
@@ -37,7 +39,9 @@ const PaymentScreen: FC<any> = (props: any): JSX.Element => {
               id='paymentMethod'
               onChange={(e) => setPaymentMethod(e.target.value)}
             ></input>
-            <label htmlFor='paymentMethod'>Paypal</label>
+            <label className='xlarge bold' htmlFor='paymentMethod'>
+              <span>Paypal</span>
+            </label>
           </div>
           <br />
           <div className='text-center'>
@@ -49,12 +53,17 @@ const PaymentScreen: FC<any> = (props: any): JSX.Element => {
               required
               onChange={(e) => setPaymentMethod(e.target.value)}
             ></input>
-            <label htmlFor='paymentMethod'>Stripe</label>
+            <label className='xlarge bold' htmlFor='paymentMethod'>
+              <span>Stripe</span>
+            </label>
           </div>
         </div>
         <br />
         <div>
-          <button type='submit' className=' button primary'>
+          <button
+            type='submit'
+            className=' button primary font-primary large xbold'
+          >
             Continue{' '}
           </button>
         </div>
