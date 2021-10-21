@@ -26,13 +26,7 @@ const App: FC<any> = (): JSX.Element => {
   const userSignin = useSelector((state: any) => state.userSignin);
   const { userInfo } = userSignin;
   const dispatch = useDispatch();
-  /*
-  const openMenu = () => {
-    document.querySelector(".sidebar").classList.add("open");
-  };
-  const closeMenu = () => {
-    document.querySelector(".sidebar").classList.remove("open");
-  };*/
+
   const signoutHandler = () => {
     dispatch(signout());
   };
@@ -122,7 +116,7 @@ const App: FC<any> = (): JSX.Element => {
 
           <Route path='/' exact={true} component={HomeScreen} />
         </main>
-        <footer className='row center'>
+        <footer className='row center font-footer'>
           Shop X Production YC Developpment
         </footer>
       </div>

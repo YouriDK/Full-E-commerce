@@ -5,7 +5,7 @@ import { Button } from 'reactstrap';
 import { addToCart, removeFromCart } from '../actions/cartActions';
 import MessageBox from '../components/MesssageBox';
 import { texte } from '../data';
-import { MdRestoreFromTrash } from 'react-icons/md';
+import { BsTrash } from 'react-icons/bs';
 
 const CartScreen: FC<any> = (props: any): JSX.Element => {
   const cart = useSelector((state: any) => state.cart);
@@ -45,8 +45,8 @@ const CartScreen: FC<any> = (props: any): JSX.Element => {
               ))}
             </tr>
 
-            {cartItems.map((item: any) => (
-              <tr className='table-tr'>
+            {cartItems.map((item: any, index: number) => (
+              <tr className='table-tr' key={index}>
                 <td className='table-td'>
                   <img src={item.image} alt={item.name} className='small' />
                 </td>
@@ -54,9 +54,12 @@ const CartScreen: FC<any> = (props: any): JSX.Element => {
                   <Link to={'/product/' + item.product}>{item.name}</Link>
                 </td>
                 <td className='table-td'>
+                  {console.log(index)}
                   <select
                     value={item.qty}
-                    className='font-list'
+                    className={`font-list ${
+                      index % 2 === 0 ? 'lightbg' : 'primary'
+                    }`}
                     onChange={(e) =>
                       dispatch(addToCart(item.product, e.target.value))
                     }
@@ -71,9 +74,9 @@ const CartScreen: FC<any> = (props: any): JSX.Element => {
                 <td className='table-td'>
                   <Button
                     onClick={() => removeFromCardHandler(item.product)}
-                    color='danger'
+                    className='secondary'
                   >
-                    <MdRestoreFromTrash size={25} />
+                    <BsTrash size={25} color='#ffffff' />
                   </Button>
                 </td>
                 <td className='table-td'>

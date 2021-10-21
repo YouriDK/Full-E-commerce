@@ -45,7 +45,7 @@ const PlaceOrderScreen: FC<any> = (props: any): JSX.Element => {
   ) : (
     <div style={{ display: 'flex' }}>
       <div className='table-users placeorder-info' style={{ width: 'auto' }}>
-        <div className='header'>Order summary</div>
+        <div className='header'>INTELS</div>
         <table className='table'>
           <tr className='table-tr'>
             <td className='table-td'>Name</td>

@@ -1,11 +1,16 @@
-@import url("https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=RocknRoll+One&display=swap");
-
+/* * Police du Site * */
+@import url('https://fonts.googleapis.com/css2?family=Rampart+One&display=swap');
+/** Police du footer **/
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
 .font-list {
-  font-family: "Shippori Mincho B1", serif;
+  background-color: var(--ligth-bg);
+}
+.font-footer {
+  font-family: 'Fredoka One', cursive;
+  font-size: x-large;
 }
 .font-title {
-  font-family: "RocknRoll One", sans-serif;
+  font-family: 'RocknRoll One', sans-serif;
 }
 html {
   font-size: 62.5%; /* 16px x 62.5 = 10px = 1rem */
@@ -27,16 +32,16 @@ body {
 .grid-container {
   display: grid;
   grid-template-areas:
-    "header"
-    "main"
-    "footer";
+    'header'
+    'main'
+    'footer';
   grid-template-columns: 1fr;
   grid-template-rows: 5rem 1fr 5rem;
   height: 100%;
 }
 header {
   grid-area: header;
-  background-color: #203040;
+  background-color: var(--secondary2);
 }
 main {
   grid-area: main;
@@ -44,8 +49,8 @@ main {
 }
 footer {
   grid-area: footer;
-  background-color: #203040;
-  color: #ffffff;
+  background-color: var(--secondary2);
+  color: var(--white);
 }
 /* Common */
 h1 {
@@ -61,7 +66,7 @@ a {
   text-decoration: none;
 }
 a:hover {
-  color: #ff8000;
+  color: var(--dark-orange);
 }
 ul {
   padding: 0;
@@ -75,13 +80,13 @@ li {
 }
 
 th {
-  font-family: "RocknRoll One", sans-serif;
+  font-family: 'RocknRoll One', sans-serif;
 }
 td {
-  font-family: "Shippori Mincho B1", serif;
+  font-family: 'Shippori Mincho B1', serif;
 }
 label {
-  font-family: "RocknRoll One", sans-serif;
+  font-family: 'RocknRoll One', sans-serif;
 }
 input,
 select,
@@ -103,28 +108,33 @@ input:hover,
 select:hover,
 textarea:hover,
 button:hover {
-  border: 0.1rem #404040 solid;
+  border: 0.1rem var(--ligth-bg) solid;
 }
 button.primary {
-  background-color: #f0c040;
-  font-family: "RocknRoll One", sans-serif;
+  background-color: var(--primary2);
+  font-family: 'RocknRoll One', sans-serif;
+}
+button.secondary {
+  background-color: var(--secondary2);
+  font-family: 'RocknRoll One', sans-serif;
 }
 button.block {
   width: 100%;
 }
 /* Header */
 header a {
-  color: #ffffff;
+  color: var(--white);
   padding: 1rem;
 }
 a.brand {
-  color: #ffffff;
+  color: var(--white);
   font-size: 3rem;
   font-weight: bold;
+  font-family: 'Rampart One', cursive;
 }
 .badge {
-  background-color: #f02020;
-  color: #ffffff;
+  background-color: var(--red);
+  color: var(--white);
   border-radius: 50%;
   padding: 0.2rem 0.7rem;
   font-size: 1.4rem;
@@ -136,40 +146,9 @@ a.brand {
   justify-content: space-between;
   align-items: center;
 }
-.row.center {
-  justify-content: center;
-}
-.row.top {
-  align-items: flex-start;
-}
-.col-1 {
-  flex: 1 1 25rem;
-}
-.col-2 {
-  flex: 2 1 50rem;
-}
-.min-30 {
-  min-width: 30rem;
-}
-
-/* Image */
-img {
-  border-radius: 0.5rem;
-}
-img.small {
-  max-width: 5rem;
-  width: 100%;
-}
-img.medium {
-  max-width: 29rem;
-  width: 100%;
-}
-img.large {
-  width: 100%;
-}
 
 /* Card */
-.card {
+/* .card {
   border: 0.1rem #c0c0c0 solid;
   background-color: #f8f8f8;
   border-radius: 0.5rem;
@@ -183,26 +162,17 @@ img.large {
 }
 .price {
   font-size: 2rem;
-}
+} */
 /* Rating */
 .rating span {
-  color: #f0c040;
+  color: var(--dark-orange);
   margin: 0.1rem;
 }
 .rating span:last-child {
   color: #404040;
 }
 /* Alert */
-.loading {
-  display: block !important ;
-}
 
-.success {
-  color: #20a020;
-}
-.danger {
-  color: #a02020;
-}
 .alert {
   padding: 1rem;
   border: 0.1rem solid transparent;
@@ -238,21 +208,6 @@ img.large {
   display: block;
 }
 
-.full-width {
-  width: 100%;
-}
-
-.delay {
-  margin-left: 15px;
-}
-
-.center {
-  text-align: center;
-}
-.margin {
-  margin: auto;
-}
-
 strong {
-  font-family: "RocknRoll One", sans-serif;
+  font-family: 'RocknRoll One', sans-serif;
 }

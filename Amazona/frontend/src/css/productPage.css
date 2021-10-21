@@ -25,16 +25,16 @@
 }
 .card .card__title .icon {
   flex: 1 0 10px;
-  background: #115dd8;
-  color: #fff;
+  background: var(--secondary2);
+  color: var(--white);
   padding: 10px 10px;
   transition: 200ms;
 }
 .card .card__title .icon > a {
-  color: #fff;
+  color: var(--white);
 }
 .card .card__title .icon:hover {
-  background: #252525;
+  background: var(--clear-black);
 }
 .card .card__body {
   padding: 0 40px;
@@ -57,7 +57,7 @@
   font-family: 'Montserrat', sans-serif;
   font-size: 64px;
   line-height: 50px;
-  color: #181e28;
+  color: var(--clear-black);
 }
 .card .card__body .featured_text p {
   margin: 0;
@@ -67,13 +67,13 @@
   font-family: 'Montserrat', sans-serif;
   font-size: 26px;
   text-transform: uppercase;
-  color: #686e77;
+  color: var(--grey);
   font-weight: 300;
   margin-bottom: 5px;
 }
 .card .card__body .featured_text p.price {
   font-family: 'Fjalla One', sans-serif;
-  color: #252525;
+  color: var(--clear-black);
   font-size: 26px;
 }
 .card .card__body .image {
@@ -82,7 +82,7 @@
 }
 .card .card__body .image img {
   display: block;
-  max-width: 100%;
+  max-width: 70%;
   height: auto;
 }
 .card .card__body .description {
@@ -100,13 +100,13 @@
 .card .card__body span.stock {
   font-family: 'Montserrat', sans-serif;
   font-weight: 600;
-  color: #a1cc16;
+  color: var(--secondary2);
 }
 .card .card__body span.no_stock {
   font-family: 'Montserrat', sans-serif;
   font-weight: 600;
   text-align: center;
-  color: #cc1616;
+  color: var(--basic);
 }
 .card .card__body .reviews .stars {
   display: inline-block;
@@ -117,13 +117,13 @@
   display: inline-block;
 }
 .card .card__body .reviews .stars > li .fa {
-  color: #f7c01b;
+  color: var(--dark-orange);
 }
 .card .card__body .reviews > span {
   font-family: 'Open Sans', sans-serif;
   font-size: 14px;
   margin-left: 5px;
-  color: #555;
+  color: var(--grey);
 }
 .card .card__footer {
   padding: 30px 40px;
@@ -140,7 +140,7 @@
   left: 40px;
   width: calc(100% - 40px);
   height: 3px;
-  background: #115dd8;
+  background: var(--secondary2);
 }
 .card .card__footer .recommend {
   flex: 1 0 10px;
@@ -151,7 +151,7 @@
   text-transform: uppercase;
   font-weight: 600;
   font-size: 14px;
-  color: #555;
+  color: var(--grey);
 }
 .card .card__footer .recommend h3 {
   margin: 0;
@@ -159,20 +159,19 @@
   font-family: 'Montserrat', sans-serif;
   font-weight: 600;
   text-transform: uppercase;
-  color: #115dd8;
+  color: var(--intermediate);
 }
 .card .card__footer .action button {
   cursor: pointer;
-  border: 1px solid #115dd8;
+  border: 1px solid var(--secondary2);
   padding: 14px 30px;
   border-radius: 200px;
-  color: #fff;
-  background: #115dd8;
-  font-family: 'Open Sans', sans-serif;
+  color: var(--clear-black);
+  background: var(--primary2);
   font-size: 16px;
   transition: 200ms;
 }
 .card .card__footer .action button:hover {
-  background: #fff;
-  color: #115dd8;
+  background: var(--secondary2);
+  color: var(--primary2);
 }

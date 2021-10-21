@@ -29,9 +29,9 @@ const ProductScreen: FC<any> = (props: any): JSX.Element => {
     <MessageBox variant='danger' text={error} />
   ) : (
     <div className='card'>
-      <Link to='/'>
+      <Link to='/' className='link'>
         <div className='card__title icon'>
-          <i className='fa fa-arrow-left'></i>
+          <i className='fa fa-arrow-left' color='#2c6e49'></i>
           <h3>{texte.Terms.back.en}</h3>
         </div>
       </Link>

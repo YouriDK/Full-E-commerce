@@ -55,12 +55,22 @@ expressAsyncHandler permet de ne pas utiliser de try catch et sauver des lignes 
 git add .
 git push heroku master
 
-- Mettre mes vetements futurs dans le lot
+- Esthétiques :
+  Rétrécir taille cartscreen (Done)
+  Mettre mes vetements futurs dans le lot
+  Choisir les couleurs thème du site
+  Chercher des polices aussi
 
-- Remplacer les buttons par Button
+- Fonctionnels
+  Configuration double langage
+  Rajouter un système de navigation sur le WF
+  Payment test Paypal
+  Système de livraision et validation de Livraison
+  Changer les Input de Profil Screen
 
-- Le placeholder de Shipping screen est a configurer pour les deux langues
-- Choisir les couleurs du WF
-- Rajouter un système de navigation sur le WF
-
-- Refaire Garde robes
+- Optimisation :
+  Remplacer les buttons par Button
+  Mettre un mode sombre
+  Refaire Garde robes
+  Travailler le header & footer (Nom du site et couleur)
+  Nettoyer CSS
