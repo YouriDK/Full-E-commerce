@@ -5,10 +5,9 @@
   "description": "E-shop to learn MERN stack",
   "main": "index.js",
   "scripts": {
-    
-    "build" : "cd ./frontend && npm run build",
     "install-client" : "cd frontend && npm install",
     "keroku-postbuild" : "npm run install-client && npm run build",
+    "build" : "cd frontend && npm run build",
     "start": "nodemon --watch backend --exec babel-node backend/server.js"
   },
   "author": "",
