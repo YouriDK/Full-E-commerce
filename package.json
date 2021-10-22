@@ -7,7 +7,7 @@
   "scripts": {
     
    "build": " cd Amazona/frontend && npm run build",
-    "install-client" : "cd frontend && npm install",
+    "install-client" : "cd Amazona/frontend && npm install",
     "keroku-postbuild" : "npm run install-client && npm run build",
     "start": "nodemon --watch backend --exec babel-node backend/server.js"
   },
