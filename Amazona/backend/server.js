@@ -1,12 +1,12 @@
-import express from "express";
-import path from "path";
-import doten from "dotenv";
-import mongoose from "mongoose";
-import bodyParser from "body-parser";
-import userRoute from "./routes/userRoutes.js";
-import productRoute from "./routes/productsRoutes.js";
-import orderRoute from "./routes/orderRoutes.js";
-import config from "./Scripts/config.js";
+import express from 'express';
+import path from 'path';
+import doten from 'dotenv';
+import mongoose from 'mongoose';
+import bodyParser from 'body-parser';
+import userRoute from './routes/userRoutes.js';
+import productRoute from './routes/productsRoutes.js';
+import orderRoute from './routes/orderRoutes.js';
+import config from './Scripts/config.js';
 
 doten.config();
 
@@ -25,37 +25,39 @@ mongoose
   })
   .catch((error) => console.log(error));
 
-mongoose.connection.on("connected", () => {
-  console.log("Mongoose is connected 😍", process.env.NODE_ENV);
+mongoose.connection.on('connected', () => {
+  console.log('Mongoose is connected 😍', process.env.NODE_ENV);
 });
 
 app.use(bodyParser.json());
-app.use("/api/users", userRoute);
-app.use("/api/products", productRoute);
-app.use("/api/orders", orderRoute);
-app.use("/api/product", productRoute); // ! Il fallait mettre cela pour pouvoir voir les détais du produits
+app.use('/api/users', userRoute);
+app.use('/api/products', productRoute);
+app.use('/api/orders', orderRoute);
+app.use('/api/product', productRoute); // ! Il fallait mettre cela pour pouvoir voir les détais du produits
 
 // * Permet de savoir le chemin automatique du fichier
-var __dirname = path.resolve(path.dirname(""));
+var __dirname = path.resolve(path.dirname(''));
 
 // * Middleware pour changer entre developpement et production
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "/frontend/build")));
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "frontend", "build", "index.html"));
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '/frontend/build')));
+  app.get('*', (req, res) => {
+    res.sendFile(
+      path.join(__dirname, 'Amazona', 'frontend', 'build', 'index.html')
+    );
   });
 } else {
-  app.get("/", (req, res) => {
-    res.send("Api Running !!! ");
+  app.get('/', (req, res) => {
+    res.send('Api Running !!! ');
   });
 }
 
 //* Pour récupérer le client ID paypal dans le backend
-app.get("/api/config/paypal", (req, res) => {
-  res.send(process.env.PAYPAL_CLIENT_ID || "sb");
+app.get('/api/config/paypal', (req, res) => {
+  res.send(process.env.PAYPAL_CLIENT_ID || 'sb');
 });
 
-app.set("PORT", PORT);
+app.set('PORT', PORT);
 app.listen(PORT, () => {
   console.log(`Serve at http://localhost:${PORT}`);
 });
