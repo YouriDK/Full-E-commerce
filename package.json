@@ -7,7 +7,7 @@
   "scripts": {
     
    "build": " cd Amazona/frontend && npm install && npm run build",
-    "start": "nodemon --watch backend --exec babel-node backend/server.js"
+    "start": "nodemon --watch Amazona/backend --exec babel-node Amazona/backend/server.js"
   },
   "author": "",
   "license": "ISC",
