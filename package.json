@@ -7,7 +7,7 @@
   "scripts": {
     
    "build": " cd Amazona/frontend && npm install && npm run build",
-    "start": "node Amazona/backend/server.js",
+    "start": "babel-node Amazona/backend/server.js",
     "start-dev": "nodemon --watch Amazona/backend --exec babel-node Amazona/backend/server.js"
   },
   "author": "",
