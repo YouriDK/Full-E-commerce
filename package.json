@@ -7,7 +7,7 @@
   "scripts": {
     
    "build": " cd Amazona/frontend && npm install && npm run build",
-    "start": "babel-node Amazona/backend/server.js",
+    "start": "node --experimental-modules Amazona/backend/server.js",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix Amazona/frontend && npm run build --prefix Amazona/frontend",
     "start-dev": "nodemon --watch Amazona/backend --exec babel-node Amazona/backend/server.js"
   },
