@@ -8,21 +8,23 @@ import {
   saveProduct,
   deleteProduct,
 } from '../actions/productActions';
-import { texte } from '../data';
+import { CATEGORY, texte } from '../data';
 import { AiTwotoneEdit } from 'react-icons/ai';
+import LoadingBox from '../components/LoadingBox';
+import MesssageBox from '../components/MesssageBox';
 
 const ProductsScreen: FC<any> = (props: any): JSX.Element => {
   const [modalVisible, setModalVisible] = useState(false);
   const [name, setName] = useState('');
   const [id, setId] = useState('');
-  const [price, setPrice] = useState('');
+  const [price, setPrice] = useState(0);
   const [image, setImage] = useState('');
   const [brand, setBrand] = useState('');
   const [category, setCategory] = useState('');
   const [description, setDescription] = useState('');
-  const [countInStock, setCountInStock] = useState('');
-  const [rating, setRating] = useState('');
-  const [numReviews, setNumReviews] = useState('');
+  const [countInStock, setCountInStock] = useState(0);
+  const [rating, setRating] = useState(0);
+  const [numReviews, setNumReviews] = useState(0);
 
   const productSave = useSelector((state: any) => state.productSave);
   const productDelete = useSelector((state: any) => state.productDelete);
@@ -44,18 +46,15 @@ const ProductsScreen: FC<any> = (props: any): JSX.Element => {
   useEffect(() => {
     if (successSave) setModalVisible(false);
     dispatch(listProducts());
-    return () => {
-      /* *  return nothing*/
-    };
-  }, [successSave, successDelete]);
-  // ! If you don't put , [] at the end , he will start again over and over
+  }, [successSave, successDelete, dispatch]);
 
   const openModal = (product: any) => {
     setModalVisible(true);
     setId(product._id);
     setName(product.name);
     setPrice(product.price);
-    setImage(product.image);
+
+    setImage(product.image ? product.image.split('/').pop() : product.image);
     setBrand(product.brand);
     setCategory(product.category);
     setCountInStock(product.countInStock);
@@ -64,12 +63,18 @@ const ProductsScreen: FC<any> = (props: any): JSX.Element => {
     setNumReviews(product.numReviews);
   };
   const submitHandler = (e: any) => {
+    console.log(category);
+    //setImage(`/${category}/${image}`);
+    console.log(image);
+    console.log('image', category);
+    console.log(`/images/${category}/${image}`);
+
     e.preventDefault();
     dispatch(
       saveProduct({
         _id: id,
         name,
-        image,
+        image: `/images/${category}/${image}`,
         brand,
         price,
         category,
@@ -89,25 +94,27 @@ const ProductsScreen: FC<any> = (props: any): JSX.Element => {
       <div className='flex' style={{ justifyContent: 'space-between' }}>
         <Button
           className='button secondary'
-          onClick={() => props.history.push('/')}
+          onClick={() =>
+            modalVisible ? setModalVisible(false) : props.history.push('/')
+          }
         >
           Back
         </Button>
-        <button
+        <Button
           className='button primary'
           onClick={() => openModal({})}
           disabled={modalVisible}
         >
           Create product
-        </button>
+        </Button>
       </div>
       {modalVisible && (
         <div className='form'>
           <form onSubmit={submitHandler}>
             <div className='form'>
               <div>
-                {loadingSave && <div> Loading .. </div>}
-                {errorSave && <div> {errorSave}</div>}
+                {loadingSave && <LoadingBox />}
+                {errorSave && <MesssageBox variant='danger' text={errorSave} />}
               </div>
               <CustomInput
                 variable={name}
@@ -120,14 +127,14 @@ const ProductsScreen: FC<any> = (props: any): JSX.Element => {
                 variable={price}
                 name='price'
                 label='Price'
-                type='text'
+                type='number'
                 change={setPrice}
               />
               <CustomInput
                 variable={image}
                 name='image'
                 label='Image'
-                type='text'
+                type='file'
                 change={setImage}
               />
               <CustomInput
@@ -141,14 +148,15 @@ const ProductsScreen: FC<any> = (props: any): JSX.Element => {
                 variable={countInStock}
                 name='countInStock'
                 label='Count in Stock'
-                type='text'
+                type='number'
                 change={setCountInStock}
               />
               <CustomInput
                 variable={category}
                 name='category'
                 label='Category'
-                type='text'
+                type='select'
+                options={CATEGORY}
                 change={setCategory}
               />
               <CustomInput
@@ -163,21 +171,21 @@ const ProductsScreen: FC<any> = (props: any): JSX.Element => {
                 variable={rating}
                 name='rating'
                 label='Rating'
-                type='text'
+                type='number'
                 change={setRating}
               />
               <CustomInput
                 variable={numReviews}
                 name='numReviews'
                 label='Numbers of reviews'
-                type='text'
+                type='number'
                 change={setNumReviews}
               />
               <div>
                 <br />
-                <button type='submit' className='button primary'>
+                <Button type='submit' className='button primary'>
                   {id ? 'Update' : 'Create'}
-                </button>
+                </Button>
               </div>
             </div>
           </form>
@@ -188,12 +196,14 @@ const ProductsScreen: FC<any> = (props: any): JSX.Element => {
           <div className='header'>Products</div>
           <table className='table'>
             <tr className='table-tr'>
-              {texte.Products.en.map((td: string) => (
-                <td className='table-td table-title'>{td}</td>
+              {texte.Products.en.map((td: string, index: number) => (
+                <td className='table-td table-title' key={index}>
+                  {td}
+                </td>
               ))}
             </tr>
-            {products.map((product: any) => (
-              <tr className='table-tr' key={product._id}>
+            {products.map((product: any, index: number) => (
+              <tr className='table-tr' key={index}>
                 <td className='table-td font-secondary large xbold'>
                   {product.name}
                 </td>

@@ -80,6 +80,7 @@ router.delete(
   isAuth,
   isAdmin,
   expressAsyncHandler(async (req, res) => {
+    console.log('😂', req.params);
     const deleteProduct = await Product.findById(req.params.id);
     if (deleteProduct) {
       await deleteProduct.remove();

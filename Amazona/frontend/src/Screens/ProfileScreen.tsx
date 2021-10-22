@@ -6,7 +6,7 @@ import MessageBox from '../components/MesssageBox';
 import { USER_UPDATE_RESET } from '../constants/userConstants';
 import CustomInput from '../components/CustomInput';
 
-const ProfileScreen: FC<any> = (props: any): JSX.Element => {
+const ProfileScreen: FC<any> = (): JSX.Element => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -43,73 +43,61 @@ const ProfileScreen: FC<any> = (props: any): JSX.Element => {
       dispatch(updateUserProfile({ userId: user._id, name, password }));
     }
   };
-  return (
-    <div>
-      {' '}
-      <form className='form' onSubmit={submitHandler}>
-        <div>
+  return loading ? (
+    <LoadingBox />
+  ) : error ? (
+    <MessageBox variant='danger' text={error} />
+  ) : (
+    <form className='form' onSubmit={submitHandler}>
+      <div>
+        {' '}
+        <h1 className='text-center font-primary xlarge xbold'>
           {' '}
-          <h1 className='text-center font-primary xlarge xbold'>
-            {' '}
-            User Profile{' '}
-          </h1>
-        </div>
-
-        {loading ? (
-          <LoadingBox></LoadingBox>
-        ) : error ? (
-          <MessageBox variant='danger' text={error} />
-        ) : (
-          <>
-            {loadingUpdate && <LoadingBox></LoadingBox>}
-            {errorUpdate && <MessageBox variant='danger' text={errorUpdate} />}
-            {successUpdate && (
-              <MessageBox
-                variant='success'
-                text=' Profile updated successfully'
-              />
-            )}
-            <CustomInput
-              variable={name}
-              name='name'
-              label='Name'
-              type='text'
-              change={setName}
-            />
-            <CustomInput
-              variable={email}
-              name='email'
-              label='Email'
-              type='email'
-              change={setEmail}
-            />
-            <CustomInput
-              variable={password}
-              name='password'
-              label='Password'
-              type='password'
-              change={setPassword}
-            />
-            <CustomInput
-              variable={confirmPassword}
-              name='confirmPassword'
-              label='Confirm Password'
-              type='password'
-              change={setConfirmPassword}
-            />
-            <div>
-              <label />
-              <button
-                className='primary block font-secondary large xbold'
-                type='submit'
-              >
-                UPDATE{' '}
-              </button>
-            </div>{' '}
-          </>
-        )}
-      </form>
-    </div>
+          User Profile{' '}
+        </h1>
+      </div>
+      {loadingUpdate && <LoadingBox></LoadingBox>}
+      {errorUpdate && <MessageBox variant='danger' text={errorUpdate} />}
+      {successUpdate && (
+        <MessageBox variant='success' text=' Profile updated successfully' />
+      )}
+      <CustomInput
+        variable={name}
+        name='name'
+        label='Name'
+        type='text'
+        change={setName}
+      />
+      <CustomInput
+        variable={email}
+        name='email'
+        label='Email'
+        type='email'
+        change={setEmail}
+      />
+      <CustomInput
+        variable={password}
+        name='password'
+        label='Password'
+        type='password'
+        change={setPassword}
+      />
+      <CustomInput
+        variable={confirmPassword}
+        name='confirmPassword'
+        label='Confirm Password'
+        type='password'
+        change={setConfirmPassword}
+      />
+      <div>
+        <button
+          className='primary block font-secondary large xbold'
+          type='submit'
+        >
+          UPDATE{' '}
+        </button>
+      </div>{' '}
+    </form>
   );
 };
 export default ProfileScreen;

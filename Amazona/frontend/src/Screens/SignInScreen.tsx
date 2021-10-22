@@ -23,7 +23,6 @@ const SignInScreen: FC<any> = (props: any): JSX.Element => {
 
   const dispatch = useDispatch();
 
-  // ! If you don't put , [] at the end , he will start again over and over
   useEffect(() => {
     if (userInfo) {
       props.history.push(redirect);
@@ -64,9 +63,9 @@ const SignInScreen: FC<any> = (props: any): JSX.Element => {
 
         <br />
         <div>
-          <button type='submit' className='primary'>
+          <Button type='submit' className='primary'>
             {texte.Terms.sign.en}
-          </button>
+          </Button>
         </div>
         <div>
           <span style={{ textAlign: 'center' }}>
@@ -75,7 +74,7 @@ const SignInScreen: FC<any> = (props: any): JSX.Element => {
         </div>
 
         <div>
-          <button>
+          <Button>
             <Link
               to={
                 redirect === '/' ? 'register' : 'register?redirect=' + redirect
@@ -83,7 +82,7 @@ const SignInScreen: FC<any> = (props: any): JSX.Element => {
             >
               Create your account
             </Link>
-          </button>
+          </Button>
         </div>
       </form>
     </div>

@@ -22,11 +22,13 @@ const RegisterScreen: FC<any> = (props: any): JSX.Element => {
     : '/'; // * Redirgier après un checkout
 
   const dispatch = useDispatch();
-  // ! If you don't put , [] at the end , he will start again over and over
   const submitHandler = (e: any) => {
-    e.preventDefault();
+    e.preventDefault(); // TODO what's that ?
     if (password !== confirmPassword) {
-      alert('Put the same password and confirmation please !');
+      <MessageBox
+        variant='danger'
+        text='Put the same password and confirmation please !'
+      />;
     } else {
       dispatch(register(name, email, password));
     }

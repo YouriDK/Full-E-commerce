@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 const Rating: FC<any> = (props: any): JSX.Element => {
-  const { rating, numReviews } = props;
+  const { rating } = props;
   return (
     <div className='rating'>
       <span>

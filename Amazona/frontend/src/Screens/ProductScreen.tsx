@@ -88,14 +88,14 @@ const ProductScreen: FC<any> = (props: any): JSX.Element => {
           </div>
         </div>
         <div className='action'>
-          <button
+          <Button
             type='button'
             className='primary'
             onClick={handleAddtoCart}
             disabled={product.countInStock === 0}
           >
             {texte.Panier.add.en}
-          </button>
+          </Button>
         </div>
       </div>
     </div>

@@ -56,13 +56,9 @@ git add .
 git push heroku master
 
 - Esthétiques :
-  Rétrécir taille cartscreen (Done)
   Mettre mes vetements futurs dans le lot
-  Choisir les couleurs thème du site(Done)
-  Chercher des polices aussi(Done)
 
 - Fonctionnels
-  Configuration double langage(Abort)
   Rajouter un système de navigation sur le WF
   Payment test Paypal
   Système de livraision et validation de Livraison

@@ -60,8 +60,6 @@
 .card .card__body .featured_text h1 {
   margin: 0;
   padding: 0;
-  /* font-weight: 800;
-  font-family: 'Montserrat', sans-serif;*/
   font-size: 64px;
   text-transform: uppercase;
   line-height: 50px;
@@ -72,15 +70,12 @@
   padding: 0;
 }
 .card .card__body .featured_text p.sub {
-  /* font-family: 'Montserrat', sans-serif; */
   font-size: 26px;
-  /* text-transform: uppercase; */
   color: var(--grey);
   font-weight: 300;
   margin-bottom: 5px;
 }
 .card .card__body .featured_text p.price {
-  /* font-family: 'Fjalla One', sans-serif; */
   color: var(--clear-black);
   font-size: 26px;
 }

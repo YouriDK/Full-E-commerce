@@ -4,7 +4,6 @@ import ProductScreen from './Screens/ProductScreen';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 
 import SignInScreen from './Screens/SignInScreen';
-import RegisterScreen from './Screens/RegisterScreen';
 import CartScreen from './Screens/CartScreen';
 import ProductsScreen from './Screens/ProductsScreen';
 import { useDispatch, useSelector } from 'react-redux';
@@ -78,7 +77,7 @@ const App: FC<any> = (): JSX.Element => {
                 </ul>
               </div>
             ) : (
-              <Link to='/signin' className='font-secondary'>
+              <Link to='/signin' className='font-secondary xlarge'>
                 {' '}
                 {texte.Terms.sign.en}
               </Link>

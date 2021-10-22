@@ -16,7 +16,7 @@ const PaymentScreen: FC<any> = (props: any): JSX.Element => {
     dispatch(savePayment(paymentMethod));
     props.history.push('placeorder');
   };
-
+  // TODO remplacer les input
   return (
     <div>
       <CheckoutSteps step={2} />

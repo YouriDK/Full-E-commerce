@@ -13,6 +13,7 @@ import {
   PRODUCT_DELETE_SUCCESS,
   PRODUCT_DELETE_FAIL,
 } from '../constants/productConstants';
+import { ProductProps } from '../data';
 
 const listProducts = () => async (dispatch: any) => {
   try {
@@ -24,30 +25,35 @@ const listProducts = () => async (dispatch: any) => {
   }
 };
 
-const saveProduct = (product: any) => async (dispatch: any, getState: any) => {
-  try {
-    dispatch({ type: PRODUCT_SAVE_REQUEST, payload: product });
+const saveProduct =
+  (product: ProductProps) => async (dispatch: Function, getState: Function) => {
+    try {
+      dispatch({ type: PRODUCT_SAVE_REQUEST, payload: product });
 
-    const {
-      userSignin: { userInfo },
-    } = getState(); // *  Permet de récupérer le Token
-    if (!product._id) {
-      const { data } = await axios.post('api/products', product, {
-        headers: { Authorization: 'Bearer ' + userInfo.token },
-      });
-      dispatch({ type: PRODUCT_SAVE_SUCCESS, payload: data });
-    } else {
-      const { data } = await axios.put('api/products/' + product._id, product, {
-        headers: { Authorization: 'Bearer ' + userInfo.token },
-      });
-      dispatch({ type: PRODUCT_SAVE_SUCCESS, payload: data });
+      const {
+        userSignin: { userInfo },
+      } = getState(); // *  Permet de récupérer le Token
+      if (!product._id) {
+        const { data } = await axios.post('api/products', product, {
+          headers: { Authorization: 'Bearer ' + userInfo.token },
+        });
+        dispatch({ type: PRODUCT_SAVE_SUCCESS, payload: data });
+      } else {
+        const { data } = await axios.put(
+          'api/products/' + product._id,
+          product,
+          {
+            headers: { Authorization: 'Bearer ' + userInfo.token },
+          }
+        );
+        dispatch({ type: PRODUCT_SAVE_SUCCESS, payload: data });
+      }
+    } catch (error: any) {
+      dispatch({ type: PRODUCT_SAVE_FAIL, payload: error.message });
     }
-  } catch (error: any) {
-    dispatch({ type: PRODUCT_SAVE_FAIL, payload: error.message });
-  }
-};
+  };
 
-const detailsProduct = (productId: any) => async (dispatch: any) => {
+const detailsProduct = (productId: string) => async (dispatch: any) => {
   try {
     dispatch({ type: PRODUCT_DETAILS_REQUEST, payload: productId });
     const { data } = await axios.get('/api/product/' + productId);
@@ -64,14 +70,14 @@ const detailsProduct = (productId: any) => async (dispatch: any) => {
 };
 
 const deleteProduct =
-  (productId: any) => async (dispatch: any, getState: any) => {
+  (productId: string) => async (dispatch: any, getState: any) => {
     try {
       const {
         userSignin: { userInfo },
       } = getState(); // *  Permet de récupérer le Token
       dispatch({ type: PRODUCT_DELETE_REQUEST, payload: productId });
       const { data } = await axios.delete('/api/products/' + productId, {
-        headers: { Authorization: 'Bearer' + userInfo.token },
+        headers: { Authorization: 'Bearer ' + userInfo.token },
       });
       dispatch({ type: PRODUCT_DELETE_SUCCESS, payload: data, success: true });
     } catch (error: any) {

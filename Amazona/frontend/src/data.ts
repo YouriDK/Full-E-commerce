@@ -154,7 +154,15 @@ export const texte = {
     },
   },
 };
-
+export const CATEGORY = [
+  '',
+  'Shoes',
+  'Shirts',
+  'Sweat',
+  'Pants',
+  'Joggings',
+  'Underwears',
+];
 export interface ProductProps {
   _id: string;
   name: string;

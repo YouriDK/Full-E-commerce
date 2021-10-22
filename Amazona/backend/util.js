@@ -44,7 +44,7 @@ const isAdmin = (req, res, next) => {
   if (req.user && req.user.admin) {
     return next();
   }
-  return res.status(401).send({ msg: 'Admin Token is not valid.' });
+  return res.status(401).send({ msg: 'Admin checked failed.' });
 };
 
 export { getToken, isAdmin, isAuth };

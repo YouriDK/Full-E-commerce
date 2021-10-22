@@ -25,6 +25,5 @@ const AdminRoute: FC<any> = ({
       }
     ></Route>
   );
-  <></>;
 };
 export default AdminRoute;
