@@ -1,14 +1,12 @@
 {
-  "name": "amazona",
+  "name": "shopx",
   "type": "module",
-  "version": "1.0.0",
-  "description": "E-shop to learn MERN stack",
+  "version": "2.4.0",
+  "description": "E-Shop MERN Technology",
   "main": "index.js",
   "scripts": {
     
    "build": " cd Amazona/frontend && npm install && npm run build",
-    "install-client" : "cd Amazona/frontend && npm install",
-    "keroku-postbuild" : "npm run install-client && npm run build",
     "start": "nodemon --watch backend --exec babel-node backend/server.js"
   },
   "author": "",
