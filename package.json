@@ -1,15 +1,15 @@
 {
-  "name": "amazona",
+  "name": "shopx",
   "type": "module",
-  "version": "1.0.0",
-  "description": "E-shop to learn MERN stack",
+  "version": "2.4.0",
+  "description": "E-Shop MERN Technology",
   "main": "index.js",
   "scripts": {
     
-    "build" : "cd frontend && npm run build",
-    "install-client" : "cd frontend && npm install",
-    "keroku-postbuild" : "npm run install-client && npm run build",
-    "start": "nodemon --watch backend --exec babel-node backend/server.js"
+   "build": " cd Amazona/frontend && npm install && npm run build",
+    "start": "node --experimental-modules Amazona/backend/server.js",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix Amazona/frontend && npm run build --prefix Amazona/frontend",
+    "start-dev": "nodemon --watch Amazona/backend --exec babel-node Amazona/backend/server.js"
   },
   "author": "",
   "license": "ISC",
@@ -19,6 +19,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-async-handler": "^1.1.4",
+    "fs": "0.0.1-security",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.13"
   },
@@ -29,5 +30,8 @@
     "@babel/preset-env": "^7.12.7",
     "nodemon": "^2.0.6"
   },
-  "engines": {"node":"12.4.0", "npm": "6.9.0"}
+  "engines": {
+    "node": "14.15.0",
+    "npm": "6.14.8"
+  }
 }
