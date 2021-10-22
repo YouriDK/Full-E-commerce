@@ -1,21 +1,21 @@
 import React from "react";
-import HomeScreen from "./screens/HomeScreen";
-import ProductScreen from "./screens/ProductScreen";
+import HomeScreen from "./Screens/HomeScreen";
+import ProductScreen from "./Screens/ProductScreen";
 import { BrowserRouter, Route, Link } from "react-router-dom";
-import CartScreen from "./screens/CartScreen";
-import SignInScreen from "./screens/SignInScreen";
-import RegisterScreen from "./screens/RegisterScreen";
-import ProductsScreen from "./screens/ProductsScreen";
+import CartScreen from "./Screens/CartScreen";
+import SignInScreen from "./Screens/SignInScreen";
+import RegisterScreen from "./Screens/RegisterScreen";
+import ProductsScreen from "./Screens/ProductsScreen";
 import { useDispatch, useSelector } from "react-redux";
-import ShippingScreen from "./screens/ShippingScreen";
-import PaymentScreen from "./screens/PaymentScreen";
-import PlaceOrderScreen from "./screens/PlaceOrderScreen";
+import ShippingScreen from "./Screens/ShippingScreen";
+import PaymentScreen from "./Screens/PaymentScreen";
+import PlaceOrderScreen from "./Screens/PlaceOrderScreen";
 import { signout } from "./actions/userActions";
-import OrderScreen from "./screens/OrderScreen";
-import ProfileScreen from "./screens/ProfileScreen";
+import OrderScreen from "./Screens/OrderScreen";
+import ProfileScreen from "./Screens/ProfileScreen";
 import AdminRoute from "./components/AdminRoute";
 import PrivateRoute from "./components/PrivateRoute";
-import OrderListScreen from "./screens/OrderListScreen";
+import OrderListScreen from "./Screens/OrderListScreen";
 /*  
 TODO  : Vérifier qu'on peut faire plusieurs compte
 TODO  : Trouver le soucis de useState
