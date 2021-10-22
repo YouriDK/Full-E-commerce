@@ -1,11 +1,3 @@
-// Ordre
-// Cart
-// Actions
-// Name
-//Product
-// Paiement
-// User
-// Shipping
 export const CSS = `
   margin : auto; 
   top:50% ;
@@ -116,12 +108,10 @@ export const texte = {
     in_stock: { fr: 'En stock', en: 'In stock' },
     no_stock: { fr: 'Indisponible', en: 'Unvailable' },
   },
-
   Products: {
     fr: ['NOM', 'APERCU', 'PRIX', 'CATEGORY', 'MARQUE', 'ACTIONS'],
     en: ['NAME', 'SAMPLE', 'PRICE', 'CATEGORY', 'BRAND', 'ACTIONS'],
   },
-
   Panier: {
     add: { fr: 'Ajouter au panier', en: 'Add to Cart' },
     vide: { fr: 'Le panier est vide !', en: 'Cart is empty !' },
@@ -134,7 +124,6 @@ export const texte = {
       en: ' Proceed to Checkout',
     },
   },
-
   Shipping: {
     ship: { fr: 'Expédition', en: 'Shipping' },
     shipping: { fr: "Addresse d'expédition", en: 'Shipping address' },
