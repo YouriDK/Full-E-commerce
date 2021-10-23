@@ -115,3 +115,7 @@ select.primary {
 .fa-arrow-left {
   font-size: x-large !important;
 }
+
+.nowrap {
+  flex-wrap: nowrap;
+}

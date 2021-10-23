@@ -4,6 +4,7 @@ export const CSS = `
   left:50% `;
 export const texte = {
   Ordre: {
+    history: { en: 'Order History', fr: 'Historique des commandes' },
     ord_sum: {
       fr: 'Récapitulatif de la commande',
       en: 'Order Summary',
@@ -28,6 +29,10 @@ export const texte = {
     order_list: {
       fr: ['ID', 'CLIENT', 'DATE', 'TOTAL', 'PAIEMENT', 'LIVRAISON', 'ACTIONS'],
       en: ['ID', 'USER', 'DATE', 'TOTAL', 'PAID', 'DELIVERED', 'ACTIONS'],
+    },
+    order_list_mine: {
+      fr: ['ID', 'DATE', 'TOTAL', 'PAIEMENT', 'LIVRAISON', 'ACTIONS'],
+      en: ['ID', 'DATE', 'TOTAL', 'PAID', 'DELIVERED', 'ACTIONS'],
     },
     notdeli: {
       fr: 'Non livré',

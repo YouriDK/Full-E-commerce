@@ -18,6 +18,7 @@ import PrivateRoute from './components/PrivateRoute';
 import OrderListScreen from './Screens/OrderListScreen';
 import { texte } from './data';
 import UserListScreen from './Screens/UserListScreen';
+import OrderHistoryScreen from './Screens/OrderHistoryScreen';
 
 const App: FC<any> = (): JSX.Element => {
   const cart = useSelector((state: any) => state.cart);
@@ -62,6 +63,11 @@ const App: FC<any> = (): JSX.Element => {
                     <Link to='/profile' className='font-secondary large'>
                       {' '}
                       {texte.Terms.user.en}
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to='/orderhistory' className='font-secondary large '>
+                      {texte.Ordre.history.en}
                     </Link>
                   </li>
 
@@ -129,6 +135,7 @@ const App: FC<any> = (): JSX.Element => {
           <Route path='/product/:id' component={ProductScreen} />
           <Route path='/cart/:id?' exact={true} component={CartScreen} />
           <Route path='/signin' component={SignInScreen} />
+          <Route path='/orderhistory' component={OrderHistoryScreen} />
           <Route path='/order/:id' component={OrderScreen} />
           <PrivateRoute path='/profile' component={ProfileScreen} />
           <AdminRoute

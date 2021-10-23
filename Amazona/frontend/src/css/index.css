@@ -231,7 +231,7 @@ a.brand {
   position: absolute;
   display: none;
   right: 0;
-  min-width: 12rem;
+  min-width: 15rem;
   padding: 1rem;
   z-index: 1;
   background-color: var(--secondary);
