@@ -19,12 +19,12 @@ const ProductScreen: FC<any> = (props: any): JSX.Element => {
     return () => {
       // * Return nothing
     };
-  }, []);
+  }, [dispatch, props.match.params.id]);
   const handleAddtoCart = () => {
     props.history.push('/cart/' + props.match.params.id + '?qty=' + qty);
   };
   return loading ? (
-    <LoadingBox></LoadingBox>
+    <LoadingBox />
   ) : error ? (
     <MessageBox variant='danger' text={error} />
   ) : (

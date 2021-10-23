@@ -34,6 +34,10 @@ app.use('/api/users', userRoute);
 app.use('/api/products', productRoute);
 app.use('/api/orders', orderRoute);
 app.use('/api/product', productRoute); // ! Il fallait mettre cela pour pouvoir voir les détais du produits
+app.get('/api/config/paypal', (req, res) => {
+  //* Pour récupérer le client ID paypal dans le backend
+  res.send(process.env.PAYPAL_CLIENT_ID || 'sb');
+});
 
 // * Permet de savoir le chemin automatique du fichier
 var __dirname = path.resolve(path.dirname(''));
@@ -51,11 +55,6 @@ if (process.env.NODE_ENV === 'production') {
     res.send('Api Running !!! ');
   });
 }
-
-//* Pour récupérer le client ID paypal dans le backend
-app.get('/api/config/paypal', (req, res) => {
-  res.send(process.env.PAYPAL_CLIENT_ID || 'sb');
-});
 
 app.set('PORT', PORT);
 app.listen(PORT, () => {

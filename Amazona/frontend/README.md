@@ -50,10 +50,18 @@ Le dispatch passe dans toutes fonctions du reducers
 expressAsyncHandler permet de ne pas utiliser de try catch et sauver des lignes quand il faut gérer une erreur
 / -------------------------------------------------------------- \
 
+# Deploy
+
+- Bien regarder les élements dans le package.json ( les build et scripts)
+- Il a fallu rajouter Amazona dans le chemin ( server.js) , je pense que c'est parce là j'ai connecté avec Git en non en CLI
+- Prévoir bien une config dev et une config prod
+
 # Push
 
 git add .
 git push heroku master
+
+# Todo
 
 - Esthétiques :
   Mettre mes vetements futurs dans le lot

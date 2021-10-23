@@ -63,12 +63,6 @@ const ProductsScreen: FC<any> = (props: any): JSX.Element => {
     setNumReviews(product.numReviews);
   };
   const submitHandler = (e: any) => {
-    console.log(category);
-    //setImage(`/${category}/${image}`);
-    console.log(image);
-    console.log('image', category);
-    console.log(`/images/${category}/${image}`);
-
     e.preventDefault();
     dispatch(
       saveProduct({

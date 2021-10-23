@@ -36,8 +36,8 @@ const OrderScreen: FC<any> = (props: any): JSX.Element => {
 
   useEffect(() => {
     // ! Pour avoir la commande actuel il faut actualiser la page donc :
-    if (order != undefined) {
-      if (order._id != orderId) {
+    if (order !== undefined) {
+      if (order._id !== orderId) {
         dispatch(detailsOrder(orderId));
       }
     }
@@ -220,24 +220,16 @@ const OrderScreen: FC<any> = (props: any): JSX.Element => {
             </tr>
           </table>
           <div>
-            {' '}
-            {order.isPaid ? (
+            {!sdkReady && order.isPaid ? (
               <MessageBox
                 variant='success'
-                text={`Delivered at ${order.paidAt}`}
+                text={`Paid the ${new Date(order.paidAt).toDateString()}`}
               />
-            ) : (
-              <MessageBox variant='danger' text={`Not Paid`} />
-            )}
-          </div>
-          <div>
-            {!sdkReady ? (
-              <LoadingBox></LoadingBox>
             ) : (
               <PayPalButton
                 amount={order.totalPrice}
                 onSuccess={successPaymentHandler}
-              ></PayPalButton>
+              />
             )}
           </div>
         </div>
