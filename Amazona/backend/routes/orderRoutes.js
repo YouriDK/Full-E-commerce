@@ -1,21 +1,21 @@
-import express from "express";
-import Order from "../models/orderModel.js";
-import expressAsyncHandler from "express-async-handler";
-import { isAdmin, isAuth } from "../util.js";
+import express from 'express';
+import Order from '../models/orderModel.js';
+import expressAsyncHandler from 'express-async-handler';
+import { isAdmin, isAuth } from '../util.js';
 
 const orderRoute = express.Router();
 orderRoute.get(
-  "/",
+  '/',
   isAuth,
   isAdmin,
   expressAsyncHandler(async (req, res) => {
-    const orders = await Order.find({}).populate("user", "name");
+    const orders = await Order.find({}).populate('user', 'name');
     res.send(orders);
   })
 );
 
 orderRoute.get(
-  "/mine",
+  '/mine',
   isAuth,
   expressAsyncHandler(async (req, res) => {
     const orders = await Order.find({ user: req.user._id });
@@ -24,11 +24,11 @@ orderRoute.get(
 );
 
 orderRoute.post(
-  "/",
+  '/',
   isAuth,
   expressAsyncHandler(async (req, res) => {
     if (req.body.orderItems.length === 0) {
-      res.status(400).send({ message: "Cart is empty" });
+      res.status(400).send({ message: 'Cart is empty' });
     } else {
       const order = new Order({
         orderItems: req.body.orderItems,
@@ -43,26 +43,26 @@ orderRoute.post(
       const createdOrder = await order.save();
       res
         .status(201)
-        .send({ message: "New order Created", order: createdOrder });
+        .send({ message: 'New order Created', order: createdOrder });
     }
   })
 );
 
 orderRoute.get(
-  "/:id",
+  '/:id',
   isAuth,
   expressAsyncHandler(async (req, res) => {
     const order = await Order.findById(req.params.id);
     if (order) {
       res.send(order);
     } else {
-      res.status(404).send({ message: "Order not Found" });
+      res.status(404).send({ message: 'Order not Found' });
     }
   })
 );
 
 orderRoute.put(
-  "/:id/pay",
+  '/:id/pay',
   isAuth,
   expressAsyncHandler(async (req, res) => {
     const order = await Order.findById(req.params.id);
@@ -76,42 +76,42 @@ orderRoute.put(
         email_address: req.body.email_address,
       };
       const updatedOrder = await order.save();
-      res.send({ message: "Order Paid", order: updatedOrder });
+      res.send({ message: 'Order Paid', order: updatedOrder });
     } else {
-      res.status(404).send({ message: "Order Not Found" });
+      res.status(404).send({ message: 'Order Not Found' });
     }
   })
 );
 
 orderRoute.delete(
-  "/:id",
+  '/:id',
   isAuth,
   isAdmin,
   expressAsyncHandler(async (req, res) => {
     const order = await Order.findById(req.params.id);
     if (order) {
       const deleteOrder = await order.remove();
-      res.send({ message: "Order Deleted", order: deleteOrder });
+      res.send({ message: 'Order Deleted', order: deleteOrder });
     } else {
-      res.status(404).send({ message: "Order Not Found" });
+      res.status(404).send({ message: 'Order Not Found' });
     }
   })
 );
 
 orderRoute.put(
-  "/:id/deliver",
+  '/:id/deliver',
   isAuth,
   isAdmin,
   expressAsyncHandler(async (req, res) => {
     const order = await Order.findById(req.params.id);
     if (order) {
       order.isDelivered = true;
-      order.isDeliveredAt = Date.now();
+      order.deliveredAt = Date.now();
 
       const updateOrder = await order.save();
-      res.send({ message: "Order Delivered", order: updateOrder });
+      res.send({ message: 'Order Delivered', order: updateOrder });
     } else {
-      res.status(404).send({ message: "Order Not Found" });
+      res.status(404).send({ message: 'Order Not Found' });
     }
   })
 );
