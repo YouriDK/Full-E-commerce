@@ -250,3 +250,10 @@ a.brand {
 strong {
   font-family: 'RocknRoll One', sans-serif;
 }
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  color: var(--secondary);
+}

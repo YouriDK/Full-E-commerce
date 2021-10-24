@@ -32,7 +32,6 @@ const OrderHistoryScreen: FC<any> = (props: any): JSX.Element => {
         </tr>
         {orders.map((order: any) => (
           <tr className='table-tr' key={order._id}>
-            {console.log(order)}
             <td className='table-td font-secondary large xbold'>{order._id}</td>
 
             <td className='table-td font-secondary large xbold'>

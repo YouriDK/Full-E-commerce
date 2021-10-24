@@ -28,11 +28,7 @@ const ProductsScreen: FC<any> = (props: any): JSX.Element => {
 
   const productSave = useSelector((state: any) => state.productSave);
   const productDelete = useSelector((state: any) => state.productDelete);
-  const {
-    loading: loadingDelete,
-    success: successDelete,
-    error: errorDelete,
-  } = productDelete;
+  const { success: successDelete } = productDelete;
 
   const productList = useSelector((state: any) => state.productList);
   const { loading, products, error } = productList;
@@ -83,7 +79,11 @@ const ProductsScreen: FC<any> = (props: any): JSX.Element => {
   const deleteHandler = (product: any) => {
     dispatch(deleteProduct(product._id));
   };
-  return (
+  return loading ? (
+    <LoadingBox />
+  ) : error ? (
+    <MesssageBox variant='danger' text={error} />
+  ) : (
     <div className='content content-margined'>
       <div className='flex' style={{ justifyContent: 'space-between' }}>
         <Button

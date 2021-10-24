@@ -22,11 +22,7 @@ const OrderScreen: FC<any> = (props: any): JSX.Element => {
   const { order, loading, error } = orderDetails;
 
   const orderPay = useSelector((state: any) => state.orderPay);
-  const {
-    loading: loadingPay,
-    error: errorPay,
-    success: successPay,
-  } = orderPay;
+  const { success: successPay } = orderPay;
   const orderDeliver = useSelector((state: any) => state.orderDeliver);
   const {
     loading: loadingDeliver,
@@ -247,7 +243,6 @@ const OrderScreen: FC<any> = (props: any): JSX.Element => {
                 onSuccess={successPaymentHandler}
               />
             )}
-            {console.log(order)}
             {userInfo.admin && order.isPaid && !order.isDelivered && (
               <>
                 {loadingDeliver && <LoadingBox />}
