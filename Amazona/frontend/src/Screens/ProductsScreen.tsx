@@ -7,7 +7,7 @@ import {
   listProducts,
   saveProduct,
   deleteProduct,
-} from '../actions/productActions';
+} from '../redux/actions/productActions';
 import { CATEGORY, texte } from '../data';
 import { AiTwotoneEdit } from 'react-icons/ai';
 import LoadingBox from '../components/LoadingBox';

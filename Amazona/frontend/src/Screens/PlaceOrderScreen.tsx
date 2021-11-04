@@ -1,9 +1,9 @@
 import React, { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { createOrder } from '../actions/orderActions';
+import { createOrder } from '../redux/actions/orderActions';
 import CheckoutSteps from '../components/CheckOutStep';
-import { ORDER_CREATE_RESET } from '../constants/orderConstant';
+import { ORDER_CREATE_RESET } from '../redux/constants/orderConstant';
 import LoadingBox from '../components/LoadingBox';
 
 import MesssageBox from '../components/MesssageBox';

@@ -1,6 +1,6 @@
 import { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { listUsers } from '../../Redux/actions/userActions';
+import { listUsers } from '../redux/actions/userActions';
 import LoadingBox from '../components/LoadingBox';
 import MesssageBox from '../components/MesssageBox';
 import { texte } from '../data';

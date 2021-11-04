@@ -2,10 +2,10 @@ import React, { FC, useEffect } from 'react';
 import { MdRestoreFromTrash } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'reactstrap';
-import { deleteOrder, listOrders } from '../../Redux/actions/orderActions';
+import { deleteOrder, listOrders } from '../redux/actions/orderActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MesssageBox';
-import { ORDER_DELETE_RESET } from '../../Redux/constants/orderConstant';
+import { ORDER_DELETE_RESET } from '../redux/constants/orderConstant';
 import { texte } from '../data';
 import { ImWrench } from 'react-icons/im';
 

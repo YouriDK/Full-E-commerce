@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from 'react';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MesssageBox';
 import { useDispatch, useSelector } from 'react-redux';
-import { listProducts } from '../actions/productActions';
+import { listProducts } from '../redux/actions/productActions';
 import Product from '../components/Product';
 import { ProductProps } from '../data';
 import { Pagination } from '@mui/material';
@@ -36,11 +36,11 @@ const HomeScreen: FC<any> = (): JSX.Element => {
       <Pagination
         size='large'
         // shape='rounded'
-        count={
+        count={Math.ceil(
           products.length % ITEMS_MAX !== 0
             ? products.length / ITEMS_MAX + 1
             : products.length / ITEMS_MAX
-        }
+        )}
         page={currentCage}
         defaultPage={1}
         className='pagination'
@@ -48,6 +48,12 @@ const HomeScreen: FC<any> = (): JSX.Element => {
         boundaryCount={2}
         onChange={handlePage}
       />
+      {console.log(
+        'NUMEBR3',
+        products.length % ITEMS_MAX !== 0
+          ? products.length / ITEMS_MAX + 1
+          : products.length / ITEMS_MAX
+      )}
     </>
   );
 };

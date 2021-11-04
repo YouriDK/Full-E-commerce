@@ -2,7 +2,7 @@ import React, { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Button } from 'reactstrap';
-import { addToCart, removeFromCart } from '../../Redux/actions/cartActions';
+import { addToCart, removeFromCart } from '../redux/actions/cartActions';
 import MessageBox from '../components/MesssageBox';
 import { texte } from '../data';
 import { BsTrash } from 'react-icons/bs';

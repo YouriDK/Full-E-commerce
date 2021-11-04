@@ -1,7 +1,7 @@
 import React, { useState, FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'reactstrap';
-import { saveShipping } from '../actions/cartActions';
+import { saveShipping } from '../redux/actions/cartActions';
 import CheckoutSteps from '../components/CheckOutStep';
 import CustomInput from '../components/CustomInput';
 

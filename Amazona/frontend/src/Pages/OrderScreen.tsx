@@ -5,7 +5,7 @@ import {
   deliverOrder,
   detailsOrder,
   payOrder,
-} from '../../Redux/actions/orderActions';
+} from '../redux/actions/orderActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MesssageBox';
 import { PayPalButton } from 'react-paypal-button-v2';
@@ -13,7 +13,7 @@ import Axios from 'axios';
 import {
   ORDER_DELIVER_RESET,
   ORDER_PAY_RESET,
-} from '../../Redux/constants/orderConstant';
+} from '../redux/constants/orderConstant';
 import MesssageBox from '../components/MesssageBox';
 import { Button } from 'reactstrap';
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { register } from '../../Redux/actions/userActions';
+import { register } from '../redux/actions/userActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MesssageBox';
 import CustomInput from '../components/CustomInput';

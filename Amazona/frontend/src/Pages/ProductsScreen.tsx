@@ -12,7 +12,7 @@ import {
   listProducts,
   saveProduct,
   deleteProduct,
-} from '../actions/productActions';
+} from '../redux/actions/productActions';
 
 const ProductsScreen: FC<any> = (props: any): JSX.Element => {
   const [modalVisible, setModalVisible] = useState(false);

@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ShippingScreen from './Pages/ShippingScreen';
 import PaymentScreen from './Pages/PaymentScreen';
 import PlaceOrderScreen from './Pages/PlaceOrderScreen';
-import { signout } from '../Redux/actions/userActions';
+import { signout } from './redux/actions/userActions';
 import OrderScreen from './Pages/OrderScreen';
 import ProfileScreen from './Pages/ProfileScreen';
 import AdminRoute from './components/AdminRoute';

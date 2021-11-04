@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from 'react';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MesssageBox';
 import { useDispatch, useSelector } from 'react-redux';
-import { listProducts } from '../../Redux/actions/productActions';
+import { listProducts } from '../redux/actions/productActions';
 import Product from '../components/Product';
 import { ProductProps } from '../data';
 import { Pagination } from '@mui/material';

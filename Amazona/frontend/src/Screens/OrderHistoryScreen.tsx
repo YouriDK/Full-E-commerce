@@ -2,7 +2,7 @@ import { FC, useEffect } from 'react';
 import { FcViewDetails } from 'react-icons/fc';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'reactstrap';
-import { listOrderMine } from '../actions/orderActions';
+import { listOrderMine } from '../redux/actions/orderActions';
 import LoadingBox from '../components/LoadingBox';
 import MesssageBox from '../components/MesssageBox';
 import { texte } from '../data';

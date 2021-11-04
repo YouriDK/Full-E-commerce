@@ -2,12 +2,13 @@ import React, { useEffect, FC, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Button } from 'reactstrap';
-import { detailsProduct } from '../actions/productActions';
+import { detailsProduct } from '../redux/actions/productActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MesssageBox';
 import Rating from '../components/Rating';
 import '../css/productPage.css';
 import { texte } from '../data';
+
 const ProductScreen: FC<any> = (props: any): JSX.Element => {
   const [qty, setQty] = useState(1);
 

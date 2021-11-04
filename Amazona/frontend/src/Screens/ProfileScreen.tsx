@@ -1,9 +1,9 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { detailsUser, updateUserProfile } from '../actions/userActions';
+import { detailsUser, updateUserProfile } from '../redux/actions/userActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MesssageBox';
-import { USER_UPDATE_RESET } from '../constants/userConstants';
+import { USER_UPDATE_RESET } from '../redux/constants/userConstants';
 import CustomInput from '../components/CustomInput';
 
 const ProfileScreen: FC<any> = (): JSX.Element => {

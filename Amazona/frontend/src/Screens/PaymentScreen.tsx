@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { savePayment } from '../actions/cartActions';
+import { savePayment } from '../redux/actions/cartActions';
 import CheckoutSteps from '../components/CheckOutStep';
 
 const PaymentScreen: FC<any> = (props: any): JSX.Element => {

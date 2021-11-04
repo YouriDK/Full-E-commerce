@@ -1,7 +1,11 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { deliverOrder, detailsOrder, payOrder } from '../actions/orderActions';
+import {
+  deliverOrder,
+  detailsOrder,
+  payOrder,
+} from '../redux/actions/orderActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MesssageBox';
 import { PayPalButton } from 'react-paypal-button-v2';
@@ -9,7 +13,7 @@ import Axios from 'axios';
 import {
   ORDER_DELIVER_RESET,
   ORDER_PAY_RESET,
-} from '../constants/orderConstant';
+} from '../redux/constants/orderConstant';
 import MesssageBox from '../components/MesssageBox';
 import { Button } from 'reactstrap';
 
