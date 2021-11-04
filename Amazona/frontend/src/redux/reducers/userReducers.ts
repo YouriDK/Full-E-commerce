@@ -1,4 +1,7 @@
 import {
+  GOOGLE_SIGNIN_FAIL,
+  GOOGLE_SIGNIN_REQUEST,
+  GOOGLE_SIGNIN_SUCCESS,
   USER_DETAILS_FAIL,
   USER_DETAILS_REQUEST,
   USER_DETAILS_SUCCESS,
@@ -26,9 +29,16 @@ export function userSignInReducer(state = {}, action: any) {
       return { loading: false, userInfo: action.payload };
     case USER_SIGNIN_FAIL:
       return { loading: false, error: action.payload };
+
+    case GOOGLE_SIGNIN_REQUEST:
+      return { loading: true };
+    case GOOGLE_SIGNIN_SUCCESS:
+      return { loading: false, userInfo: action.payload };
+    case GOOGLE_SIGNIN_FAIL:
+      return { loading: false, error: action.payload };
+
     case USER_SIGNOUT:
       return {};
-
     default:
       return state;
   }

@@ -7,6 +7,7 @@ import userRoute from './routes/userRoutes.js';
 import productRoute from './routes/productsRoutes.js';
 import orderRoute from './routes/orderRoutes.js';
 import config from './Scripts/config.js';
+import { OAuth2Client } from 'google-auth-library';
 
 doten.config();
 
@@ -33,6 +34,7 @@ app.use(bodyParser.json());
 app.use('/api/users', userRoute);
 app.use('/api/products', productRoute);
 app.use('/api/orders', orderRoute);
+
 app.use('/api/product', productRoute); // ! Il fallait mettre cela pour pouvoir voir les détais du produits
 app.get('/api/config/paypal', (req, res) => {
   //* Pour récupérer le client ID paypal dans le backend

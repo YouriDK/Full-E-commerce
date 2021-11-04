@@ -1,16 +1,19 @@
 import React, { useEffect, useState, FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import GoogleLogin from 'react-google-login';
 import { Link } from 'react-router-dom';
-import { signin } from '../redux/actions/userActions';
+import { googleLogin, signin } from '../redux/actions/userActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MesssageBox';
 import CustomInput from '../components/CustomInput';
 import { Button } from 'reactstrap';
 import { texte } from '../data';
+import { sleep } from '../utils';
 
 const SignInScreen: FC<any> = (props: any): JSX.Element => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [fail, setFail] = useState<any>();
 
   // * Permet d'aller chercher les informations dans store avec le bon reducer
   const userSignin = useSelector((state: any) => state.userSignin);
@@ -33,6 +36,15 @@ const SignInScreen: FC<any> = (props: any): JSX.Element => {
     e.preventDefault();
     dispatch(signin(email, password));
   };
+
+  const successGoogleLogin = (googleData: any) => {
+    dispatch(googleLogin(googleData));
+  };
+  const failGoogleLogin = (error: any) => {
+    setFail('Failed');
+    sleep(2000);
+    setFail(null);
+  };
   return loading ? (
     <LoadingBox />
   ) : error ? (
@@ -43,7 +55,6 @@ const SignInScreen: FC<any> = (props: any): JSX.Element => {
         <div>
           <h1 className='text-center font-title'>Sign-In</h1>
         </div>
-
         <CustomInput
           variable={email}
           name='email'
@@ -60,13 +71,36 @@ const SignInScreen: FC<any> = (props: any): JSX.Element => {
           change={setPassword}
           placeholder='Enter password'
         />
-
         <br />
         <div>
           <Button type='submit' className='primary'>
             {texte.Terms.sign.en}
           </Button>
         </div>
+        {console.log('object', process.env.REACT_APP_GOOGLE_CLIENT_ID || '')}
+        {fail ? (
+          <MessageBox variant='danger' text={fail} />
+        ) : (
+          <div>
+            <GoogleLogin
+              clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID || ''}
+              render={(renderProps) => (
+                <Button
+                  onClick={renderProps.onClick}
+                  style={{ textAlign: 'center', alignItems: 'middle' }}
+                  className='primary'
+                  disabled={renderProps.disabled}
+                >
+                  Log in with Google
+                </Button>
+              )}
+              buttonText='Log in with Google'
+              onSuccess={successGoogleLogin}
+              onFailure={failGoogleLogin}
+              cookiePolicy={'single_host_origin'}
+            ></GoogleLogin>
+          </div>
+        )}
         <div>
           <span style={{ textAlign: 'center' }}>
             You don't have you account ?
