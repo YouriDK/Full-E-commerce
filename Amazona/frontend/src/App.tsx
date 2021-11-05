@@ -1,24 +1,24 @@
 import React, { FC } from 'react';
-import HomeScreen from './Screens/HomeScreen';
-import ProductScreen from './Screens/ProductScreen';
+import HomeScreen from './Pages/HomeScreen';
+import ProductScreen from './Pages/ProductScreen';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 
-import SignInScreen from './Screens/SignInScreen';
-import CartScreen from './Screens/CartScreen';
-import ProductsScreen from './Screens/ProductsScreen';
+import SignInScreen from './Pages/SignInScreen';
+import CartScreen from './Pages/CartScreen';
+import ProductsScreen from './Pages/ProductsScreen';
 import { useDispatch, useSelector } from 'react-redux';
-import ShippingScreen from './Screens/ShippingScreen';
-import PaymentScreen from './Screens/PaymentScreen';
-import PlaceOrderScreen from './Screens/PlaceOrderScreen';
-import { signout } from './actions/userActions';
-import OrderScreen from './Screens/OrderScreen';
-import ProfileScreen from './Screens/ProfileScreen';
+import ShippingScreen from './Pages/ShippingScreen';
+import PaymentScreen from './Pages/PaymentScreen';
+import PlaceOrderScreen from './Pages/PlaceOrderScreen';
+import { signout } from './redux/actions/userActions';
+import OrderScreen from './Pages/OrderScreen';
+import ProfileScreen from './Pages/ProfileScreen';
 import AdminRoute from './components/AdminRoute';
 import PrivateRoute from './components/PrivateRoute';
-import OrderListScreen from './Screens/OrderListScreen';
+import OrderListScreen from './Pages/OrderListScreen';
 import { texte } from './data';
-import UserListScreen from './Screens/UserListScreen';
-import OrderHistoryScreen from './Screens/OrderHistoryScreen';
+import UserListScreen from './Pages/UserListScreen';
+import OrderHistoryScreen from './Pages/OrderHistoryScreen';
 
 const App: FC<any> = (): JSX.Element => {
   const cart = useSelector((state: any) => state.cart);

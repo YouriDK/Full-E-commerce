@@ -3,15 +3,16 @@ import { MdRestoreFromTrash } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
 import CustomInput from '../components/CustomInput';
 import { Button } from 'reactstrap';
+
+import { CATEGORY, texte } from '../data';
+import { AiTwotoneEdit } from 'react-icons/ai';
+import LoadingBox from '../components/LoadingBox';
+import MesssageBox from '../components/MesssageBox';
 import {
   listProducts,
   saveProduct,
   deleteProduct,
 } from '../redux/actions/productActions';
-import { CATEGORY, texte } from '../data';
-import { AiTwotoneEdit } from 'react-icons/ai';
-import LoadingBox from '../components/LoadingBox';
-import MesssageBox from '../components/MesssageBox';
 
 const ProductsScreen: FC<any> = (props: any): JSX.Element => {
   const [modalVisible, setModalVisible] = useState(false);

@@ -8,7 +8,6 @@ import MessageBox from '../components/MesssageBox';
 import Rating from '../components/Rating';
 import '../css/productPage.css';
 import { texte } from '../data';
-
 const ProductScreen: FC<any> = (props: any): JSX.Element => {
   const [qty, setQty] = useState(1);
 

@@ -195,8 +195,8 @@ export interface OrderProps {
   user: any;
   isPaid: boolean;
   paidAt: Date;
-  isDelvered: boolean;
-  DeliveredAt: Date;
+  isDelivered: boolean;
+  deliveredAt: Date;
 }
 export interface UserProps {
   name: string;

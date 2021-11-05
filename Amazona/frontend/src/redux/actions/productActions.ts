@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { ProductProps } from '../../data';
 import {
   PRODUCT_LIST_REQUEST,
   PRODUCT_LIST_SUCCESS,
@@ -13,7 +14,6 @@ import {
   PRODUCT_DELETE_SUCCESS,
   PRODUCT_DELETE_FAIL,
 } from '../constants/productConstants';
-import { ProductProps } from '../data';
 
 const listProducts = () => async (dispatch: any) => {
   try {

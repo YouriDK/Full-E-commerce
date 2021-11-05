@@ -221,6 +221,10 @@ a.brand {
   color: #a02020;
   background-color: #ffe0e0;
 }
+.alert-success {
+  color: #188633;
+  background-color: #ddffe6;
+}
 
 /* Dropdown */
 .dropdown {
@@ -245,4 +249,11 @@ a.brand {
 
 strong {
   font-family: 'RocknRoll One', sans-serif;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  color: var(--secondary);
 }
