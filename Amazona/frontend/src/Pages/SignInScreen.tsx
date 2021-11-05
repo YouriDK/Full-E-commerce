@@ -55,7 +55,7 @@ const SignInScreen: FC<any> = (props: any): JSX.Element => {
         <CustomInput
           variable={password}
           name='password'
-          label='Email'
+          label='Password'
           type='password'
           change={setPassword}
           placeholder='Enter password'
@@ -74,8 +74,9 @@ const SignInScreen: FC<any> = (props: any): JSX.Element => {
         </div>
 
         <div>
-          <Button>
+          <Button className='secondary'>
             <Link
+              className='link'
               to={
                 redirect === '/' ? 'register' : 'register?redirect=' + redirect
               }

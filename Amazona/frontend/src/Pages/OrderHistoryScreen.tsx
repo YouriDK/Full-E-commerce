@@ -47,7 +47,7 @@ const OrderHistoryScreen: FC<any> = (props: any): JSX.Element => {
             </td>
             <td className='table-td font-secondary large xbold'>
               {order.isDelivered
-                ? order.isdeliveredAt.substring(1, 10)
+                ? order.deliveredAt.substring(1, 10)
                 : texte.Ordre.notdeli.en}
             </td>
             <td className='table-td'>

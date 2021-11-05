@@ -106,11 +106,11 @@ select.primary {
 
 .link:visited {
   text-decoration: none;
-  color: var(--secondary);
+  color: inherit;
 }
 .link:hover {
   text-decoration: none;
-  color: var(--primary);
+  color: inherit;
 }
 .fa-arrow-left {
   font-size: x-large !important;
