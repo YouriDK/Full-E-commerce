@@ -45,15 +45,23 @@ router.post(
       idToken: token,
       audience: process.env.CLIENT_ID,
     });
-    // * on prend le sub car il semble être identique on va l'utiliser comme token
+    console.log('ticket ->', ticket); // * We keep the sub becasue we migth use it as the token
     const { name, email, picture, given_name, family_name, sub } =
       ticket.getPayload();
     upsert(users, { name, email, picture, given_name, family_name, sub });
     res.status(201);
-    res.json({ name, email, picture, given_name, family_name, sub });
+    res.json({
+      name,
+      email,
+      picture,
+      given_name,
+      family_name,
+      sub,
+      token,
+    });
   })
 );
-// * Récupère tous les user
+// * Récupère tous les users hors google
 router.get(
   '/userlist',
   isAuth,
