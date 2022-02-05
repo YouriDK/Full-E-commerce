@@ -16,9 +16,6 @@ const ProductScreen: FC<any> = (props: any): JSX.Element => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(detailsProduct(props.match.params.id));
-    return () => {
-      // * Return nothing
-    };
   }, [dispatch, props.match.params.id]);
   const handleAddtoCart = () => {
     props.history.push('/cart/' + props.match.params.id + '?qty=' + qty);

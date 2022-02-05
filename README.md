@@ -23,5 +23,5 @@ Front : npm start
 # TODO
 
 Mettre une variable pour montrer qu'on est connecté avec google , pour gérer les endroit de user
-Faire un achat complet et analyser les endroit ou le compte GOogle pose soucis
+Faire un achat complet et analyser les endroit ou le compte Google pose soucis
 Voir si on peut fusionner les .env

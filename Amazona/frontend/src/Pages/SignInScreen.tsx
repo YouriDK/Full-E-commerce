@@ -77,7 +77,7 @@ const SignInScreen: FC<any> = (props: any): JSX.Element => {
             {texte.Terms.sign.en}
           </Button>
         </div>
-        {console.log('object', process.env.REACT_APP_GOOGLE_CLIENT_ID || '')}
+
         {fail ? (
           <MessageBox variant='danger' text={fail} />
         ) : (

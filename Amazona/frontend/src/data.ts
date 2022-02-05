@@ -2,6 +2,7 @@ export const CSS = `
   margin : auto; 
   top:50% ;
   left:50% `;
+
 export const texte = {
   Ordre: {
     history: { en: 'Order History', fr: 'Historique des commandes' },

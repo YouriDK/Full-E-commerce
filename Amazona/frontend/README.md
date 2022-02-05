@@ -68,8 +68,8 @@ git push heroku master
 
 - Fonctionnels
   Rajouter un système de navigation sur le WF
-  Payment test Paypal
-  Système de livraision et validation de Livraison
+  Payment test Paypal ( Validée )
+  Système de livraison et validation de Livraison
 
 - Optimisation :
   Remplacer les buttons par Button
