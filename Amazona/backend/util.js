@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import config from './Scripts/config.js';
-import { OAuth2Client } from 'google-auth-library';
-import mongoose from 'mongoose';
+import { OAuth2Client, UserRefreshClient } from 'google-auth-library';
+import userModel from './models/userModels.js';
 
 // TODO Refaire selon la nouvelle version
 const getToken = (user) => {
@@ -40,6 +40,7 @@ const isAuth = async (req, res, next) => {
         tokenValidate.user = decode;
       }
     );
+
     const client = new OAuth2Client(process.env.REACT_APP_GOOGLE_CLIENT_ID);
     const ticket = await client.verifyIdToken({
       idToken: token,
@@ -47,10 +48,12 @@ const isAuth = async (req, res, next) => {
     });
 
     tokenValidate.user = ticket.getPayload();
-
+    const getUser = await userModel.findOne({
+      email: tokenValidate.user.email,
+    });
     req.user = {
       ...tokenValidate.user,
-      _id: mongoose.ObjectId(tokenValidate.user.sub),
+      _id: getUser._id,
     };
 
     if (tokenValidate.user) {

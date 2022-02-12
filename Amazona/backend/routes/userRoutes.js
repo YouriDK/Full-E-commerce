@@ -48,6 +48,18 @@ router.post(
     console.log('ticket ->', ticket); // * We keep the sub becasue we migth use it as the token
     const { name, email, picture, given_name, family_name, sub } =
       ticket.getPayload();
+    const userCheck = await User.findOne({ email });
+    if (!userCheck) {
+      // Save some Intels
+      const user = new User({
+        admin: false,
+        name: family_name,
+        email,
+        password: sub,
+      });
+      await user.save();
+    }
+
     upsert(users, { name, email, picture, given_name, family_name, sub });
     res.status(201);
     res.json({
