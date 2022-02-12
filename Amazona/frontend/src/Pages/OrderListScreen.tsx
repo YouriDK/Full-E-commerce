@@ -65,7 +65,7 @@ const OrderListScreen: FC<any> = (props: any): JSX.Element => {
             </td>
             <td className='table-td font-secondary large xbold'>
               {order.isDelivered
-                ? order.deliveredAt.substring(1, 10)
+                ? order.isDelivered.substring(1, 10)
                 : texte.Ordre.notdeli.en}
             </td>
             <td className='table-td'>

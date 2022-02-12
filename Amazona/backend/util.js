@@ -1,5 +1,7 @@
 import jwt from 'jsonwebtoken';
 import config from './Scripts/config.js';
+import { OAuth2Client, UserRefreshClient } from 'google-auth-library';
+import userModel from './models/userModels.js';
 
 // TODO Refaire selon la nouvelle version
 const getToken = (user) => {
@@ -16,31 +18,56 @@ const getToken = (user) => {
     }
   );
 };
-// * On utilise isAuth seulement quand on veut être sur d'être connecté
-const isAuth = (req, res, next) => {
+
+// * To check is we'r'e logged in
+const isAuth = async (req, res, next) => {
   const auth = req.headers.authorization;
-  if (auth) {
+  let tokenValidate = {};
+  // * 2 Check : one for local one for Google and if one of them is good we keep going
+  if (!auth) {
+    return res.status(401).send({ msg: 'Token is not supplied ! ' });
+  } else {
     const token = auth.slice(7, auth.length); // * Bearer XXXXX =>  on se débarasse de Bearer
     jwt.verify(
       token,
       process.env.JWT_SECRET || 'somethingsecret',
       (err, decode) => {
         if (err) {
-          return res.status(401).send({ msg: 'Invalid Token ! 🤷‍♂️' });
+          // TODO put a real Error without return it
+          tokenValidate = { error: err };
         }
         req.user = decode;
-        next();
-        return;
+        tokenValidate.user = decode;
       }
     );
-  } else {
-    return res.status(401).send({ msg: 'Token is not supplied ! ' });
+
+    const client = new OAuth2Client(process.env.REACT_APP_GOOGLE_CLIENT_ID);
+    const ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: process.env.CLIENT_ID,
+    });
+
+    tokenValidate.user = ticket.getPayload();
+    const getUser = await userModel.findOne({
+      email: tokenValidate.user.email,
+    });
+    req.user = {
+      ...tokenValidate.user,
+      _id: getUser._id,
+    };
+
+    if (tokenValidate.user) {
+      next();
+      return;
+    } else {
+      console.log('error ->', tokenValidate.error);
+      return res.status(401).send({ msg: 'Invalid Token ! 🤷‍♂️' });
+    }
   }
 };
 
 // *  Verifie que la personne est admin avant de donner la suite
 const isAdmin = (req, res, next) => {
-  console.log('😎', req.user && req.user.admin);
   if (req.user && req.user.admin) {
     return next();
   }

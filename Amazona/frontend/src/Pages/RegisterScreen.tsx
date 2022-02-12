@@ -23,7 +23,7 @@ const RegisterScreen: FC<any> = (props: any): JSX.Element => {
 
   const dispatch = useDispatch();
   const submitHandler = (e: any) => {
-    e.preventDefault(); // TODO what's that ?
+    e.preventDefault();
     if (password !== confirmPassword) {
       <MessageBox
         variant='danger'

@@ -57,15 +57,18 @@ const App: FC<any> = (): JSX.Element => {
             {userInfo ? (
               <div className='dropdown'>
                 <Link to='#' className='font-secondary xlarge'>
-                  {userInfo.name} <i className='fa fa-caret-down'></i>{' '}
+                  {userInfo.family_name ? userInfo.family_name : userInfo.name}{' '}
+                  <i className='fa fa-caret-down'></i>{' '}
                 </Link>
                 <ul className='dropdown-content'>
-                  <li>
-                    <Link to='/profile' className='font-secondary large'>
-                      {' '}
-                      {texte.Terms.user.en}
-                    </Link>
-                  </li>
+                  {!userInfo.family_name && (
+                    <li>
+                      <Link to='/profile' className='font-secondary large'>
+                        {' '}
+                        {texte.Terms.user.en}
+                      </Link>
+                    </li>
+                  )}
                   <li>
                     <Link to='/orderhistory' className='font-secondary large '>
                       {texte.Ordre.history.en}

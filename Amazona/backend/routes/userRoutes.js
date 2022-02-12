@@ -2,10 +2,17 @@ import express from 'express';
 import User from '../models/userModels.js';
 import { getToken, isAdmin, isAuth } from '../util.js';
 import expressAsyncHandler from 'express-async-handler';
+import { OAuth2Client } from 'google-auth-library';
 import bcrypt from 'bcryptjs';
 
-// TODO Créer un admin et 3 clients
 const router = express.Router();
+const users = [];
+
+const upsert = (array, item) => {
+  const i = array.findIndex((_item) => _item.email === item.email);
+  if (i > -1) array[i] = item;
+  else array.push(item);
+};
 
 router.post(
   '/signin',
@@ -29,7 +36,44 @@ router.post(
     }
   })
 );
-// * Récupère tous les user
+router.post(
+  '/signin/google',
+  expressAsyncHandler(async (req, res) => {
+    const { token } = req.body;
+    const client = new OAuth2Client(process.env.REACT_APP_GOOGLE_CLIENT_ID);
+    const ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: process.env.CLIENT_ID,
+    });
+    console.log('ticket ->', ticket); // * We keep the sub becasue we migth use it as the token
+    const { name, email, picture, given_name, family_name, sub } =
+      ticket.getPayload();
+    const userCheck = await User.findOne({ email });
+    if (!userCheck) {
+      // Save some Intels
+      const user = new User({
+        admin: false,
+        name: family_name,
+        email,
+        password: sub,
+      });
+      await user.save();
+    }
+
+    upsert(users, { name, email, picture, given_name, family_name, sub });
+    res.status(201);
+    res.json({
+      name,
+      email,
+      picture,
+      given_name,
+      family_name,
+      sub,
+      token,
+    });
+  })
+);
+// * Récupère tous les users hors google
 router.get(
   '/userlist',
   isAuth,
@@ -64,35 +108,6 @@ router.post('/register', async (req, res) => {
     res.status(401).send({ msg: 'Invalid User Data !' });
   }
 });
-
-/* // TODO Creer une page juste pour créer des admins
-router.get("/createadmin", async (req, res) => {
-  try {
-    console.log("PASSWORD", req.body.password);
-    const user = new User({
-      admin: true,
-      name: "Admin",
-      email: "Admin@admin.com",
-      password: "admin",
-    });
-
-    const newUser = await user.save();
-
-    if (newUser) {
-      res.send({
-        _id: newUser.id,
-        name: newUser.name,
-        email: newUser.admin,
-        admin: newUser.admin,
-        token: getToken(newUser),
-      });
-    } else {
-      res.status(401).send({ msg: "Invalid User Data " });
-    }
-  } catch (error) {
-    res.send({ msg: error.message });
-  }
-});*/
 
 // * Récupère les infos du profil
 router.get(

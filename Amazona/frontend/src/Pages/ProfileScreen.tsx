@@ -38,7 +38,7 @@ const ProfileScreen: FC<any> = (): JSX.Element => {
     e.preventDefault();
     // TODO dispatch update profile
     if (password !== confirmPassword) {
-      alert('Password and Confirm Password are not matched');
+      alert('Password and Confirm Password do not match');
     } else {
       dispatch(updateUserProfile({ userId: user._id, name, password }));
     }

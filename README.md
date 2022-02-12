@@ -20,13 +20,20 @@ Bien aller dans Amazona pour le back et frontend pour le front
 Back : npm run start
 Front : npm start
 
-- Tout passé en TypeScript
-- Créer des composant génériques
-- Optimiser ce qui est possible
-- Mettre en place un vrai CSS et code Couleur
-- Regarder sur comment créer la partie Admin
-- Passer au SCCS
-- Créer un json pour tous les texte du site
-- Changer le composant de chargement/Message-Box/Product/Rating
-- Composant générique : Input , titre strong
-- Changer couleur du site aussi
+# TODO
+
+Mettre une variable pour montrer qu'on est connecté avec google , pour gérer les endroit de user
+Faire un achat complet et analyser les endroit ou le compte Google pose soucis
+Voir si on peut fusionner les .env
+
+--->
+
+Le isAuth reconnait mnt Google Auth, il va falloir passer dans toutes les démarches et adapter quand un user google fait les actions et utiliser son hub et placer à chaque fois le sub (FAIT 👌)
+
+# Evo
+
+Implémenter le système d'erreurs
+Tests unnitaires
+Rajouter les vetement avec gestion de catégories
+
+- Faire un Icone d'onglet adéquates
