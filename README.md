@@ -30,6 +30,10 @@ Voir si on peut fusionner les .env
 
 Le isAuth reconnait mnt Google Auth, il va falloir passer dans toutes les démarches et adapter quand un user google fait les actions et utiliser son hub et placer à chaque fois le sub (FAIT 👌)
 
+# ISSUES resolved
+
+Probleme H10 ou autres , bien s'assurer que toute nouvelle librairie est dans TOUS les package.json
+
 # Evo
 
 Implémenter le système d'erreurs

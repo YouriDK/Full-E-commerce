@@ -1,7 +1,7 @@
 import express from 'express';
-import Product from '../models/productsModels.js';
+import Product from '../models/productsModels';
 import expressAsyncHandler from 'express-async-handler';
-import { isAuth, isAdmin } from '../util.js';
+import { isAuth, isAdmin } from '../utils';
 
 const router = express.Router();
 
@@ -65,7 +65,7 @@ router.put(
         (product.description = req.body.description);
     }
 
-    const upatedProduct = await product.save();
+    const upatedProduct = await product?.save();
     if (upatedProduct) {
       return res
         .status(201)

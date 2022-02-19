@@ -1,6 +1,45 @@
-import mongoose from 'mongoose';
+import mongoose, { Document } from 'mongoose';
 
-const orderSchema = new mongoose.Schema(
+export interface IItems {
+  name: string;
+  qty: number;
+  image: string;
+  product: mongoose.Schema.Types.ObjectId | any;
+}
+export interface IpaymentResult {
+  id: any;
+  status: any;
+  update_time: any;
+  email_address: string;
+}
+export interface IshippingAddress {
+  fullName: string;
+  address: string;
+  city: string;
+  postalCode: string;
+  country: string;
+}
+
+export interface Iorder {
+  // id: any;
+  orderItems: IItems[];
+  shippingAddress: IshippingAddress;
+  paymentMethod: string;
+  itemsPrice: number;
+  shippingPrice: number;
+  taxPrice: number;
+  totalPrice: number;
+  user: mongoose.Schema.Types.ObjectId;
+  isPaid: boolean;
+  paidAt: Date | number;
+  isDelivered: boolean;
+  deliveredAt: Date | number;
+  paymentResult: IpaymentResult;
+}
+export interface IorderDocument extends Iorder, Document {
+  _id: any;
+}
+const orderSchema = new mongoose.Schema<IorderDocument>(
   {
     orderItems: [
       {

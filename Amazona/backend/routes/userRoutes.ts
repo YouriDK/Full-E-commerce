@@ -1,14 +1,14 @@
 import express from 'express';
-import User from '../models/userModels.js';
-import { getToken, isAdmin, isAuth } from '../util.js';
+import User from '../models/userModels';
+import { getToken, isAdmin, isAuth } from '../utils';
 import expressAsyncHandler from 'express-async-handler';
 import { OAuth2Client } from 'google-auth-library';
 import bcrypt from 'bcryptjs';
 
 const router = express.Router();
-const users = [];
+// const users = [];
 
-const upsert = (array, item) => {
+const upsert = (array: Array<any>, item: any) => {
   const i = array.findIndex((_item) => _item.email === item.email);
   if (i > -1) array[i] = item;
   else array.push(item);
@@ -41,13 +41,14 @@ router.post(
   expressAsyncHandler(async (req, res) => {
     const { token } = req.body;
     const client = new OAuth2Client(process.env.REACT_APP_GOOGLE_CLIENT_ID);
+    const users: any[] = [];
     const ticket = await client.verifyIdToken({
       idToken: token,
       audience: process.env.CLIENT_ID,
     });
-    console.log('ticket ->', ticket); // * We keep the sub becasue we migth use it as the token
+    console.log('ticket ->', ticket); // * We keep the sub because we migth use it as the token
     const { name, email, picture, given_name, family_name, sub } =
-      ticket.getPayload();
+      ticket.getPayload() as any;
     const userCheck = await User.findOne({ email });
     if (!userCheck) {
       // Save some Intels
@@ -125,7 +126,7 @@ router.get(
 router.put(
   '/profile',
   isAuth,
-  expressAsyncHandler(async (req, res) => {
+  expressAsyncHandler(async (req: any, res) => {
     const user = await User.findById(req.user._id);
     if (user) {
       user.name = req.body.name || user.name;

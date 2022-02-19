@@ -3,11 +3,10 @@ import path from 'path';
 import doten from 'dotenv';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
-import userRoute from './routes/userRoutes.js';
-import productRoute from './routes/productsRoutes.js';
-import orderRoute from './routes/orderRoutes.js';
-import config from './Scripts/config.js';
-import { OAuth2Client } from 'google-auth-library';
+import userRoute from './routes/userRoutes';
+import productRoute from './routes/productsRoutes';
+import orderRoute from './routes/orderRoutes';
+import config from './Scripts/config';
 
 doten.config();
 
@@ -37,7 +36,7 @@ app.use('/api/orders', orderRoute);
 
 app.use('/api/product', productRoute); // ! Il fallait mettre cela pour pouvoir voir les détais du produits
 app.get('/api/config/paypal', (req, res) => {
-  //* Pour récupérer le client ID paypal dans le backend
+  // * Pour récupérer le client ID paypal dans le backend
   res.send(process.env.PAYPAL_CLIENT_ID || 'sb');
 });
 
