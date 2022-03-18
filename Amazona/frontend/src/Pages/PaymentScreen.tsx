@@ -40,23 +40,10 @@ const PaymentScreen: FC<any> = (props: any): JSX.Element => {
               onChange={(e) => setPaymentMethod(e.target.value)}
             ></input>
             <label className='xlarge bold' htmlFor='paymentMethod'>
-              <span>Paypal</span>
+              <span>Paypal/CB</span>
             </label>
           </div>
           <br />
-          <div className='text-center'>
-            <input
-              type='radio'
-              value='stripe'
-              name='paymentMethod'
-              id='paymentMethod'
-              required
-              onChange={(e) => setPaymentMethod(e.target.value)}
-            ></input>
-            <label className='xlarge bold' htmlFor='paymentMethod'>
-              <span>Stripe</span>
-            </label>
-          </div>
         </div>
         <br />
         <div>

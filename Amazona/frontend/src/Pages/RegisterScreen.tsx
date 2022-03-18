@@ -88,10 +88,10 @@ const RegisterScreen: FC<any> = (props: any): JSX.Element => {
           <span style={{ textAlign: 'center' }}>Already signed ?</span>
         </div>
         <div>
-          <Button>
+          <Button className='secondary'>
             <Link
               to={redirect === '/' ? 'signin' : 'signin?redirect=' + redirect}
-              className='button secondary text-center font-secondary xlarge xbold'
+              // className='button secondary text-center font-secondary xlarge xbold'
             >
               {texte.Terms.sign.en}
             </Link>

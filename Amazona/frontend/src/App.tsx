@@ -19,6 +19,7 @@ import OrderListScreen from './Pages/OrderListScreen';
 import { texte } from './data';
 import UserListScreen from './Pages/UserListScreen';
 import OrderHistoryScreen from './Pages/OrderHistoryScreen';
+import RegisterScreen from './Pages/RegisterScreen';
 
 const App: FC<any> = (): JSX.Element => {
   const cart = useSelector((state: any) => state.cart);
@@ -138,6 +139,7 @@ const App: FC<any> = (): JSX.Element => {
           <Route path='/product/:id' component={ProductScreen} />
           <Route path='/cart/:id?' exact={true} component={CartScreen} />
           <Route path='/signin' component={SignInScreen} />
+          <Route path='/register' component={RegisterScreen} />
           <Route path='/orderhistory' component={OrderHistoryScreen} />
           <Route path='/order/:id' component={OrderScreen} />
           <PrivateRoute path='/profile' component={ProfileScreen} />

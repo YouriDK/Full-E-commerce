@@ -108,7 +108,7 @@ const SignInScreen: FC<any> = (props: any): JSX.Element => {
         </div>
 
         <div>
-          <Button>
+          <Button className='secondary'>
             <Link
               to={
                 redirect === '/' ? 'register' : 'register?redirect=' + redirect

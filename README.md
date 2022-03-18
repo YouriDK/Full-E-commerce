@@ -37,7 +37,9 @@ Probleme H10 ou autres , bien s'assurer que toute nouvelle librairie est dans TO
 # Evo
 
 Implémenter le système d'erreurs
-Tests unnitaires
+Tests unitaires
 Rajouter les vetement avec gestion de catégories
+Refaire une passe complète
+Retirer Stripe en terme d'option de paiement
 
 - Faire un Icone d'onglet adéquates
