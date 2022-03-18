@@ -1,7 +1,7 @@
 import express from 'express';
-import Order from '../models/orderModel.js';
+import Order from '../models/orderModel';
 import expressAsyncHandler from 'express-async-handler';
-import { isAdmin, isAuth } from '../util.js';
+import { isAdmin, isAuth } from '../utils';
 
 const orderRoute = express.Router();
 orderRoute.get(
@@ -17,7 +17,7 @@ orderRoute.get(
 orderRoute.get(
   '/mine',
   isAuth,
-  expressAsyncHandler(async (req, res) => {
+  expressAsyncHandler(async (req: any, res) => {
     const orders = await Order.find({ user: req.user._id });
     res.send(orders);
   })
@@ -26,7 +26,7 @@ orderRoute.get(
 orderRoute.post(
   '/',
   isAuth,
-  expressAsyncHandler(async (req, res) => {
+  expressAsyncHandler(async (req: any, res) => {
     if (req.body.orderItems.length === 0) {
       res.status(400).send({ message: 'Cart is empty' });
     } else {
