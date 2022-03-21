@@ -8,6 +8,7 @@
     "build": " cd Amazona/frontend && npm run build",
     "start": "ts-node backend/server.ts",
     "start-dev": "nodemon --watch backend --exec babel-node backend/server.ts",
+    "heroku-prebuild": "npm install -f",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
   },
   "author": "",
@@ -20,6 +21,7 @@
     "express-async-handler": "^1.1.4",
     "fs": "0.0.1-security",
     "google-auth-library": "^7.10.2",
+    "query-string": "^7.1.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.13"
   },
