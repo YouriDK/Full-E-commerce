@@ -1,42 +1,47 @@
 import React, { FC } from 'react';
-import HomeScreen from './Pages/HomeScreen';
-import ProductScreen from './Pages/ProductScreen';
-import { BrowserRouter, Route, Link } from 'react-router-dom';
-
-import SignInScreen from './Pages/SignInScreen';
-import CartScreen from './Pages/CartScreen';
-import ProductsScreen from './Pages/ProductsScreen';
 import { useDispatch, useSelector } from 'react-redux';
-import ShippingScreen from './Pages/ShippingScreen';
-import PaymentScreen from './Pages/PaymentScreen';
-import PlaceOrderScreen from './Pages/PlaceOrderScreen';
-import { signout } from './redux/actions/userActions';
-import OrderScreen from './Pages/OrderScreen';
-import ProfileScreen from './Pages/ProfileScreen';
+import { Link, Route, useHistory } from 'react-router-dom';
 import AdminRoute from './components/AdminRoute';
 import PrivateRoute from './components/PrivateRoute';
-import OrderListScreen from './Pages/OrderListScreen';
 import { texte } from './data';
-import UserListScreen from './Pages/UserListScreen';
+import CartScreen from './Pages/CartScreen';
+import HomeScreen from './Pages/HomeScreen';
 import OrderHistoryScreen from './Pages/OrderHistoryScreen';
+import OrderListScreen from './Pages/OrderListScreen';
+import OrderScreen from './Pages/OrderScreen';
+import PaymentScreen from './Pages/PaymentScreen';
+import PlaceOrderScreen from './Pages/PlaceOrderScreen';
+import ProductScreen from './Pages/ProductScreen';
+import ProductsScreen from './Pages/ProductsScreen';
+import ProfileScreen from './Pages/ProfileScreen';
 import RegisterScreen from './Pages/RegisterScreen';
+import ShippingScreen from './Pages/ShippingScreen';
+import SignInScreen from './Pages/SignInScreen';
+import UserListScreen from './Pages/UserListScreen';
+import { signout } from './redux/actions/userActions';
 
-const App: FC<any> = (): JSX.Element => {
+const App: FC<any> = (props: any): JSX.Element => {
   const cart = useSelector((state: any) => state.cart);
   const { cartItems } = cart;
   const userSignin = useSelector((state: any) => state.userSignin);
   const { userInfo } = userSignin;
   const dispatch = useDispatch();
+  const history = useHistory();
+
+  const moveTo: any = (moveTo: string) => {
+    history.push(moveTo);
+  };
 
   const signoutHandler = () => {
     dispatch(signout());
+    moveTo('/#signout');
   };
   return (
-    <BrowserRouter>
-      <link
+    <>
+      {/* <link
         rel='stylesheet'
         href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'
-      ></link>
+      ></link> */}
       <div className='grid-container'>
         <header className='row'>
           <div>
@@ -77,7 +82,7 @@ const App: FC<any> = (): JSX.Element => {
 
                   <li>
                     <Link
-                      to='#signout'
+                      to='/#signout'
                       className='font-secondary large'
                       onClick={signoutHandler}
                     >
@@ -155,7 +160,7 @@ const App: FC<any> = (): JSX.Element => {
           Shop X Production YC Developpment
         </footer>
       </div>
-    </BrowserRouter>
+    </>
   );
 };
 export default App;
