@@ -8,7 +8,7 @@ orderRoute.get(
   '/',
   isAuth,
   isAdmin,
-  expressAsyncHandler(async (req, res) => {
+  expressAsyncHandler(async (req, res): Promise<any> => {
     console.log('✔ Orders -> fetch all');
     const orders = await Order.find({}).populate('user', 'name');
     res.send(orders);
@@ -18,7 +18,7 @@ orderRoute.get(
 orderRoute.get(
   '/mine',
   isAuth,
-  expressAsyncHandler(async (req: any, res) => {
+  expressAsyncHandler(async (req: any, res): Promise<any> => {
     console.log('✔ Orders -> fetch One');
     const orders = await Order.find({ user: req.user._id });
     res.send(orders);
@@ -28,7 +28,7 @@ orderRoute.get(
 orderRoute.post(
   '/',
   isAuth,
-  expressAsyncHandler(async (req: any, res) => {
+  expressAsyncHandler(async (req: any, res): Promise<any> => {
     console.log('✔ Orders -> post One');
     if (req.body.orderItems.length === 0) {
       res.status(400).send({ message: 'Cart is empty' });
@@ -54,7 +54,7 @@ orderRoute.post(
 orderRoute.get(
   '/:id',
   isAuth,
-  expressAsyncHandler(async (req, res) => {
+  expressAsyncHandler(async (req, res): Promise<any> => {
     console.log('✔ Orders -> get One');
     const order = await Order.findById(req.params.id);
     if (order) {
@@ -68,7 +68,7 @@ orderRoute.get(
 orderRoute.put(
   '/:id/pay',
   isAuth,
-  expressAsyncHandler(async (req, res) => {
+  expressAsyncHandler(async (req, res): Promise<any> => {
     console.log('✔ Orders -> pay 💸 ');
     const order = await Order.findById(req.params.id);
     if (order) {
@@ -92,7 +92,7 @@ orderRoute.delete(
   '/:id',
   isAuth,
   isAdmin,
-  expressAsyncHandler(async (req, res) => {
+  expressAsyncHandler(async (req, res): Promise<any> => {
     console.log('✔ Orders -> delete one');
     const order = await Order.findById(req.params.id);
     if (order) {
@@ -108,7 +108,7 @@ orderRoute.put(
   '/:id/deliver',
   isAuth,
   isAdmin,
-  expressAsyncHandler(async (req, res) => {
+  expressAsyncHandler(async (req, res): Promise<any> => {
     console.log('✔ Orders -> deliver one');
     const order = await Order.findById(req.params.id);
     if (order) {

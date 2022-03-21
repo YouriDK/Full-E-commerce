@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get(
   '/',
-  expressAsyncHandler(async (req, res) => {
+  expressAsyncHandler(async (req, res): Promise<any> => {
     console.log('🙌 Products -> fetch all');
     const products = await Product.find();
     res.send(products);
@@ -27,7 +27,7 @@ router.post(
   '/',
   isAuth,
   isAdmin,
-  expressAsyncHandler(async (req, res) => {
+  expressAsyncHandler(async (req, res): Promise<any> => {
     console.log('🙌 Products -> post one');
     const product = new Product({
       name: req.body.name,
@@ -54,7 +54,7 @@ router.put(
   '/:id',
   isAuth,
   isAdmin,
-  expressAsyncHandler(async (req, res) => {
+  expressAsyncHandler(async (req, res): Promise<any> => {
     console.log('🙌 Products -> update one');
     const productId = req.params.id;
     const product = await Product.findById(productId);
@@ -82,7 +82,7 @@ router.delete(
   '/:id',
   isAuth,
   isAdmin,
-  expressAsyncHandler(async (req, res) => {
+  expressAsyncHandler(async (req, res): Promise<any> => {
     console.log('🙌 Products -> Delete one');
     const deleteProduct = await Product.findById(req.params.id);
     if (deleteProduct) {

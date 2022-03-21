@@ -16,7 +16,7 @@ const upsert = (array: Array<any>, item: any) => {
 
 router.post(
   '/signin',
-  expressAsyncHandler(async (req, res) => {
+  expressAsyncHandler(async (req, res): Promise<any> => {
     console.log('🙂 User -> Login');
     const user = await User.findOne({
       email: req.body.email,
@@ -39,7 +39,7 @@ router.post(
 );
 router.post(
   '/signin/google',
-  expressAsyncHandler(async (req, res) => {
+  expressAsyncHandler(async (req, res): Promise<any> => {
     console.log('🙂 User -> Login Google');
     const { token } = req.body;
     const client = new OAuth2Client(process.env.REACT_APP_GOOGLE_CLIENT_ID);
@@ -80,7 +80,7 @@ router.get(
   '/userlist',
   isAuth,
   isAdmin,
-  expressAsyncHandler(async (req, res) => {
+  expressAsyncHandler(async (req, res): Promise<any> => {
     console.log('🙂 User -> Fetch all');
     const users = await User.find();
     if (users) {
@@ -90,7 +90,7 @@ router.get(
     }
   })
 );
-router.post('/register', async (req, res) => {
+router.post('/register', async (req, res): Promise<any> => {
   console.log('🙂 User -> Register');
   const user = new User({
     admin: false,
@@ -116,7 +116,7 @@ router.post('/register', async (req, res) => {
 // * Récupère les infos du profil
 router.get(
   '/:id',
-  expressAsyncHandler(async (req, res) => {
+  expressAsyncHandler(async (req, res): Promise<any> => {
     console.log('🙂 User -> Get one');
     const user = await User.findById(req.params.id);
     if (user) {
