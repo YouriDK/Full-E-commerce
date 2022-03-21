@@ -4,7 +4,7 @@
   "description": "E-Shop MERN Technology",
   "main": "index.js",
   "scripts": {
-    "build": " cd Amazona/frontend && npm run build",
+    "build": " cd frontend && npm install && npm run build",
     "start": "ts-node backend/server.ts",
     "start-dev": "nodemon --watch backend --exec babel-node backend/server.ts",
     "heroku-prebuild": "npm install -f",
