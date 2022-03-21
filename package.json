@@ -5,9 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "cd frontend && npm install && npm run build",
-    "start": "ts-node backend/server.ts",
-    "heroku-prebuild": "npm install -f",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
+    "start": "ts-node backend/server.ts"
   },
   "author": "",
   "license": "ISC",

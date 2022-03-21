@@ -16,7 +16,6 @@ git push heroku master
 
 # Lancer en local
 
-Bien aller dans Amazona pour le back et frontend pour le front
 Back : npm run start
 Front : npm start
 
