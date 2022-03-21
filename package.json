@@ -23,6 +23,7 @@
     "google-auth-library": "^7.10.2",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.13",
+    "npm": "^6.14.8",
     "query-string": "^7.1.1",
     "ts-node": "^10.7.0",
     "typescript": "^4.6.2"
@@ -36,7 +37,7 @@
     "nodemon": "^2.0.6"
   },
   "engines": {
-    "node": "14.15.0",
+    "node": "14.17.0",
     "npm": "6.14.8"
   }
 }
