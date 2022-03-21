@@ -36,11 +36,12 @@ const HomeScreen: FC<any> = (): JSX.Element => {
       <Pagination
         size='large'
         // shape='rounded'
-        count={
-          products.length % ITEMS_MAX !== 0
+        count={parseInt(
+          (products.length % ITEMS_MAX !== 0
             ? products.length / ITEMS_MAX + 1
             : products.length / ITEMS_MAX
-        }
+          ).toString()
+        )}
         page={currentCage}
         defaultPage={1}
         className='pagination'

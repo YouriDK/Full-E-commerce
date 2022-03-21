@@ -17,6 +17,7 @@ const upsert = (array: Array<any>, item: any) => {
 router.post(
   '/signin',
   expressAsyncHandler(async (req, res) => {
+    console.log('🙂 User -> Login');
     const user = await User.findOne({
       email: req.body.email,
     });
@@ -39,6 +40,7 @@ router.post(
 router.post(
   '/signin/google',
   expressAsyncHandler(async (req, res) => {
+    console.log('🙂 User -> Login Google');
     const { token } = req.body;
     const client = new OAuth2Client(process.env.REACT_APP_GOOGLE_CLIENT_ID);
     const users: any[] = [];
@@ -46,7 +48,6 @@ router.post(
       idToken: token,
       audience: process.env.CLIENT_ID,
     });
-    console.log('ticket ->', ticket); // * We keep the sub because we migth use it as the token
     const { name, email, picture, given_name, family_name, sub } =
       ticket.getPayload() as any;
     const userCheck = await User.findOne({ email });
@@ -80,6 +81,7 @@ router.get(
   isAuth,
   isAdmin,
   expressAsyncHandler(async (req, res) => {
+    console.log('🙂 User -> Fetch all');
     const users = await User.find();
     if (users) {
       res.send(users);
@@ -89,6 +91,7 @@ router.get(
   })
 );
 router.post('/register', async (req, res) => {
+  console.log('🙂 User -> Register');
   const user = new User({
     admin: false,
     name: req.body.email,
@@ -114,6 +117,7 @@ router.post('/register', async (req, res) => {
 router.get(
   '/:id',
   expressAsyncHandler(async (req, res) => {
+    console.log('🙂 User -> Get one');
     const user = await User.findById(req.params.id);
     if (user) {
       res.send(user);
@@ -127,6 +131,7 @@ router.put(
   '/profile',
   isAuth,
   expressAsyncHandler(async (req: any, res) => {
+    console.log('🙂 User -> Update');
     const user = await User.findById(req.user._id);
     if (user) {
       user.name = req.body.name || user.name;

@@ -9,6 +9,7 @@ orderRoute.get(
   isAuth,
   isAdmin,
   expressAsyncHandler(async (req, res) => {
+    console.log('✔ Orders -> fetch all');
     const orders = await Order.find({}).populate('user', 'name');
     res.send(orders);
   })
@@ -18,6 +19,7 @@ orderRoute.get(
   '/mine',
   isAuth,
   expressAsyncHandler(async (req: any, res) => {
+    console.log('✔ Orders -> fetch One');
     const orders = await Order.find({ user: req.user._id });
     res.send(orders);
   })
@@ -27,6 +29,7 @@ orderRoute.post(
   '/',
   isAuth,
   expressAsyncHandler(async (req: any, res) => {
+    console.log('✔ Orders -> post One');
     if (req.body.orderItems.length === 0) {
       res.status(400).send({ message: 'Cart is empty' });
     } else {
@@ -52,6 +55,7 @@ orderRoute.get(
   '/:id',
   isAuth,
   expressAsyncHandler(async (req, res) => {
+    console.log('✔ Orders -> get One');
     const order = await Order.findById(req.params.id);
     if (order) {
       res.send(order);
@@ -65,6 +69,7 @@ orderRoute.put(
   '/:id/pay',
   isAuth,
   expressAsyncHandler(async (req, res) => {
+    console.log('✔ Orders -> pay 💸 ');
     const order = await Order.findById(req.params.id);
     if (order) {
       order.isPaid = true;
@@ -88,6 +93,7 @@ orderRoute.delete(
   isAuth,
   isAdmin,
   expressAsyncHandler(async (req, res) => {
+    console.log('✔ Orders -> delete one');
     const order = await Order.findById(req.params.id);
     if (order) {
       const deleteOrder = await order.remove();
@@ -103,6 +109,7 @@ orderRoute.put(
   isAuth,
   isAdmin,
   expressAsyncHandler(async (req, res) => {
+    console.log('✔ Orders -> deliver one');
     const order = await Order.findById(req.params.id);
     if (order) {
       order.isDelivered = true;

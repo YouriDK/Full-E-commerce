@@ -50,7 +50,7 @@ const App: FC<any> = (props: any): JSX.Element => {
             </Link>
           </div>
           <div>
-            <Link to='/cart/:id?'>
+            <Link to='/cart'>
               <span className='font-secondary xlarge'>
                 {texte.Cart.cart.en}
               </span>
@@ -139,10 +139,11 @@ const App: FC<any> = (props: any): JSX.Element => {
         <main>
           <Route path='/payment' component={PaymentScreen} />
           <Route path='/placeorder' component={PlaceOrderScreen} />
+          <Route path='/cart' exact={true} component={CartScreen} />
           <Route path='/products' component={ProductsScreen} />
           <Route path='/shipping' component={ShippingScreen} />
           <Route path='/product/:id' component={ProductScreen} />
-          <Route path='/cart/:id?' exact={true} component={CartScreen} />
+
           <Route path='/signin' component={SignInScreen} />
           <Route path='/register' component={RegisterScreen} />
           <Route path='/orderhistory' component={OrderHistoryScreen} />
