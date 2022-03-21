@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import config from './Scripts/config';
-import { OAuth2Client, UserRefreshClient } from 'google-auth-library';
+import { OAuth2Client } from 'google-auth-library';
 import userModel from './models/userModels';
 
 // TODO Refaire selon la nouvelle version
