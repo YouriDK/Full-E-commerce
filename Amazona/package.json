@@ -2,6 +2,7 @@
   "name": "shopx",
   "version": "1.0.0",
   "description": "E-Shop MERN Technology",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "build": " cd Amazona/frontend && npm run build",

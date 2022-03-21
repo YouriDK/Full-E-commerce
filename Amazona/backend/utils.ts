@@ -47,8 +47,6 @@ const isAuth = async (req: any, res: any, next: Function) => {
         };
       }
     );
-    console.log('Token ->', token);
-    console.log('tokenValidate ->', tokenValidate);
     if (!tokenValidate.success) {
       // * Google Auth
       try {
