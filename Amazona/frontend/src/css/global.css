@@ -104,6 +104,11 @@ select.primary {
   background-color: var(--orange);
 }
 
+.link {
+  text-decoration: none !important;
+  color: var(--white) !important;
+}
+
 .link:visited {
   text-decoration: none;
   color: inherit;

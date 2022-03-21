@@ -19,8 +19,9 @@ const getToken = (user: any) => {
   );
 };
 
-// * To check is we'r'e logged in
+// * To check is we're logged in
 const isAuth = async (req: any, res: any, next: Function) => {
+  console.log('🥱 Who are you ? 🥱');
   const auth = req.headers.authorization;
   let tokenValidate: any = {};
   // * 2 Check : one for local one for Google and if one of them is good we keep going
@@ -34,29 +35,43 @@ const isAuth = async (req: any, res: any, next: Function) => {
       (err: any, decode: any) => {
         if (err) {
           // TODO put a real Error without return it
-          tokenValidate = { error: err };
+          tokenValidate = {
+            success: false,
+            error: err,
+          };
         }
         req.user = decode;
-        tokenValidate.user = decode;
+        tokenValidate = {
+          success: true,
+          user: decode,
+        };
       }
     );
+    if (!tokenValidate.success) {
+      // * Google Auth
+      try {
+        const client = new OAuth2Client(process.env.REACT_APP_GOOGLE_CLIENT_ID);
+        const ticket = await client.verifyIdToken({
+          idToken: token,
+          audience: process.env.CLIENT_ID,
+        });
+        tokenValidate.user = ticket.getPayload();
+        const getUser = await userModel.findOne({
+          email: tokenValidate.user.email,
+        });
+        req.user = {
+          ...tokenValidate.user,
+          _id: getUser?._id || '',
+        };
+      } catch (error: any) {
+        tokenValidate = {
+          success: false,
+          error: error,
+        };
+      }
+    }
 
-    const client = new OAuth2Client(process.env.REACT_APP_GOOGLE_CLIENT_ID);
-    const ticket = await client.verifyIdToken({
-      idToken: token,
-      audience: process.env.CLIENT_ID,
-    });
-
-    tokenValidate.user = ticket.getPayload();
-    const getUser = await userModel.findOne({
-      email: tokenValidate.user.email,
-    });
-    req.user = {
-      ...tokenValidate.user,
-      _id: getUser?._id || '',
-    };
-
-    if (tokenValidate.user) {
+    if (tokenValidate.success) {
       next();
       return;
     } else {

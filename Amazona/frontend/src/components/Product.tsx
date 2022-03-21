@@ -43,7 +43,10 @@ const Product: FC<Props> = ({ product }: Props): JSX.Element => {
                 <div className='h-bg-inner'></div>
               </div>
 
-              <a className='cart' href={'/cart/' + product._id + '?qty=' + 1}>
+              <a
+                className='cart'
+                href={'/cart?id=' + product._id + '&qty=' + 1}
+              >
                 <span className='price'>{product.price}</span>
                 <span className='add-to-cart'>
                   <span className='txt font-secondary large'>
