@@ -1,7 +1,6 @@
 {
   "name": "shopx",
   "version": "2.4.0",
-  "type": "module",
   "description": "E-Shop MERN Technology",
   "main": "index.js",
   "scripts": {
