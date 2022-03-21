@@ -45,11 +45,9 @@ var __dirname = path.resolve(path.dirname(''));
 
 // * Middleware pour changer entre developpement et production
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '/Amazona/frontend/build')));
+  app.use(express.static(path.join(__dirname, '/frontend/build')));
   app.get('*', (req, res) => {
-    res.sendFile(
-      path.join(__dirname, 'Amazona', 'frontend', 'build', 'index.html')
-    );
+    res.sendFile(path.join(__dirname, 'frontend', 'build', 'index.html'));
   });
 } else {
   app.get('/', (req, res) => {
