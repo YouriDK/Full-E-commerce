@@ -19,7 +19,7 @@ const getToken = (user: any) => {
   );
 };
 
-// * To check is we're logged in
+// * To check if we're logged in
 const isAuth = async (req: any, res: any, next: Function) => {
   console.log('🥱 Who are you ? 🥱');
   const auth = req.headers.authorization;

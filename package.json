@@ -5,10 +5,7 @@
   "main": "index.tsx",
   "scripts": {
     "build": "cd frontend && npm install && npm run build",
-    "postinstall": "cd frontend && npm install && npm run build",
-    "start": "ts-node backend/server.ts",
-    "start-p": "ts-node --transpile-only backend/server.ts",
-    "start-dev": "ts-node backend/server.ts"
+    "start": "ts-node backend/server.ts"
   },
   "author": "YC",
   "license": "ISC",
@@ -21,7 +18,7 @@
     "express": "^4.17.1",
     "express-async-handler": "^1.1.4",
     "fs": "0.0.1-security",
-    "google-auth-library": "^7.10.2",
+    "google-auth-library": "^7.14.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.13",
     "npm": "^6.14.8",

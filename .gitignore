@@ -3,13 +3,13 @@
 # dependencies
 frontend/node_modules
 frontend/build
+frontend/.env
+frontend/.eslintcache
+/frontend/package-lock.json
 
 node_modules
-frontend/.eslintcache
 /node_modules
-package-lock.json
-/package-lock.json
-frontend/package-lock.json
+
 
 .env
-frontend/.env
+/package-lock.json

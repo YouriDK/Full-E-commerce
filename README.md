@@ -33,6 +33,8 @@ Le isAuth reconnait mnt Google Auth, il va falloir passer dans toutes les démar
 
 Probleme H10 ou autres , bien s'assurer que toute nouvelle librairie est dans TOUS les package.json
 
+Problème SOIS DISANT de dev @types , il fallait supprimer les package-lock du repo...
+
 # Evo
 
 Implémenter le système d'erreurs
@@ -40,5 +42,6 @@ Tests unitaires
 Rajouter les vetement avec gestion de catégories
 Refaire une passe complète
 Retirer Stripe en terme d'option de paiement
+Actualiser la page quand c'est payé
 
 - Faire un Icone d'onglet adéquates
