@@ -65,14 +65,10 @@ export function productDeleteReducer(state = { product: {} }, action: any) {
       return state;
   }
 }
-export function productSwitchCategoriesReducer(
-  state = { category: '' },
-  action: any
-) {
+export function productSwitchCategoriesReducer(state = 'All', action: any) {
   switch (action.type) {
     case PRODUCT_SWITCH_CATEGORIES:
       return action.payload;
-
     default:
       return state;
   }
