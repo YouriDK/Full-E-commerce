@@ -149,8 +149,8 @@ export const texte = {
     },
   },
 };
-export const CATEGORY = [
-  '',
+export const Categories = [
+  'All',
   'Shoes',
   'Shirts',
   'Sweat',

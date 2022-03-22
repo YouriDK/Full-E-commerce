@@ -1,17 +1,16 @@
-import React, { useEffect, useState, FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
+import { AiTwotoneEdit } from 'react-icons/ai';
 import { MdRestoreFromTrash } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
-import CustomInput from '../components/CustomInput';
 import { Button } from 'reactstrap';
-
-import { CATEGORY, texte } from '../data';
-import { AiTwotoneEdit } from 'react-icons/ai';
+import CustomInput from '../components/CustomInput';
 import LoadingBox from '../components/LoadingBox';
 import MesssageBox from '../components/MesssageBox';
+import { Categories, texte } from '../data';
 import {
+  deleteProduct,
   listProducts,
   saveProduct,
-  deleteProduct,
 } from '../redux/actions/productActions';
 
 const ProductsScreen: FC<any> = (props: any): JSX.Element => {
@@ -151,7 +150,7 @@ const ProductsScreen: FC<any> = (props: any): JSX.Element => {
                 name='category'
                 label='Category'
                 type='select'
-                options={CATEGORY}
+                options={Categories}
                 change={setCategory}
               />
               <CustomInput

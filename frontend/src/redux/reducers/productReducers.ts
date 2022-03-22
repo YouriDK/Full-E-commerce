@@ -11,6 +11,7 @@ import {
   PRODUCT_DELETE_REQUEST,
   PRODUCT_DELETE_SUCCESS,
   PRODUCT_DELETE_FAIL,
+  PRODUCT_SWITCH_CATEGORIES,
 } from '../constants/productConstants';
 
 export function productListReducer(state = { products: [] }, action: any) {
@@ -60,6 +61,18 @@ export function productDeleteReducer(state = { product: {} }, action: any) {
       return { loading: false, success: true, product: action.payload };
     case PRODUCT_DELETE_FAIL:
       return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+}
+export function productSwitchCategoriesReducer(
+  state = { category: '' },
+  action: any
+) {
+  switch (action.type) {
+    case PRODUCT_SWITCH_CATEGORIES:
+      return action.payload;
+
     default:
       return state;
   }

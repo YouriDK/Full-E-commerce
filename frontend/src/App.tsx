@@ -1,9 +1,9 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Route, useHistory } from 'react-router-dom';
 import AdminRoute from './components/AdminRoute';
 import PrivateRoute from './components/PrivateRoute';
-import { texte } from './data';
+import { Categories, texte } from './data';
 import CartScreen from './Pages/CartScreen';
 import HomeScreen from './Pages/HomeScreen';
 import OrderHistoryScreen from './Pages/OrderHistoryScreen';
@@ -18,6 +18,7 @@ import RegisterScreen from './Pages/RegisterScreen';
 import ShippingScreen from './Pages/ShippingScreen';
 import SignInScreen from './Pages/SignInScreen';
 import UserListScreen from './Pages/UserListScreen';
+import { switchCategoyProduct } from './redux/actions/productActions';
 import { signout } from './redux/actions/userActions';
 
 const App: FC<any> = (props: any): JSX.Element => {
@@ -27,11 +28,15 @@ const App: FC<any> = (props: any): JSX.Element => {
   const { userInfo } = userSignin;
   const dispatch = useDispatch();
   const history = useHistory();
+  const [categories, setCategories] = useState('All');
 
   const moveTo: any = (moveTo: string) => {
     history.push(moveTo);
   };
-
+  const handleCategories: any = (handleCat: string) => {
+    dispatch(switchCategoyProduct(handleCat));
+    setCategories(handleCat);
+  };
   const signoutHandler = () => {
     dispatch(signout());
     moveTo('/#signout');
@@ -58,12 +63,29 @@ const App: FC<any> = (props: any): JSX.Element => {
                 <span className='badge'>{cartItems.length}</span>
               )}
             </Link>
+            <div className='dropdown'>
+              <Link to='#' className='font-secondary xlarge'>
+                {categories === 'All' ? 'Category' : categories}
+              </Link>
+              <ul className='dropdown-content'>
+                {Categories.map((cat: string, index: number) => (
+                  <li key={index}>
+                    <Link
+                      to='#'
+                      className='font-secondary large'
+                      onClick={() => handleCategories(cat)}
+                    >
+                      {cat}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
             {'  '}
             {userInfo ? (
               <div className='dropdown'>
                 <Link to='#' className='font-secondary xlarge'>
                   {userInfo.family_name ? userInfo.family_name : userInfo.name}{' '}
-                  <i className='fa fa-caret-down'></i>{' '}
                 </Link>
                 <ul className='dropdown-content'>
                   {!userInfo.family_name && (

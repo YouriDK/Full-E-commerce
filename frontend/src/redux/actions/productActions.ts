@@ -13,6 +13,7 @@ import {
   PRODUCT_DELETE_REQUEST,
   PRODUCT_DELETE_SUCCESS,
   PRODUCT_DELETE_FAIL,
+  PRODUCT_SWITCH_CATEGORIES,
 } from '../constants/productConstants';
 
 const listProducts = () => async (dispatch: any) => {
@@ -68,6 +69,9 @@ const detailsProduct = (productId: string) => async (dispatch: any) => {
     });
   }
 };
+const switchCategoyProduct = (category: string) => (dispatch: any) => {
+  dispatch({ type: PRODUCT_SWITCH_CATEGORIES, payload: category });
+};
 
 const deleteProduct =
   (productId: string) => async (dispatch: any, getState: any) => {
@@ -85,4 +89,10 @@ const deleteProduct =
     }
   };
 
-export { listProducts, detailsProduct, saveProduct, deleteProduct };
+export {
+  listProducts,
+  detailsProduct,
+  saveProduct,
+  deleteProduct,
+  switchCategoyProduct,
+};

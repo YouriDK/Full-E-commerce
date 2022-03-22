@@ -5,6 +5,7 @@ import {
   productDetailsReducer,
   productSaveReducer,
   productDeleteReducer,
+  productSwitchCategoriesReducer,
 } from './reducers/productReducers';
 import {
   orderCreateReducer,
@@ -70,6 +71,7 @@ const reducer = combineReducers({
   orderDeliver: orderDeliverReducer,
   orderDelete: orderDeleteReducer,
   userList: userListReducer,
+  category: productSwitchCategoriesReducer,
 });
 
 // TODO comprendre la compose

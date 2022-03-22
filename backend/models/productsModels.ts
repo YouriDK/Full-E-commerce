@@ -1,10 +1,19 @@
 import mongoose, { Document } from 'mongoose';
+
+enum categories {
+  'Shoes',
+  'Shirts',
+  'Sweat',
+  'Pants',
+  'Joggings',
+  'Underwears',
+}
 export interface Iproduct {
   // id: any;
   name: string;
   image: string;
   brand: string;
-  category: 'Shoes' | 'Shirts' | 'Sweat' | 'Pants' | 'Joggings' | 'Underwears';
+  category: categories;
   price: number;
   countInStock: number;
   description: string;

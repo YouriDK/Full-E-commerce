@@ -9,6 +9,7 @@ import { Pagination } from '@mui/material';
 
 const HomeScreen: FC<any> = (): JSX.Element => {
   const productList = useSelector((state: any) => state.productList);
+  const category = useSelector((state: any) => state.category);
   const [currentCage, setCurrentCage] = useState(1);
   const { products, loading, error } = productList;
   const ITEMS_MAX = 13;
@@ -19,6 +20,9 @@ const HomeScreen: FC<any> = (): JSX.Element => {
   useEffect(() => {
     dispatch(listProducts());
   }, [dispatch]);
+
+  //  useEffect(() => {}, [category]);
+
   return loading ? (
     <LoadingBox />
   ) : error ? (
@@ -27,6 +31,10 @@ const HomeScreen: FC<any> = (): JSX.Element => {
     <>
       <div className='row center'>
         {products
+          .filter(
+            (produdct: ProductProps) =>
+              produdct.category === category || category === 'All'
+          )
           .slice((currentCage - 1) * ITEMS_MAX, currentCage * ITEMS_MAX - 1)
           .map((product: ProductProps) => {
             return <Product key={product._id} product={product} />;
