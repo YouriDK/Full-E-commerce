@@ -1,11 +1,11 @@
-import jwt from 'jsonwebtoken';
+import { verify, sign } from 'jsonwebtoken';
 import config from './Scripts/config';
 import { OAuth2Client } from 'google-auth-library';
 import userModel from './models/userModels';
 
 // TODO Refaire selon la nouvelle version
 const getToken = (user: any) => {
-  return jwt.sign(
+  return sign(
     {
       _id: user._id,
       name: user.name,
@@ -29,7 +29,7 @@ const isAuth = async (req: any, res: any, next: Function) => {
     return res.status(401).send({ msg: 'Token is not supplied ! ' });
   } else {
     const token = auth.slice(7, auth.length); // * Bearer XXXXX =>  on se débarasse de Bearer
-    jwt.verify(
+    verify(
       token,
       process.env.JWT_SECRET || 'somethingsecret',
       (err: any, decode: any) => {
