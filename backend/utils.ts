@@ -1,4 +1,4 @@
-import { verify, sign } from './bad-modules/jsonwebtoken';
+import { verify, sign } from 'jsonwebtoken';
 import config from './Scripts/config';
 import { OAuth2Client } from 'google-auth-library';
 import userModel from './models/userModels';
