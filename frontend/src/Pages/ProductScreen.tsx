@@ -18,7 +18,7 @@ const ProductScreen: FC<any> = (props: any): JSX.Element => {
     dispatch(detailsProduct(props.match.params.id));
   }, [dispatch, props.match.params.id]);
   const handleAddtoCart = () => {
-    props.history.push('/cart/' + props.match.params.id + '?qty=' + qty);
+    props.history.push('/cart?id=' + props.match.params.id + '&qty=' + qty);
   };
   return loading ? (
     <LoadingBox />
