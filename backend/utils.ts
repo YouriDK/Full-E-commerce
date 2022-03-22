@@ -14,7 +14,7 @@ const getToken = (user: any) => {
     },
     config.JWT_SECRET,
     {
-      expiresIn: '15d',
+      expiresIn: '2d',
     }
   );
 };
@@ -47,22 +47,24 @@ const isAuth = async (req: any, res: any, next: Function) => {
         };
       }
     );
-    if (!tokenValidate.success) {
+    if (!tokenValidate.user) {
       // * Google Auth
+      console.log('🤞 Google Auth 🤞');
       try {
         const client = new OAuth2Client(process.env.REACT_APP_GOOGLE_CLIENT_ID);
         const ticket = await client.verifyIdToken({
           idToken: token,
           audience: process.env.CLIENT_ID,
         });
-        tokenValidate.user = ticket.getPayload();
-        const getUser = await userModel.findOne({
-          email: tokenValidate.user.email,
-        });
-        req.user = {
-          ...tokenValidate.user,
-          _id: getUser?._id || '',
-        };
+
+        const getUser = await userModel
+          .findOne({
+            email: ticket.getPayload()?.email,
+          })
+          .then((data: any) => data);
+
+        // * We put the simple data to get a valid _id
+        req.user = getUser;
       } catch (error: any) {
         tokenValidate = {
           success: false,
@@ -72,6 +74,7 @@ const isAuth = async (req: any, res: any, next: Function) => {
     }
 
     if (tokenValidate.success) {
+      console.log('✔ Next -> User ->');
       next();
       return;
     } else {

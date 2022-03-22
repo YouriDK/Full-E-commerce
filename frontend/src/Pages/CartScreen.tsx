@@ -3,10 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import { addToCart, removeFromCart } from '../redux/actions/cartActions';
-import MessageBox from '../components/MesssageBox';
+import EmptyCard from '../components/EmptyCard';
 import { texte } from '../data';
 import { BsTrash } from 'react-icons/bs';
 import queryString from 'query-string';
+import MesssageBox from '../components/MesssageBox';
 
 const CartScreen: FC<any> = (props: any): JSX.Element => {
   const cart = useSelector((state: any) => state.cart);
@@ -31,7 +32,10 @@ const CartScreen: FC<any> = (props: any): JSX.Element => {
   return (
     <>
       {cartItems.length === 0 ? (
-        <MessageBox variant='info' text={texte.Panier.vide.en} />
+        <>
+          <MesssageBox variant='info' text={texte.Panier.vide.en} />
+          <EmptyCard />
+        </>
       ) : (
         <div className='table-users' style={{ width: '80%' }}>
           <div className='header '>{texte.Cart.cart.en}</div>

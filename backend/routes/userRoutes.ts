@@ -52,7 +52,7 @@ router.post(
       ticket.getPayload() as any;
     const userCheck = await User.findOne({ email });
     if (!userCheck) {
-      // Save some Intels
+      console.log('🙂 User -> Creaion basic user for _id ');
       const user = new User({
         admin: false,
         name: family_name,
@@ -72,6 +72,7 @@ router.post(
       family_name,
       sub,
       token,
+      _id: sub,
     });
   })
 );

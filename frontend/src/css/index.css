@@ -257,3 +257,8 @@ strong {
   text-align: center;
   color: var(--secondary);
 }
+
+.empty-card {
+  display: flex;
+  flex-direction: column-reverse;
+}
