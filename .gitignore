@@ -8,6 +8,8 @@ node_modules
 frontend/.eslintcache
 /node_modules
 package-lock.json
+/package-lock.json
+frontend/package-lock.json
 
 .env
 frontend/.env
