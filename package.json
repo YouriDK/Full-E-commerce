@@ -23,7 +23,9 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.13",
     "npm": "^6.14.8",
-    "query-string": "^7.1.1"
+    "query-string": "^7.1.1",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.8",
