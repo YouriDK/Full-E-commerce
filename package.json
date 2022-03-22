@@ -6,8 +6,7 @@
   "scripts": {
     "build": "cd frontend && npm install && npm run build",
     "start": "ts-node  --transpile-only backend/server.ts",
-    "start-dev": "ts-node backend/server.ts",
-    "postinstall": "tsc"
+    "start-dev": "ts-node backend/server.ts"
   },
   "author": "",
   "license": "ISC",
