@@ -35,4 +35,7 @@ Rajouter les vetement avec gestion de catégories
 
 Actualiser la page quand c'est payé
 
-- Faire un Icone d'onglet adéquates
+- Faire un Icone d'onglet adéquates ( to define )
+
+# En cours : 
+    Gestion Erreur : adapter le front dans les pages ( back done & redux done)

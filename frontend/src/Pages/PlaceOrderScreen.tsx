@@ -43,7 +43,7 @@ const PlaceOrderScreen: FC<any> = (props: any): JSX.Element => {
       {loading ? (
         <LoadingBox />
       ) : error ? (
-        <MesssageBox variant='danger' text={error} />
+        <MesssageBox variant='danger' error={error} />
       ) : (
         <div style={{ display: 'flex' }}>
           <div

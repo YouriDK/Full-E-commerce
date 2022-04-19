@@ -82,7 +82,7 @@ const ProductsScreen: FC<any> = (props: any): JSX.Element => {
   return loading ? (
     <LoadingBox />
   ) : error ? (
-    <MesssageBox variant='danger' text={error} />
+    <MesssageBox variant='danger' error={error} />
   ) : (
     <div className='content content-margined'>
       <div className='flex' style={{ justifyContent: 'space-between' }}>

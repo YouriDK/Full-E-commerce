@@ -37,10 +37,7 @@ export const signin = (email: any, password: any) => async (dispatch: any) => {
   } catch (error: any) {
     dispatch({
       type: USER_SIGNIN_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.response.data,
     });
   }
 };
@@ -58,10 +55,7 @@ export const googleLogin = (googleData: any) => async (dispatch: any) => {
   } catch (error: any) {
     dispatch({
       type: GOOGLE_SIGNIN_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.response.data,
     });
   }
 };
@@ -92,10 +86,7 @@ export const register =
     } catch (error: any) {
       dispatch({
         type: USER_REGISTER_FAIL,
-        payload:
-          error.response && error.response.data.message
-            ? error.response.data.message
-            : error.message,
+        payload: error.response.data,
       });
     }
   };
@@ -113,11 +104,7 @@ export const detailsUser =
       });
       dispatch({ type: USER_DETAILS_SUCCESS, payload: data });
     } catch (error: any) {
-      const message =
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message;
-      dispatch({ type: USER_DETAILS_FAIL, payload: message });
+      dispatch({ type: USER_DETAILS_FAIL, payload: error.response.data });
     }
   };
 
@@ -138,11 +125,7 @@ export const updateUserProfile =
       dispatch({ type: USER_SIGNIN_SUCCESS, payload: data });
       localStorage.setItem('userInfo', JSON.stringify(data));
     } catch (error: any) {
-      const message =
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message;
-      dispatch({ type: USER_UPDATE_FAIL, payload: message });
+      dispatch({ type: USER_UPDATE_FAIL, payload: error.response.data });
     }
   };
 
@@ -157,10 +140,6 @@ export const listUsers = () => async (dispatch: any, getState: any) => {
     });
     dispatch({ type: USER_GET_SUCCESS, payload: data });
   } catch (error: any) {
-    const message =
-      error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message;
-    dispatch({ type: USER_GET_FAIL, payload: message });
+    dispatch({ type: USER_GET_FAIL, payload: error.response.data });
   }
 };

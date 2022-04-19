@@ -6,19 +6,28 @@ import { listOrderMine } from '../redux/actions/orderActions';
 import LoadingBox from '../components/LoadingBox';
 import MesssageBox from '../components/MesssageBox';
 import { texte } from '../data';
+import { useHistory } from 'react-router-dom';
 
 const OrderHistoryScreen: FC<any> = (props: any): JSX.Element => {
   const orderMineList = useSelector((state: any) => state.orderMineList);
   const { orders, loading, error } = orderMineList;
   const dispatch = useDispatch();
-
+  const history = useHistory();
   useEffect(() => {
     dispatch(listOrderMine());
-  }, [dispatch]);
+
+    if (
+      orderMineList.error &&
+      orderMineList.error.detail === 'Invalid userinfo encoding.'
+    ) {
+      history.push('/login');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, orderMineList.error]);
   return loading ? (
     <LoadingBox />
   ) : error ? (
-    <MesssageBox variant='danger' text={error} />
+    <MesssageBox variant='danger' error={error} />
   ) : (
     <div className='table-users' style={{ width: '80%' }}>
       <div className='header'>Orders</div>

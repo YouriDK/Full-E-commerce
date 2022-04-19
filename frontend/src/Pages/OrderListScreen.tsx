@@ -32,7 +32,7 @@ const OrderListScreen: FC<any> = (props: any): JSX.Element => {
   return loading ? (
     <LoadingBox />
   ) : error ? (
-    <MessageBox variant='danger' text={error} />
+    <MessageBox variant='danger' error={error} />
   ) : (
     <div className='table-users' style={{ width: '80%' }}>
       {loadingDelete && <LoadingBox />}

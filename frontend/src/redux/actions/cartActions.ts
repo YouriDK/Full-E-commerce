@@ -12,7 +12,6 @@ const addToCart =
       const { data } = await Axios.get('/api/product/' + productId)
         .then((res: any) => res)
         .catch((err: any) => console.log(err));
-      console.log('DATA ->', data);
       dispatch({
         type: CART_ADD_ITEM,
         payload: {

@@ -1,16 +1,33 @@
 import { FC } from 'react';
 import { Alert } from 'reactstrap';
+interface ErrorProps {
+  detail: string;
+  status: number;
+  type: string;
+  title: string;
+}
+
 interface MesssageBoxProps {
-  text: string[] | string;
+  text?: string[] | string;
   variant: string;
   notext?: boolean;
+  error?: ErrorProps;
 }
 const MesssageBox: FC<MesssageBoxProps> = ({
-  text,
+  text = '',
   variant,
   notext,
+  error,
 }: MesssageBoxProps): JSX.Element => {
-  return (
+  return error ? (
+    <Alert
+      color={variant}
+      className={`center alert `}
+      style={{ margin: 'auto' }}
+    >
+      {`${error.title} ${error.status} : ${error.detail} from ${error.type} !`}
+    </Alert>
+  ) : (
     <Alert
       color={variant}
       className={`center alert `}

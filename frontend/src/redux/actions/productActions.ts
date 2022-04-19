@@ -22,7 +22,7 @@ const listProducts = () => async (dispatch: any) => {
     const { data } = await axios.get('/api/products');
     dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
   } catch (error: any) {
-    dispatch({ type: PRODUCT_LIST_FAIL, payload: error.message });
+    dispatch({ type: PRODUCT_LIST_FAIL, payload: error.response.data });
   }
 };
 
@@ -50,7 +50,7 @@ const saveProduct =
         dispatch({ type: PRODUCT_SAVE_SUCCESS, payload: data });
       }
     } catch (error: any) {
-      dispatch({ type: PRODUCT_SAVE_FAIL, payload: error.message });
+      dispatch({ type: PRODUCT_SAVE_FAIL, payload: error.response.data });
     }
   };
 
@@ -62,10 +62,7 @@ const detailsProduct = (productId: string) => async (dispatch: any) => {
   } catch (error: any) {
     dispatch({
       type: PRODUCT_DETAILS_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.response.data,
     });
   }
 };
@@ -85,7 +82,7 @@ const deleteProduct =
       });
       dispatch({ type: PRODUCT_DELETE_SUCCESS, payload: data, success: true });
     } catch (error: any) {
-      dispatch({ type: PRODUCT_DELETE_FAIL, payload: error.message });
+      dispatch({ type: PRODUCT_DELETE_FAIL, payload: error.response.data });
     }
   };
 

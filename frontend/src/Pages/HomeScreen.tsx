@@ -21,12 +21,10 @@ const HomeScreen: FC<any> = (): JSX.Element => {
     dispatch(listProducts());
   }, [dispatch]);
 
-  //  useEffect(() => {}, [category]);
-
   return loading ? (
     <LoadingBox />
   ) : error ? (
-    <MessageBox variant='danger' text={error} />
+    <MessageBox variant='danger' error={error} />
   ) : (
     <>
       <div className='row center'>

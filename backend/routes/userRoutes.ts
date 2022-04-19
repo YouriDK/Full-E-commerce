@@ -4,6 +4,12 @@ import { getToken, isAdmin, isAuth } from '../utils';
 import expressAsyncHandler from 'express-async-handler';
 import { OAuth2Client } from 'google-auth-library';
 import bcrypt from 'bcryptjs';
+import {
+  RegisterError,
+  SingInFoundError,
+  UpdateUserError,
+  UserNotFoundError,
+} from '../errors/error-generator';
 
 const router = express.Router();
 // const users = [];
@@ -24,7 +30,7 @@ router.post(
     if (user) {
       // ! On compare le Hash du mot de passe et non le mot de passe lui même pour la sécurité
       if (bcrypt.compareSync(req.body.password, user.password)) {
-        res.send({
+        res.status(201).send({
           _id: user.id,
           name: user.name,
           email: user.email,
@@ -33,7 +39,7 @@ router.post(
         });
       }
     } else {
-      res.status(401).send({ msg: 'Invalid Email or Password 🤦‍♀️ ! ' });
+      res.status(403).send(SingInFoundError());
     }
   })
 );
@@ -87,7 +93,7 @@ router.get(
     if (users) {
       res.send(users);
     } else {
-      res.status(404).send({ message: 'User List Not Found' });
+      res.status(404).send(UserNotFoundError());
     }
   })
 );
@@ -110,7 +116,7 @@ router.post('/register', async (req, res): Promise<any> => {
       token: getToken(newUser),
     });
   } else {
-    res.status(401).send({ msg: 'Invalid User Data !' });
+    return res.status(403).send(RegisterError());
   }
 });
 
@@ -123,7 +129,7 @@ router.get(
     if (user) {
       res.send(user);
     } else {
-      res.status(404).send({ message: 'User Not Found' });
+      return res.status(404).send(UserNotFoundError());
     }
   })
 );
@@ -131,7 +137,7 @@ router.get(
 router.put(
   '/profile',
   isAuth,
-  expressAsyncHandler(async (req: any, res) => {
+  expressAsyncHandler(async (req: any, res): Promise<any> => {
     console.log('🙂 User -> Update');
     const user = await User.findById(req.user._id);
     if (user) {
@@ -141,14 +147,16 @@ router.put(
         user.password = bcrypt.hashSync(req.body.password, 8);
       }
       const updateUser = await user.save();
-      res.send({
-        _id: updateUser._id,
-        name: updateUser.name,
-        email: updateUser.email,
-        admin: updateUser.admin,
-        token: getToken(updateUser),
-      });
-    }
+      if (updateUser) {
+        res.status(200).send({
+          _id: updateUser._id,
+          name: updateUser.name,
+          email: updateUser.email,
+          admin: updateUser.admin,
+          token: getToken(updateUser),
+        });
+      } else return res.status(403).send(UpdateUserError());
+    } else return res.status(404).send(UserNotFoundError());
   })
 );
 

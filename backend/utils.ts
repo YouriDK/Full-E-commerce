@@ -2,7 +2,8 @@ import { verify, sign } from 'jsonwebtoken';
 import config from './Scripts/config';
 import { OAuth2Client } from 'google-auth-library';
 import userModel from './models/userModels';
-
+import { AdminError } from './errors/error-generator';
+import { TokenInvalidError } from './errors/error-generator';
 // TODO Refaire selon la nouvelle version
 const getToken = (user: any) => {
   return sign(
@@ -34,7 +35,6 @@ const isAuth = async (req: any, res: any, next: Function) => {
       process.env.JWT_SECRET || 'somethingsecret',
       (err: any, decode: any) => {
         if (err) {
-          // TODO put a real Error without return it
           tokenValidate = {
             success: false,
             error: err,
@@ -78,8 +78,10 @@ const isAuth = async (req: any, res: any, next: Function) => {
       next();
       return;
     } else {
+      // TODO Faire un retour à login car ça veut dire qu'il manqueme token ( expried)
       console.log('Error ->', tokenValidate.error);
-      return res.status(401).send({ msg: 'Invalid Token ! 🤷‍♂️' });
+      console.log('Error ->', tokenValidate.error.Error);
+      return res.status(401).send(TokenInvalidError());
     }
   }
 };
@@ -89,7 +91,7 @@ const isAdmin = (req: any, res: any, next: Function) => {
   if (req.user && req.user.admin) {
     return next();
   }
-  return res.status(401).send({ msg: '🙄 Admin checked failed.' });
+  return res.status(401).send(AdminError());
 };
 
 export { getToken, isAdmin, isAuth };

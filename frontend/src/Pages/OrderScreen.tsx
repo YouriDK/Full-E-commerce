@@ -85,7 +85,7 @@ const OrderScreen: FC<any> = (props: any): JSX.Element => {
   return loading ? (
     <LoadingBox />
   ) : error ? (
-    <MesssageBox variant='danger' text={error} />
+    <MesssageBox variant='danger' error={error} />
   ) : (
     <div style={{ display: 'flex' }}>
       <div className='table-users placeorder-info' style={{ width: 'auto' }}>

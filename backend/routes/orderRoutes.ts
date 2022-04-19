@@ -2,6 +2,11 @@ import express from 'express';
 import Order from '../models/orderModel';
 import expressAsyncHandler from 'express-async-handler';
 import { isAdmin, isAuth } from '../utils';
+import {
+  CreateOrderError,
+  OrderNotFoundError,
+  ProductNotFoundError,
+} from '../errors/error-generator';
 
 const orderRoute = express.Router();
 orderRoute.get(
@@ -44,9 +49,11 @@ orderRoute.post(
         user: req.user._id,
       });
       const createdOrder = await order.save();
-      res
-        .status(201)
-        .send({ message: 'New order Created', order: createdOrder });
+      if (createdOrder) {
+        return res
+          .status(201)
+          .send({ message: 'New order Created', order: createdOrder });
+      } else return res.status(500).send(CreateOrderError());
     }
   })
 );
@@ -60,7 +67,7 @@ orderRoute.get(
     if (order) {
       res.send(order);
     } else {
-      res.status(404).send({ message: 'Order not Found' });
+      res.status(404).send(OrderNotFoundError());
     }
   })
 );
@@ -83,7 +90,7 @@ orderRoute.put(
       const updatedOrder = await order.save();
       res.send({ message: 'Order Paid', order: updatedOrder });
     } else {
-      res.status(404).send({ message: 'Order Not Found' });
+      res.status(404).send(OrderNotFoundError());
     }
   })
 );
@@ -99,7 +106,7 @@ orderRoute.delete(
       const deleteOrder = await order.remove();
       res.send({ message: 'Order Deleted', order: deleteOrder });
     } else {
-      res.status(404).send({ message: 'Order Not Found' });
+      res.status(404).send(OrderNotFoundError());
     }
   })
 );
@@ -118,7 +125,7 @@ orderRoute.put(
       const updateOrder = await order.save();
       res.send({ message: 'Order Delivered', order: updateOrder });
     } else {
-      res.status(404).send({ message: 'Order Not Found' });
+      res.status(404).send(OrderNotFoundError());
     }
   })
 );

@@ -46,7 +46,7 @@ const ProfileScreen: FC<any> = (): JSX.Element => {
   return loading ? (
     <LoadingBox />
   ) : error ? (
-    <MessageBox variant='danger' text={error} />
+    <MessageBox variant='danger' error={error} />
   ) : (
     <form className='form' onSubmit={submitHandler}>
       <div>

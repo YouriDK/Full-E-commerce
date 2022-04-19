@@ -23,7 +23,7 @@ const ProductScreen: FC<any> = (props: any): JSX.Element => {
   return loading ? (
     <LoadingBox />
   ) : error ? (
-    <MessageBox variant='danger' text={error} />
+    <MessageBox variant='danger' error={error} />
   ) : (
     <div className='card'>
       <Link to='/' className='link'>

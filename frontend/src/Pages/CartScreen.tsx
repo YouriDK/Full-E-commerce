@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import { addToCart, removeFromCart } from '../redux/actions/cartActions';
 import EmptyCard from '../components/EmptyCard';
+import { createNotifications } from '../components/notifications';
 import { texte } from '../data';
 import { BsTrash } from 'react-icons/bs';
 import queryString from 'query-string';
-import MesssageBox from '../components/MesssageBox';
 
 const CartScreen: FC<any> = (props: any): JSX.Element => {
   const cart = useSelector((state: any) => state.cart);
@@ -27,13 +27,18 @@ const CartScreen: FC<any> = (props: any): JSX.Element => {
     if (productId) {
       dispatch(addToCart(productId, qty));
     }
-  }, [dispatch, productId, qty]);
+    if (cartItems.length === 0) {
+      createNotifications({
+        title: "Cart's empty",
+        message: "Let's go shopping",
+      });
+    }
+  }, [dispatch, productId, qty, cartItems]);
 
   return (
     <>
       {cartItems.length === 0 ? (
         <>
-          <MesssageBox variant='info' text={texte.Panier.vide.en} />
           <EmptyCard />
         </>
       ) : (

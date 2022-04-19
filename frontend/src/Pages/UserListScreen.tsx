@@ -18,7 +18,7 @@ const UserListScreen: FC<any> = (): JSX.Element => {
   return loading ? (
     <LoadingBox />
   ) : error ? (
-    <MesssageBox variant='danger' text={error} />
+    <MesssageBox variant='danger' error={error} />
   ) : (
     <div className='table-users' style={{ width: '80%' }}>
       <div className='header'>Users</div>

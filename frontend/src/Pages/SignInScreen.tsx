@@ -48,7 +48,7 @@ const SignInScreen: FC<any> = (props: any): JSX.Element => {
   return loading ? (
     <LoadingBox />
   ) : error ? (
-    <MessageBox variant='danger' text={error} />
+    <MessageBox variant='danger' error={error} />
   ) : (
     <div>
       <form className='form' onSubmit={submitHandler}>
