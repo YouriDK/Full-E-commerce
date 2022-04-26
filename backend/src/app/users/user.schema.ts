@@ -20,16 +20,16 @@ export class User {
     // * Something hehe
   }
 
-  public fill(wf: {
+  public fill(user: {
     name: string;
     email: string;
     password: string;
     admin: boolean;
   }): any {
-    this.name = wf.name;
-    this.email = wf.email;
-    this.password = wf.password;
-    this.admin = wf.admin;
+    this.name = user.name;
+    this.email = user.email;
+    this.password = user.password;
+    this.admin = user.admin;
     return this;
   }
 }

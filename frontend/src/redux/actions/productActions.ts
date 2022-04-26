@@ -77,7 +77,7 @@ const deleteProduct =
         userSignin: { userInfo },
       } = getState(); // *  Permet de récupérer le Token
       dispatch({ type: PRODUCT_DELETE_REQUEST, payload: productId });
-      const { data } = await axios.delete('/api/products/' + productId, {
+      const { data } = await axios.delete('/api/product/' + productId, {
         headers: { Authorization: 'Bearer ' + userInfo.token },
       });
       dispatch({ type: PRODUCT_DELETE_SUCCESS, payload: data, success: true });

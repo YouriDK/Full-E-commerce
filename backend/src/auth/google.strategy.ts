@@ -36,6 +36,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
       user = await this.usersService.findOnebyEmail(email);
     }
     upsert(users, { name, email, picture, given_name, family_name, sub });
+    console.log('✅ Authentification Via LocalStrategy google  success ✅');
     return {
       name,
       email,

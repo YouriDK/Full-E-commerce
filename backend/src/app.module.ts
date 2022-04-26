@@ -3,7 +3,8 @@ import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { User, UserSchema } from './app/users/schema/user.schema';
+import { ProductsModule } from './app/products/products.module';
+import { User, UserSchema } from './app/users/user.schema';
 import { UsersController } from './app/users/users.controller';
 import { UsersModule } from './app/users/users.module';
 // import { UsersService } from './app/users/users.service';
@@ -20,6 +21,7 @@ import { AuthModule } from './auth/auth.module';
     UsersModule,
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
     AuthModule,
+    ProductsModule,
   ],
   controllers: [AppController, UsersController],
   providers: [AppService],

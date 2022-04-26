@@ -19,11 +19,12 @@ export class AuthService {
   ) {}
 
   async checkUser(email: string, password: string): Promise<UserDto> {
-    console.log('☢ Service checkUser ☢ ');
+    console.log('☢ Service -> checkUser ☢ ');
     const user: UserDto = await this.usersService.findOnebyEmail(email);
     if (user) {
       const isMatch: boolean = await bcrypt.compare(password, user.password);
       if (isMatch) {
+        console.log('✅ Service -> checkUser  success ✅');
         return user;
       } else {
         const err = new WrongPassword();
@@ -45,7 +46,7 @@ export class AuthService {
   }
 
   async registerUser(userDatas: UserDto): Promise<UserDto> {
-    console.log('☢ Service - > registerUser ☢ ');
+    console.log('☢ Service -> registerUser ☢ ');
     const userCheck: UserDto = await this.usersService.findOnebyEmail(
       userDatas.email,
     );
@@ -58,7 +59,7 @@ export class AuthService {
       ...userDatas,
       admin: false,
     });
-
+    console.log('✅ Service -> registerUser  success ✅');
     return user;
   }
 }

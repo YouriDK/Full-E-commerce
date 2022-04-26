@@ -71,7 +71,7 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
-
+nest g resource [name].
 
 # Issues
 Error: Nest can't resolve dependencies of 
@@ -80,3 +80,7 @@ il faut enlever l'élement.module dans app.module et exporter son service depuis
 import { ConfigModule } from '@nestjs/config'; est nécéssaire" dans le module pour utiliser les variable .env
 
 Il faut mettre un console.log pour voir l'erreur dans la console ensuite l'envoyer
+
+// TODO Fusionner les Read.me
+// Finir la construction de Order
+// Envisage la découpe des élement de Orders

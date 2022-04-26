@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { UserDto } from './dto/create-user.dto';
-import { User, UserDocument } from './schema/user.schema';
+import { User, UserDocument } from './user.schema';
 import {
   NoUsersFound,
   UserCreationFailed,
@@ -17,7 +17,7 @@ export class UsersService {
     private user: Model<UserDocument>,
   ) {}
   async create(userDatas: UserDto): Promise<UserDto> {
-    console.log('🤞 Service -> Create wf 🤞');
+    console.log('🤞 Service -> Create User 🤞');
     const user = await new User().fill(userDatas);
     const newUser = new this.user(user);
     if (!newUser) {
@@ -25,19 +25,20 @@ export class UsersService {
       console.log(err);
       throw err;
     }
-    console.log('🤞 Service -> New User created !🤞');
+    console.log('✅ Service -> Create User success ✅');
     return newUser;
   }
 
   async findAll(): Promise<UserDto[]> | null {
     console.log('🤞 Service -> Get all users 🤞');
-    const user = await this.user.find();
-    if (!user) {
+    const users = await this.user.find();
+    if (!users) {
       const err = new NoUsersFound();
       console.log(err);
       throw err;
     }
-    return user;
+    console.log('✅ Service -> Get all users success ✅');
+    return users;
   }
 
   async findOnebyEmail(email: string): Promise<UserDto> | null {
@@ -48,6 +49,7 @@ export class UsersService {
       console.log(err);
       throw err;
     }
+    console.log('✅ Service -> login user checking email....success ✅');
     return user;
   }
   async findOne(id: string): Promise<UserDto> | null {
@@ -58,6 +60,7 @@ export class UsersService {
       console.log(err);
       throw err;
     }
+    console.log('✅ Service -> Get a user success ✅');
     return user;
   }
 
@@ -79,12 +82,13 @@ export class UsersService {
         console.log(err);
         throw err;
       }
-
+      console.log('✅ Service -> Update user success ✅');
       return await this.findOnebyEmail(userDatas.email);
     }
   }
 
   remove(id: number) {
+    // TODO implements
     return `This action removes a #${id} user`;
   }
 }

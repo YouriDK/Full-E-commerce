@@ -1,6 +1,6 @@
 import { IsBoolean, IsString, IsEmail } from 'class-validator';
 import { PartialType } from '@nestjs/mapped-types';
-import { User } from '../schema/user.schema';
+import { User } from '../user.schema';
 
 export class UserDto {
   @IsString() public _id!: string;
@@ -19,5 +19,5 @@ export class UserDto {
 }
 
 export class UpdateUserDto extends PartialType(UserDto) {
-  id: number;
+  id: string;
 }

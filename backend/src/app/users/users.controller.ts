@@ -15,7 +15,7 @@ import { UserDto } from './dto/create-user.dto';
 import { UsersService } from './users.service';
 import { AuthService } from 'src/auth/auth.service';
 
-@Controller('users')
+@Controller('user')
 export class UsersController {
   constructor(
     private readonly usersService: UsersService,
@@ -39,7 +39,7 @@ export class UsersController {
 
   @MessagePattern('findOneUser')
   @UseGuards(JwtAuthGuard)
-  @Get('id')
+  @Get(':id')
   async findOne(@Param() datas: any) {
     // TODO check le contenu de params
     console.log('🤞 Controllers -> Get One user 🤞');
