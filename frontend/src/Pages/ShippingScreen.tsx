@@ -13,13 +13,13 @@ const ShippingScreen: FC<any> = (props: any): JSX.Element => {
   }
 
   const cart = useSelector((state: any) => state.cart);
-  const { shippingAddress } = cart;
+  const { shipping_address } = cart;
 
-  const [address, setAddress] = useState(shippingAddress.address);
-  const [fullName, setfullName] = useState(shippingAddress.fullName);
-  const [city, setCity] = useState(shippingAddress.city);
-  const [country, setCountry] = useState(shippingAddress.country);
-  const [postalCode, setPostalCode] = useState(shippingAddress.postalCode);
+  const [address, setAddress] = useState(shipping_address.address);
+  const [fullName, setfullName] = useState(shipping_address.fullName);
+  const [city, setCity] = useState(shipping_address.city);
+  const [country, setCountry] = useState(shipping_address.country);
+  const [postalCode, setPostalCode] = useState(shipping_address.postalCode);
   const dispatch = useDispatch();
 
   const submitHandler = (e: any) => {

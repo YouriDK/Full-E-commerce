@@ -96,21 +96,21 @@ const OrderScreen: FC<any> = (props: any): JSX.Element => {
               <td className='table-td font-secondary large xbold'>Name</td>
               <td className='table-td font-secondary large xbold'>
                 {' '}
-                {order.shippingAddress.fullName}
+                {order.shipping_address.fullName}
               </td>
             </tr>
             <tr className='table-tr'>
               <td className='table-td font-secondary large xbold'>Address</td>
               <td className='table-td font-secondary large xbold'>
                 {' '}
-                {order.shippingAddress.address}
+                {order.shipping_address.address}
               </td>
             </tr>
             <tr className='table-tr'>
               <td className='table-td font-secondary large xbold'>City</td>
               <td className='table-td font-secondary large xbold'>
                 {' '}
-                {order.shippingAddress.city}
+                {order.shipping_address.city}
               </td>
             </tr>
             <tr className='table-tr'>
@@ -119,14 +119,14 @@ const OrderScreen: FC<any> = (props: any): JSX.Element => {
               </td>
               <td className='table-td font-secondary large xbold'>
                 {' '}
-                {order.shippingAddress.postalCode}
+                {order.shipping_address.postalCode}
               </td>
             </tr>
             <tr className='table-tr'>
               <td className='table-td font-secondary large xbold'>Country</td>
               <td className='table-td font-secondary large xbold'>
                 {' '}
-                {order.shippingAddress.country}
+                {order.shipping_address.country}
               </td>
             </tr>
             <tr className='table-tr'>
@@ -135,7 +135,7 @@ const OrderScreen: FC<any> = (props: any): JSX.Element => {
               </td>
               <td className='table-td font-secondary large xbold'>
                 {' '}
-                {order.paymentMethod}
+                {order.payment_method}
               </td>
             </tr>
           </tbody>
@@ -156,7 +156,7 @@ const OrderScreen: FC<any> = (props: any): JSX.Element => {
         <div className='header'>Order</div>
         <table className='table'>
           <tbody>
-            {order.orderItems.length === 0 ? (
+            {order.order_items.length === 0 ? (
               <tr className='table-tr'>
                 <td className='table-td'>Cart is Empty</td>
                 <Link
@@ -174,7 +174,7 @@ const OrderScreen: FC<any> = (props: any): JSX.Element => {
                   <td className='table-td font-secondary large xbold'> Name</td>
                   <td className='table-td font-secondary large xbold'> Cost</td>
                 </tr>
-                {order.orderItems.map((item: any, index: number) => (
+                {order.order_items.map((item: any, index: number) => (
                   <tr className='table-tr' key={index}>
                     <td className='table-td'>
                       {' '}
@@ -191,7 +191,8 @@ const OrderScreen: FC<any> = (props: any): JSX.Element => {
                     </td>
                     <td className='table-td font-secondary large xbold'>
                       {' '}
-                      {item.qty} x ${item.price} = ${item.qty * item.price}
+                      {item.quantity} x ${item.price} = $
+                      {item.quantity * item.price}
                     </td>
                   </tr>
                 ))}
@@ -208,7 +209,7 @@ const OrderScreen: FC<any> = (props: any): JSX.Element => {
               <tr className='table-tr'>
                 <td className='table-td font-secondary large xbold'>Items</td>
                 <td className='table-td font-secondary large xbold'>
-                  ${order.itemsPrice}
+                  ${order.items_price}
                 </td>
               </tr>
               <tr className='table-tr'>
@@ -216,13 +217,13 @@ const OrderScreen: FC<any> = (props: any): JSX.Element => {
                   Shipping
                 </td>
                 <td className='table-td font-secondary large xbold'>
-                  ${order.shippingPrice}
+                  ${order.shipping_price}
                 </td>
               </tr>
               <tr className='table-tr'>
                 <td className='table-td font-secondary large xbold'>Tax</td>
                 <td className='table-td font-secondary large xbold'>
-                  ${order.taxPrice}
+                  ${order.tax_price}
                 </td>
               </tr>
               <tr className='table-tr'>
@@ -230,7 +231,7 @@ const OrderScreen: FC<any> = (props: any): JSX.Element => {
                   Order Total
                 </td>
                 <td className='table-td font-secondary large xbold'>
-                  ${order.totalPrice}
+                  ${order.total_price}
                 </td>
               </tr>
             </tbody>
@@ -243,7 +244,7 @@ const OrderScreen: FC<any> = (props: any): JSX.Element => {
               />
             ) : (
               <PayPalButton
-                amount={order.totalPrice}
+                amount={order.total_price}
                 onSuccess={successPaymentHandler}
               />
             )}

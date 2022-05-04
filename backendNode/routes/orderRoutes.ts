@@ -35,11 +35,11 @@ orderRoute.post(
   isAuth,
   expressAsyncHandler(async (req: any, res): Promise<any> => {
     console.log('✔ Orders -> post One');
-    if (req.body.orderItems.length === 0) {
+    if (req.body.order_items.length === 0) {
       res.status(400).send({ message: 'Cart is empty' });
     } else {
       const order = new Order({
-        orderItems: req.body.orderItems,
+        order_items: req.body.order_items,
         shippingAddress: req.body.shippingAddress,
         paymentMethod: req.body.paymentMethod,
         itemsPrice: req.body.itemsPrice,

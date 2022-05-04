@@ -32,7 +32,7 @@ export const createOrder =
         userSignin: { userInfo },
       } = getState();
 
-      const { data } = await Axios.post('/api/orders', order, {
+      const { data } = await Axios.post('/orders', order, {
         headers: {
           Authorization: `Bearer ${userInfo.token}`,
         },
@@ -55,7 +55,7 @@ export const detailsOrder =
       userSignin: { userInfo },
     } = getState();
     try {
-      const { data } = await Axios.get(`/api/orders/${orderId}`, {
+      const { data } = await Axios.get(`/orders/${orderId}`, {
         headers: {
           Authorization: `Bearer ${userInfo.token}`,
         },
@@ -74,7 +74,7 @@ export const payOrder =
     } = getState();
     try {
       const { data } = await Axios.put(
-        `/api/orders/${order._id}/pay`,
+        `/orders/pay/${order._id}`,
         paymentResult,
         {
           headers: { Authorization: `Bearer ${userInfo.token}` },
@@ -91,7 +91,7 @@ export const listOrderMine = () => async (dispatch: any, getState: any) => {
     userSignin: { userInfo },
   } = getState();
   try {
-    const { data } = await Axios.get('/api/orders/mine', {
+    const { data } = await Axios.get('/orders/mine', {
       headers: {
         Authorization: `Bearer ${userInfo.token}`,
       },
@@ -112,7 +112,7 @@ export const listOrders = () => async (dispatch: any, getState: any) => {
     userSignin: { userInfo },
   } = getState();
   try {
-    const { data } = await Axios.get('api/orders', {
+    const { data } = await Axios.get('/orders', {
       headers: { Authorization: `Bearer ${userInfo.token}` },
     });
     dispatch({ type: ORDER_LIST_SUCCESS, payload: data });
@@ -128,7 +128,7 @@ export const deleteOrder =
       userSignin: { userInfo },
     } = getState();
     try {
-      const { data } = await Axios.delete(`/api/orders/${orderId}`, {
+      const { data } = await Axios.delete(`/orders/${orderId}`, {
         headers: { Authorization: `Bearer ${userInfo.token}` },
       });
       dispatch({ type: ORDER_DELETE_SUCCESS, payload: data });
@@ -145,7 +145,7 @@ export const deliverOrder =
     } = getState();
     try {
       const { data } = await Axios.put(
-        `/api/orders/${orderId}/deliver`,
+        `/orders/deliver/${orderId}`,
         {},
         {
           headers: { Authorization: `Bearer ${userInfo.token}` },

@@ -1,10 +1,10 @@
 import { PartialType } from '@nestjs/mapped-types';
 import {
-  Allow,
   IsBoolean,
   IsDate,
   IsNotEmpty,
   IsNumber,
+  IsOptional,
   IsString,
 } from 'class-validator';
 import { ItemDto } from '../../item/dto/item.dto';
@@ -31,9 +31,12 @@ export class OrderDto {
   @IsNumber() public total_price!: number;
   @IsString() public user!: string;
   @IsBoolean() public isPaid!: boolean;
+  @IsBoolean() public isDelivered!: boolean;
   @IsDate() public paidAt!: Date;
   @IsDate() public deliveredAt!: Date;
-  @IsNotEmpty() public payment_result?: PaymentResultDto | string[];
+  @IsOptional() public updatedAt?: Date;
+  @IsDate() public createdAt!: Date;
+  @IsOptional() public payment_result?: PaymentResultDto | string;
 
   public constructor(order: OrderDto) {
     this.order_items = order.order_items;
@@ -45,6 +48,7 @@ export class OrderDto {
     this.total_price = order.total_price;
     this.user = order.user;
     this.isPaid = order.isPaid;
+    this.isDelivered = order.isDelivered;
     this.paidAt = order.paidAt;
     this.deliveredAt = order.deliveredAt;
     if (order.payment_result) {
@@ -54,5 +58,5 @@ export class OrderDto {
 }
 
 export class UpdateOrderDto extends PartialType(OrderDto) {
-  id: number;
+  id: string;
 }

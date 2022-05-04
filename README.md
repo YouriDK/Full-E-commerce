@@ -39,3 +39,6 @@ Actualiser la page quand c'est payé
 
 # En cours : 
     Gestion Erreur : adapter le front dans les pages ( back done & redux done)
+
+    Connecter back et front , corriger erreur et boucles
+    Supprimed backend node et touche push sur production

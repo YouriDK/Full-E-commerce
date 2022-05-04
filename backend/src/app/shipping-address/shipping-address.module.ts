@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, Global } from '@nestjs/common';
 import {
   ShippingAddress,
   ShippingAddressSchema,
@@ -6,6 +6,7 @@ import {
 import { ShippingAddressService } from './shipping-address.service';
 import { MongooseModule } from '@nestjs/mongoose';
 
+@Global()
 @Module({
   imports: [
     MongooseModule.forFeature([
@@ -13,5 +14,6 @@ import { MongooseModule } from '@nestjs/mongoose';
     ]),
   ],
   providers: [ShippingAddressService],
+  exports: [ShippingAddressService],
 })
 export class ShippingAddressModule {}

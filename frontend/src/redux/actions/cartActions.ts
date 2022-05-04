@@ -7,9 +7,9 @@ import {
 } from '../constants/cartConstants';
 
 const addToCart =
-  (productId: any, qty: any) => async (dispatch: any, getState: any) => {
+  (productId: any, quantity: any) => async (dispatch: any, getState: any) => {
     try {
-      const { data } = await Axios.get('/api/product/' + productId)
+      const { data } = await Axios.get('/products/' + productId)
         .then((res: any) => res)
         .catch((err: any) => console.log(err));
       dispatch({
@@ -20,7 +20,7 @@ const addToCart =
           image: data.image,
           price: data.price,
           countInStock: data.countInStock,
-          qty,
+          quantity,
         },
       });
 
@@ -37,7 +37,7 @@ const removeFromCart = (productId: any) => (dispatch: any, getState: any) => {
 };
 const saveShipping = (data: any) => (dispatch: any) => {
   dispatch({ type: CART_SAVE_SHIPPING, payload: data });
-  localStorage.setItem('shippingAddress', JSON.stringify(data));
+  localStorage.setItem('shipping_address', JSON.stringify(data));
 };
 
 const savePayment = (data: any) => (dispatch: any) => {

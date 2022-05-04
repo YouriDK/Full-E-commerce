@@ -66,7 +66,7 @@ export const texte = {
     already: { fr: 'Déjà inscrit', en: 'Already signed' },
     sign: { fr: ' Inscription', en: 'Sign In' },
     stats: { fr: 'Statut', en: 'Status' },
-    qty: { fr: 'Quantité', en: 'Quantity' },
+    quantity: { fr: 'Quantité', en: 'Quantity' },
     reviews: { fr: 'avis', en: 'reviews' },
     category: { fr: 'Catégorie', en: 'Category' },
     brand: { fr: 'Marque', en: 'Brand' },
@@ -174,25 +174,25 @@ export interface ProductProps {
 
 export interface ItemsProps {
   name: string;
-  qty: number;
+  quantity: number;
   image: string;
   price: number;
   product: any;
 }
 export interface OrderProps {
-  orderItems: ItemsProps[];
-  shippingAddress: {
+  order_items: ItemsProps[];
+  shipping_address: {
     fullName: string;
     address: string;
     city: string;
     postalCode: string;
     country: string;
   };
-  paymentMethod: string;
-  itemsPrice: number;
-  shippingPrice: number;
-  taxPrice: number;
-  totalPrice: number;
+  payment_method: string;
+  items_price: number;
+  shipping_price: number;
+  tax_price: number;
+  total_price: number;
   user: any;
   isPaid: boolean;
   paidAt: Date;

@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { UserDto } from 'src/app/users/dto/create-user.dto';
+import { OAuth2Client } from 'google-auth-library';
 import {
   UserAlreadyExist,
   UserNotFound,
@@ -61,5 +62,39 @@ export class AuthService {
     });
     console.log('✅ Service -> registerUser  success ✅');
     return user;
+  }
+
+  async loginGoogle(token: string): Promise<any> {
+    console.log('👌 Authentification Via google 👌');
+    const upsert = (array: Array<any>, item: any) => {
+      const i = array.findIndex((_item) => _item.email === item.email);
+      if (i > -1) array[i] = item;
+      else array.push(item);
+    };
+    const client = new OAuth2Client(process.env.REACT_APP_GOOGLE_CLIENT_ID);
+    const users: any[] = [];
+    const ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: process.env.CLIENT_ID,
+    });
+    const { name, email, picture, given_name, family_name, sub } =
+      ticket.getPayload() as any;
+    let user: UserDto = await this.usersService.findOnebyEmail(email);
+    if (!user) {
+      await this.usersService.create(email);
+      user = await this.usersService.findOnebyEmail(email);
+    }
+    upsert(users, { name, email, picture, given_name, family_name, sub });
+    console.log('✅ Authentification Via google  success ✅');
+    return {
+      name,
+      email,
+      picture,
+      given_name,
+      family_name,
+      sub,
+      token,
+      _id: user._id,
+    };
   }
 }

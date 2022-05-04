@@ -11,7 +11,7 @@ export class Order {
   @Prop({ required: true })
   public order_items: string[] | ItemDto[];
 
-  @Prop({ required: true })
+  @Prop({ required: true, type: String || ShippingAddressDto })
   public shipping_address: ShippingAddressDto | string;
 
   @Prop({ required: true })
@@ -32,19 +32,25 @@ export class Order {
   @Prop({ required: true, default: 0 })
   public user: string;
 
-  @Prop({ required: true })
+  @Prop({ required: true, default: false })
   public isPaid: boolean;
 
-  @Prop({ required: true })
+  @Prop()
   public paidAt: Date;
 
   @Prop({ required: true })
   public isDelivered: boolean;
 
   @Prop({ required: true })
-  public deliveredAt: Date;
+  public createdAt: Date;
+
   @Prop()
-  public payment_result?: PaymentResultDto | string[];
+  public updatedAt: Date;
+
+  @Prop()
+  public deliveredAt: Date;
+  @Prop({ type: String || PaymentResultDto })
+  public payment_result?: PaymentResultDto | string;
 
   public constructor() {
     // * Something hehe
@@ -60,9 +66,12 @@ export class Order {
     total_price: number;
     user: string;
     isPaid: boolean;
+    isDelivered: boolean;
     paidAt: Date;
     deliveredAt: Date;
-    payment_result?: PaymentResultDto | string[];
+    createdAt: Date;
+    updatedAt?: Date;
+    payment_result?: PaymentResultDto | string;
   }): any {
     this.order_items = order.order_items;
     this.shipping_address = order.shipping_address;
@@ -73,9 +82,12 @@ export class Order {
     this.total_price = order.total_price;
     this.user = order.user;
     this.isPaid = order.isPaid;
+    this.isDelivered = order.isDelivered;
     this.paidAt = order.paidAt;
     this.deliveredAt = order.deliveredAt;
     this.payment_result = order?.payment_result;
+    this.updatedAt = order?.updatedAt;
+    this.createdAt = order?.createdAt;
     return this;
   }
 }

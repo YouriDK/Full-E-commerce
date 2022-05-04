@@ -56,7 +56,7 @@ const OrderListScreen: FC<any> = (props: any): JSX.Element => {
               {order.createdAt.substring(0, 10)}
             </td>
             <td className='table-td font-secondary large xbold '>
-              {order.totalPrice.toFixed(2)}
+              {order.total_price.toFixed(2)}
             </td>
             <td className='table-td font-secondary large xbold'>
               {order.isPaid

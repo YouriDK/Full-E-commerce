@@ -29,7 +29,7 @@ export class PaymentResultService {
       throw err;
     }
     console.log('✅ Service -> Create PaymentResult success ✅');
-    return newPaymentResult;
+    return newPaymentResult.save();
   }
 
   async findAll() {

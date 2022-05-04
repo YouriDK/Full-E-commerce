@@ -26,7 +26,7 @@ export class ProductsService {
       throw err;
     }
     console.log('✅ Service -> Create product success ✅');
-    return newProduct;
+    return newProduct.save();
   }
 
   async findAll() {
@@ -65,15 +65,15 @@ export class ProductsService {
       await this.product.updateOne(
         { _id: id },
         {
-          name: ProductDto.name,
-          image: ProductDto.image,
-          brand: ProductDto.brand,
-          category: ProductDto.category,
-          price: ProductDto.price,
-          countInStock: ProductDto.countInStock,
-          description: ProductDto.description,
-          rating: ProductDto.rating,
-          numReviews: ProductDto.numReviews,
+          name: ProductDto.name ?? product.name,
+          image: ProductDto.image ?? product.image,
+          brand: ProductDto.brand ?? product.brand,
+          category: ProductDto.category ?? product.category,
+          price: ProductDto.price ?? product.price,
+          countInStock: ProductDto.countInStock ?? product.countInStock,
+          description: ProductDto.description ?? product.description,
+          rating: ProductDto.rating ?? product.rating,
+          numReviews: ProductDto.numReviews ?? product.numReviews,
         },
       );
     } catch (error) {

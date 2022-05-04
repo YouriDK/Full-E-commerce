@@ -13,21 +13,21 @@ const PlaceOrderScreen: FC<any> = (props: any): JSX.Element => {
   // * Il conserve dans cart pour écrire directement dedans ( Faster )
 
   const toPrice = (num: any) => Number(num.toFixed(2)); // 5.123 => "5.12" => 5.12
-  cart.itemsPrice = toPrice(
-    cart.cartItems.reduce((a: any, c: any) => a + c.qty * c.price, 0)
+  cart.items_price = toPrice(
+    cart.cartItems.reduce((a: any, c: any) => a + c.quantity * c.price, 0)
   );
-  if (!cart.paymentMethod) {
+  if (!cart.payment_method) {
     props.history.push('/payment');
   }
   const orderCreate = useSelector((state: any) => state.orderCreate);
   const { loading, success, order, error } = orderCreate;
-  cart.shippingPrice = cart.itemsPrice > 100 ? toPrice(0) : toPrice(10);
-  cart.taxPrice = toPrice(0.15 * cart.itemsPrice);
-  cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
+  cart.shipping_price = cart.items_price > 100 ? toPrice(0) : toPrice(10);
+  cart.tax_price = toPrice(0.15 * cart.items_price);
+  cart.total_price = cart.items_price + cart.shipping_price + cart.tax_price;
 
   const dispatch = useDispatch();
   const placeOrderHandler = () => {
-    dispatch(createOrder({ ...cart, orderItems: cart.cartItems }));
+    dispatch(createOrder({ ...cart, order_items: cart.cartItems }));
   };
 
   useEffect(() => {
@@ -57,7 +57,7 @@ const PlaceOrderScreen: FC<any> = (props: any): JSX.Element => {
                   <td className='table-td font-secondary large xbold'>Name</td>
                   <td className='table-td font-secondary large xbold'>
                     {' '}
-                    {cart.shippingAddress.fullName}
+                    {cart.shipping_address.fullName}
                   </td>
                 </tr>
                 <tr className='table-tr'>
@@ -66,14 +66,14 @@ const PlaceOrderScreen: FC<any> = (props: any): JSX.Element => {
                   </td>
                   <td className='table-td font-secondary large xbold'>
                     {' '}
-                    {cart.shippingAddress.address}
+                    {cart.shipping_address.address}
                   </td>
                 </tr>
                 <tr className='table-tr'>
                   <td className='table-td font-secondary large xbold '>City</td>
                   <td className='table-td font-secondary large xbold'>
                     {' '}
-                    {cart.shippingAddress.city}
+                    {cart.shipping_address.city}
                   </td>
                 </tr>
                 <tr className='table-tr'>
@@ -82,7 +82,7 @@ const PlaceOrderScreen: FC<any> = (props: any): JSX.Element => {
                   </td>
                   <td className='table-td font-secondary large xbold'>
                     {' '}
-                    {cart.shippingAddress.postalCode}
+                    {cart.shipping_address.postalCode}
                   </td>
                 </tr>
                 <tr className='table-tr'>
@@ -91,7 +91,7 @@ const PlaceOrderScreen: FC<any> = (props: any): JSX.Element => {
                   </td>
                   <td className='table-td font-secondary large xbold'>
                     {' '}
-                    {cart.shippingAddress.country}
+                    {cart.shipping_address.country}
                   </td>
                 </tr>
                 <tr className='table-tr'>
@@ -100,7 +100,7 @@ const PlaceOrderScreen: FC<any> = (props: any): JSX.Element => {
                   </td>
                   <td className='table-td font-secondary large xbold'>
                     {' '}
-                    {cart.paymentMethod}
+                    {cart.payment_method}
                   </td>
                 </tr>
               </tbody>
@@ -152,7 +152,8 @@ const PlaceOrderScreen: FC<any> = (props: any): JSX.Element => {
                         </td>
                         <td className='table-td font-secondary large xbold'>
                           {' '}
-                          {item.qty} x ${item.price} = ${item.qty * item.price}
+                          {item.quantity} x ${item.price} = $
+                          {item.quantity * item.price}
                         </td>
                       </tr>
                     ))}
@@ -171,7 +172,7 @@ const PlaceOrderScreen: FC<any> = (props: any): JSX.Element => {
                       Items
                     </td>
                     <td className='table-td font-secondary large xbold'>
-                      ${cart.itemsPrice}
+                      ${cart.items_price}
                     </td>
                   </tr>
                   <tr className='table-tr'>
@@ -179,13 +180,13 @@ const PlaceOrderScreen: FC<any> = (props: any): JSX.Element => {
                       Shipping
                     </td>
                     <td className='table-td font-secondary large xbold'>
-                      ${cart.shippingPrice}
+                      ${cart.shipping_price}
                     </td>
                   </tr>
                   <tr className='table-tr'>
                     <td className='table-td font-secondary large xbold'>Tax</td>
                     <td className='table-td font-secondary large xbold'>
-                      ${cart.taxPrice}
+                      ${cart.tax_price}
                     </td>
                   </tr>
                   <tr className='table-tr'>
@@ -193,7 +194,7 @@ const PlaceOrderScreen: FC<any> = (props: any): JSX.Element => {
                       Order Total
                     </td>
                     <td className='table-td font-secondary large xbold'>
-                      ${cart.totalPrice}
+                      ${cart.total_price}
                     </td>
                   </tr>
                 </tbody>

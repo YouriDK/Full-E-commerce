@@ -9,7 +9,7 @@ import Rating from '../components/Rating';
 import '../css/productPage.css';
 import { texte } from '../data';
 const ProductScreen: FC<any> = (props: any): JSX.Element => {
-  const [qty, setQty] = useState(1);
+  const [quantity, setquantity] = useState(1);
 
   const productDetails = useSelector((state: any) => state.productDetails);
   const { product, loading, error } = productDetails;
@@ -18,7 +18,9 @@ const ProductScreen: FC<any> = (props: any): JSX.Element => {
     dispatch(detailsProduct(props.match.params.id));
   }, [dispatch, props.match.params.id]);
   const handleAddtoCart = () => {
-    props.history.push('/cart?id=' + props.match.params.id + '&qty=' + qty);
+    props.history.push(
+      '/cart?id=' + props.match.params.id + '&quantity=' + quantity
+    );
   };
   return loading ? (
     <LoadingBox />
@@ -54,9 +56,9 @@ const ProductScreen: FC<any> = (props: any): JSX.Element => {
               </span>
               <div>
                 <select
-                  value={qty}
+                  value={quantity}
                   onChange={(e) => {
-                    setQty(e.target.value as any);
+                    setquantity(e.target.value as any);
                   }}
                 >
                   {[...(Array(product.countInStock).keys() as any)].map((x) => (

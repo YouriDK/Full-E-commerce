@@ -14,3 +14,42 @@ export class CreationOrderFailed extends HttpException {
     );
   }
 }
+export class OrderListFailed extends HttpException {
+  public constructor() {
+    super(
+      {
+        title: 'OrderListFailed',
+        type: '/order-list',
+        status: ErrorHttpStatus.BadRequest,
+        response: `Cannot get list !`,
+      },
+      ErrorHttpStatus.BadRequest,
+    );
+  }
+}
+export class OrderNotFound extends HttpException {
+  public constructor(id: string) {
+    super(
+      {
+        title: 'OrderNotFound',
+        type: '/order-get-one',
+        status: ErrorHttpStatus.BadRequest,
+        response: `Cannot get thes ${id} order !`,
+      },
+      ErrorHttpStatus.BadRequest,
+    );
+  }
+}
+export class UpdateOrderFailed extends HttpException {
+  public constructor(id: string) {
+    super(
+      {
+        title: 'UpdateOrderFailed',
+        type: '/order-update-one',
+        status: ErrorHttpStatus.BadRequest,
+        response: `Cannot update this ${id} order !`,
+      },
+      ErrorHttpStatus.BadRequest,
+    );
+  }
+}

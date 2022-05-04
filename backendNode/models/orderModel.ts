@@ -22,7 +22,7 @@ export interface IshippingAddress {
 
 export interface Iorder {
   // id: any;
-  orderItems: IItems[];
+  order_items: IItems[];
   shippingAddress: IshippingAddress;
   paymentMethod: string;
   itemsPrice: number;
@@ -41,7 +41,7 @@ export interface IorderDocument extends Iorder, Document {
 }
 const orderSchema = new mongoose.Schema<IorderDocument>(
   {
-    orderItems: [
+    order_items: [
       {
         name: { type: String, required: true },
         qty: { type: Number, required: true },

@@ -14,7 +14,7 @@ const CartScreen: FC<any> = (props: any): JSX.Element => {
   const { cartItems } = cart;
   const parsed = queryString.parse(props.location.search);
   const productId = parsed.id;
-  const qty = parsed.qty ?? 1;
+  const quantity = parsed.quantity ?? 1;
   const dispatch = useDispatch();
   const removeFromCardHandler = (productId: string) => {
     dispatch(removeFromCart(productId));
@@ -24,8 +24,8 @@ const CartScreen: FC<any> = (props: any): JSX.Element => {
   };
 
   useEffect(() => {
-    if (productId) {
-      dispatch(addToCart(productId, qty));
+    if (productId && cartItems.length === 0) {
+      dispatch(addToCart(productId, quantity));
     }
     if (cartItems.length === 0) {
       createNotifications({
@@ -33,7 +33,7 @@ const CartScreen: FC<any> = (props: any): JSX.Element => {
         message: "Let's go shopping",
       });
     }
-  }, [dispatch, productId, qty, cartItems]);
+  }, [dispatch, productId, quantity, cartItems]);
 
   return (
     <>
@@ -70,7 +70,7 @@ const CartScreen: FC<any> = (props: any): JSX.Element => {
                   </td>
                   <td className='table-td'>
                     <select
-                      value={item.qty}
+                      value={item.quantity}
                       className={`font-secondary large xbold ${
                         index % 2 === 0 ? 'lightbg' : 'primary'
                       }`}
@@ -108,11 +108,17 @@ const CartScreen: FC<any> = (props: any): JSX.Element => {
             <tbody>
               <tr className='table-tr'>
                 <td className='table-td font-secondary large xbold'>
-                  {cartItems.reduce((a: any, c: any) => a + parseInt(c.qty), 0)}{' '}
+                  {cartItems.reduce(
+                    (a: any, c: any) => a + parseInt(c.quantity),
+                    0
+                  )}{' '}
                   Items
                 </td>
                 <td className='table-td font-secondary large xbold'>
-                  {cartItems.reduce((a: any, c: any) => a + c.price * c.qty, 0)}
+                  {cartItems.reduce(
+                    (a: any, c: any) => a + c.price * c.quantity,
+                    0
+                  )}
                   {texte.Terms.devise.en}
                 </td>
               </tr>

@@ -35,7 +35,7 @@ export class ShippingAddressService {
       throw err;
     }
     console.log('✅ Service -> Create ShippingAddress success ✅');
-    return newShippingAddress;
+    return newShippingAddress.save();
   }
 
   async findAll() {
@@ -74,11 +74,13 @@ export class ShippingAddressService {
       await this.shippingAddress.updateOne(
         { _id: id },
         {
-          name: shippingAddressDto.name,
-          address: shippingAddressDto.address,
-          city: shippingAddressDto.city,
-          postal_code: shippingAddressDto.postal_code,
-          country: shippingAddressDto.country,
+          name: shippingAddressDto.name ?? shippingAddress.name,
+          address: shippingAddressDto.address ?? shippingAddress.address,
+          city: shippingAddressDto.city ?? shippingAddress.city,
+          postal_code:
+            shippingAddressDto.postal_code ?? shippingAddress.postal_code,
+          country: shippingAddressDto.country ?? shippingAddress.country,
+          order_id: shippingAddressDto.order_id ?? shippingAddress.order_id,
         },
       );
     } catch (error) {

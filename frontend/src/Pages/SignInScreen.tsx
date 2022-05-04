@@ -38,6 +38,7 @@ const SignInScreen: FC<any> = (props: any): JSX.Element => {
   };
 
   const successGoogleLogin = (googleData: any) => {
+    console.log('googleData', googleData);
     dispatch(googleLogin(googleData));
   };
   const failGoogleLogin = (error: any) => {

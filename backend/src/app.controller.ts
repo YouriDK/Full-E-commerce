@@ -5,6 +5,7 @@ import {
   Request,
   UseGuards,
   Body,
+  Req,
 } from '@nestjs/common';
 import { AppService } from './app.service';
 import { UserDto } from './app/users/dto/create-user.dto';
@@ -42,21 +43,35 @@ export class AppController {
       ...token,
     };
   }
+  //@Body() body: any
   // TODO Mettre l'appel pour la connection Google
+  @Get('/login/google')
   @UseGuards(GoogleAuthGuard)
-  @Post('/login/google')
-  public async loginGoogle(@Request() req: any) {
-    console.log('⛔ Controller -> login Google⛔', req.user);
-    const user = req.user;
-    const token: any = await this.authService.login(user);
-    // ! Pas sur que ce soit le bon token
-    return {
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      admin: user.admin,
-      ...token,
-    };
+  public async loginGoogle(@Req() req: any) {
+    // console.log('⛔ Controller -> login Google⛔', req.user);
+  }
+
+  @Get('redirect')
+  @UseGuards(GoogleAuthGuard)
+  public googleSuccess(@Request() req: any) {
+    console.log('REDIRECT');
+    // * JwtAuthGuard will check the token
+    // TODO do a redirect when the token expired
+
+    // const token = body.token;
+    // const infos: any = await this.authService.loginGoogle(token);
+    // console.log(infos);
+    // // ! Pas sur que ce soit le bon token
+    // return {
+    //   _id: infos._id,
+    //   name: infos.family_name,
+    //   email: infos.email,
+    //   admin: infos.admin,
+    //   token: infos.token,
+    // };
+    console.log('USER');
+    console.log('req.user', req.user);
+    return req.user;
   }
 
   @UseGuards(JwtAuthGuard)

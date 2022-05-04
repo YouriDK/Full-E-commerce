@@ -13,6 +13,9 @@ export class Item {
   public quantity: number;
 
   @Prop({ required: true })
+  public price: number;
+
+  @Prop({ required: true })
   public image: string;
 
   @Prop({ required: true })
@@ -28,12 +31,14 @@ export class Item {
   public fill(item: {
     name: string;
     quantity: number;
+    price: number;
     image: string;
     product: string;
     order_id?: string;
   }): ItemDto {
     this.name = item.name;
     this.quantity = item.quantity;
+    this.price = item.price;
     this.image = item.image;
     this.product = item.product;
     if (item.order_id) {

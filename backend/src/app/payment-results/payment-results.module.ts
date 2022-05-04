@@ -1,8 +1,8 @@
-import { Module } from '@nestjs/common';
+import { Module, Global } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { PaymentResult, PaymentResultSchema } from './payment-results.schema';
 import { PaymentResultService } from './payment-results.service';
-
+@Global()
 @Module({
   imports: [
     MongooseModule.forFeature([
@@ -10,5 +10,6 @@ import { PaymentResultService } from './payment-results.service';
     ]),
   ],
   providers: [PaymentResultService],
+  exports: [PaymentResultService],
 })
 export class PaymentResultsModule {}

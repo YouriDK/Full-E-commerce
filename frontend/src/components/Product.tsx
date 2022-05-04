@@ -45,7 +45,7 @@ const Product: FC<Props> = ({ product }: Props): JSX.Element => {
 
               <a
                 className='cart'
-                href={'/cart?id=' + product._id + '&qty=' + 1}
+                href={'/cart?id=' + product._id + '&quantity=' + 1}
               >
                 <span className='price'>{product.price}</span>
                 <span className='add-to-cart'>

@@ -33,8 +33,8 @@ function cartReducers(
         ),
       };
     case CART_SAVE_SHIPPING:
-      // * C'est avec ShippingAddress qu'on va transporter les informations
-      return { ...state, shippingAddress: action.payload };
+      // * C'est avec shipping_address qu'on va transporter les informations
+      return { ...state, shipping_address: action.payload };
     case CART_SAVE_PAYMENT:
       return { ...state, payment: action.payload };
     case CART_EMPTY:

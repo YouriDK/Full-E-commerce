@@ -26,7 +26,7 @@ export class ItemService {
       throw err;
     }
     console.log('✅ Service -> Create Item success ✅');
-    return newItem;
+    return newItem.save();
   }
 
   async findAll() {
@@ -55,8 +55,8 @@ export class ItemService {
 
   async update(id: string, ItemDto: UpdateItemDto) {
     console.log('⚜ Service -> update a Item ⚜');
-    const Item = await this.item.findOne({ _id: id });
-    if (!Item) {
+    const item = await this.item.findOne({ _id: id });
+    if (!item) {
       const err = new ItemNotFound(id);
       console.log(err);
       throw err;
@@ -65,10 +65,12 @@ export class ItemService {
       await this.item.updateOne(
         { _id: id },
         {
-          name: ItemDto.name,
-          quantity: ItemDto.quantity,
-          image: ItemDto.image,
-          Item: ItemDto.product,
+          name: ItemDto.name ?? item.name,
+          price: ItemDto.price ?? item.price,
+          quantity: ItemDto.quantity ?? item.quantity,
+          image: ItemDto.image ?? item.image,
+          product: ItemDto.product ?? item.product,
+          order_id: ItemDto.order_id ?? item.order_id,
         },
       );
     } catch (error) {

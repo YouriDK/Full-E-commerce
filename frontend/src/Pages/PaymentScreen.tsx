@@ -5,15 +5,15 @@ import CheckoutSteps from '../components/CheckOutStep';
 
 const PaymentScreen: FC<any> = (props: any): JSX.Element => {
   const cart = useSelector((state: any) => state.cart);
-  const { shippingAddress } = cart;
-  if (!shippingAddress.address) {
+  const { shipping_address } = cart;
+  if (!shipping_address.address) {
     props.history.push('/shipping');
   }
-  const [paymentMethod, setPaymentMethod] = useState('Paypal');
+  const [payment_method, setpayment_method] = useState('Paypal');
   const dispatch = useDispatch();
   const submitHandler = (e: any) => {
     e.preventDefault();
-    dispatch(savePayment(paymentMethod));
+    dispatch(savePayment(payment_method));
     props.history.push('placeorder');
   };
   // TODO remplacer les input
@@ -33,13 +33,13 @@ const PaymentScreen: FC<any> = (props: any): JSX.Element => {
             <input
               type='radio'
               value='paypal'
-              name='paymentMethod'
+              name='payment_method'
               required
               checked
-              id='paymentMethod'
-              onChange={(e) => setPaymentMethod(e.target.value)}
+              id='payment_method'
+              onChange={(e) => setpayment_method(e.target.value)}
             ></input>
-            <label className='xlarge bold' htmlFor='paymentMethod'>
+            <label className='xlarge bold' htmlFor='payment_method'>
               <span>Paypal/CB</span>
             </label>
           </div>

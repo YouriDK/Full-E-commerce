@@ -26,7 +26,7 @@ export class UsersService {
       throw err;
     }
     console.log('✅ Service -> Create User success ✅');
-    return newUser;
+    return newUser.save();
   }
 
   async findAll(): Promise<UserDto[]> | null {

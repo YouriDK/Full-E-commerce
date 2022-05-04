@@ -25,7 +25,7 @@ import {
 export const signin = (email: any, password: any) => async (dispatch: any) => {
   dispatch({ type: USER_SIGNIN_REQUEST, payload: { email, password } });
   try {
-    const { data } = await Axios.post('/api/users/signin', {
+    const { data } = await Axios.post('/users/signin', {
       email,
       password,
     });
@@ -44,18 +44,24 @@ export const signin = (email: any, password: any) => async (dispatch: any) => {
 
 export const googleLogin = (googleData: any) => async (dispatch: any) => {
   dispatch({ type: GOOGLE_SIGNIN_REQUEST, payload: { googleData } });
+  console.log('Login');
   try {
-    const { data } = await Axios.post('/api/users/signin/google', {
-      token: googleData.tokenId,
+    // const { data } = await Axios.post('/login/google', {
+    //   token: googleData.tokenId,
+    // });
+    const { data } = await Axios.get('/login/google', {
+      headers: { Authorization: `Bearer ${googleData.tokenId}` },
     });
 
     dispatch({ type: GOOGLE_SIGNIN_SUCCESS, payload: data });
-
+    console.log('DATA ->', data);
     localStorage.setItem('userInfo', JSON.stringify(data));
   } catch (error: any) {
+    console.log('error ->', error);
+    console.log('error MESSAGE->', error.message);
     dispatch({
       type: GOOGLE_SIGNIN_FAIL,
-      payload: error.response.data,
+      payload: error,
     });
   }
 };
@@ -63,7 +69,7 @@ export const googleLogin = (googleData: any) => async (dispatch: any) => {
 export const signout = () => (dispatch: any) => {
   localStorage.removeItem('userInfo');
   localStorage.removeItem('cartItems');
-  localStorage.removeItem('shippingAddress');
+  localStorage.removeItem('shipping_address');
   dispatch({ type: USER_SIGNOUT });
 };
 
@@ -74,7 +80,7 @@ export const register =
       payload: { name, email, password },
     });
     try {
-      const { data } = await Axios.post('/api/users/register', {
+      const { data } = await Axios.post('/users/register', {
         name,
         email,
         password,
@@ -99,7 +105,7 @@ export const detailsUser =
       userSignin: { userInfo },
     } = getState();
     try {
-      const { data } = await Axios.get(`/api/users/${userId}`, {
+      const { data } = await Axios.get(`/users/${userId}`, {
         headers: { Authorization: `Bearer ${userInfo.token}` },
       });
       dispatch({ type: USER_DETAILS_SUCCESS, payload: data });
@@ -116,7 +122,7 @@ export const updateUserProfile =
     } = getState();
 
     try {
-      const { data } = await Axios.put(`/api/users/profile`, user, {
+      const { data } = await Axios.put(`/users/profile`, user, {
         headers: { Authorization: `Bearer ${userInfo.token}` },
       });
       dispatch({ type: USER_UPDATE_SUCCESS, payload: data });
@@ -135,7 +141,7 @@ export const listUsers = () => async (dispatch: any, getState: any) => {
   } = getState();
   try {
     dispatch({ type: USER_GET_REQUEST });
-    const { data } = await Axios.get('/api/users/userlist', {
+    const { data } = await Axios.get('/users/userlist', {
       headers: { Authorization: `Bearer ${userInfo.token}` },
     });
     dispatch({ type: USER_GET_SUCCESS, payload: data });
