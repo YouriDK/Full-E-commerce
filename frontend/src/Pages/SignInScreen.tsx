@@ -1,13 +1,13 @@
-import React, { useEffect, useState, FC } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { FC, useEffect, useState } from 'react';
 import GoogleLogin from 'react-google-login';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { googleLogin, signin } from '../redux/actions/userActions';
+import { Button } from 'reactstrap';
+import CustomInput from '../components/CustomInput';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MesssageBox';
-import CustomInput from '../components/CustomInput';
-import { Button } from 'reactstrap';
 import { texte } from '../data';
+import { googleLogin, signin } from '../redux/actions/userActions';
 import { sleep } from '../utils';
 
 const SignInScreen: FC<any> = (props: any): JSX.Element => {
@@ -34,14 +34,15 @@ const SignInScreen: FC<any> = (props: any): JSX.Element => {
 
   const submitHandler = (e: any) => {
     e.preventDefault();
-    dispatch(signin(email, password));
+    // dispatch(signin(email, password));
+    dispatch(googleLogin(''));
   };
 
   const successGoogleLogin = (googleData: any) => {
-    console.log('googleData', googleData);
     dispatch(googleLogin(googleData));
   };
   const failGoogleLogin = (error: any) => {
+    console.log('FEILLE 6>', error);
     setFail('Failed');
     sleep(2000);
     setFail(null);

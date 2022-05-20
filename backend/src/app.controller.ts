@@ -6,6 +6,8 @@ import {
   UseGuards,
   Body,
   Req,
+  Res,
+  Header,
 } from '@nestjs/common';
 import { AppService } from './app.service';
 import { UserDto } from './app/users/dto/create-user.dto';
@@ -25,10 +27,12 @@ export class AppController {
 
   @Get()
   getHello(): string {
+    console.log('Hello');
     return this.appService.getStart();
   }
   @UseGuards(LocalAuthGuard)
   @Post('/login')
+  @Header('Access-Control-Allow-Origin', '*')
   public async login(@Request() req: any) {
     // * LocalAuthGuard will do the connection
     // * Now we juste have to get the token get send back all the intels
@@ -45,16 +49,17 @@ export class AppController {
   }
   //@Body() body: any
   // TODO Mettre l'appel pour la connection Google
-  @Get('/login/google')
+  @Get('login/google')
   @UseGuards(GoogleAuthGuard)
   public async loginGoogle(@Req() req: any) {
-    // console.log('⛔ Controller -> login Google⛔', req.user);
+    console.log('⛔ Controller -> login Google⛔', req.user);
   }
 
   @Get('redirect')
+  @Header('Access-Control-Allow-Origin', '*')
   @UseGuards(GoogleAuthGuard)
-  public googleSuccess(@Request() req: any) {
-    console.log('REDIRECT');
+  public googleSuccess(@Req() req: any, @Res() res: any) {
+    console.log('⛔ Controller -> redirect ⛔', req.user);
     // * JwtAuthGuard will check the token
     // TODO do a redirect when the token expired
 

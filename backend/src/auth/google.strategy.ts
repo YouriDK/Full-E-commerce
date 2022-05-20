@@ -2,19 +2,19 @@ import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { config } from 'dotenv';
 import { Strategy } from 'passport-google-oauth20';
-import { UsersService } from 'src/app/users/users.service';
+// import { UsersService } from 'src/app/users/users.service';
 
 config();
 @Injectable()
-export class GoogleStrategy extends PassportStrategy(Strategy) {
-  constructor(
-    // private authService: AuthService,
-    private usersService: UsersService,
-  ) {
+export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
+  constructor() {
+    // private usersService: UsersService, // private authService: AuthService,
     super({
-      clientID: process.env.GOOGLE_ID,
-      clientSecret: process.env.CLIENT_SECRET,
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_SECRET,
       callbackURL: 'http://localhost:5000/redirect',
+      // proxy: true,
+      // passReqToCallback: true,
       scope: ['email', 'profile'],
     });
     // super({ usernameField: 'token' });
@@ -28,7 +28,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy) {
   ): Promise<any> {
     console.log('DONE');
     const prof = profile;
-    console.log('profilte', prof);
+    console.log('profile', prof);
     const { name, emails, photos } = profile;
     const user = {
       email: emails[0].value,

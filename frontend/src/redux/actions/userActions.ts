@@ -1,6 +1,14 @@
 import Axios from 'axios';
-//import Cookie from "js-cookie";
 import {
+  GOOGLE_SIGNIN_FAIL,
+  GOOGLE_SIGNIN_REQUEST,
+  GOOGLE_SIGNIN_SUCCESS,
+  USER_DETAILS_FAIL,
+  USER_DETAILS_REQUEST,
+  USER_DETAILS_SUCCESS,
+  USER_GET_FAIL,
+  USER_GET_REQUEST,
+  USER_GET_SUCCESS,
   USER_REGISTER_FAIL,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
@@ -8,18 +16,9 @@ import {
   USER_SIGNIN_REQUEST,
   USER_SIGNIN_SUCCESS,
   USER_SIGNOUT,
-  USER_DETAILS_REQUEST,
-  USER_DETAILS_FAIL,
-  USER_DETAILS_SUCCESS,
-  USER_UPDATE_REQUEST,
   USER_UPDATE_FAIL,
+  USER_UPDATE_REQUEST,
   USER_UPDATE_SUCCESS,
-  USER_GET_REQUEST,
-  USER_GET_SUCCESS,
-  USER_GET_FAIL,
-  GOOGLE_SIGNIN_REQUEST,
-  GOOGLE_SIGNIN_SUCCESS,
-  GOOGLE_SIGNIN_FAIL,
 } from '../constants/userConstants';
 
 export const signin = (email: any, password: any) => async (dispatch: any) => {
@@ -29,6 +28,7 @@ export const signin = (email: any, password: any) => async (dispatch: any) => {
       email,
       password,
     });
+    console.log('signin user ❤');
     dispatch({ type: USER_SIGNIN_SUCCESS, payload: data });
 
     localStorage.setItem('userInfo', JSON.stringify(data));
@@ -45,14 +45,19 @@ export const signin = (email: any, password: any) => async (dispatch: any) => {
 export const googleLogin = (googleData: any) => async (dispatch: any) => {
   dispatch({ type: GOOGLE_SIGNIN_REQUEST, payload: { googleData } });
   console.log('Login');
+
   try {
     // const { data } = await Axios.post('/login/google', {
     //   token: googleData.tokenId,
     // });
-    const { data } = await Axios.get('/login/google', {
-      headers: { Authorization: `Bearer ${googleData.tokenId}` },
+    const data = console.log('REDIRECT');
+    await Axios.get('/login/google', {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+      },
     });
-
+    console.log('GOT LOGGED');
+    // const data = {};
     dispatch({ type: GOOGLE_SIGNIN_SUCCESS, payload: data });
     console.log('DATA ->', data);
     localStorage.setItem('userInfo', JSON.stringify(data));
