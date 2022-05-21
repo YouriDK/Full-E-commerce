@@ -10,6 +10,7 @@ frontend/.eslintcache
 node_modules
 /node_modules
 /backendNode
+./backendNode
 
 .env
 /package-lock.json
