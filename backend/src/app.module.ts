@@ -1,4 +1,9 @@
-import { Module } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
@@ -12,6 +17,7 @@ import { UsersController } from './app/users/users.controller';
 import { UsersModule } from './app/users/users.module';
 import { ShippingAddressModule } from './app/shipping-address/shipping-address.module';
 import { AuthModule } from './auth/auth.module';
+import { AuthMiddleware } from './auth/isAuth.middleware';
 
 @Module({
   imports: [
@@ -33,6 +39,22 @@ import { AuthModule } from './auth/auth.module';
   controllers: [AppController, UsersController],
   providers: [AppService],
 })
+
 // * To apply a MiddleWare :
 // * https://docs.nestjs.com/middleware
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(AuthMiddleware)
+      .exclude(
+        { path: 'products', method: RequestMethod.GET },
+        { path: 'products/:id', method: RequestMethod.GET },
+        { path: 'products', method: RequestMethod.POST },
+        { path: 'login', method: RequestMethod.ALL },
+        { path: 'login/google', method: RequestMethod.POST },
+        'cats/(.*)',
+      )
+      .forRoutes('orders', 'products');
+  }
+}
+// export class AppModule {}

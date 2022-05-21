@@ -22,6 +22,7 @@ import { ShippingAddressDto } from '../../shipping-address/dto/shipping-address.
  * totalPrice -> total_price
  */
 export class OrderDto {
+  @IsOptional() public _id?: string;
   @IsNotEmpty() public order_items: string[] | ItemDto[];
   @IsNotEmpty() public shipping_address!: ShippingAddressDto | string;
   @IsNumber() public shipping_price!: number;
@@ -53,6 +54,9 @@ export class OrderDto {
     this.deliveredAt = order.deliveredAt;
     if (order.payment_result) {
       this.payment_result = order.payment_result;
+    }
+    if (order._id) {
+      this._id = order._id;
     }
   }
 }

@@ -1,14 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Param,
-  Post,
-  Put,
-  UseGuards,
-} from '@nestjs/common';
-import { GoogleAuthGuard } from 'src/auth/google-auth.guard';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { ProductDto, UpdateProductDto } from './dto/product.dto';
 import { ProductsService } from './products.service';
 
@@ -17,14 +7,12 @@ export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
   // ! Must Be admin
-  @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() productDto: ProductDto) {
-    console.log('🤞 Controllers -> find all products 🤞');
+    console.log('🤞 Controllers -> create a product 🤞');
     return this.productsService.create(productDto);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get(':id')
   async findOne(@Param() params: any) {
     console.log('🤞 Controllers -> find the product 🤞');
@@ -38,7 +26,6 @@ export class ProductsController {
   }
 
   // ! Must Be admin
-  @UseGuards(JwtAuthGuard)
   @Put(':id')
   update(@Body() updateProductDto: UpdateProductDto) {
     console.log('🤞 Controllers -> Update the product 🤞');

@@ -1,7 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 export type ProductDocument = Product & Document;
-
+// export const categories =
+//   'Shoes' || 'Shirts' || 'Sweat' || 'Pants' || 'Joggings' || 'Underwears';
 export enum categories {
   'Shoes',
   'Shirts',
@@ -22,7 +23,7 @@ export class Product {
   @Prop({ required: true })
   public brand: string;
 
-  @Prop({ required: true })
+  @Prop({ required: true, enum: categories, type: String })
   public category: categories;
 
   @Prop({ required: true })

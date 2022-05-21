@@ -182,10 +182,10 @@ export interface ItemsProps {
 export interface OrderProps {
   order_items: ItemsProps[];
   shipping_address: {
-    fullName: string;
+    name: string;
     address: string;
     city: string;
-    postalCode: string;
+    postal_code: string;
     country: string;
   };
   payment_method: string;

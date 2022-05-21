@@ -20,6 +20,7 @@ const listProducts = () => async (dispatch: any) => {
   try {
     dispatch({ type: PRODUCT_LIST_REQUEST });
     const { data } = await axios.get('/products');
+    console.log('DATA -> ', data);
     dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
   } catch (error: any) {
     dispatch({ type: PRODUCT_LIST_FAIL, payload: error.response.data });

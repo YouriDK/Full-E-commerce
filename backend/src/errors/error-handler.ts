@@ -19,4 +19,5 @@ export enum ErrorHttpStatus {
   NotImplemented = 501,
   /** Cannot respond according the header accept not */
   WrongHeaderAccept = 406,
+  AccessDenied = 401,
 }

@@ -36,17 +36,21 @@ const OrderScreen: FC<any> = (props: any): JSX.Element => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log('PULL');
+    console.log('orderDetails ->', orderDetails);
     // ! Pour avoir la commande actuel il faut actualiser la page donc :
     if (order !== undefined) {
+      console.log('ORDER UNDEFINED');
       if (order._id !== orderId) {
         dispatch(detailsOrder(orderId));
       }
     }
     const addPayPalScript = async () => {
-      const { data } = await Axios.get('/api/config/paypal');
+      const { data } = await Axios.get('/paypal');
 
       // * Il faut créer un script pour utiliser Paypal
       const script = document.createElement('script');
+      console.log('SCRIPT PAYPAL');
       script.type = 'text/javascript';
       script.src = `https://www.paypal.com/sdk/js?client-id=${data}`;
       script.async = true;
@@ -73,9 +77,11 @@ const OrderScreen: FC<any> = (props: any): JSX.Element => {
         }
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, order, orderId, sdkReady, successPay, successDeliver]);
 
   const successPaymentHandler = (paymentResult: any) => {
+    console.log('WE GOOD');
     dispatch(payOrder(order, paymentResult));
   };
   const deliverHandler = () => {
@@ -96,7 +102,7 @@ const OrderScreen: FC<any> = (props: any): JSX.Element => {
               <td className='table-td font-secondary large xbold'>Name</td>
               <td className='table-td font-secondary large xbold'>
                 {' '}
-                {order.shipping_address.fullName}
+                {order.shipping_address.name}
               </td>
             </tr>
             <tr className='table-tr'>
@@ -119,7 +125,7 @@ const OrderScreen: FC<any> = (props: any): JSX.Element => {
               </td>
               <td className='table-td font-secondary large xbold'>
                 {' '}
-                {order.shipping_address.postalCode}
+                {order.shipping_address.postal_code}
               </td>
             </tr>
             <tr className='table-tr'>

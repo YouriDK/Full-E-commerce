@@ -19,6 +19,7 @@ const HomeScreen: FC<any> = (): JSX.Element => {
   };
   useEffect(() => {
     dispatch(listProducts());
+    // console.log(products);
   }, [dispatch]);
 
   return loading ? (
@@ -30,8 +31,8 @@ const HomeScreen: FC<any> = (): JSX.Element => {
       <div className='row center'>
         {products
           .filter(
-            (produdct: ProductProps) =>
-              produdct.category === category || category === 'All'
+            (product: ProductProps) =>
+              product.category === category || category === 'All'
           )
           .slice((currentCage - 1) * ITEMS_MAX, currentCage * ITEMS_MAX - 1)
           .map((product: ProductProps) => {

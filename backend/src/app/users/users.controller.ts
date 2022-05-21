@@ -5,15 +5,13 @@ import {
   Param,
   Post,
   Put,
-  UseGuards,
   Request,
 } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import * as bcrypt from 'bcrypt';
+import { AuthService } from 'src/auth/auth.service';
 import { UserDto } from './dto/create-user.dto';
 import { UsersService } from './users.service';
-import { AuthService } from 'src/auth/auth.service';
 
 @Controller('user')
 export class UsersController {
@@ -30,7 +28,6 @@ export class UsersController {
 
   //! Must be admin
   @MessagePattern('findAllUsers')
-  @UseGuards(JwtAuthGuard)
   @Get('list')
   async findAll() {
     console.log('🤞 Controllers -> Get All users 🤞');
@@ -38,7 +35,6 @@ export class UsersController {
   }
 
   @MessagePattern('findOneUser')
-  @UseGuards(JwtAuthGuard)
   @Get(':id')
   async findOne(@Param() datas: any) {
     // TODO check le contenu de params
@@ -47,7 +43,6 @@ export class UsersController {
   }
 
   @MessagePattern('updateUser')
-  @UseGuards(JwtAuthGuard)
   @Put('profile')
   async update(@Request() req: any, @Body() updateUserDto: UserDto) {
     console.log('🤞 Controllers -> Update User 🤞');

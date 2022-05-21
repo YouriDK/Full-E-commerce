@@ -3,7 +3,7 @@ import { PartialType } from '@nestjs/mapped-types';
 import { User } from '../user.schema';
 
 export class UserDto {
-  @IsString() public _id!: string;
+  @IsString() public _id?: string;
   @IsString() public name!: string;
   @IsEmail() public email!: string;
   @IsString() public password!: string;

@@ -19,6 +19,7 @@ export class AuthService {
     private usersService: UsersService,
   ) {}
 
+  // ! Old authentification without Google
   async checkUser(email: string, password: string): Promise<UserDto> {
     console.log('☢ Service -> checkUser ☢ ');
     const user: UserDto = await this.usersService.findOnebyEmail(email);
@@ -39,6 +40,7 @@ export class AuthService {
     }
   }
 
+  // ! Old authentification without Google
   async login(user: any): Promise<Itoken> {
     const payload = { email: user.email, _id: user._id, name: user.name };
     return {
@@ -71,23 +73,34 @@ export class AuthService {
       if (i > -1) array[i] = item;
       else array.push(item);
     };
-    const client = new OAuth2Client(process.env.REACT_APP_GOOGLE_CLIENT_ID);
+    const client = new OAuth2Client({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_SECRET,
+    });
     const users: any[] = [];
     const ticket = await client.verifyIdToken({
       idToken: token,
-      audience: process.env.CLIENT_ID,
+      audience: process.env.GOOGLE_CLIENT_ID,
     });
     const { name, email, picture, given_name, family_name, sub } =
       ticket.getPayload() as any;
+
     let user: UserDto = await this.usersService.findOnebyEmail(email);
+
     if (!user) {
-      await this.usersService.create(email);
+      await this.usersService.create({
+        name: given_name,
+        email: email,
+        password: sub,
+        admin: false,
+      });
       user = await this.usersService.findOnebyEmail(email);
     }
     upsert(users, { name, email, picture, given_name, family_name, sub });
     console.log('✅ Authentification Via google  success ✅');
     return {
       name,
+      admin: user.admin,
       email,
       picture,
       given_name,

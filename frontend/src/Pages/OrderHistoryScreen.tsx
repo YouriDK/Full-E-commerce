@@ -12,18 +12,18 @@ const OrderHistoryScreen: FC<any> = (props: any): JSX.Element => {
   const orderMineList = useSelector((state: any) => state.orderMineList);
   const { orders, loading, error } = orderMineList;
   const dispatch = useDispatch();
-  const history = useHistory();
+  // const history = useHistory();
   useEffect(() => {
     dispatch(listOrderMine());
 
-    if (
-      orderMineList.error &&
-      orderMineList.error.detail === 'Invalid userinfo encoding.'
-    ) {
-      history.push('/login');
-    }
+    // if (
+    //   orderMineList.error &&
+    //   orderMineList.error.detail === 'Invalid userinfo encoding.'
+    // ) {
+    //   history.push('/login');
+    // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, orderMineList.error]);
+  }, [dispatch]);
   return loading ? (
     <LoadingBox />
   ) : error ? (
@@ -42,6 +42,7 @@ const OrderHistoryScreen: FC<any> = (props: any): JSX.Element => {
           </tr>
           {orders.map((order: any, index: number) => (
             <tr className='table-tr' key={order._id}>
+              {console.log('order -> ', order)}
               <td className='table-td font-secondary large xbold'>
                 {order._id}
               </td>

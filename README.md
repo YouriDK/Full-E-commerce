@@ -21,6 +21,7 @@ Front : npm start
 # TODO
 
 Voir si on peut fusionner les .env
+Supprimer la notification Card is empty
 
 # ISSUES resolved
 

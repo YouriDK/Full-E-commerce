@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Route, useHistory } from 'react-router-dom';
 import AdminRoute from './components/AdminRoute';
@@ -14,7 +14,6 @@ import PlaceOrderScreen from './Pages/PlaceOrderScreen';
 import ProductScreen from './Pages/ProductScreen';
 import ProductsScreen from './Pages/ProductsScreen';
 import ProfileScreen from './Pages/ProfileScreen';
-import RegisterScreen from './Pages/RegisterScreen';
 import ShippingScreen from './Pages/ShippingScreen';
 import SignInScreen from './Pages/SignInScreen';
 import UserListScreen from './Pages/UserListScreen';
@@ -41,12 +40,9 @@ const App: FC<any> = (props: any): JSX.Element => {
     dispatch(signout());
     moveTo('/#signout');
   };
+
   return (
     <>
-      {/* <link
-        rel='stylesheet'
-        href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'
-      ></link> */}
       <div className='grid-container'>
         <header className='row'>
           <div>
@@ -63,24 +59,26 @@ const App: FC<any> = (props: any): JSX.Element => {
                 <span className='badge'>{cartItems.length}</span>
               )}
             </Link>
-            <div className='dropdown'>
-              <Link to='#' className='font-secondary xlarge'>
-                {categories === 'All' ? 'Category' : categories}
-              </Link>
-              <ul className='dropdown-content'>
-                {Categories.map((cat: string, index: number) => (
-                  <li key={index}>
-                    <Link
-                      to='#'
-                      className='font-secondary large'
-                      onClick={() => handleCategories(cat)}
-                    >
-                      {cat}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {history.location.pathname === '/' && (
+              <div className='dropdown'>
+                <Link to='#' className='font-secondary xlarge'>
+                  {categories === 'All' ? 'Category' : categories}
+                </Link>
+                <ul className='dropdown-content'>
+                  {Categories.map((cat: string, index: number) => (
+                    <li key={index}>
+                      <Link
+                        to='#'
+                        className='font-secondary large'
+                        onClick={() => handleCategories(cat)}
+                      >
+                        {cat}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
             {'  '}
             {userInfo ? (
               <div className='dropdown'>
@@ -167,7 +165,7 @@ const App: FC<any> = (props: any): JSX.Element => {
           <Route path='/product/:id' component={ProductScreen} />
 
           <Route path='/signin' component={SignInScreen} />
-          <Route path='/register' component={RegisterScreen} />
+
           <Route path='/orderhistory' component={OrderHistoryScreen} />
           <Route path='/order/:id' component={OrderScreen} />
           <PrivateRoute path='/profile' component={ProfileScreen} />

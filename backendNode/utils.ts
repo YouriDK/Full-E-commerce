@@ -51,10 +51,13 @@ const isAuth = async (req: any, res: any, next: Function) => {
       // * Google Auth
       console.log('🤞 Google Auth 🤞');
       try {
-        const client = new OAuth2Client(process.env.REACT_APP_GOOGLE_CLIENT_ID);
+        const client = new OAuth2Client({
+          clientId: process.env.GOOGLE_CLIENT_ID,
+          clientSecret: process.env.GOOGLE_SECRET,
+        });
         const ticket = await client.verifyIdToken({
           idToken: token,
-          audience: process.env.CLIENT_ID,
+          audience: process.env.GOOGLE_CLIENT_ID,
         });
 
         const getUser = await userModel

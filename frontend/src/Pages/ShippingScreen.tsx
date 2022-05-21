@@ -16,15 +16,15 @@ const ShippingScreen: FC<any> = (props: any): JSX.Element => {
   const { shipping_address } = cart;
 
   const [address, setAddress] = useState(shipping_address.address);
-  const [fullName, setfullName] = useState(shipping_address.fullName);
+  const [name, setName] = useState(shipping_address.name);
   const [city, setCity] = useState(shipping_address.city);
   const [country, setCountry] = useState(shipping_address.country);
-  const [postalCode, setPostalCode] = useState(shipping_address.postalCode);
+  const [postal_code, setPostalCode] = useState(shipping_address.postal_code);
   const dispatch = useDispatch();
 
   const submitHandler = (e: any) => {
     e.preventDefault();
-    dispatch(saveShipping({ fullName, address, city, postalCode, country }));
+    dispatch(saveShipping({ name, address, city, postal_code, country }));
     props.history.push('/payment');
   };
 
@@ -33,11 +33,11 @@ const ShippingScreen: FC<any> = (props: any): JSX.Element => {
       <CheckoutSteps step={1} /*current='process'*/ />
       <form className='form' onSubmit={submitHandler}>
         <CustomInput
-          variable={fullName}
-          name='fullName'
+          variable={name}
+          name='name'
           label='Full name'
           type='text'
-          change={setfullName}
+          change={setName}
           placeholder='Enter full name'
         />
         <CustomInput
@@ -58,8 +58,8 @@ const ShippingScreen: FC<any> = (props: any): JSX.Element => {
           placeholder='Enter city'
         />
         <CustomInput
-          variable={postalCode}
-          name='postalCode'
+          variable={postal_code}
+          name='postal_code'
           label='Postal Code'
           type='number'
           change={setPostalCode}

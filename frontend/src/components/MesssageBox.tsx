@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Alert } from 'reactstrap';
 interface ErrorProps {
-  detail: string;
+  response: string;
   status: number;
   type: string;
   title: string;
@@ -25,7 +25,7 @@ const MesssageBox: FC<MesssageBoxProps> = ({
       className={`center alert `}
       style={{ margin: 'auto' }}
     >
-      {`${error.title} ${error.status} : ${error.detail} from ${error.type} !`}
+      {`${error.title} ${error.status} : ${error.response} from ${error.type} !`}
     </Alert>
   ) : (
     <Alert

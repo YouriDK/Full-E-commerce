@@ -16,6 +16,7 @@ export class UsersService {
     @InjectModel(User.name)
     private user: Model<UserDocument>,
   ) {}
+
   async create(userDatas: UserDto): Promise<UserDto> {
     console.log('🤞 Service -> Create User 🤞');
     const user = await new User().fill(userDatas);
@@ -42,7 +43,7 @@ export class UsersService {
   }
 
   async findOnebyEmail(email: string): Promise<UserDto> | null {
-    console.log('🤞 Service -> login user checking email.... 🤞');
+    console.log('🤞 Service -> Login user checking email.... 🤞');
     const user = await this.user.findOne({ email: email });
     if (!user) {
       const err = new UserNotFound(email);

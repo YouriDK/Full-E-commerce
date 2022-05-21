@@ -3,6 +3,10 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { ItemDto } from '../item/dto/item.dto';
 import { ItemService } from '../item/item.service';
+import {
+  PaymentResultDto,
+  UpdatePaymentResultDto,
+} from '../payment-results/dto/payment-result.dto';
 import { PaymentResultService } from '../payment-results/payment-results.service';
 import { ShippingAddressDto } from '../shipping-address/dto/shipping-address.dto';
 import { ShippingAddressService } from '../shipping-address/shipping-address.service';
@@ -108,6 +112,21 @@ export class OrdersService {
     console.log('✅ Service -> Get list Order success ✅');
     return ordersFilled;
   }
+  async findSome(userID: string): Promise<OrderDto[]> {
+    console.log('⚜ Service -> Get Orders from specific user... ⚜');
+    const orders = await this.order.find({ user: userID });
+    if (!orders) {
+      const err = new OrderListFailed();
+      console.log(err);
+      throw err;
+    }
+    console.log('⚜ Service -> Filling Orders... ⚜');
+    const ordersFilled = await Promise.all(
+      orders.map(async (order: OrderDto) => await this.fill(order)),
+    );
+    console.log('✅ Service -> Get list Order success ✅');
+    return ordersFilled;
+  }
 
   async findOne(id: string): Promise<OrderDto> {
     console.log('⚜ Service -> Get a Order ⚜');
@@ -162,7 +181,7 @@ export class OrdersService {
     console.log('✅ Service -> update a Order success ✅');
     return await this.order.findById(id);
   }
-  async pay(id: string, modeyDatas: UpdateOrderDto) {
+  async pay(id: string, modeyDatas: PaymentResultDto) {
     console.log('⚜ Service -> Pay an Order ⚜');
     const order = await this.order.findOne({ _id: id });
     if (!order) {
@@ -170,13 +189,15 @@ export class OrdersService {
       console.log(err);
       throw err;
     }
+
     try {
+      const payment = await this.paymentResultService.create(modeyDatas);
       await this.order.updateOne(
         { _id: id },
         {
           isPaid: true,
           paidAt: new Date(Date.now()),
-          payment_result: modeyDatas.payment_result ?? order.payment_result,
+          payment_result: payment?._id,
         },
       );
     } catch (error) {
@@ -189,7 +210,7 @@ export class OrdersService {
     return await this.order.findById(id);
   }
   async deliver(id: string) {
-    console.log('⚜ Service -> Pay an Order ⚜');
+    console.log('⚜ Service -> Deliver an Order ⚜');
     const order = await this.order.findOne({ _id: id });
     if (!order) {
       const err = new OrderNotFound(id);
@@ -205,12 +226,11 @@ export class OrdersService {
         },
       );
     } catch (error) {
-      console.log(error);
       const err = new UpdateOrderFailed(id);
       console.log(err);
       throw err;
     }
-    console.log('✅ Service -> Pay an Order success ✅');
+    console.log('✅ Service -> Deliver an Order success ✅');
     return await this.order.findById(id);
   }
 
@@ -250,11 +270,12 @@ export class OrdersService {
     let payment_resultFilled = null;
     if (order.payment_result) {
       payment_resultFilled = await this.paymentResultService.findOne(
-        order.payment_method as string,
+        order.payment_result as string,
       );
     }
 
     return {
+      _id: order._id,
       order_items: item_list,
       shipping_address: shipping,
       payment_result: payment_resultFilled ?? order.payment_result,

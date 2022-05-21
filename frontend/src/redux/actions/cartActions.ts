@@ -9,6 +9,7 @@ import {
 const addToCart =
   (productId: any, quantity: any) => async (dispatch: any, getState: any) => {
     try {
+      console.log('Ajout');
       const { data } = await Axios.get('/products/' + productId)
         .then((res: any) => res)
         .catch((err: any) => console.log(err));
@@ -23,12 +24,15 @@ const addToCart =
           quantity,
         },
       });
-
+      console.log('Locale before', localStorage.cartItems);
       localStorage.setItem(
         'cartItems',
         JSON.stringify(getState().cart.cartItems)
       );
-    } catch (error) {}
+      console.log('Locale after', localStorage.cartItems);
+    } catch (error: any) {
+      console.log('error', error.response);
+    }
   };
 
 const removeFromCart = (productId: any) => (dispatch: any, getState: any) => {

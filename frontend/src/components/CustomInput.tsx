@@ -23,6 +23,7 @@ const CustomInput: FC<InputProps> = ({
   placeholder,
   options,
   textarea,
+  disabled,
 }): JSX.Element => {
   return textarea ? (
     <div>
@@ -83,6 +84,7 @@ const CustomInput: FC<InputProps> = ({
       <input
         required={required}
         checked={checked}
+        disabled={disabled}
         className='font-secondary bold'
         value={variable}
         type={type}

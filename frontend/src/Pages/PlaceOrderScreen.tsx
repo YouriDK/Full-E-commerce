@@ -31,6 +31,7 @@ const PlaceOrderScreen: FC<any> = (props: any): JSX.Element => {
   };
 
   useEffect(() => {
+    console.log('PUSH');
     if (success) {
       dispatch({ type: ORDER_CREATE_RESET });
       props.history.push(`/order/${order._id}`);
@@ -57,7 +58,7 @@ const PlaceOrderScreen: FC<any> = (props: any): JSX.Element => {
                   <td className='table-td font-secondary large xbold'>Name</td>
                   <td className='table-td font-secondary large xbold'>
                     {' '}
-                    {cart.shipping_address.fullName}
+                    {cart.shipping_address.name}
                   </td>
                 </tr>
                 <tr className='table-tr'>
@@ -82,7 +83,7 @@ const PlaceOrderScreen: FC<any> = (props: any): JSX.Element => {
                   </td>
                   <td className='table-td font-secondary large xbold'>
                     {' '}
-                    {cart.shipping_address.postalCode}
+                    {cart.shipping_address.postal_code}
                   </td>
                 </tr>
                 <tr className='table-tr'>

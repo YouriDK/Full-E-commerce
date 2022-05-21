@@ -1,18 +1,13 @@
 import React, { FC, useEffect, useState } from 'react';
 import GoogleLogin from 'react-google-login';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { Button } from 'reactstrap';
-import CustomInput from '../components/CustomInput';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MesssageBox';
-import { texte } from '../data';
-import { googleLogin, signin } from '../redux/actions/userActions';
+import { googleLogin } from '../redux/actions/userActions';
 import { sleep } from '../utils';
 
 const SignInScreen: FC<any> = (props: any): JSX.Element => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [fail, setFail] = useState<any>();
 
   // * Permet d'aller chercher les informations dans store avec le bon reducer
@@ -34,8 +29,6 @@ const SignInScreen: FC<any> = (props: any): JSX.Element => {
 
   const submitHandler = (e: any) => {
     e.preventDefault();
-    // dispatch(signin(email, password));
-    dispatch(googleLogin(''));
   };
 
   const successGoogleLogin = (googleData: any) => {
@@ -54,31 +47,17 @@ const SignInScreen: FC<any> = (props: any): JSX.Element => {
   ) : (
     <div>
       <form className='form' onSubmit={submitHandler}>
-        <div>
-          <h1 className='text-center font-title'>Sign-In</h1>
-        </div>
-        <CustomInput
-          variable={email}
-          name='email'
-          label='Email'
-          type='email'
-          change={setEmail}
-          placeholder='Enter email'
-        />
-        <CustomInput
-          variable={password}
-          name='password'
-          label='Password'
-          type='password'
-          change={setPassword}
-          placeholder='Enter password'
-        />
         <br />
-        <div>
-          <Button type='submit' className='primary'>
-            {texte.Terms.sign.en}
-          </Button>
-        </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
 
         {fail ? (
           <MessageBox variant='danger' text={fail} />
@@ -103,24 +82,6 @@ const SignInScreen: FC<any> = (props: any): JSX.Element => {
             ></GoogleLogin>
           </div>
         )}
-        <div>
-          <span style={{ textAlign: 'center' }}>
-            You don't have you account ?
-          </span>
-        </div>
-
-        <div>
-          <Button className='secondary'>
-            <Link
-              className='link'
-              to={
-                redirect === '/' ? 'register' : 'register?redirect=' + redirect
-              }
-            >
-              Create your account
-            </Link>
-          </Button>
-        </div>
       </form>
     </div>
   );

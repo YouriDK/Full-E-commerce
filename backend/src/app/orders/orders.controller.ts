@@ -6,6 +6,8 @@ import {
   Param,
   Patch,
   Post,
+  Put,
+  Req,
 } from '@nestjs/common';
 import { OrderDto, UpdateOrderDto } from './dto/order.dto';
 import { OrdersService } from './orders.service';
@@ -15,15 +17,23 @@ export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
 
   @Post()
-  async create(@Body() createOrderDto: OrderDto) {
+  async create(@Body() createOrderDto: OrderDto, @Req() req: any) {
     console.log('🤞 Controllers -> Create orders 🤞');
-    return await this.ordersService.create(createOrderDto);
+    return await this.ordersService.create({
+      user: req.user._id,
+      ...createOrderDto,
+    });
   }
 
   @Get()
   async findAll() {
     console.log('🤞 Controllers -> Find all orders 🤞Params');
     return await this.ordersService.findAll();
+  }
+  @Get('/mine/:id')
+  async findOrdersformUser(@Req() req: any) {
+    console.log('🤞 Controllers -> Find all orders from a specific user');
+    return await this.ordersService.findSome(req.user._id);
   }
 
   @Get(':id')
@@ -44,13 +54,18 @@ export class OrdersController {
     return await this.ordersService.remove(params.id);
   }
 
-  @Patch('/pay/:id')
-  async pay(@Param() params: any, @Body() moneyDatas: UpdateOrderDto) {
+  @Post('/pay/:id')
+  async pay(@Param() params: any, @Body() moneyDatas: any, @Req() req: any) {
     console.log('🤞 Controllers -> Pay order 🤞');
-    return await this.ordersService.pay(params.id, moneyDatas);
+    return await this.ordersService.pay(params.id, {
+      status: moneyDatas.status,
+      email_address: req.user.email,
+      order_id: params.id,
+      update_time: new Date(Date.now()),
+    });
   }
 
-  @Patch('/deliver/:id')
+  @Put('/deliver/:id')
   async deliver(@Param() params: any) {
     console.log('🤞 Controllers -> Deliver order 🤞');
     return await this.ordersService.deliver(params.id);

@@ -34,7 +34,7 @@ export class OrderNotFound extends HttpException {
         title: 'OrderNotFound',
         type: '/order-get-one',
         status: ErrorHttpStatus.BadRequest,
-        response: `Cannot get thes ${id} order !`,
+        response: `Cannot get this ${id} order !`,
       },
       ErrorHttpStatus.BadRequest,
     );

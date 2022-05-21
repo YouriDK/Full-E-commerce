@@ -1,16 +1,16 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { detailsUser, updateUserProfile } from '../redux/actions/userActions';
+import CustomInput from '../components/CustomInput';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MesssageBox';
+import { detailsUser } from '../redux/actions/userActions';
 import { USER_UPDATE_RESET } from '../redux/constants/userConstants';
-import CustomInput from '../components/CustomInput';
 
 const ProfileScreen: FC<any> = (): JSX.Element => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [admin, setAdmin] = useState(false);
+
   const userSignin = useSelector((state: any) => state.userSignin);
   const { userInfo } = userSignin;
   const userDetails = useSelector((state: any) => state.userDetails);
@@ -29,26 +29,27 @@ const ProfileScreen: FC<any> = (): JSX.Element => {
       dispatch({ type: USER_UPDATE_RESET });
       dispatch(detailsUser(userInfo._id));
     } else {
+      console.log('user', user);
       setName(user.name);
       setEmail(user.email);
     }
   }, [dispatch, userInfo._id, user]);
 
-  const submitHandler = (e: any) => {
-    e.preventDefault();
-    // TODO dispatch update profile
-    if (password !== confirmPassword) {
-      alert('Password and Confirm Password do not match');
-    } else {
-      dispatch(updateUserProfile({ userId: user._id, name, password }));
-    }
-  };
+  // const submitHandler = (e: any) => {
+  //   e.preventDefault();
+  //   // TODO dispatch update profile
+  //   if (password !== confirmPassword) {
+  //     alert('Password and Confirm Password do not match');
+  //   } else {
+  //     dispatch(updateUserProfile({ userId: user._id, name, password }));
+  //   }
+  // };
   return loading ? (
     <LoadingBox />
   ) : error ? (
     <MessageBox variant='danger' error={error} />
   ) : (
-    <form className='form' onSubmit={submitHandler}>
+    <form className='form'>
       <div>
         {' '}
         <h1 className='text-center font-primary xlarge xbold'>
@@ -67,6 +68,7 @@ const ProfileScreen: FC<any> = (): JSX.Element => {
         label='Name'
         type='text'
         change={setName}
+        disabled
       />
       <CustomInput
         variable={email}
@@ -74,29 +76,9 @@ const ProfileScreen: FC<any> = (): JSX.Element => {
         label='Email'
         type='email'
         change={setEmail}
+        disabled
       />
-      <CustomInput
-        variable={password}
-        name='password'
-        label='Password'
-        type='password'
-        change={setPassword}
-      />
-      <CustomInput
-        variable={confirmPassword}
-        name='confirmPassword'
-        label='Confirm Password'
-        type='password'
-        change={setConfirmPassword}
-      />
-      <div>
-        <button
-          className='primary block font-secondary large xbold'
-          type='submit'
-        >
-          UPDATE{' '}
-        </button>
-      </div>{' '}
+      <div></div>{' '}
     </form>
   );
 };

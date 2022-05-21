@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import { addToCart, removeFromCart } from '../redux/actions/cartActions';
 import EmptyCard from '../components/EmptyCard';
-import { createNotifications } from '../components/notifications';
+
 import { texte } from '../data';
 import { BsTrash } from 'react-icons/bs';
 import queryString from 'query-string';
@@ -24,16 +24,10 @@ const CartScreen: FC<any> = (props: any): JSX.Element => {
   };
 
   useEffect(() => {
-    if (productId && cartItems.length === 0) {
+    if (productId) {
       dispatch(addToCart(productId, quantity));
     }
-    if (cartItems.length === 0) {
-      createNotifications({
-        title: "Cart's empty",
-        message: "Let's go shopping",
-      });
-    }
-  }, [dispatch, productId, quantity, cartItems]);
+  }, [dispatch, productId, quantity]);
 
   return (
     <>

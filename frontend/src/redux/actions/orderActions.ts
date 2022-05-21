@@ -37,13 +37,16 @@ export const createOrder =
           Authorization: `Bearer ${userInfo.token}`,
         },
       });
-      dispatch({ type: ORDER_CREATE_SUCCESS, payload: data.order });
+      console.log('order_saved -> ', data);
+      dispatch({ type: ORDER_CREATE_SUCCESS, payload: data });
       dispatch({ type: CART_EMPTY });
       localStorage.removeItem('cartItems');
     } catch (error: any) {
+      console.log('error', error);
+
       dispatch({
         type: ORDER_CREATE_FAIL,
-        payload: error.response.data,
+        payload: error,
       });
     }
   };
@@ -60,6 +63,7 @@ export const detailsOrder =
           Authorization: `Bearer ${userInfo.token}`,
         },
       });
+      console.log('getDa&te', data);
       dispatch({ type: ORDER_DETAILS_SUCCESS, payload: data });
     } catch (error: any) {
       dispatch({ type: ORDER_DETAILS_FAIL, payload: error.response.data });
@@ -69,11 +73,13 @@ export const detailsOrder =
 export const payOrder =
   (order: any, paymentResult: any) => async (dispatch: any, getState: any) => {
     dispatch({ type: ORDER_PAY_REQUEST, payload: { order, paymentResult } });
+    console.log("Let's Pay");
+    console.log("Let's Pay with ->", paymentResult);
     const {
       userSignin: { userInfo },
     } = getState();
     try {
-      const { data } = await Axios.put(
+      const { data } = await Axios.post(
         `/orders/pay/${order._id}`,
         paymentResult,
         {
@@ -91,7 +97,7 @@ export const listOrderMine = () => async (dispatch: any, getState: any) => {
     userSignin: { userInfo },
   } = getState();
   try {
-    const { data } = await Axios.get('/orders/mine', {
+    const { data } = await Axios.get(`/orders/mine/${userInfo.id}`, {
       headers: {
         Authorization: `Bearer ${userInfo.token}`,
       },
@@ -151,6 +157,7 @@ export const deliverOrder =
           headers: { Authorization: `Bearer ${userInfo.token}` },
         }
       );
+      console.log(data);
       dispatch({ type: ORDER_DELIVER_SUCCESS, payload: data });
     } catch (error: any) {
       dispatch({ type: ORDER_DELIVER_FAIL, payload: error.response.data });
