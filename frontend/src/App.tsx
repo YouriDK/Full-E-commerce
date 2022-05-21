@@ -157,25 +157,30 @@ const App: FC<any> = (props: any): JSX.Element => {
         </header>
 
         <main>
-          <Route path='/payment' component={PaymentScreen} />
-          <Route path='/placeorder' component={PlaceOrderScreen} />
-          <Route path='/cart' exact={true} component={CartScreen} />
-          <Route path='/products' component={ProductsScreen} />
-          <Route path='/shipping' component={ShippingScreen} />
-          <Route path='/product/:id' component={ProductScreen} />
+          <>
+            <Route path='/payment' component={PaymentScreen} />
+            <Route path='/placeorder' component={PlaceOrderScreen} />
+            <Route path='/cart' exact={true} component={CartScreen} />
+            <Route path='/products' component={ProductsScreen} />
+            <Route path='/shipping' component={ShippingScreen} />
+            <Route path='/product/:id' component={ProductScreen} />
 
-          <Route path='/signin' component={SignInScreen} />
+            <Route path='/signin' component={SignInScreen} />
 
-          <Route path='/orderhistory' component={OrderHistoryScreen} />
-          <Route path='/order/:id' component={OrderScreen} />
-          <PrivateRoute path='/profile' component={ProfileScreen} />
-          <AdminRoute
-            path='/orderlist'
-            component={OrderListScreen}
-          ></AdminRoute>
-          <AdminRoute path='/userlist' component={UserListScreen}></AdminRoute>
+            <Route path='/orderhistory' component={OrderHistoryScreen} />
+            <Route path='/order/:id' component={OrderScreen} />
+            <PrivateRoute path='/profile' component={ProfileScreen} />
+            <AdminRoute
+              path='/orderlist'
+              component={OrderListScreen}
+            ></AdminRoute>
+            <AdminRoute
+              path='/userlist'
+              component={UserListScreen}
+            ></AdminRoute>
 
-          <Route path='/' exact={true} component={HomeScreen} />
+            <Route path='/' exact={true} component={HomeScreen} />
+          </>
         </main>
         <footer className='row center font-footer'>
           Shop X Production YC Developpment
