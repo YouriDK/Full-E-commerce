@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, Route, useHistory } from 'react-router-dom';
+import { Link, Route, Switch, useHistory } from 'react-router-dom';
 import AdminRoute from './components/AdminRoute';
 import PrivateRoute from './components/PrivateRoute';
 import { Categories, texte } from './data';
@@ -157,7 +157,7 @@ const App: FC<any> = (props: any): JSX.Element => {
         </header>
 
         <main>
-          <>
+          <Switch>
             <Route path='/payment' component={PaymentScreen} />
             <Route path='/placeorder' component={PlaceOrderScreen} />
             <Route path='/cart' exact={true} component={CartScreen} />
@@ -180,7 +180,7 @@ const App: FC<any> = (props: any): JSX.Element => {
             ></AdminRoute>
 
             <Route path='/' exact={true} component={HomeScreen} />
-          </>
+          </Switch>
         </main>
         <footer className='row center font-footer'>
           Shop X Production YC Developpment
