@@ -157,7 +157,7 @@ const App: FC<any> = (props: any): JSX.Element => {
         </header>
 
         <main>
-          <Switch>
+          <div>
             <Route path='/payment' component={PaymentScreen} />
             <Route path='/placeorder' component={PlaceOrderScreen} />
             <Route path='/cart' exact={true} component={CartScreen} />
@@ -180,7 +180,7 @@ const App: FC<any> = (props: any): JSX.Element => {
             ></AdminRoute>
 
             <Route path='/' exact={true} component={HomeScreen} />
-          </Switch>
+          </div>
         </main>
         <footer className='row center font-footer'>
           Shop X Production YC Developpment
