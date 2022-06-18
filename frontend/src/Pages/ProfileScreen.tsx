@@ -9,7 +9,6 @@ import { USER_UPDATE_RESET } from '../redux/constants/userConstants';
 const ProfileScreen: FC<any> = (): JSX.Element => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [admin, setAdmin] = useState(false);
 
   const userSignin = useSelector((state: any) => state.userSignin);
   const { userInfo } = userSignin;

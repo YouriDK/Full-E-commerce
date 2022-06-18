@@ -1,6 +1,6 @@
-import React, { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, Route, Switch, useHistory } from 'react-router-dom';
+import { Link, Route, useHistory } from 'react-router-dom';
 import AdminRoute from './components/AdminRoute';
 import PrivateRoute from './components/PrivateRoute';
 import { Categories, texte } from './data';
