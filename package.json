@@ -5,13 +5,14 @@
   "main": "index.tsx",
   "scripts": {
     "build": "cd frontend && npm install && npm run build",
-    "start": "ts-node backend/src/main.ts"
+    "start": "nest backend/src/main.ts"
   },
   "author": "YC",
   "license": "ISC",
   "dependencies": {
     "@types/bcryptjs": "^2.4.2",
     "@types/express": "^4.17.13",
+    "@nestjs/core": "^8.0.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
