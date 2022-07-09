@@ -1,1 +1,1 @@
-web:ts-node backend/main/main.ts
+web:ts-node backend/src/main.ts
