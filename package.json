@@ -5,7 +5,7 @@
   "main": "index.tsx",
   "scripts": {
     "build": "cd frontend && npm install && npm run build",
-    "start": "ts-node backend/server.ts"
+    "start": "ts-node backend/src/main.ts"
   },
   "author": "YC",
   "license": "ISC",
