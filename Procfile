@@ -1,1 +1,2 @@
-web:ts-node backend/src/main.ts
+dunno:ts-node backend/src/main.ts
+web : nest start
