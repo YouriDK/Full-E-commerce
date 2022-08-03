@@ -1,2 +1,2 @@
-dunno:ts-node backend/src/main.ts
-web : npm run start
+web :ts-node backend/src/main.ts
+dunno : npm run start
