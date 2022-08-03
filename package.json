@@ -5,8 +5,7 @@
   "main": "index.tsx",
   "scripts": {
     "build": "cd frontend && npm install && npm run build",
-    "start": "node --loader ts-node/esm backend/src/main.ts",
-    "postinstall": "tsc"
+    "start": "node --loader ts-node/esm backend/src/main.ts"
   },
   "author": "YC",
   "license": "ISC",
