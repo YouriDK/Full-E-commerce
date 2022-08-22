@@ -24,6 +24,8 @@
     "@nestjs/platform-express": "^8.0.0",
     "@nestjs/schematics": "^8.0.0",
     "@nestjs/testing": "^8.0.0",
+    "@nestjs/jwt": "^8.0.0",
+    "@nestjs/cli": "^8.0.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
