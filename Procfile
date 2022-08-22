@@ -1,2 +1,1 @@
-web :ts-node backend/src/main.ts
-dunno : npm run start
+web :node backend/src/index.js
