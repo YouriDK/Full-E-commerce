@@ -1,1 +1,1 @@
-web :node backend/src/index.js
+web :npm run start
