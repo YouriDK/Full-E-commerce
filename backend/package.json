@@ -28,7 +28,7 @@
     "@nestjs/jwt": "^8.0.0",
     "@nestjs/mapped-types": "^1.0.1",
     "@nestjs/microservices": "^8.4.4",
-    "@nestjs/mongoose": "^9.0.3",
+    "@nestjs/mongoose": "^9.2.0",
     "@nestjs/passport": "^8.2.1",
     "@nestjs/platform-express": "^8.0.0",
     "@nestjs/schematics": "^8.0.0",
