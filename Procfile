@@ -1,1 +1,1 @@
-web :ts-node --transpile-only  backend/src/main.ts
+web: ./bin/www npm start
