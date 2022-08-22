@@ -1,1 +1,1 @@
-web: ts-node --transpile-only ./src/main.ts
+web: ts-node --transpile-only ./backend/src/main.ts
