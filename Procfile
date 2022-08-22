@@ -1,1 +1,1 @@
-web :npm run start
+web :ts-node --transpile-only  backend/src/main.ts
