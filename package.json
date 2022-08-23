@@ -4,7 +4,7 @@
   "description": "E-Shop MERN Technology",
   "main": "index.tsx",
   "scripts": {
-    "build": "cd frontend && npm install && npm run build && tsc",
+    "build": "cd frontend && npm install && npm run build",
     "start": "ts-node --transpile-only  backend/src/main",
     "typings": "src/start",
     "start:dev": "node --loader ts-node/esm backend/src/main.ts"
