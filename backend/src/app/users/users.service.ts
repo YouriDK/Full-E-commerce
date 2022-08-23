@@ -8,7 +8,7 @@ import {
   UserCreationFailed,
   UserNotFound,
   UserUpdateFailed,
-} from './users-error';
+} from './users.error';
 
 @Injectable()
 export class UsersService {

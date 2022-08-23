@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import { UserDto } from 'src/app/users/dto/create-user.dto';
 import { OAuth2Client } from 'google-auth-library';
+import { UserDto } from 'src/app/users/dto/create-user.dto';
 import {
   UserAlreadyExist,
   UserNotFound,
   WrongPassword,
-} from 'src/app/users/users-error';
+} from 'src/app/users/users.error';
 import { UsersService } from 'src/app/users/users.service';
 export interface Itoken {
   token: string;
