@@ -1,6 +1,7 @@
-import { Body, Controller, Get, Post, Request } from '@nestjs/common';
+import { Body, Controller, Get, Post, Request, Res } from '@nestjs/common';
 import { AppService } from './app.service';
 import { AuthService } from './auth/auth.service';
+import path from 'path';
 
 @Controller()
 export class AppController {
@@ -10,9 +11,10 @@ export class AppController {
   ) {}
 
   @Get()
-  getHello(): string {
+  getHello(@Res() res: any): any {
     console.log('Hello');
-    return this.appService.getStart();
+    res.sendFile(path.join(__dirname, '/frontend/build/index.html'));
+    // return this.appService.getStart();
   }
   @Get('paypal')
   getIdPaypal(): string {
