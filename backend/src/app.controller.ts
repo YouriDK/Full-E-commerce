@@ -11,7 +11,7 @@ export class AppController {
 
   @Get()
   getHello(@Res() res: any): string {
-    console.log('Hello');
+    console.log('Hello', __dirname, '../../../frontend/build/index.html');
     res.sendFile(path.join(__dirname, '../../../frontend/build/index.html'));
     return this.appService.getStart();
   }
