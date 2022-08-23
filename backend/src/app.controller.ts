@@ -13,7 +13,7 @@ export class AppController {
   @Get()
   getHello(@Res() res: any): any {
     console.log('Hello');
-    res.sendFile(path.join(__dirname, '/frontend/build/index.html'));
+    res.sendFile(path.join('../../../frontend/build/index.html'));
     // return this.appService.getStart();
   }
   @Get('paypal')
