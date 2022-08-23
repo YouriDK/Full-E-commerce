@@ -7,7 +7,7 @@ import {
   UserAlreadyExist,
   UserNotFound,
   WrongPassword,
-} from 'src/app/users/users.error.ts';
+} from '../app/users/users.error';
 import { UsersService } from 'src/app/users/users.service';
 export interface Itoken {
   token: string;
