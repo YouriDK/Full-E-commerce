@@ -1,7 +1,7 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { OAuth2Client } from 'google-auth-library';
-import { UsersService } from 'src/app/users/users.service';
+import { UsersService } from '../app/users/users.service';
 import { TokenInvalidError, TokenMissing } from './auth.error';
 
 @Injectable()

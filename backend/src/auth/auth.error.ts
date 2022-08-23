@@ -1,5 +1,5 @@
 import { HttpException } from '@nestjs/common';
-import { ErrorHttpStatus } from 'src/errors/error-handler';
+import { ErrorHttpStatus } from '../../errors/error-handler';
 
 export class TokenInvalidError extends HttpException {
   public constructor() {
