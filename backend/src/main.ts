@@ -10,6 +10,9 @@ async function bootstrap() {
   });
   app.setGlobalPrefix('api');
   app.use(path.join(__dirname, '../../frontend/build/index.html'));
+  // app.get('*', (res: any) => {
+  //   res.sendFile(path.join(__dirname, '../../frontend/build/index.html'));
+  // });
 
   await app.listen(process.env.PORT ?? 5000);
 }
