@@ -10,8 +10,9 @@ async function bootstrap() {
     origin: ['http://localhost:5000', 'http://localhost:3000'],
   });
 
-  app.setGlobalPrefix('api');
+  // app.setGlobalPrefix('api');
   //app.use('*', path.join(__dirname, '../../frontend/build/index.html'));
+  console.log('PATH ', __dirname, '../../frontend/build/index.html');
   app.useStaticAssets(path.join(__dirname, '../../frontend/build/index.html'));
 
   await app.listen(process.env.PORT ?? 5000);
