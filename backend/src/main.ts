@@ -9,7 +9,7 @@ async function bootstrap() {
     origin: ['http://localhost:5000', 'http://localhost:3000'],
   });
   app.setGlobalPrefix('api');
-  app.use(path.join(__dirname, '../../frontend/build/index.html'));
+  app.use('*', path.join(__dirname, '../../frontend/build/index.html'));
   // app.get('*', (res: any) => {
   //   res.sendFile(path.join(__dirname, '../../frontend/build/index.html'));
   // });

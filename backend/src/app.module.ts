@@ -52,7 +52,6 @@ export class AppModule implements NestModule {
         { path: 'products', method: RequestMethod.POST },
         { path: 'login', method: RequestMethod.ALL },
         { path: 'login/google', method: RequestMethod.POST },
-        'cats/(.*)',
       )
       .forRoutes('orders', 'products');
   }
