@@ -1,7 +1,20 @@
 import { FC } from 'react';
-import { ClimbingBoxLoader } from 'react-spinners';
-import { CSS } from '../data';
+import { BeatLoader } from 'react-spinners';
+import { secondColor } from '../data';
+
 const LoadingBox: FC<any> = (): JSX.Element => {
-  return <ClimbingBoxLoader color='#2ec4b6' loading css={CSS} size={30} />;
+  return (
+    <div
+      style={{ marginTop: '20%', display: 'flex', justifyContent: 'center' }}
+    >
+      <span
+        className='font-footer'
+        style={{ color: secondColor, fontSize: '6rem', marginTop: '-40px' }}
+      >
+        Loading
+      </span>
+      <BeatLoader color={secondColor} size={20} />
+    </div>
+  );
 };
 export default LoadingBox;

@@ -1,3 +1,7 @@
+export const firstColor = '#ff9f1c';
+export const secondColor = '#2c6e49';
+export const thirdColor = '#ff0054';
+
 export const CSS = `
   margin : auto; 
   top:50% ;
