@@ -103,7 +103,7 @@ export const texte = {
   Cart: {
     cart: {
       fr: 'Panier',
-      en: 'Shopping Cart',
+      en: 'Cart',
     },
     tab: {
       en: ['Product', 'Name', 'Quantity', 'Actions', 'Price'],

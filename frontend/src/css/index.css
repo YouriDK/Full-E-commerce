@@ -79,6 +79,10 @@ body {
   height: 100%;
 }
 header {
+  margin : 5px;
+  min-height: 55px;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  border-radius: 10px;
   grid-area: header;
   background-color: var(--secondary);
 }
@@ -183,6 +187,9 @@ a.brand {
   font-size: 3rem;
   font-weight: bold;
   font-family: 'Rampart One', cursive;
+}
+a.brand:hover {
+  font-size: 3.75rem;
 }
 .badge {
   background-color: var(--red);
