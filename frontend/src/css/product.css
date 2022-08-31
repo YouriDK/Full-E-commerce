@@ -23,6 +23,8 @@
 .page-wrapper {
   height: 100%;
   display: table;
+  margin: 15px;
+  
 }
 
 .page-wrapper .page-inner {
@@ -31,6 +33,7 @@
 }
 
 .el-wrapper {
+  border-radius: 8px;
   width: 360px;
   padding: 15px;
   margin: 15px auto;

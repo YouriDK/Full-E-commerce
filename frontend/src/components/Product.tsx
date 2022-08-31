@@ -8,7 +8,7 @@ interface Props {
 }
 const Product: FC<Props> = ({ product }: Props): JSX.Element => {
   return (
-    <div className='container page-wrapper'>
+    <div className='page-wrapper'>
       <div className='page-inner'>
         <div className='row'>
           <div className='el-wrapper'>

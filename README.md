@@ -23,7 +23,7 @@ Color to change :
 - Espacer les Items
 - Arranger l'icone de chargement
 
-# ISSUES resolved ✅✅✅
+# ISSUES/EVO resolved ✅✅✅
 
 - Probleme H10 ou autres , bien s'assurer que toute nouvelle librairie est dans TOUS les package.json
 - Problème SOIS DISANT de dev @types, il fallait supprimer les package-lock du repo...
@@ -33,6 +33,11 @@ Color to change :
 - Loading Composant mal placé
 - Connecter back et front , corriger erreur et boucles
 - Gestion Erreur : adapter le front dans les pages
+- - Style/Menu :
+    Créer composant à part
+    Changer style carré
+    Regarder orthographe
+    Uniformiser gestion couleurs
 
 # Evo 💨💨💨💨
 
@@ -51,11 +56,8 @@ Implémenter le système d'erreurs
 - Améliorer la gestion de l'history
 
 # En cours / Bug : 
-- Style/Menu :
-    Créer composant à part
-    Changer style carré
-    Regarder orthographe
-    Uniformiser gestion couleurs
+ - display product ( espacer , couleur , style ) 
+
 
 
 
