@@ -10,10 +10,10 @@ async function bootstrap() {
     origin: ['http://localhost:5000', 'http://localhost:3000'],
   });
 
-  // app.setGlobalPrefix('api');
-  //app.use('*', path.join(__dirname, '../../frontend/build/index.html'));
-  console.log('PATH ', __dirname, '../../frontend/build/index.html');
-  app.useStaticAssets(path.join(__dirname, '../../frontend/build'));
+  // ! Nest JS Link PRODUCTION
+  if (process.env.PRODUCTION) {
+    app.useStaticAssets(path.join(__dirname, '../../frontend/build'));
+  }
 
   await app.listen(process.env.PORT ?? 5000);
 }

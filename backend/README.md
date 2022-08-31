@@ -1,4 +1,4 @@
-<p align="center">
+****<p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
 
@@ -81,6 +81,6 @@ import { ConfigModule } from '@nestjs/config'; est nécéssaire" dans le module 
 
 Il faut mettre un console.log pour voir l'erreur dans la console ensuite l'envoyer
 
-// TODO Fusionner les Read.me
+
 // Finir la construction de Order
 // Envisage la découpe des élement de Orders
