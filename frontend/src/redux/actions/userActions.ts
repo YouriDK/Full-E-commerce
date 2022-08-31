@@ -20,11 +20,8 @@ export const googleLogin = (googleData: any) => async (dispatch: any) => {
       token: googleData.tokenId,
     });
     dispatch({ type: GOOGLE_SIGNIN_SUCCESS, payload: data });
-    console.log('DATA ->', data);
     localStorage.setItem('userInfo', JSON.stringify(data));
   } catch (error: any) {
-    console.log('error ->', error);
-    console.log('error MESSAGE->', error.message);
     dispatch({
       type: GOOGLE_SIGNIN_FAIL,
       payload: error,

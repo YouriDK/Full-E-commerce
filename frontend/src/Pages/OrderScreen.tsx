@@ -36,11 +36,8 @@ const OrderScreen: FC<any> = (props: any): JSX.Element => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log('PULL');
-    console.log('orderDetails ->', orderDetails);
     // ! Pour avoir la commande actuel il faut actualiser la page donc :
     if (order !== undefined) {
-      console.log('ORDER UNDEFINED');
       if (order._id !== orderId) {
         dispatch(detailsOrder(orderId));
       }
@@ -50,7 +47,6 @@ const OrderScreen: FC<any> = (props: any): JSX.Element => {
 
       // * Il faut créer un script pour utiliser Paypal
       const script = document.createElement('script');
-      console.log('SCRIPT PAYPAL');
       script.type = 'text/javascript';
       script.src = `https://www.paypal.com/sdk/js?client-id=${data}`;
       script.async = true;
@@ -81,7 +77,6 @@ const OrderScreen: FC<any> = (props: any): JSX.Element => {
   }, [dispatch, order, orderId, sdkReady, successPay, successDeliver]);
 
   const successPaymentHandler = (paymentResult: any) => {
-    console.log('WE GOOD');
     dispatch(payOrder(order, paymentResult));
   };
   const deliverHandler = () => {

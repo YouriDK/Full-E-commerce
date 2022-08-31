@@ -1,7 +1,7 @@
 # Notions à comprendre :
 
-- dispatch
-- useSelector
+- dispatch ( Done ✅ )
+- useSelector ( Done ✅ )
 
 Default font size in browser is 16 px so 16 \* 62.5% = 10 px = 1rem
 
@@ -19,13 +19,11 @@ Il faut définir l'url donc :
 9 - Ensuite on crée le schema de construction
 10 - Puis la Route
 
-Comprendre :
-ce que ça change de mettre HtmlFor
-comment fonctionne flex
-Prodiver dans index
-et à quoi sert store exactement
+# Comprendre :
+- Ce que ça change de mettre HtmlFor (Done✅)
+- Comment fonctionne flex (Done✅)
+- Prodiver dans index et à quoi sert store exactement (Done✅)
 
-# Ne marche pas en déploiement faut remettre : node backend/server.js
 
 # Redux fonctionnement :
 
@@ -35,20 +33,15 @@ Fichiers nécéssaire : Store, constant, action , reducers, components(Screen)
 
 La création du middleware
 
-InitialState : Permet de stocker des informations qui sont disponibles dans toutes les couches de l'application
-reducer : Va faire le lien entre l'appel dans la partie actions et la fonction reducer associé Front -> Actions -> Reducers
-Quand une action est capturé : store.dispatch(actionCreator(payload))
-store.dispatch représente dispath = useDispatch()
-actionCreator est une des actions dans le dossier actions qui crée justement la payload
-A partir du type il va passer dans toutes les fonctions reducers et cherchers celui qui lui correspond
+* InitialState : Permet de stocker des informations qui sont disponibles dans toutes les couches de l'application
+* Reducer : Va faire le lien entre l'appel dans la partie actions et la fonction reducer associé Front -> Actions -> Reducers
+* Quand une action est capturé : store.dispatch(actionCreator(payload))
+* store.dispatch représente dispath = useDispatch()
+* actionCreator est une des actions dans le dossier actions qui crée justement la payload
+* A partir du type il va passer dans toutes les fonctions reducers et cherchers celui qui lui correspond
+* useEffect a le meme effect que componentDidmount il va se charger avant et s'actualiser en fonction de certaines circonstances.
+* Le dispatch passe dans toutes fonctions du reducers
 
-useEffect a le meme effect que componentDidmount il va se charger avant et s'actualiser en fonction de certaines circonstances.
-Le dispatch passe dans toutes fonctions du reducers
-
-# Dans le backend
-
-expressAsyncHandler permet de ne pas utiliser de try catch et sauver des lignes quand il faut gérer une erreur
-/ -------------------------------------------------------------- \
 
 # Deploy
 
@@ -62,18 +55,12 @@ git add .
 git push heroku master
 
 # Todo
+cf ReadMe principal
 
-- Esthétiques :
-  Mettre mes vetements futurs dans le lot
+
 
 - Fonctionnels
-  Rajouter un système de navigation sur le WF
-  Payment test Paypal ( Validée )
-  Système de livraison et validation de Livraison
+Système de livraison et validation de livraison
 
-- Optimisation :
-  Remplacer les buttons par Button
-  Mettre un mode sombre
-  Refaire Garde robes
 
-  - Créer chemin pour update livraison et la valider
+

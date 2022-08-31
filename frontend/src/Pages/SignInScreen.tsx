@@ -35,7 +35,7 @@ const SignInScreen: FC<any> = (props: any): JSX.Element => {
     dispatch(googleLogin(googleData));
   };
   const failGoogleLogin = (error: any) => {
-    console.log('FEILLE 6>', error);
+    console.log('Failed ->', error);
     setFail('Failed');
     sleep(2000);
     setFail(null);

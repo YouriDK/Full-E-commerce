@@ -19,7 +19,6 @@ const HomeScreen: FC<any> = (): JSX.Element => {
   };
   useEffect(() => {
     dispatch(listProducts());
-    // console.log(products);
   }, [dispatch]);
 
   return loading ? (

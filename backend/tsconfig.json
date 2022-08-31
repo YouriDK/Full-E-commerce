@@ -1,12 +1,18 @@
 {
   "compilerOptions": {
     "module": "commonjs",
+    "esModuleInterop": true,
     "declaration": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    "target": "es2017",
+    "strict": false,
+    "target": "ESNext",
+    "lib": [
+      "DOM",
+      "ES5"
+  ],
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",

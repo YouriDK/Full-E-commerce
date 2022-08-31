@@ -2,9 +2,8 @@ import { Global, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
-import { UsersModule } from 'src/app/users/users.module';
+import { UsersModule } from '../app/users/users.module';
 import { AuthService } from './auth.service';
-
 
 @Global() // ! Allow to use the Service everywhere 👌
 @Module({

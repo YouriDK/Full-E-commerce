@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import * as bcrypt from 'bcrypt';
-import { AuthService } from 'src/auth/auth.service';
+import { AuthService } from '../../auth/auth.service';
 import { UserDto } from './dto/create-user.dto';
 import { UsersService } from './users.service';
 

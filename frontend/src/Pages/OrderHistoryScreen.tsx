@@ -2,11 +2,10 @@ import { FC, useEffect } from 'react';
 import { FcViewDetails } from 'react-icons/fc';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'reactstrap';
-import { listOrderMine } from '../redux/actions/orderActions';
 import LoadingBox from '../components/LoadingBox';
 import MesssageBox from '../components/MesssageBox';
 import { texte } from '../data';
-import { useHistory } from 'react-router-dom';
+import { listOrderMine } from '../redux/actions/orderActions';
 
 const OrderHistoryScreen: FC<any> = (props: any): JSX.Element => {
   const orderMineList = useSelector((state: any) => state.orderMineList);
@@ -42,7 +41,6 @@ const OrderHistoryScreen: FC<any> = (props: any): JSX.Element => {
           </tr>
           {orders.map((order: any, index: number) => (
             <tr className='table-tr' key={order._id}>
-              {console.log('order -> ', order)}
               <td className='table-td font-secondary large xbold'>
                 {order._id}
               </td>
