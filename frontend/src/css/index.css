@@ -94,6 +94,12 @@ footer {
   grid-area: footer;
   background-color: var(--secondary);
   color: var(--white);
+  margin : 5px;
+  margin-bottom:15px;
+  min-height: 55px;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  border-radius: 10px;
+ 
 }
 /* Common */
 h1 {
@@ -151,6 +157,14 @@ input:hover,
 select:hover,
 textarea:hover {
   border: 0.1rem var(--clear-black) solid;
+}
+.primary:hover {
+  background-color: var(--secondary);
+  color: var(--primary);
+}
+.secondary:hover {
+  background-color: var(--primary);
+  color: var(--secondary);
 }
 
 button.primary:hover {
@@ -263,6 +277,7 @@ strong {
   justify-content: center;
   text-align: center;
   color: var(--secondary);
+  
 }
 
 .empty-card {

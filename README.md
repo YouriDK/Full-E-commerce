@@ -10,9 +10,8 @@ git commit -am "make it better"
 git push heroku master
 (Maintenant , il faut mettre sur la branche production et faire le deploy)
 # Lancer en local
-
-Back : nest start
-Front : npm start
+- Back : nest start
+- Front : npm start
 
 # TODO : 
 - Styliser  le menu du haut
@@ -40,8 +39,6 @@ Color to change :
     Uniformiser gestion couleurs
 
 # Evo 💨💨💨💨
-
-
 Implémenter le système d'erreurs
 - Tests unitaires
 - Rajouter les vetements avec gestion de catégories
@@ -57,6 +54,8 @@ Implémenter le système d'erreurs
 
 # En cours / Bug : 
  - display product ( espacer , couleur , style ) 
+ - Rajouter un Layout pour chaque page
+ - Passer sur chaque page et réfléchir aux changements
 
 
 

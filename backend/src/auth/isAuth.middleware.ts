@@ -18,12 +18,11 @@ export class AuthMiddleware implements NestMiddleware {
     }
     const token = auth.slice(7, auth.length); // * Bearer XXXXX =>  on se débarasse de Bearer
     try {
-      const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+      const client = new OAuth2Client(process.env.REACT_APP_GOOGLE_CLIENT_ID);
       const ticket = await client.verifyIdToken({
         idToken: token,
-        audience: process.env.GOOGLE_CLIENT_ID,
+        audience: process.env.REACT_APP_GOOGLE_CLIENT_ID,
       });
-
       const user = await this.userService.findOnebyEmail(
         ticket.getPayload()?.email,
       );

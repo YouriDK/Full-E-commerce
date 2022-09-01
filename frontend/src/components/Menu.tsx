@@ -31,6 +31,11 @@ const Menu: FC<any> = (): JSX.Element => {
           {texte.Terms.site}
         </Link>
       </div>
+
+      <div className='center font-footer' style={{ color: 'white' }}>
+        Shop X Production YC Developpment
+      </div>
+
       <div>
         {history.location.pathname === '/' && (
           <div className='dropdown'>
@@ -58,7 +63,7 @@ const Menu: FC<any> = (): JSX.Element => {
           <div className='dropdown font-secondary xlarge'>
             <Link to='#admin'>
               {' '}
-              Admin
+              Management
               <i className='fa fa-caret-down'></i>
             </Link>
 

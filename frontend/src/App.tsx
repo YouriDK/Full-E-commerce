@@ -46,9 +46,6 @@ const App: FC<any> = (props: any): JSX.Element => {
             <Route path='/' exact={true} component={HomeScreen} />
           </div>
         </main>
-        <footer className='row center font-footer'>
-          Shop X Production YC Developpment
-        </footer>
       </div>
     </>
   );

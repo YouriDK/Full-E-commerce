@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import { addToCart, removeFromCart } from '../redux/actions/cartActions';
 import EmptyCard from '../components/EmptyCard';
-
+import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { texte } from '../data';
 import { BsTrash } from 'react-icons/bs';
 import queryString from 'query-string';
@@ -124,6 +124,7 @@ const CartScreen: FC<any> = (props: any): JSX.Element => {
             className='primary block'
             disabled={cartItems.length === 0}
           >
+            <AiOutlineShoppingCart size={20} />
             {texte.Panier.checkout.en}
           </button>
         </div>

@@ -3,13 +3,11 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { ItemDto } from '../item/dto/item.dto';
 import { ItemService } from '../item/item.service';
-import {
-  PaymentResultDto,
-  UpdatePaymentResultDto,
-} from '../payment-results/dto/payment-result.dto';
+import { PaymentResultDto } from '../payment-results/dto/payment-result.dto';
 import { PaymentResultService } from '../payment-results/payment-results.service';
 import { ShippingAddressDto } from '../shipping-address/dto/shipping-address.dto';
 import { ShippingAddressService } from '../shipping-address/shipping-address.service';
+import { UsersService } from '../users/users.service';
 import { OrderDto, UpdateOrderDto } from './dto/order.dto';
 import {
   CreationOrderFailed,
@@ -26,6 +24,7 @@ export class OrdersService {
     private itemService: ItemService,
     private paymentResultService: PaymentResultService,
     private shippingAddressService: ShippingAddressService,
+    private userService: UsersService,
   ) {}
   async create(orderDatas: OrderDto): Promise<Order> {
     // * Good to GO !
@@ -267,6 +266,7 @@ export class OrdersService {
     const shipping = await this.shippingAddressService.findOne(
       order.shipping_address as string,
     );
+    const userName = (await this.userService.findOne(order.user)).name;
     let payment_resultFilled = null;
     if (order.payment_result) {
       payment_resultFilled = await this.paymentResultService.findOne(
@@ -284,7 +284,7 @@ export class OrdersService {
       items_price: order.items_price,
       tax_price: order.tax_price,
       total_price: order.total_price,
-      user: order.user,
+      user: userName,
       isPaid: order.isPaid,
       isDelivered: order.isDelivered,
       paidAt: order.paidAt,

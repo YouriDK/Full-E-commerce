@@ -7,7 +7,9 @@ import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MesssageBox';
 import Rating from '../components/Rating';
 import '../css/productPage.css';
-import { texte } from '../data';
+import { secondColor, texte } from '../data';
+import { BsFillArrowLeftCircleFill } from 'react-icons/bs';
+import { AiOutlineCheck } from 'react-icons/ai';
 const ProductScreen: FC<any> = (props: any): JSX.Element => {
   const [quantity, setquantity] = useState(1);
 
@@ -27,10 +29,10 @@ const ProductScreen: FC<any> = (props: any): JSX.Element => {
   ) : error ? (
     <MessageBox variant='danger' error={error} />
   ) : (
-    <div className='card'>
+    <div className='card' style={{ marginTop: '50px' }}>
       <Link to='/' className='link'>
         <div className='card__title icon'>
-          <i className='fa fa-arrow-left' color='#2c6e49'></i>
+          <BsFillArrowLeftCircleFill size={20} className='primary' />
           <h3 className='font-button'>{texte.Terms.back.en}</h3>
         </div>
       </Link>
@@ -52,7 +54,9 @@ const ProductScreen: FC<any> = (props: any): JSX.Element => {
           {product.countInStock > 0 ? (
             <div className='row'>
               <span className='stock large'>
-                <i className='fa fa-pen'></i> {texte.Stock.in_stock.en}
+                {' '}
+                {texte.Stock.in_stock.en}{' '}
+                <AiOutlineCheck size={25} color={secondColor} />
               </span>
               <div>
                 <select

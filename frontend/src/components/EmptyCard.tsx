@@ -1,12 +1,24 @@
 import { FC } from 'react';
-import { PacmanLoader } from 'react-spinners';
-import { CSS } from '../data';
+import { PulseLoader } from 'react-spinners';
+import { secondColor } from '../data';
 const EmptyCard: FC<any> = (): JSX.Element => {
   return (
-    <>
-      <span>Cart is empy...</span> <br />
-      <PacmanLoader color='#2ec4b6' loading css={CSS} size={100} />
-    </>
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        marginTop: '20%',
+      }}
+    >
+      <PulseLoader color={secondColor} loading size={10} />
+      <span
+        className='font-footer'
+        style={{ color: secondColor, fontSize: '6rem', marginTop: '-40px' }}
+      >
+        Cart is empty
+      </span>
+      <PulseLoader color={secondColor} loading size={10} />
+    </div>
   );
 };
 export default EmptyCard;

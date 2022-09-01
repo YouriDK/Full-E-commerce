@@ -49,8 +49,9 @@ const OrderListScreen: FC<any> = (props: any): JSX.Element => {
         {orders.map((order: any) => (
           <tr className='table-tr' key={order._id}>
             <td className='table-td font-secondary large xbold'>{order._id}</td>
+            {console.log('order', order)}
             <td className='table-td font-secondary large xbold'>
-              {order.user.name}
+              {order.user}
             </td>
             <td className='table-td font-secondary large xbold'>
               {order.createdAt.substring(0, 10)}

@@ -43,6 +43,19 @@ const PaymentScreen: FC<any> = (props: any): JSX.Element => {
               <span>Paypal/CB</span>
             </label>
           </div>
+          <div className='text-center ' style={{ marginTop: '50px' }}>
+            <input
+              type='radio'
+              value='paypal'
+              name='payment_method'
+              required
+              disabled
+              id='payment_method'
+            ></input>
+            <label className='xlarge bold' htmlFor='payment_method'>
+              <span>Stripe (Available soon ...)</span>
+            </label>
+          </div>
           <br />
         </div>
         <br />
