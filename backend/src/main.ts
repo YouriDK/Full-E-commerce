@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { AppModule } from './app.module';
 import { config } from 'dotenv';
+import * as bodyParser from 'body-parser';
 import path from 'path';
 config();
 async function bootstrap() {
@@ -9,6 +10,8 @@ async function bootstrap() {
   app.enableCors({
     origin: ['http://localhost:5000', 'http://localhost:3000'],
   });
+  app.use(bodyParser.json({ limit: '50mb' }));
+  app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
   // ! Nest JS Link PRODUCTION
   if (process.env.PRODUCTION) {

@@ -7,6 +7,7 @@ import CustomInput from '../components/CustomInput';
 import LoadingBox from '../components/LoadingBox';
 import MesssageBox from '../components/MesssageBox';
 import { Categories, texte } from '../data';
+import Dropzone from 'react-dropzone';
 import {
   deleteProduct,
   listProducts,
@@ -50,7 +51,7 @@ const ProductsScreen: FC<any> = (props: any): JSX.Element => {
     setName(product.name);
     setPrice(product.price);
 
-    setImage(product.image ? product.image.split('/').pop() : product.image);
+    setImage(product.image);
     setBrand(product.brand);
     setCategory(product.category);
     setCountInStock(product.countInStock);
@@ -64,7 +65,7 @@ const ProductsScreen: FC<any> = (props: any): JSX.Element => {
       saveProduct({
         _id: id,
         name,
-        image: `/images/${category}/${image}`,
+        image,
         brand,
         price,
         category,
@@ -75,8 +76,20 @@ const ProductsScreen: FC<any> = (props: any): JSX.Element => {
       })
     );
   };
+  const convertFileToBase64 = (file: any): any =>
+    new Promise((resolve: any, reject: any): any => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (): any => (
+        setImage(reader.result as string), (reader.onerror = reject)
+      );
+    });
 
+  const handleDrop = (acceptedFiles: any[]): void => {
+    convertFileToBase64(acceptedFiles[0]);
+  };
   const deleteHandler = (product: any) => {
+    console.log('delete', product._id);
     dispatch(deleteProduct(product._id));
   };
   return loading ? (
@@ -100,92 +113,129 @@ const ProductsScreen: FC<any> = (props: any): JSX.Element => {
         <Button
           className='button primary'
           onClick={() => openModal({})}
-          disabled={modalVisible}
+          hidden={modalVisible}
         >
           Create product
         </Button>
       </div>
       {modalVisible && (
-        <div className='form'>
-          <form onSubmit={submitHandler}>
-            <div className='form'>
-              <div>
-                {loadingSave && <LoadingBox />}
-                {errorSave && <MesssageBox variant='danger' text={errorSave} />}
+        <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+          <div style={{ width: '500px' }}>
+            <form onSubmit={submitHandler}>
+              <div className='form'>
+                <div>
+                  {loadingSave && <LoadingBox />}
+                  {errorSave && (
+                    <MesssageBox variant='danger' text={errorSave} />
+                  )}
+                </div>
+                <CustomInput
+                  variable={name}
+                  name='name'
+                  label='Name'
+                  type='text'
+                  change={setName}
+                />
+                <CustomInput
+                  variable={price}
+                  name='price'
+                  label='Price'
+                  type='number'
+                  change={setPrice}
+                />
+                <Dropzone
+                  onDrop={handleDrop}
+                  accept={{ 'image/jpeg': ['.jpeg', '.png'] }}
+                >
+                  {({ getRootProps, getInputProps }: any): any => (
+                    <div
+                      {...getRootProps({ className: 'dropzone' })}
+                      style={{
+                        marginTop: '12px',
+                        marginBottom: '12px',
+                        borderRadius: '10px',
+                        minHeight: '100px',
+                        backgroundColor: 'white',
+                        boxShadow:
+                          'rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px',
+                      }}
+                    >
+                      <input {...getInputProps()} />
+
+                      <div
+                        style={{
+                          width: '100%',
+                          textAlign: 'center',
+                          margin: 'auto',
+                        }}
+                      >
+                        <Button className='button secondary' type='button'>
+                          Add File
+                        </Button>
+                      </div>
+                    </div>
+                  )}
+                </Dropzone>
+                <CustomInput
+                  variable={brand}
+                  name='brand'
+                  label='Brand'
+                  type='text'
+                  change={setBrand}
+                />
+                <CustomInput
+                  variable={countInStock}
+                  name='countInStock'
+                  label='Count in Stock'
+                  type='number'
+                  change={setCountInStock}
+                />
+                <CustomInput
+                  variable={category}
+                  name='category'
+                  label='Category'
+                  type='select'
+                  options={Categories}
+                  change={setCategory}
+                />
+                <CustomInput
+                  variable={description}
+                  name='description'
+                  label='Description'
+                  type='text'
+                  change={setDescription}
+                  textarea
+                />
+                <CustomInput
+                  variable={rating}
+                  name='rating'
+                  label='Rating'
+                  type='number'
+                  change={setRating}
+                />
+                <CustomInput
+                  variable={numReviews}
+                  name='numReviews'
+                  label='Numbers of reviews'
+                  type='number'
+                  change={setNumReviews}
+                />
+                <div>
+                  <br />
+                  <Button type='submit' className='button primary'>
+                    {id ? 'Update' : 'Create'}
+                  </Button>
+                </div>
               </div>
-              <CustomInput
-                variable={name}
-                name='name'
-                label='Name'
-                type='text'
-                change={setName}
-              />
-              <CustomInput
-                variable={price}
-                name='price'
-                label='Price'
-                type='number'
-                change={setPrice}
-              />
-              <CustomInput
-                variable={image}
-                name='image'
-                label='Image'
-                type='file'
-                change={setImage}
-              />
-              <CustomInput
-                variable={brand}
-                name='brand'
-                label='Brand'
-                type='text'
-                change={setBrand}
-              />
-              <CustomInput
-                variable={countInStock}
-                name='countInStock'
-                label='Count in Stock'
-                type='number'
-                change={setCountInStock}
-              />
-              <CustomInput
-                variable={category}
-                name='category'
-                label='Category'
-                type='select'
-                options={Categories}
-                change={setCategory}
-              />
-              <CustomInput
-                variable={description}
-                name='description'
-                label='Description'
-                type='text'
-                change={setDescription}
-                textarea
-              />
-              <CustomInput
-                variable={rating}
-                name='rating'
-                label='Rating'
-                type='number'
-                change={setRating}
-              />
-              <CustomInput
-                variable={numReviews}
-                name='numReviews'
-                label='Numbers of reviews'
-                type='number'
-                change={setNumReviews}
-              />
-              <div>
-                <br />
-                <Button type='submit' className='button primary'>
-                  {id ? 'Update' : 'Create'}
-                </Button>
-              </div>
-            </div>
-          </form>
+            </form>
+          </div>
+          {image !== '' && (
+            <img
+              src={image}
+              alt='product'
+              style={{ maxWidth: '450px', maxHeight: '450px' }}
+            />
+          )}
         </div>
       )}
       {!modalVisible && (

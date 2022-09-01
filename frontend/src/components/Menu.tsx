@@ -1,7 +1,7 @@
-import React, { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
-import { texte, Categories } from '../data';
+import { Categories, texte } from '../data';
 import { switchCategoyProduct } from '../redux/actions/productActions';
 import { signout } from '../redux/actions/userActions';
 
@@ -14,8 +14,6 @@ const Menu: FC<any> = (): JSX.Element => {
     history.push(moveTo);
   };
   const userSignin = useSelector((state: any) => state.userSignin);
-  const userDetails = useSelector((state: any) => state.userDetails);
-
   const [categories, setCategories] = useState('All');
   const { userInfo } = userSignin;
   const handleCategories: any = (handleCat: string) => {
@@ -23,15 +21,11 @@ const Menu: FC<any> = (): JSX.Element => {
     setCategories(handleCat);
   };
 
-  useEffect(() => {
-    console.log('USER DETAILS', userDetails);
-    console.log('USER userSignin', userSignin);
-  }, []);
-
   const signoutHandler = () => {
     dispatch(signout());
     moveTo('/#signout');
   };
+
   return (
     <header className='row'>
       <div id='brand-box'>
@@ -45,26 +39,25 @@ const Menu: FC<any> = (): JSX.Element => {
       </div>
 
       <div>
-        {history.location.pathname === '/' && (
-          <div className='dropdown'>
-            <Link to='#' className='font-secondary xlarge'>
-              {categories === 'All' ? 'Category' : categories}
-            </Link>
-            <ul className='dropdown-content'>
-              {Categories.map((cat: string, index: number) => (
-                <li key={index}>
-                  <Link
-                    to='#'
-                    className='font-secondary large'
-                    onClick={() => handleCategories(cat)}
-                  >
-                    {cat}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+        <div className='dropdown'>
+          <Link to='#' className='font-secondary xlarge'>
+            {categories === 'All' ? 'Category' : categories}
+          </Link>
+          <ul className='dropdown-content'>
+            {Categories.map((cat: string, index: number) => (
+              <li key={index}>
+                <Link
+                  to='#'
+                  className='font-secondary large'
+                  onClick={() => handleCategories(cat)}
+                >
+                  {cat}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
         {'  '}
 
         {userInfo && userInfo.admin && (
