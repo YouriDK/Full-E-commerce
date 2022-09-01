@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import { texte, Categories } from '../data';
@@ -14,12 +14,20 @@ const Menu: FC<any> = (): JSX.Element => {
     history.push(moveTo);
   };
   const userSignin = useSelector((state: any) => state.userSignin);
+  const userDetails = useSelector((state: any) => state.userDetails);
+
   const [categories, setCategories] = useState('All');
   const { userInfo } = userSignin;
   const handleCategories: any = (handleCat: string) => {
     dispatch(switchCategoyProduct(handleCat));
     setCategories(handleCat);
   };
+
+  useEffect(() => {
+    console.log('USER DETAILS', userDetails);
+    console.log('USER userSignin', userSignin);
+  }, []);
+
   const signoutHandler = () => {
     dispatch(signout());
     moveTo('/#signout');
@@ -104,7 +112,7 @@ const Menu: FC<any> = (): JSX.Element => {
         {userInfo ? (
           <div className='dropdown'>
             <Link to='#' className='font-secondary xlarge'>
-              {userInfo.family_name ? userInfo.family_name : userInfo.name}{' '}
+              {userInfo.given_name ? userInfo.given_name : userInfo.name}{' '}
             </Link>
             <ul className='dropdown-content'>
               {!userInfo.family_name && (

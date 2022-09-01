@@ -31,7 +31,6 @@ const PlaceOrderScreen: FC<any> = (props: any): JSX.Element => {
   };
 
   useEffect(() => {
-    console.log('PUSH');
     if (success) {
       dispatch({ type: ORDER_CREATE_RESET });
       props.history.push(`/order/${order._id}`);

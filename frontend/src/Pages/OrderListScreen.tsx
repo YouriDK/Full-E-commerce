@@ -13,11 +13,7 @@ const OrderListScreen: FC<any> = (props: any): JSX.Element => {
   const orderList = useSelector((state: any) => state.orderList);
   const { loading, error, orders } = orderList;
   const orderDelete = useSelector((state: any) => state.orderDelete);
-  const {
-    loading: loadingDelete,
-    error: errorDelete,
-    success: successDelete,
-  } = orderDelete;
+  const { error: errorDelete, success: successDelete } = orderDelete;
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -35,7 +31,6 @@ const OrderListScreen: FC<any> = (props: any): JSX.Element => {
     <MessageBox variant='danger' error={error} />
   ) : (
     <div className='table-users' style={{ width: '80%' }}>
-      {loadingDelete && <LoadingBox />}
       {errorDelete && <MessageBox variant='danger' text={errorDelete} />}
       <div className='header'>Orders</div>
       <table className='table'>

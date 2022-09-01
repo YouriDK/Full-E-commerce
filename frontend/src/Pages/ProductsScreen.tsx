@@ -85,7 +85,10 @@ const ProductsScreen: FC<any> = (props: any): JSX.Element => {
     <MesssageBox variant='danger' error={error} />
   ) : (
     <div className='content content-margined'>
-      <div className='flex' style={{ justifyContent: 'space-between' }}>
+      <div
+        className='flex'
+        style={{ justifyContent: 'space-between', marginTop: '20px' }}
+      >
         <Button
           className='button secondary'
           onClick={() =>
@@ -230,6 +233,7 @@ const ProductsScreen: FC<any> = (props: any): JSX.Element => {
                     <Button
                       onClick={() => deleteHandler(product)}
                       className='secondary'
+                      style={{ marginLeft: '5px' }}
                     >
                       <MdRestoreFromTrash size={20} />
                     </Button>

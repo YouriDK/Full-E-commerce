@@ -32,11 +32,13 @@ Color to change :
 - Loading Composant mal placé
 - Connecter back et front , corriger erreur et boucles
 - Gestion Erreur : adapter le front dans les pages
-- - Style/Menu :
+- Style/Menu :
     Créer composant à part
     Changer style carré
     Regarder orthographe
     Uniformiser gestion couleurs
+- Rajouter un Layout pour chaque page
+- Rajouter un Layout pour chaque page
 
 # Evo 💨💨💨💨
 Implémenter le système d'erreurs
@@ -54,7 +56,7 @@ Implémenter le système d'erreurs
 
 # En cours / Bug : 
  - display product ( espacer , couleur , style ) 
- - Rajouter un Layout pour chaque page
+  - Gestion des images ( passage en base 64)
  - Passer sur chaque page et réfléchir aux changements
 
 

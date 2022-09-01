@@ -29,6 +29,8 @@ export class AppController {
     return {
       _id: userInfo._id,
       name: userInfo.family_name,
+      given_name: userInfo.given_name,
+      family_name: userInfo.family_name,
       email: userInfo.email,
       admin: userInfo.admin,
       token: userInfo.token,
