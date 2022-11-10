@@ -39,26 +39,26 @@ Color to change :
     Uniformiser gestion couleurs
 - Rajouter un Layout pour chaque page
 - Rajouter un Layout pour chaque page
+- Gestion des images ( passage en base 64)
+- Système pour ajouter les images depuis la production
+- Gestion de catégories
 
 # Evo 💨💨💨💨
 Implémenter le système d'erreurs
 - Tests unitaires
-- Rajouter les vetements avec gestion de catégories
+
 - Actualiser la page quand c'est payé
 - Faire un Icone d'onglet adéquates ( to define )
-- Système pour ajouter les images depuis la production
-- Rajouter un système de navigation sur le WF
+- Rajouter un système de navigation sur le WF ( pas sur car static )
 - Créer chemin pour update livraison et la valider ( back & front )
 - Mettre un mode sombre
-- Mettre un layout (Menu , Content ,  Footer)
 - Changer thème couleur du site
 - Améliorer la gestion de l'history
 
 # En cours / Bug : 
  - display product ( espacer , couleur , style ) 
-  - Gestion des images ( passage en base 64)
  - Passer sur chaque page et réfléchir aux changements
-
+ - Rajouter des vetements
 
 
 
