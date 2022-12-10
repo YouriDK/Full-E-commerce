@@ -3,8 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'reactstrap';
 import { saveShipping } from '../redux/actions/cartActions';
 import CheckoutSteps from '../components/CheckOutStep';
-import CustomInput from '../components/CustomInput';
 
+import { useFormik } from 'formik';
+import { FormattedMessage, useIntl } from 'react-intl';
+import * as Yup from 'yup';
 const ShippingScreen: FC<any> = (props: any): JSX.Element => {
   const userSignin = useSelector((state: any) => state.userSignin);
   const { userInfo } = userSignin;
@@ -15,66 +17,85 @@ const ShippingScreen: FC<any> = (props: any): JSX.Element => {
   const cart = useSelector((state: any) => state.cart);
   const { shipping_address } = cart;
 
-  const [address, setAddress] = useState(shipping_address.address);
-  const [name, setName] = useState(shipping_address.name);
-  const [city, setCity] = useState(shipping_address.city);
-  const [country, setCountry] = useState(shipping_address.country);
-  const [postal_code, setPostalCode] = useState(shipping_address.postal_code);
   const dispatch = useDispatch();
 
-  const submitHandler = (e: any) => {
-    e.preventDefault();
-    dispatch(saveShipping({ name, address, city, postal_code, country }));
-    props.history.push('/payment');
-  };
-
+  const formik = useFormik({
+    initialValues: {
+      name: shipping_address.name ?? '',
+      address: shipping_address.address ?? '',
+      city: shipping_address.city ?? '',
+      postal_code: shipping_address.postal_code ?? '',
+      country: shipping_address.country ?? '',
+    },
+    enableReinitialize: true,
+    validationSchema: Yup.object({
+      name: Yup.string(),
+      price: Yup.number(),
+      image: Yup.string(),
+      brand: Yup.string(),
+      countInStock: Yup.string(),
+      category: Yup.string(),
+      description: Yup.string(),
+      rating: Yup.number(),
+      numReviews: Yup.number(),
+    }),
+    onSubmit: async (values: any) => {
+      dispatch(saveShipping({ ...values }));
+      props.history.push('/payment');
+    },
+  });
   return (
     <>
       <CheckoutSteps step={1} /*current='process'*/ />
-      <form className='form' onSubmit={submitHandler}>
-        <CustomInput
-          variable={name}
-          name='name'
-          label='Full name'
-          type='text'
-          change={setName}
-          placeholder='Enter full name'
-        />
-        <CustomInput
-          variable={address}
-          name='address'
-          label='Address'
-          type='text'
-          change={setAddress}
-          placeholder='Enter address'
-        />
-
-        <CustomInput
-          variable={city}
-          name='city'
-          label='City'
-          type='text'
-          change={setCity}
-          placeholder='Enter city'
-        />
-        <CustomInput
-          variable={postal_code}
-          name='postal_code'
-          label='Postal Code'
-          type='number'
-          change={setPostalCode}
-          placeholder={'00000'}
-        />
-        <CustomInput
-          variable={country}
-          name='country'
-          label='Country'
-          type='text'
-          change={setCountry}
-          placeholder='Enter country'
-        />
-        <br />
+      <form className='form' onSubmit={formik.handleSubmit}>
         <div>
+          <label htmlFor={formik.getFieldProps('name').name}>
+            <span>{'Name'}</span>
+          </label>
+          <input
+            placeholder='Enter full name'
+            {...formik.getFieldProps('name')}
+          ></input>
+        </div>
+        <div>
+          <label htmlFor={formik.getFieldProps('address').name}>
+            <span>{'Address'}</span>
+          </label>
+          <input
+            placeholder='Enter address'
+            {...formik.getFieldProps('address')}
+          ></input>
+        </div>
+        <div>
+          <label htmlFor={formik.getFieldProps('city').name}>
+            <span>{'City'}</span>
+          </label>
+          <input
+            placeholder='Enter city'
+            {...formik.getFieldProps('city')}
+          ></input>
+        </div>
+        <div>
+          <label htmlFor={formik.getFieldProps('postal_code').name}>
+            <span>{'Postal Code'}</span>
+          </label>
+          <input
+            type='number'
+            placeholder={'00000'}
+            {...formik.getFieldProps('postal_code')}
+          ></input>
+        </div>
+        <div>
+          <label htmlFor={formik.getFieldProps('country').name}>
+            <span>{'Country'}</span>
+          </label>
+          <input
+            placeholder='Enter country'
+            {...formik.getFieldProps('country')}
+          ></input>
+        </div>
+
+        <div style={{ marginTop: '50px' }}>
           <Button type='submit' className='primary '>
             Continue
           </Button>

@@ -16,7 +16,10 @@ import {
 } from '../redux/constants/orderConstant';
 import MesssageBox from '../components/MesssageBox';
 import { Button } from 'reactstrap';
-
+export interface DisplayDataProps {
+  title: string;
+  value: string;
+}
 const OrderScreen: FC<any> = (props: any): JSX.Element => {
   const [sdkReady, setSdkReady] = useState(false);
   const orderId = props.match.params.id;
@@ -24,7 +27,6 @@ const OrderScreen: FC<any> = (props: any): JSX.Element => {
   const userSignin = useSelector((state: any) => state.userSignin);
   const { userInfo } = userSignin;
   const { order, loading, error } = orderDetails;
-
   const orderPay = useSelector((state: any) => state.orderPay);
   const { success: successPay } = orderPay;
   const orderDeliver = useSelector((state: any) => state.orderDeliver);
@@ -38,7 +40,9 @@ const OrderScreen: FC<any> = (props: any): JSX.Element => {
   useEffect(() => {
     // ! Pour avoir la commande actuel il faut actualiser la page donc :
     if (order !== undefined) {
+      console.log('GET ROder');
       if (order._id !== orderId) {
+        console.log('GET ROder 5555');
         dispatch(detailsOrder(orderId));
       }
     }
@@ -73,6 +77,7 @@ const OrderScreen: FC<any> = (props: any): JSX.Element => {
         }
       }
     }
+    console.log('order', order);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, order, orderId, sdkReady, successPay, successDeliver]);
 
@@ -82,6 +87,21 @@ const OrderScreen: FC<any> = (props: any): JSX.Element => {
   const deliverHandler = () => {
     dispatch(deliverOrder(order._id));
   };
+  const displayData: DisplayDataProps[] = [
+    { title: 'Name', value: order?.shipping_address?.name ?? '' },
+    { title: 'Address', value: order?.shipping_address?.address ?? '' },
+    { title: 'City', value: order?.shipping_address?.city ?? '' },
+    { title: 'Postal Code', value: order?.shipping_address?.postal_code ?? '' },
+    { title: 'Country', value: order?.shipping_address?.country ?? '' },
+    { title: 'Payment Method', value: order?.payment_method ?? '' },
+  ];
+  const tableDatas: DisplayDataProps[] = [
+    { title: 'Items', value: order?.items_price },
+    { title: 'Shipping', value: order?.shipping_price },
+    { title: 'Tax', value: order?.tax_price },
+    { title: 'Order Total', value: order?.total_price },
+  ];
+  const tdDatas = ['Item', 'Name', 'Cost'];
 
   return loading ? (
     <LoadingBox />
@@ -93,52 +113,16 @@ const OrderScreen: FC<any> = (props: any): JSX.Element => {
         <div className='header'>Shipping</div>
         <table className='table'>
           <tbody>
-            <tr className='table-tr'>
-              <td className='table-td font-secondary large xbold'>Name</td>
-              <td className='table-td font-secondary large xbold'>
-                {' '}
-                {order.shipping_address.name}
-              </td>
-            </tr>
-            <tr className='table-tr'>
-              <td className='table-td font-secondary large xbold'>Address</td>
-              <td className='table-td font-secondary large xbold'>
-                {' '}
-                {order.shipping_address.address}
-              </td>
-            </tr>
-            <tr className='table-tr'>
-              <td className='table-td font-secondary large xbold'>City</td>
-              <td className='table-td font-secondary large xbold'>
-                {' '}
-                {order.shipping_address.city}
-              </td>
-            </tr>
-            <tr className='table-tr'>
-              <td className='table-td font-secondary large xbold'>
-                Postal Code
-              </td>
-              <td className='table-td font-secondary large xbold'>
-                {' '}
-                {order.shipping_address.postal_code}
-              </td>
-            </tr>
-            <tr className='table-tr'>
-              <td className='table-td font-secondary large xbold'>Country</td>
-              <td className='table-td font-secondary large xbold'>
-                {' '}
-                {order.shipping_address.country}
-              </td>
-            </tr>
-            <tr className='table-tr'>
-              <td className='table-td font-secondary large xbold'>
-                Payment Method
-              </td>
-              <td className='table-td font-secondary large xbold'>
-                {' '}
-                {order.payment_method}
-              </td>
-            </tr>
+            {displayData.map((data: DisplayDataProps) => (
+              <tr className='table-tr'>
+                <td className='table-td font-secondary large xbold'>
+                  {data.title}
+                </td>
+                <td className='table-td font-secondary large xbold'>
+                  {data.value}
+                </td>{' '}
+              </tr>
+            ))}
           </tbody>
         </table>
         <div>
@@ -171,9 +155,11 @@ const OrderScreen: FC<any> = (props: any): JSX.Element => {
             ) : (
               <>
                 <tr className='table-tr'>
-                  <td className='table-td font-secondary large xbold'>Item</td>
-                  <td className='table-td font-secondary large xbold'> Name</td>
-                  <td className='table-td font-secondary large xbold'> Cost</td>
+                  {tdDatas.map((label: string) => (
+                    <td className='table-td font-secondary large xbold'>
+                      {label}
+                    </td>
+                  ))}
                 </tr>
                 {order.order_items.map((item: any, index: number) => (
                   <tr className='table-tr' key={index}>
@@ -207,34 +193,16 @@ const OrderScreen: FC<any> = (props: any): JSX.Element => {
           <div className='header'>Order Summary</div>
           <table className='table'>
             <tbody>
-              <tr className='table-tr'>
-                <td className='table-td font-secondary large xbold'>Items</td>
-                <td className='table-td font-secondary large xbold'>
-                  ${order.items_price}
-                </td>
-              </tr>
-              <tr className='table-tr'>
-                <td className='table-td font-secondary large xbold'>
-                  Shipping
-                </td>
-                <td className='table-td font-secondary large xbold'>
-                  ${order.shipping_price}
-                </td>
-              </tr>
-              <tr className='table-tr'>
-                <td className='table-td font-secondary large xbold'>Tax</td>
-                <td className='table-td font-secondary large xbold'>
-                  ${order.tax_price}
-                </td>
-              </tr>
-              <tr className='table-tr'>
-                <td className='table-td font-secondary large xbold'>
-                  Order Total
-                </td>
-                <td className='table-td font-secondary large xbold'>
-                  ${order.total_price}
-                </td>
-              </tr>
+              {tableDatas.map((data: DisplayDataProps) => (
+                <tr className='table-tr'>
+                  <td className='table-td font-secondary large xbold'>
+                    {data.title}
+                  </td>
+                  <td className='table-td font-secondary large xbold'>
+                    {data.value}
+                  </td>{' '}
+                </tr>
+              ))}
             </tbody>
           </table>
           <div>

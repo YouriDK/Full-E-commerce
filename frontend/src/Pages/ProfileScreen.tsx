@@ -34,15 +34,6 @@ const ProfileScreen: FC<any> = (): JSX.Element => {
     }
   }, [dispatch, userInfo._id, user]);
 
-  // const submitHandler = (e: any) => {
-  //   e.preventDefault();
-  //   // TODO dispatch update profile
-  //   if (password !== confirmPassword) {
-  //     alert('Password and Confirm Password do not match');
-  //   } else {
-  //     dispatch(updateUserProfile({ userId: user._id, name, password }));
-  //   }
-  // };
   return loading ? (
     <LoadingBox />
   ) : error ? (

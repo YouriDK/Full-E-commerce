@@ -11,18 +11,11 @@ const OrderHistoryScreen: FC<any> = (props: any): JSX.Element => {
   const orderMineList = useSelector((state: any) => state.orderMineList);
   const { orders, loading, error } = orderMineList;
   const dispatch = useDispatch();
-  // const history = useHistory();
+
   useEffect(() => {
     dispatch(listOrderMine());
-
-    // if (
-    //   orderMineList.error &&
-    //   orderMineList.error.detail === 'Invalid userinfo encoding.'
-    // ) {
-    //   history.push('/login');
-    // }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
+
   return loading ? (
     <LoadingBox />
   ) : error ? (

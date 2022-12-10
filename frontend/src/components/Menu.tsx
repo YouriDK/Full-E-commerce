@@ -1,10 +1,14 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import { Categories, texte } from '../data';
 import { switchCategoyProduct } from '../redux/actions/productActions';
 import { signout } from '../redux/actions/userActions';
-
+interface MenuDataProps {
+  to: string;
+  className: string;
+  title: string;
+}
 const Menu: FC<any> = (): JSX.Element => {
   const cart = useSelector((state: any) => state.cart);
   const { cartItems } = cart;
@@ -20,6 +24,13 @@ const Menu: FC<any> = (): JSX.Element => {
     dispatch(switchCategoyProduct(handleCat));
     setCategories(handleCat);
   };
+  const MenuData: MenuDataProps[] = [
+    { to: '/dashboard', className: 'font-secondary large', title: 'Dashboard' },
+    { to: '/orderlist', className: 'font-secondary large', title: 'Orders' },
+    { to: '/orderlist', className: 'font-secondary large', title: 'Orders' },
+    { to: '/products', className: 'font-secondary large', title: 'Products' },
+    { to: '/userlist', className: 'font-secondary large', title: 'Users' },
+  ];
 
   const signoutHandler = () => {
     dispatch(signout());
@@ -69,30 +80,14 @@ const Menu: FC<any> = (): JSX.Element => {
             </Link>
 
             <ul className='dropdown-content'>
-              {' '}
-              <li>
-                <Link to='/dashboard' className='font-secondary large'>
-                  {' '}
-                  Dashboard
-                </Link>
-              </li>
-              <li>
-                <Link to='/orderlist' className='font-secondary large'>
-                  {' '}
-                  Orders
-                </Link>
-              </li>
-              <li>
-                <Link to='/products' className='font-secondary large'>
-                  Products
-                </Link>
-              </li>
-              <li>
-                <Link to='/userlist' className='font-secondary large'>
-                  {' '}
-                  Users
-                </Link>
-              </li>
+              {MenuData.map((propsMenu: MenuDataProps) => (
+                <li>
+                  <Link to={propsMenu.to} className={propsMenu.className}>
+                    {' '}
+                    {propsMenu.title}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
         )}

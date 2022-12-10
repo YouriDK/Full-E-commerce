@@ -50,6 +50,7 @@ export const createOrder =
 
 export const detailsOrder =
   (orderId: any) => async (dispatch: any, getState: any) => {
+    console.log('DO');
     dispatch({ type: ORDER_DETAILS_REQUEST, payload: orderId });
     const {
       userSignin: { userInfo },

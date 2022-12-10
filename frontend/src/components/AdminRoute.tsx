@@ -9,7 +9,6 @@ const AdminRoute: FC<any> = ({
   /*
    * Permet de revenir à la page de connexion si jamais on est pas admin
    * rest représente tous les paramètres de Route
-   *
    */
   const userSignin = useSelector((state: any) => state.userSignin);
   const { userInfo } = userSignin;

@@ -7,6 +7,7 @@ import { ORDER_CREATE_RESET } from '../redux/constants/orderConstant';
 import LoadingBox from '../components/LoadingBox';
 
 import MesssageBox from '../components/MesssageBox';
+import { DisplayDataProps } from './OrderScreen';
 
 const PlaceOrderScreen: FC<any> = (props: any): JSX.Element => {
   const cart = useSelector((state: any) => state.cart);
@@ -35,8 +36,24 @@ const PlaceOrderScreen: FC<any> = (props: any): JSX.Element => {
       dispatch({ type: ORDER_CREATE_RESET });
       props.history.push(`/order/${order._id}`);
     }
+    console.log('order', order);
   }, [dispatch, order, props.history, success]);
 
+  const displayData: DisplayDataProps[] = [
+    { title: 'Name', value: cart.shipping_address.name },
+    { title: 'Address', value: cart.shipping_address.address },
+    { title: 'City', value: cart.shipping_address.city },
+    { title: 'Postal Code', value: cart.shipping_address.postal_code },
+    { title: 'Country', value: cart.shipping_address.country },
+    { title: 'Payment Method', value: cart.payment_method },
+  ];
+
+  const tableDatas: DisplayDataProps[] = [
+    { title: 'Items', value: cart.items_price },
+    { title: 'Shipping', value: cart.shipping_price },
+    { title: 'Tax', value: cart.tax_price },
+    { title: 'Order Total', value: cart.total_price },
+  ];
   return (
     <>
       <CheckoutSteps step={3} />
@@ -53,56 +70,17 @@ const PlaceOrderScreen: FC<any> = (props: any): JSX.Element => {
             <div className='header'>INTELS</div>
             <table className='table'>
               <tbody>
-                <tr className='table-tr'>
-                  <td className='table-td font-secondary large xbold'>Name</td>
-                  <td className='table-td font-secondary large xbold'>
-                    {' '}
-                    {cart.shipping_address.name}
-                  </td>
-                </tr>
-                <tr className='table-tr'>
-                  <td className='table-td font-secondary large xbold'>
-                    Address
-                  </td>
-                  <td className='table-td font-secondary large xbold'>
-                    {' '}
-                    {cart.shipping_address.address}
-                  </td>
-                </tr>
-                <tr className='table-tr'>
-                  <td className='table-td font-secondary large xbold '>City</td>
-                  <td className='table-td font-secondary large xbold'>
-                    {' '}
-                    {cart.shipping_address.city}
-                  </td>
-                </tr>
-                <tr className='table-tr'>
-                  <td className='table-td font-secondary large xbold'>
-                    Postal Code
-                  </td>
-                  <td className='table-td font-secondary large xbold'>
-                    {' '}
-                    {cart.shipping_address.postal_code}
-                  </td>
-                </tr>
-                <tr className='table-tr'>
-                  <td className='table-td font-secondary large xbold'>
-                    Country
-                  </td>
-                  <td className='table-td font-secondary large xbold'>
-                    {' '}
-                    {cart.shipping_address.country}
-                  </td>
-                </tr>
-                <tr className='table-tr'>
-                  <td className='table-td font-secondary large xbold'>
-                    Payment Method
-                  </td>
-                  <td className='table-td font-secondary large xbold'>
-                    {' '}
-                    {cart.payment_method}
-                  </td>
-                </tr>
+                {displayData.map((data: DisplayDataProps) => (
+                  <tr className='table-tr'>
+                    <td className='table-td font-secondary large xbold'>
+                      {data.title}
+                    </td>
+                    <td className='table-td font-secondary large xbold'>
+                      {' '}
+                      {data.value}
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
             <div className='header'>Cart</div>
@@ -167,36 +145,16 @@ const PlaceOrderScreen: FC<any> = (props: any): JSX.Element => {
               <div className='header'>Order Summary</div>
               <table className='table'>
                 <tbody>
-                  <tr className='table-tr'>
-                    <td className='table-td font-secondary large xbold'>
-                      Items
-                    </td>
-                    <td className='table-td font-secondary large xbold'>
-                      ${cart.items_price}
-                    </td>
-                  </tr>
-                  <tr className='table-tr'>
-                    <td className='table-td font-secondary large xbold'>
-                      Shipping
-                    </td>
-                    <td className='table-td font-secondary large xbold'>
-                      ${cart.shipping_price}
-                    </td>
-                  </tr>
-                  <tr className='table-tr'>
-                    <td className='table-td font-secondary large xbold'>Tax</td>
-                    <td className='table-td font-secondary large xbold'>
-                      ${cart.tax_price}
-                    </td>
-                  </tr>
-                  <tr className='table-tr'>
-                    <td className='table-td font-secondary large xbold'>
-                      Order Total
-                    </td>
-                    <td className='table-td font-secondary large xbold'>
-                      ${cart.total_price}
-                    </td>
-                  </tr>
+                  {tableDatas.map((data: DisplayDataProps) => (
+                    <tr className='table-tr'>
+                      <td className='table-td font-secondary large xbold'>
+                        {data.title}
+                      </td>
+                      <td className='table-td font-secondary large xbold'>
+                        {data.value}
+                      </td>{' '}
+                    </tr>
+                  ))}
                 </tbody>
               </table>
               <div>

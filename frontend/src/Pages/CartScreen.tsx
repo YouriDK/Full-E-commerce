@@ -38,7 +38,6 @@ const CartScreen: FC<any> = (props: any): JSX.Element => {
       ) : (
         <div className='table-users' style={{ width: '80%' }}>
           <div className='header '>{texte.Cart.cart.en}</div>
-
           <table className='table'>
             <tbody>
               <tr className='table-tr '>

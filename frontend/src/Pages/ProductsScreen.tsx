@@ -3,7 +3,10 @@ import { AiTwotoneEdit } from 'react-icons/ai';
 import { MdRestoreFromTrash } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'reactstrap';
-import CustomInput from '../components/CustomInput';
+import { useFormik } from 'formik';
+import { FormattedMessage, useIntl } from 'react-intl';
+import * as Yup from 'yup';
+
 import LoadingBox from '../components/LoadingBox';
 import MesssageBox from '../components/MesssageBox';
 import { Categories, texte } from '../data';
@@ -15,22 +18,12 @@ import {
 } from '../redux/actions/productActions';
 
 const ProductsScreen: FC<any> = (props: any): JSX.Element => {
+  // const intl = useIntl();
   const [modalVisible, setModalVisible] = useState(false);
-  const [name, setName] = useState('');
   const [id, setId] = useState('');
-  const [price, setPrice] = useState(0);
-  const [image, setImage] = useState('');
-  const [brand, setBrand] = useState('');
-  const [category, setCategory] = useState('');
-  const [description, setDescription] = useState('');
-  const [countInStock, setCountInStock] = useState(0);
-  const [rating, setRating] = useState(0);
-  const [numReviews, setNumReviews] = useState(0);
-
   const productSave = useSelector((state: any) => state.productSave);
   const productDelete = useSelector((state: any) => state.productDelete);
   const { success: successDelete } = productDelete;
-
   const productList = useSelector((state: any) => state.productList);
   const { loading, products, error } = productList;
   const {
@@ -48,50 +41,72 @@ const ProductsScreen: FC<any> = (props: any): JSX.Element => {
   const openModal = (product: any) => {
     setModalVisible(true);
     setId(product._id);
-    setName(product.name);
-    setPrice(product.price);
+    formik.setValues({
+      brand: product.brand,
+      name: product.name,
+      image: product.image,
+      category: product.category,
+      countInStock: product.countInStock,
+      description: product.description,
+      numReviews: product.numReviews,
+      price: product.price,
+      rating: product.rating,
+    });
+  };
 
-    setImage(product.image);
-    setBrand(product.brand);
-    setCategory(product.category);
-    setCountInStock(product.countInStock);
-    setDescription(product.description);
-    setRating(product.rating);
-    setNumReviews(product.numReviews);
-  };
-  const submitHandler = (e: any) => {
-    e.preventDefault();
-    dispatch(
-      saveProduct({
-        _id: id,
-        name,
-        image,
-        brand,
-        price,
-        category,
-        countInStock,
-        description,
-        rating,
-        numReviews,
-      })
-    );
-  };
   const convertFileToBase64 = (file: any): any =>
     new Promise((resolve: any, reject: any): any => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = (): any => (
-        setImage(reader.result as string), (reader.onerror = reject)
-      );
+      try {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = (): any => {
+          formik.setFieldValue('image', reader.result as string);
+        };
+      } catch (err: any) {
+        throw new Error(`${reject} AND ${err}`);
+      }
     });
 
-  const handleDrop = (acceptedFiles: any[]): void => {
+  const handleDrop = (acceptedFiles: File[]): void => {
     convertFileToBase64(acceptedFiles[0]);
   };
   const deleteHandler = (product: any) => {
-    console.log('delete', product._id);
     dispatch(deleteProduct(product._id));
   };
+  const formik = useFormik({
+    initialValues: {
+      name: '',
+      price: '',
+      brand: '',
+      image: '',
+      countInStock: '',
+      category: '',
+      description: '',
+      rating: '',
+      numReviews: '',
+    },
+    enableReinitialize: true,
+    validationSchema: Yup.object({
+      name: Yup.string(),
+      price: Yup.number(),
+      image: Yup.string(),
+      brand: Yup.string(),
+      countInStock: Yup.string(),
+      category: Yup.string(),
+      description: Yup.string(),
+      rating: Yup.number(),
+      numReviews: Yup.number(),
+    }),
+    onSubmit: async (values: any) => {
+      dispatch(
+        saveProduct({
+          _id: id,
+          ...values,
+        })
+      );
+    },
+  });
+
   return loading ? (
     <LoadingBox />
   ) : error ? (
@@ -121,7 +136,7 @@ const ProductsScreen: FC<any> = (props: any): JSX.Element => {
       {modalVisible && (
         <div style={{ display: 'flex', justifyContent: 'space-around' }}>
           <div style={{ width: '500px' }}>
-            <form onSubmit={submitHandler}>
+            <form onSubmit={formik.handleSubmit}>
               <div className='form'>
                 <div>
                   {loadingSave && <LoadingBox />}
@@ -129,20 +144,23 @@ const ProductsScreen: FC<any> = (props: any): JSX.Element => {
                     <MesssageBox variant='danger' text={errorSave} />
                   )}
                 </div>
-                <CustomInput
-                  variable={name}
-                  name='name'
-                  label='Name'
-                  type='text'
-                  change={setName}
-                />
-                <CustomInput
-                  variable={price}
-                  name='price'
-                  label='Price'
-                  type='number'
-                  change={setPrice}
-                />
+                <div>
+                  <label htmlFor={formik.getFieldProps('name').name}>
+                    <span>{'Name'}</span>
+                  </label>
+                  <input {...formik.getFieldProps('name')}></input>
+                </div>
+                <div>
+                  <label htmlFor={formik.getFieldProps('price').name}>
+                    <span>{'Price'}</span>
+                  </label>
+                  <input
+                    // * pattern={'[0-9]*'}
+                    type='number'
+                    {...formik.getFieldProps('price')}
+                  ></input>
+                </div>
+
                 <Dropzone
                   onDrop={handleDrop}
                   accept={{ 'image/jpeg': ['.jpeg', '.png'] }}
@@ -176,50 +194,65 @@ const ProductsScreen: FC<any> = (props: any): JSX.Element => {
                     </div>
                   )}
                 </Dropzone>
-                <CustomInput
-                  variable={brand}
-                  name='brand'
-                  label='Brand'
-                  type='text'
-                  change={setBrand}
-                />
-                <CustomInput
-                  variable={countInStock}
-                  name='countInStock'
-                  label='Count in Stock'
-                  type='number'
-                  change={setCountInStock}
-                />
-                <CustomInput
-                  variable={category}
-                  name='category'
-                  label='Category'
-                  type='select'
-                  options={Categories}
-                  change={setCategory}
-                />
-                <CustomInput
-                  variable={description}
-                  name='description'
-                  label='Description'
-                  type='text'
-                  change={setDescription}
-                  textarea
-                />
-                <CustomInput
-                  variable={rating}
-                  name='rating'
-                  label='Rating'
-                  type='number'
-                  change={setRating}
-                />
-                <CustomInput
-                  variable={numReviews}
-                  name='numReviews'
-                  label='Numbers of reviews'
-                  type='number'
-                  change={setNumReviews}
-                />
+                <div>
+                  <label htmlFor={formik.getFieldProps('brand').name}>
+                    <span>{'Brand'}</span>
+                  </label>
+                  <input {...formik.getFieldProps('brand')}></input>
+                </div>
+                <div>
+                  <label htmlFor={formik.getFieldProps('countInStock').name}>
+                    <span>{'Count in Stock'}</span>
+                  </label>
+                  <input
+                    // * pattern={'[0-9]*'}
+                    type='number'
+                    {...formik.getFieldProps('countInStock')}
+                  ></input>
+                </div>
+                <div>
+                  <label htmlFor={formik.getFieldProps('category').name}>
+                    <span>{'Category'}</span>
+                  </label>
+                  <select {...formik.getFieldProps('category')}>
+                    {Categories.map((category: string) => (
+                      <option
+                        value={category}
+                        key={category}
+                        selected={
+                          formik.getFieldProps('brand').value === category
+                        }
+                      >
+                        {category}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label htmlFor={formik.getFieldProps('description').name}>
+                    <span>{'Description'}</span>
+                  </label>
+                  <textarea {...formik.getFieldProps('description')}></textarea>
+                </div>
+                <div>
+                  <label htmlFor={formik.getFieldProps('rating').name}>
+                    <span>{'Rating'}</span>
+                  </label>
+                  <input
+                    type='number'
+                    {...formik.getFieldProps('rating')}
+                  ></input>
+                </div>
+                <div>
+                  <label htmlFor={formik.getFieldProps('numReviews').name}>
+                    <span>{'Numbers of reviews'}</span>
+                  </label>
+                  <input
+                    type='number'
+                    {...formik.getFieldProps('numReviews')}
+                  ></input>
+                </div>
+
                 <div>
                   <br />
                   <Button type='submit' className='button primary'>
@@ -229,9 +262,9 @@ const ProductsScreen: FC<any> = (props: any): JSX.Element => {
               </div>
             </form>
           </div>
-          {image !== '' && (
+          {formik.getFieldProps('image').value !== '' && (
             <img
-              src={image}
+              src={formik.getFieldProps('image').value}
               alt='product'
               style={{ maxWidth: '450px', maxHeight: '450px' }}
             />

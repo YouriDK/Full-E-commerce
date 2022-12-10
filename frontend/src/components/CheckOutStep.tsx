@@ -18,6 +18,9 @@ const styleConf = {
   borderRadius: '60px',
   fontWeight: '100',
 };
+
+const StepLabels = ['Sign In', 'Shipping', 'Payment', 'Place Order'];
+
 const CheckOutStep: FC<StepProps> = ({ step, error }): JSX.Element => {
   return (
     <Stepper
@@ -26,10 +29,10 @@ const CheckOutStep: FC<StepProps> = ({ step, error }): JSX.Element => {
       connectorStateColors
       styleConfig={styleConf}
     >
-      <Step label='Sign In' />
-      <Step label='Shipping' />
-      <Step label='Payment' />
-      <Step label='Place Order' />
+      {' '}
+      {StepLabels.map((label: string) => (
+        <Step label={label} />
+      ))}
     </Stepper>
   );
 };
