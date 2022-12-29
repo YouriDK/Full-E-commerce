@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Route } from 'react-router-dom';
 import AdminRoute from './components/AdminRoute';
 import Menu from './components/Menu';
-import PrivateRoute from './components/PrivateRoute';
+
 import CartScreen from './Pages/CartScreen';
 import HomeScreen from './Pages/HomeScreen';
 import OrderHistoryScreen from './Pages/OrderHistoryScreen';
@@ -12,7 +12,7 @@ import PaymentScreen from './Pages/PaymentScreen';
 import PlaceOrderScreen from './Pages/PlaceOrderScreen';
 import ProductScreen from './Pages/ProductScreen';
 import ProductsScreen from './Pages/ProductsScreen';
-import ProfileScreen from './Pages/ProfileScreen';
+
 import ShippingScreen from './Pages/ShippingScreen';
 import SignInScreen from './Pages/SignInScreen';
 import UserListScreen from './Pages/UserListScreen';
@@ -33,7 +33,6 @@ const App: FC<any> = (props: any): JSX.Element => {
             <Route path='/signin' component={SignInScreen} />
             <Route path='/orderhistory' component={OrderHistoryScreen} />
             <Route path='/order/:id' component={OrderScreen} />
-            <PrivateRoute path='/profile' component={ProfileScreen} />
             <AdminRoute
               path='/orderlist'
               component={OrderListScreen}

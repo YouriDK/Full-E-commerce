@@ -40,7 +40,7 @@ const OrderScreen: FC<any> = (props: any): JSX.Element => {
   useEffect(() => {
     // ! Pour avoir la commande actuel il faut actualiser la page donc :
     if (order !== undefined) {
-      console.log('GET ROder');
+      console.log('GET Order');
       if (order._id !== orderId) {
         console.log('GET ROder 5555');
         dispatch(detailsOrder(orderId));

@@ -82,6 +82,6 @@ import { ConfigModule } from '@nestjs/config'; est nécéssaire" dans le module 
 Il faut mettre un console.log pour voir l'erreur dans la console ensuite l'envoyer
 
 # TODO
-- Finir la construction de Order
-- Envisage la découpe des élement de Orders
+- Finir la construction de Order (Done )
+- Envisage la découpe des élement de Orders (Done)
 - Faire des TU ....

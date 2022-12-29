@@ -30,7 +30,7 @@ Il faut définir l'url donc :
  Création du middleware
 
  - InitialState : Permet de stocker des informations qui sont disponibles dans toutes les couches de l'application
--  Reducer : Va faire le lien entre l'appel dans la partie actions et la fonction reducer associé Front -> Actions -> Reducers
+ - Reducer : Va faire le lien entre l'appel dans la partie actions et la fonction reducer associé Front -> Actions -> Reducers
  - Quand une action est capturé : store.dispatch(actionCreator(payload))
  - store.dispatch représente dispath = useDispatch()
  - actionCreator est une des actions dans le dossier actions qui crée justement la payload
@@ -49,6 +49,12 @@ Il faut définir l'url donc :
 ```
  - git add .
  - git push heroku master
+```
+
+# Todo
+
+```
+ - Rediriger après expiration token
 ```
 
 
