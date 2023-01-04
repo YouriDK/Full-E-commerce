@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { ProductProps, texte } from '../data';
 import Rating from './Rating';
@@ -7,6 +8,7 @@ interface Props {
   product: ProductProps;
 }
 const Product: FC<Props> = ({ product }: Props): JSX.Element => {
+  const isMobile = useSelector((state: any) => state.isMobile.isMobile);
   return (
     <div className='page-wrapper'>
       <div className='page-inner'>
@@ -15,7 +17,7 @@ const Product: FC<Props> = ({ product }: Props): JSX.Element => {
             <Link to={'/product/' + product._id}>
               <div className='box-up'>
                 <img
-                  className='medium img'
+                  className={`${isMobile ? 'mobile' : 'medium'} img`}
                   src={product.image}
                   alt={product.name}
                 />

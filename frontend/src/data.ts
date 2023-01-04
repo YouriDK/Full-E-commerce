@@ -40,8 +40,8 @@ export const texte = {
       en: ['ID', 'DATE', 'TOTAL', 'PAID', 'DELIVERED', 'ACTIONS'],
     },
     notdeli: {
-      fr: 'Non livré',
-      en: 'Not delivered',
+      fr: '❌',
+      en: '❌',
     },
     deli: {
       fr: 'Livré lt',

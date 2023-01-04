@@ -9,6 +9,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import * as Yup from 'yup';
 const ShippingScreen: FC<any> = (props: any): JSX.Element => {
   const userSignin = useSelector((state: any) => state.userSignin);
+  const isMobile = useSelector((state: any) => state.isMobile.isMobile);
   const { userInfo } = userSignin;
   if (!userInfo) {
     props.history.push('/signin');
@@ -46,7 +47,7 @@ const ShippingScreen: FC<any> = (props: any): JSX.Element => {
   });
   return (
     <>
-      <CheckoutSteps step={1} /*current='process'*/ />
+      {!isMobile && <CheckoutSteps step={1} /*current='process'*/ />}
       <form className='form' onSubmit={formik.handleSubmit}>
         <div>
           <label htmlFor={formik.getFieldProps('name').name}>

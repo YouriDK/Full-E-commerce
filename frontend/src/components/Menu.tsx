@@ -4,6 +4,9 @@ import { Link, useHistory } from 'react-router-dom';
 import { Categories, texte } from '../data';
 import { switchCategoyProduct } from '../redux/actions/productActions';
 import { signout } from '../redux/actions/userActions';
+import { AiOutlineShoppingCart } from 'react-icons/ai';
+
+import { MdManageAccounts } from 'react-icons/md';
 interface MenuDataProps {
   to: string;
   className: string;
@@ -11,6 +14,7 @@ interface MenuDataProps {
 }
 const Menu: FC<any> = (): JSX.Element => {
   const cart = useSelector((state: any) => state.cart);
+  const isMobile = useSelector((state: any) => state.isMobile.isMobile);
   const { cartItems } = cart;
   const dispatch = useDispatch();
   const history = useHistory();
@@ -27,7 +31,6 @@ const Menu: FC<any> = (): JSX.Element => {
   const MenuData: MenuDataProps[] = [
     { to: '/dashboard', className: 'font-secondary large', title: 'Dashboard' },
     { to: '/orderlist', className: 'font-secondary large', title: 'Orders' },
-    { to: '/orderlist', className: 'font-secondary large', title: 'Orders' },
     { to: '/products', className: 'font-secondary large', title: 'Products' },
     { to: '/userlist', className: 'font-secondary large', title: 'Users' },
   ];
@@ -38,18 +41,33 @@ const Menu: FC<any> = (): JSX.Element => {
   };
 
   return (
-    <header className='row'>
+    <header
+      className='row'
+      style={{
+        display: isMobile ? 'flex' : '',
+        justifyContent: isMobile ? 'space-around' : '',
+        flexWrap: 'nowrap',
+      }}
+    >
       <div id='brand-box'>
         <Link className='brand' to='/'>
           {texte.Terms.site}
         </Link>
       </div>
 
-      <div className='center font-footer' style={{ color: 'white' }}>
-        Shop X Production YC Developpment
-      </div>
+      {!isMobile && (
+        <div className='center font-footer' style={{ color: 'white' }}>
+          Shop X Production YC Developpment
+        </div>
+      )}
 
-      <div>
+      <div
+        style={{
+          display: isMobile ? 'flex' : '',
+          justifyContent: isMobile ? 'space-around' : '',
+          flexWrap: 'nowrap',
+        }}
+      >
         <div className='dropdown'>
           <Link to='#' className='font-secondary xlarge'>
             {categories === 'All' ? 'Category' : categories}
@@ -73,11 +91,17 @@ const Menu: FC<any> = (): JSX.Element => {
 
         {userInfo && userInfo.admin && (
           <div className='dropdown font-secondary xlarge'>
-            <Link to='#admin'>
-              {' '}
-              Management
-              <i className='fa fa-caret-down'></i>
-            </Link>
+            {isMobile ? (
+              <Link to='#admin'>
+                <MdManageAccounts size={25} />
+              </Link>
+            ) : (
+              <Link to='#admin'>
+                {' '}
+                Management
+                <i className='fa fa-caret-down'></i>
+              </Link>
+            )}
 
             <ul className='dropdown-content'>
               {MenuData.map((propsMenu: MenuDataProps) => (
@@ -92,8 +116,15 @@ const Menu: FC<any> = (): JSX.Element => {
           </div>
         )}
         <Link to='/cart'>
-          <span className='font-secondary xlarge'>{texte.Cart.cart.en}</span>
-          {cartItems.length > 0 && (
+          {isMobile ? (
+            <AiOutlineShoppingCart
+              size={25}
+              color={cartItems.length > 0 ? 'red' : 'white'}
+            />
+          ) : (
+            <span className='font-secondary xlarge'>{texte.Cart.cart.en}</span>
+          )}
+          {cartItems.length > 0 && !isMobile && (
             <span className='badge'>{cartItems.length}</span>
           )}
         </Link>

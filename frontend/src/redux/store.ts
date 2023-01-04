@@ -22,6 +22,7 @@ import {
   userDetailsReducer,
   updateUserProfileReducer,
   userListReducer,
+  isMobileReducer,
 } from './reducers/userReducers';
 import { cartReducers } from './reducers/cartReducers';
 
@@ -54,6 +55,7 @@ const initialState = {
 
 // * Get a state and a action and return a new state of that action
 const reducer = combineReducers({
+  isMobile: isMobileReducer,
   userSignin: userSignInReducer,
   userRegister: userRegisterReducer,
   productList: productListReducer,

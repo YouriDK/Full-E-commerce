@@ -14,6 +14,7 @@ const ProductScreen: FC<any> = (props: any): JSX.Element => {
   const [quantity, setquantity] = useState(1);
 
   const productDetails = useSelector((state: any) => state.productDetails);
+  const isMobile = useSelector((state: any) => state.isMobile.isMobile);
   const { product, loading, error } = productDetails;
   const dispatch = useDispatch();
   useEffect(() => {
@@ -36,10 +37,20 @@ const ProductScreen: FC<any> = (props: any): JSX.Element => {
           <h3 className='font-button'>{texte.Terms.back.en}</h3>
         </div>
       </Link>
-      <div className='card__body'>
+      <div
+        className='card__body'
+        style={{
+          display: isMobile ? 'flex' : '',
+          flexDirection: isMobile ? 'column' : 'row',
+        }}
+      >
         <div className='half'>
           <div className='image'>
-            <img className='large img' src={product.image} alt={product.name} />
+            <img
+              className={`${isMobile ? 'mobile-product' : 'large'} img`}
+              src={product.image}
+              alt={product.name}
+            />
           </div>
         </div>
         <div className='half flex columns around'>
@@ -78,9 +89,15 @@ const ProductScreen: FC<any> = (props: any): JSX.Element => {
           )}
         </div>
       </div>
-      <div className='card__footer'>
+      <div
+        className='card__footer'
+        style={{
+          display: isMobile ? 'flex' : '',
+          flexDirection: isMobile ? 'column' : 'row',
+        }}
+      >
         <div className='recommend'>
-          <div className='reviews '>
+          <div className='reviews'>
             <Rating
               rating={product.rating}
               numReviews={product.numReviews}

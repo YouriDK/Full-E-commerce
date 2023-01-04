@@ -50,7 +50,6 @@ export const createOrder =
 
 export const detailsOrder =
   (orderId: any) => async (dispatch: any, getState: any) => {
-    console.log('DO');
     dispatch({ type: ORDER_DETAILS_REQUEST, payload: orderId });
     const {
       userSignin: { userInfo },
@@ -63,6 +62,7 @@ export const detailsOrder =
       });
       dispatch({ type: ORDER_DETAILS_SUCCESS, payload: data });
     } catch (error: any) {
+      console.log('error', error);
       dispatch({ type: ORDER_DETAILS_FAIL, payload: error.response.data });
     }
   };
@@ -73,6 +73,7 @@ export const payOrder =
     const {
       userSignin: { userInfo },
     } = getState();
+    console.log('ID', order._id);
     try {
       const { data } = await Axios.post(
         `/orders/pay/${order._id}`,

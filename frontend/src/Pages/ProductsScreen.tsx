@@ -1,16 +1,15 @@
-import React, { FC, useEffect, useState } from 'react';
+import { useFormik } from 'formik';
+import { FC, useEffect, useState } from 'react';
 import { AiTwotoneEdit } from 'react-icons/ai';
 import { MdRestoreFromTrash } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'reactstrap';
-import { useFormik } from 'formik';
-import { FormattedMessage, useIntl } from 'react-intl';
 import * as Yup from 'yup';
 
+import Dropzone from 'react-dropzone';
 import LoadingBox from '../components/LoadingBox';
 import MesssageBox from '../components/MesssageBox';
 import { Categories, texte } from '../data';
-import Dropzone from 'react-dropzone';
 import {
   deleteProduct,
   listProducts,
@@ -26,6 +25,7 @@ const ProductsScreen: FC<any> = (props: any): JSX.Element => {
   const { success: successDelete } = productDelete;
   const productList = useSelector((state: any) => state.productList);
   const { loading, products, error } = productList;
+  const isMobile = useSelector((state: any) => state.isMobile.isMobile);
   const {
     loading: loadingSave,
     success: successSave,
@@ -112,7 +112,10 @@ const ProductsScreen: FC<any> = (props: any): JSX.Element => {
   ) : error ? (
     <MesssageBox variant='danger' error={error} />
   ) : (
-    <div className='content content-margined'>
+    <div
+      className='content content-margined'
+      style={{ width: isMobile ? (modalVisible ? '70%' : '100%') : '100%' }}
+    >
       <div
         className='flex'
         style={{ justifyContent: 'space-between', marginTop: '20px' }}
@@ -232,7 +235,10 @@ const ProductsScreen: FC<any> = (props: any): JSX.Element => {
                   <label htmlFor={formik.getFieldProps('description').name}>
                     <span>{'Description'}</span>
                   </label>
-                  <textarea {...formik.getFieldProps('description')}></textarea>
+                  <textarea
+                    {...formik.getFieldProps('description')}
+                    style={{ minHeight: isMobile ? '160px' : '' }}
+                  ></textarea>
                 </div>
                 <div>
                   <label htmlFor={formik.getFieldProps('rating').name}>
@@ -262,7 +268,7 @@ const ProductsScreen: FC<any> = (props: any): JSX.Element => {
               </div>
             </form>
           </div>
-          {formik.getFieldProps('image').value !== '' && (
+          {formik.getFieldProps('image').value !== '' && !isMobile && (
             <img
               src={formik.getFieldProps('image').value}
               alt='product'
@@ -275,19 +281,26 @@ const ProductsScreen: FC<any> = (props: any): JSX.Element => {
         <div className='table-users'>
           <div className='header'>Products</div>
           <table className='table'>
-            <tr className='table-tr'>
-              {texte.Products.en.map((td: string, index: number) => (
-                <td className='table-td table-title' key={index}>
-                  {td}
-                </td>
-              ))}
-            </tr>
+            {!isMobile && (
+              <tr className='table-tr'>
+                {texte.Products.en.map((td: string, index: number) => (
+                  <td className='table-td table-title' key={index}>
+                    {td}
+                  </td>
+                ))}
+              </tr>
+            )}
             {products.map((product: any, index: number) => (
               <tr className='table-tr' key={index}>
-                <td className='table-td font-secondary large xbold'>
-                  {product.name}
-                </td>
-                <td className='table-td'>
+                {!isMobile && (
+                  <td className='table-td font-secondary large xbold'>
+                    {product.name}
+                  </td>
+                )}
+                <td
+                  className='table-td'
+                  style={{ minWidth: isMobile ? '50px' : '' }}
+                >
                   {' '}
                   <img
                     src={product.image}
@@ -316,7 +329,7 @@ const ProductsScreen: FC<any> = (props: any): JSX.Element => {
                     <Button
                       onClick={() => deleteHandler(product)}
                       className='secondary'
-                      style={{ marginLeft: '5px' }}
+                      style={{ marginLeft: isMobile ? '' : '5px' }}
                     >
                       <MdRestoreFromTrash size={20} />
                     </Button>

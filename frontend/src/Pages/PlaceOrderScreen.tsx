@@ -12,6 +12,7 @@ import { DisplayDataProps } from './OrderScreen';
 const PlaceOrderScreen: FC<any> = (props: any): JSX.Element => {
   const cart = useSelector((state: any) => state.cart);
   // * Il conserve dans cart pour écrire directement dedans ( Faster )
+  const isMobile = useSelector((state: any) => state.isMobile.isMobile);
 
   const toPrice = (num: any) => Number(num.toFixed(2)); // 5.123 => "5.12" => 5.12
   cart.items_price = toPrice(
@@ -56,13 +57,18 @@ const PlaceOrderScreen: FC<any> = (props: any): JSX.Element => {
   ];
   return (
     <>
-      <CheckoutSteps step={3} />
+      {!isMobile && <CheckoutSteps step={3} />}
       {loading ? (
         <LoadingBox />
       ) : error ? (
         <MesssageBox variant='danger' error={error} />
       ) : (
-        <div style={{ display: 'flex' }}>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: isMobile ? 'column' : 'row',
+          }}
+        >
           <div
             className='table-users placeorder-info'
             style={{ width: 'auto' }}

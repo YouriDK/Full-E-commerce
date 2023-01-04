@@ -1,4 +1,5 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Route } from 'react-router-dom';
 import AdminRoute from './components/AdminRoute';
 import Menu from './components/Menu';
@@ -16,8 +17,15 @@ import ProductsScreen from './Pages/ProductsScreen';
 import ShippingScreen from './Pages/ShippingScreen';
 import SignInScreen from './Pages/SignInScreen';
 import UserListScreen from './Pages/UserListScreen';
+import { setMobileView } from './redux/actions/userActions';
 
 const App: FC<any> = (props: any): JSX.Element => {
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 769);
+    dispatch(setMobileView(window.innerWidth < 769));
+  }, [dispatch, window.innerWidth]);
   return (
     <>
       <div className='grid-container'>

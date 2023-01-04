@@ -4,6 +4,7 @@ import {
   GOOGLE_SIGNIN_FAIL,
   GOOGLE_SIGNIN_REQUEST,
   GOOGLE_SIGNIN_SUCCESS,
+  IS_MOBILE,
   USER_DETAILS_FAIL,
   USER_DETAILS_REQUEST,
   USER_DETAILS_SUCCESS,
@@ -73,4 +74,11 @@ export const listUsers = () => async (dispatch: any, getState: any) => {
       dispatch({ type: USER_GET_FAIL, payload: error.response.data });
     }
   }
+};
+
+export const setMobileView = (mobile: boolean) => {
+  return {
+    type: IS_MOBILE,
+    payload: mobile,
+  };
 };

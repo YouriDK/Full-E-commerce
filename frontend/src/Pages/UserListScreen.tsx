@@ -11,6 +11,7 @@ const UserListScreen: FC<any> = (): JSX.Element => {
   const userList = useSelector((state: any) => state.userList);
   const { loading, error, users } = userList;
   const dispatch = useDispatch();
+  const isMobile = useSelector((state: any) => state.isMobile.isMobile);
   useEffect(() => {
     dispatch(listUsers());
   }, [dispatch]);
@@ -20,9 +21,15 @@ const UserListScreen: FC<any> = (): JSX.Element => {
   ) : error ? (
     <MesssageBox variant='danger' error={error} />
   ) : (
-    <div className='table-users' style={{ width: '80%' }}>
+    <div
+      className='table-users'
+      style={{ width: '80%', overflowX: isMobile ? 'visible' : 'hidden' }}
+    >
       <div className='header'>Users</div>
-      <table className='table'>
+      <table
+        className='table'
+        style={{ overflowX: isMobile ? 'visible' : 'hidden' }}
+      >
         <tr className='table-tr'>
           {texte.Users.userList.en.map((td: string) => (
             <td className='table-td  table-title' key={td}>
@@ -31,7 +38,11 @@ const UserListScreen: FC<any> = (): JSX.Element => {
           ))}
         </tr>
         {users.map((user: any) => (
-          <tr className='table-tr' key={user._id}>
+          <tr
+            className='table-tr'
+            key={user._id}
+            style={{ overflowX: isMobile ? 'visible' : 'hidden' }}
+          >
             <td className='table-td font-secondary large xbold'>
               {user.admin ? (
                 <BsCheckLg color='#15ff00' />

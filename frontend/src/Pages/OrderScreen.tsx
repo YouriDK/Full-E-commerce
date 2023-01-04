@@ -22,6 +22,8 @@ export interface DisplayDataProps {
 }
 const OrderScreen: FC<any> = (props: any): JSX.Element => {
   const [sdkReady, setSdkReady] = useState(false);
+  const isMobile = useSelector((state: any) => state.isMobile.isMobile);
+
   const orderId = props.match.params.id;
   const orderDetails = useSelector((state: any) => state.orderDetails);
   const userSignin = useSelector((state: any) => state.userSignin);
@@ -108,8 +110,13 @@ const OrderScreen: FC<any> = (props: any): JSX.Element => {
   ) : error ? (
     <MesssageBox variant='danger' error={error} />
   ) : (
-    <div style={{ display: 'flex' }}>
-      <div className='table-users placeorder-info' style={{ width: 'auto' }}>
+    <div
+      style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row' }}
+    >
+      <div
+        className={`table-users ${isMobile ? '' : 'placeorder-info'}`}
+        style={{ width: 'auto' }}
+      >
         <div className='header'>Shipping</div>
         <table className='table'>
           <tbody>

@@ -11,7 +11,7 @@ interface MesssageBoxProps {
   text?: string[] | string;
   variant: string;
   notext?: boolean;
-  error?: ErrorProps;
+  error?: any;
 }
 const MesssageBox: FC<MesssageBoxProps> = ({
   text = '',
@@ -19,13 +19,19 @@ const MesssageBox: FC<MesssageBoxProps> = ({
   notext,
   error,
 }: MesssageBoxProps): JSX.Element => {
+  const mistake: ErrorProps = error?.response?.data ?? {
+    title: '',
+    status: '',
+    type: 0,
+    response: '',
+  };
   return error ? (
     <Alert
       color={variant}
       className={`center alert `}
-      style={{ margin: 'auto' }}
+      style={{ margin: 'auto', marginTop: '50px' }}
     >
-      {`${error.title} ${error.status} : ${error.response} from ${error.type} !`}
+      {`${mistake.title} ${mistake.status} : ${mistake.response} from ${mistake.type} !`}
     </Alert>
   ) : (
     <Alert

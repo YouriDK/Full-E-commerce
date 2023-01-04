@@ -14,6 +14,7 @@ const CartScreen: FC<any> = (props: any): JSX.Element => {
   const { cartItems } = cart;
   const parsed = queryString.parse(props.location.search);
   const productId = parsed.id;
+  const isMobile = useSelector((state: any) => state.isMobile.isMobile);
   const quantity = parsed.quantity ?? 1;
   const dispatch = useDispatch();
   const removeFromCardHandler = (productId: string) => {
@@ -36,20 +37,38 @@ const CartScreen: FC<any> = (props: any): JSX.Element => {
           <EmptyCard />
         </>
       ) : (
-        <div className='table-users' style={{ width: '80%' }}>
+        <div
+          className='table-users'
+          style={{
+            width: isMobile ? '90%' : '80%',
+            marginTop: isMobile ? '20px' : '',
+          }}
+        >
           <div className='header '>{texte.Cart.cart.en}</div>
           <table className='table'>
-            <tbody>
-              <tr className='table-tr '>
-                {texte.Cart.tab.en.map((td: string) => (
-                  <td key={td} className='table-td font-secondary xlarge xbold'>
-                    {td}
-                  </td>
-                ))}
-              </tr>
+            <tbody style={{ display: 'flex', flexDirection: 'column' }}>
+              {!isMobile && (
+                <tr
+                  className='table-tr '
+                  style={{ display: 'flex', flexDirection: 'row' }}
+                >
+                  {texte.Cart.tab.en.map((td: string) => (
+                    <td
+                      key={td}
+                      className='table-td font-secondary xlarge xbold'
+                    >
+                      {td}
+                    </td>
+                  ))}
+                </tr>
+              )}
 
               {cartItems.map((item: any, index: number) => (
-                <tr className='table-tr' key={index}>
+                <tr
+                  className='table-tr'
+                  key={index}
+                  style={{ display: 'flex', flexDirection: 'row' }}
+                >
                   <td className='table-td'>
                     <img src={item.image} alt={item.name} className='small' />
                   </td>

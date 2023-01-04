@@ -5,6 +5,8 @@ import CheckoutSteps from '../components/CheckOutStep';
 
 const PaymentScreen: FC<any> = (props: any): JSX.Element => {
   const cart = useSelector((state: any) => state.cart);
+  const isMobile = useSelector((state: any) => state.isMobile.isMobile);
+
   const { shipping_address } = cart;
   if (!shipping_address.address) {
     props.history.push('/shipping');
@@ -18,7 +20,7 @@ const PaymentScreen: FC<any> = (props: any): JSX.Element => {
   };
   return (
     <div>
-      <CheckoutSteps step={2} />
+      {!isMobile && <CheckoutSteps step={2} />}
 
       <form className='form' onSubmit={submitHandler}>
         <div>

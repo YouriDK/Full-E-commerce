@@ -13,3 +13,11 @@ img.medium {
 img.large {
   max-width: 29rem;
 }
+img.mobile {
+  width: fit-content;
+  height: 95%;
+}
+img.mobile-product {
+  min-width: 250px;
+  min-height: 250px;
+}

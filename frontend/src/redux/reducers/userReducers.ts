@@ -2,6 +2,7 @@ import {
   GOOGLE_SIGNIN_FAIL,
   GOOGLE_SIGNIN_REQUEST,
   GOOGLE_SIGNIN_SUCCESS,
+  IS_MOBILE,
   USER_DETAILS_FAIL,
   USER_DETAILS_REQUEST,
   USER_DETAILS_SUCCESS,
@@ -97,6 +98,19 @@ export const updateUserProfileReducer = (state = {}, action: any) => {
 
     case USER_UPDATE_RESET:
       return {};
+    default:
+      return state;
+  }
+};
+
+export const isMobileReducer = (state: any = {}, action: any) => {
+  switch (action.type) {
+    case IS_MOBILE:
+      return {
+        ...state,
+        isMobile: action.payload,
+      };
+
     default:
       return state;
   }

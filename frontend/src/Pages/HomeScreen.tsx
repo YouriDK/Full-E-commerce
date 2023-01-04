@@ -9,10 +9,11 @@ import { Pagination } from '@mui/material';
 
 const HomeScreen: FC<any> = (): JSX.Element => {
   const productList = useSelector((state: any) => state.productList);
+  const isMobile = useSelector((state: any) => state.isMobile.isMobile);
   const category = useSelector((state: any) => state.category);
   const [currentCage, setCurrentCage] = useState(1);
   const { products, loading, error } = productList;
-  const ITEMS_MAX = 13;
+  const ITEMS_MAX = isMobile ? 5 : 13;
   const dispatch = useDispatch();
   const handlePage = (e: any, value: number) => {
     setCurrentCage(value);
