@@ -1,7 +1,9 @@
 import { Body, Controller, Get, Post, Request, Res } from '@nestjs/common';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import path from 'path';
 import { AppService } from './app.service';
 import { AuthService } from './auth/auth.service';
-import path from 'path';
+@ApiTags('Application')
 @Controller()
 export class AppController {
   constructor(
@@ -16,11 +18,17 @@ export class AppController {
     return this.appService.getStart();
   }
   @Get('paypal')
+  @ApiResponse({ status: 200, description: 'Get Access to pay with paypal' })
   getIdPaypal(): string {
     console.log('💲Get Paypal Intel💲');
     return process.env.PAYPAL_CLIENT_ID || 'sb';
   }
   @Post('/login')
+  @ApiResponse({
+    status: 200,
+
+    description: 'Check token to connect with google',
+  })
   public async login(@Request() req: any, @Body() Body: any) {
     console.log('⛔ Controller -> login ⛔');
     const token = Body.token;
@@ -37,6 +45,7 @@ export class AppController {
     };
   }
   @Get('profile')
+  @ApiResponse({ description: 'Deprecated' })
   public getProfile(@Request() req) {
     // * JwtAuthGuard will check the token
     // TODO do a redirect when the token expired

@@ -7,12 +7,13 @@ import {
   Put,
   Request,
 } from '@nestjs/common';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import * as bcrypt from 'bcrypt';
 import { AuthService } from '../../auth/auth.service';
 import { UserDto } from './dto/create-user.dto';
 import { UsersService } from './users.service';
-
+@ApiTags('Users')
 @Controller('user')
 export class UsersController {
   constructor(
@@ -21,6 +22,10 @@ export class UsersController {
   ) {}
 
   @Post('create')
+  @ApiResponse({
+    status: 707,
+    description: 'Not use anymore , user are from Google now',
+  })
   public async create(@Body() userDatas: UserDto) {
     console.log('🤞 Controllers -> Create user 🤞');
     return this.usersService.create(userDatas);
@@ -28,6 +33,10 @@ export class UsersController {
 
   //! Must be admin
   @MessagePattern('findAllUsers')
+  @ApiResponse({
+    status: 200,
+    description: 'Get list of all users who been purchased',
+  })
   @Get('list')
   async findAll() {
     console.log('🤞 Controllers -> Get All users 🤞');
@@ -36,6 +45,10 @@ export class UsersController {
 
   @MessagePattern('findOneUser')
   @Get(':id')
+  @ApiResponse({
+    status: 200,
+    description: 'Get specfic user from id',
+  })
   async findOne(@Param() datas: any) {
     // TODO check le contenu de params
     console.log('🤞 Controllers -> Get One user 🤞');
@@ -44,6 +57,10 @@ export class UsersController {
 
   @MessagePattern('updateUser')
   @Put('profile')
+  @ApiResponse({
+    status: 200,
+    description: 'Get info from user connected ( might be deprecated tho ) ',
+  })
   async update(@Request() req: any, @Body() updateUserDto: UserDto) {
     console.log('🤞 Controllers -> Update User 🤞');
     await this.authService.checkUser(

@@ -3,6 +3,7 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { AppModule } from './app.module';
 import { config } from 'dotenv';
 import * as bodyParser from 'body-parser';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import path from 'path';
 config();
 async function bootstrap() {
@@ -17,7 +18,13 @@ async function bootstrap() {
   if (process.env.PRODUCTION) {
     app.useStaticAssets(path.join(__dirname, '../../frontend/build'));
   }
-
+  const config = new DocumentBuilder()
+    .setTitle('ShopX')
+    .setDescription('ShopX Backend Nest API Documentation')
+    .setVersion('1.0')
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('documentation', app, document);
   await app.listen(process.env.PORT ?? 5000);
 }
 bootstrap();
