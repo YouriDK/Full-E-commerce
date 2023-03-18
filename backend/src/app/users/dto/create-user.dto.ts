@@ -1,7 +1,6 @@
-import { IsBoolean, IsString, IsEmail } from 'class-validator';
 import { PartialType } from '@nestjs/mapped-types';
+import { IsBoolean, IsEmail, IsString } from 'class-validator';
 import { User } from '../user.schema';
-import { ApiProperty } from '@nestjs/swagger';
 
 export class UserDto {
   @IsString()
