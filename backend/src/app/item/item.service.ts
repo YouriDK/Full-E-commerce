@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Item, ItemDocument } from './item.schema';
 import { Model } from 'mongoose';
+import { CreateItemDto } from './dto/create-item.dto';
 import { ItemDto, UpdateItemDto } from './dto/item.dto';
 import {
   CreationItemFailed,
@@ -9,60 +9,57 @@ import {
   ItemNotFound,
   UpdateItemFailed,
 } from './item.error';
+import { Item, ItemDocument } from './item.schema';
 
 @Injectable()
 export class ItemService {
+  private readonly loggerService = new Logger();
   constructor(
     @InjectModel(Item.name)
-    private item: Model<ItemDocument>,
+    private itemDocument: Model<ItemDocument>,
   ) {}
-  async create(ItemDto: ItemDto): Promise<ItemDto> {
-    console.log('⚜ Service -> Create Item ⚜');
-    const item = new Item().fill(ItemDto);
-    const newItem = new this.item(item);
+  async create(ItemDto: CreateItemDto): Promise<ItemDto> {
+    this.loggerService.log('⚒ ItemService -> Creating Item ⚒');
+    const item = new Item().hydrate(ItemDto);
+    const newItem = new this.itemDocument(item);
+    const newItemSaved = await newItem.save();
     if (!newItem) {
-      const err = new CreationItemFailed();
-      console.log(err);
-      throw err;
+      throw new CreationItemFailed();
     }
-    console.log('✅ Service -> Create Item success ✅');
-    return newItem.save();
+    this.loggerService.log('✅ ItemService -> Create Item success ✅');
+    return newItemSaved;
   }
 
-  async findAll() {
-    console.log('⚜ Service -> Item all Item ⚜');
-    const items = await this.item.find();
+  async getAll() {
+    this.loggerService.log('⚒ ItemService -> Item all Item ⚒');
+    const items = await this.itemDocument.find().populate('products');
     if (!items) {
-      const err = new ItemListNotFound();
-      console.log(err);
-      throw err;
+      throw new ItemListNotFound();
     }
-    console.log('✅ Service -> Find all Item success ✅');
+    this.loggerService.log('✅ ItemService -> Find all Item success ✅');
     return items;
   }
 
   async findOne(id: string) {
-    console.log('⚜ Service -> Find a Item ⚜');
-    const Item = await this.item.findOne({ _id: id });
-    if (!Item) {
-      const err = new ItemNotFound(id);
-      console.log(err);
-      throw err;
+    this.loggerService.log('⚒ ItemService -> Find a Item ⚒');
+    const item = await this.itemDocument
+      .findOne({ _id: id })
+      .populate('products');
+    if (!item) {
+      throw new ItemNotFound(id);
     }
-    console.log('✅ Service -> Find a Item success ✅');
-    return Item;
+    this.loggerService.log('✅ ItemService -> Find a Item success ✅');
+    return item;
   }
 
   async update(id: string, ItemDto: UpdateItemDto) {
-    console.log('⚜ Service -> update a Item ⚜');
-    const item = await this.item.findOne({ _id: id });
+    this.loggerService.log('⚒ ItemService -> updating an Item ⚒');
+    const item = await this.itemDocument.findOne({ _id: id });
     if (!item) {
-      const err = new ItemNotFound(id);
-      console.log(err);
-      throw err;
+      throw new ItemNotFound(id);
     }
     try {
-      await this.item.updateOne(
+      await this.itemDocument.updateOne(
         { _id: id },
         {
           name: ItemDto.name ?? item.name,
@@ -74,19 +71,24 @@ export class ItemService {
         },
       );
     } catch (error) {
-      const err = new UpdateItemFailed(id);
-      console.log(err);
-      throw err;
+      throw new UpdateItemFailed(id);
     }
-    console.log('✅ Service -> update a Item success ✅');
-    return await this.item.findById(id);
+    this.loggerService.log('✅ ItemService -> Item updated✅');
+    return await this.itemDocument.findById(id);
   }
 
   async remove(id: string) {
-    console.log('⚜ Service -> Delete a Item ⚜');
-    const item = await this.item.deleteOne({ _id: id });
+    this.loggerService.log('⚒ ItemService -> Delete a Item ⚒');
+    const item = await this.itemDocument.deleteOne({ _id: id });
     // TODO do a check to throw new if needed
-    console.log('✅ Service -> Delete a Item success ✅');
+    this.loggerService.log('✅ ItemService -> Delete a Item success ✅');
     return item;
+  }
+  // ! Pas sur !
+  async removeSome(id: string[]): Promise<void> {
+    this.loggerService.log('⚒ ItemService -> Delete a Item ⚒');
+    const item = await this.itemDocument.deleteMany({ _id: id });
+    // TODO do a check to throw new if needed
+    this.loggerService.log('✅ ItemService -> Delete a Item success ✅');
   }
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import {
@@ -18,6 +18,7 @@ import {
 
 @Injectable()
 export class ShippingAddressService {
+  private readonly loggerService = new Logger();
   constructor(
     @InjectModel(ShippingAddress.name)
     private shippingAddress: Model<ShippingAddressDocument>,
@@ -26,48 +27,49 @@ export class ShippingAddressService {
   async create(
     ShippingAddressDto: ShippingAddressDto,
   ): Promise<ShippingAddressDto> {
-    console.log('⚜ Service -> Create ShippingAddress ⚜');
-    const shippingAddress = new ShippingAddress().fill(ShippingAddressDto);
+    this.loggerService.log('⚒ Service -> Create ShippingAddress ⚒');
+    const shippingAddress = new ShippingAddress().hydrate(ShippingAddressDto);
     const newShippingAddress = new this.shippingAddress(shippingAddress);
     if (!newShippingAddress) {
       const err = new CreationShippingAddressFailed();
-      console.log(err);
+      this.loggerService.log(err);
       throw err;
     }
-    console.log('✅ Service -> Create ShippingAddress success ✅');
-    return newShippingAddress.save();
+    const newShippingAddressSaved = newShippingAddress.save();
+    this.loggerService.log('✅ Service -> Create ShippingAddress success ✅');
+    return newShippingAddressSaved;
   }
 
-  async findAll() {
-    console.log('⚜ Service -> Get all ShippingAddress ⚜');
+  async getAll() {
+    this.loggerService.log('⚒ Service -> Get all ShippingAddress ⚒');
     const shippingAddresss = await this.shippingAddress.find();
     if (!shippingAddresss) {
       const err = new ShippingAddressListNotFound();
-      console.log(err);
+      this.loggerService.log(err);
       throw err;
     }
-    console.log('✅ Service -> Get all ShippingAddress success ✅');
+    this.loggerService.log('✅ Service -> Get all ShippingAddress success ✅');
     return shippingAddresss;
   }
 
   async findOne(id: string) {
-    console.log('⚜ Service -> Get a ShippingAddress ⚜');
+    this.loggerService.log('⚒ Service -> Get a ShippingAddress ⚒');
     const shippingAddress = await this.shippingAddress.findOne({ _id: id });
     if (!shippingAddress) {
       const err = new ShippingAddressNotFound(id);
-      console.log(err);
+      this.loggerService.log(err);
       throw err;
     }
-    console.log('✅ Service -> Get a ShippingAddress success ✅');
+    this.loggerService.log('✅ Service -> Get a ShippingAddress success ✅');
     return shippingAddress;
   }
 
   async update(id: string, shippingAddressDto: UpdateShippingAddressDto) {
-    console.log('⚜ Service -> update a ShippingAddress ⚜');
+    this.loggerService.log('⚒ Service -> update a ShippingAddress ⚒');
     const shippingAddress = await this.shippingAddress.findOne({ _id: id });
     if (!shippingAddress) {
       const err = new ShippingAddressNotFound(id);
-      console.log(err);
+      this.loggerService.log(err);
       throw err;
     }
     try {
@@ -85,18 +87,18 @@ export class ShippingAddressService {
       );
     } catch (error) {
       const err = new UpdateShippingAddressFailed(id);
-      console.log(err);
+      this.loggerService.log(err);
       throw err;
     }
-    console.log('✅ Service -> update a ShippingAddress success ✅');
+    this.loggerService.log('✅ Service -> update a ShippingAddress success ✅');
     return await this.shippingAddress.findById(id);
   }
 
-  async remove(id: string) {
-    console.log('⚜ Service -> Delete a ShippingAddress ⚜');
+  async remove(id: string): Promise<void> {
+    this.loggerService.log('⚒ Service -> Delete a ShippingAddress ⚒');
     const shippingAddress = await this.shippingAddress.deleteOne({ _id: id });
     // TODO do a check to throw new if needed
-    console.log('✅ Service -> Delete a ShippingAddress success ✅');
-    return shippingAddress;
+    this.loggerService.log('✅ Service -> Delete a ShippingAddress success ✅');
+    // return shippingAddress;
   }
 }

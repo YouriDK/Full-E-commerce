@@ -19,7 +19,7 @@ export class UsersService {
 
   async create(userDatas: UserDto): Promise<UserDto> {
     console.log('🤞 Service -> Create User 🤞');
-    const user = await new User().fill(userDatas);
+    const user = await new User().hydrate(userDatas);
     const newUser = new this.user(user);
     if (!newUser) {
       const err = new UserCreationFailed();

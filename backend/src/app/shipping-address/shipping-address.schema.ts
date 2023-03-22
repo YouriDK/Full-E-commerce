@@ -28,7 +28,7 @@ export class ShippingAddress {
     // * Something hehe
   }
 
-  public fill(ShippingAddress: {
+  public hydrate(ShippingAddress: {
     name: string;
     address: string;
     postal_code: number;

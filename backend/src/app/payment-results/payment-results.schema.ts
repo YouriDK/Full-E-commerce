@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, Types } from 'mongoose';
 import { PaymentResultDto } from './dto/payment-result.dto';
 
 export type PaymentResultDocument = PaymentResult & Document;
@@ -16,25 +16,23 @@ export class PaymentResult {
   public update_time: Date;
 
   @Prop()
-  public order_id?: string;
+  public order_id?: Types.ObjectId;
 
   public constructor() {
     // * Something hehe
   }
 
-  public fill(PaymentResult: {
+  public hydrate(PaymentResult: {
     email_address: string;
     update_time: Date;
     status: string;
     order_id?: string;
-
-    // payment_result: PaymentResultDto;
   }): PaymentResultDto {
     this.email_address = PaymentResult.email_address;
     this.status = PaymentResult.status;
     this.update_time = PaymentResult.update_time;
     if (PaymentResult.order_id) {
-      this.order_id = PaymentResult.order_id;
+      this.order_id = new Types.ObjectId(PaymentResult.order_id);
     }
 
     return this;

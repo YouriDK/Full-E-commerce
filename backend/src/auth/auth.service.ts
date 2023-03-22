@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { OAuth2Client } from 'google-auth-library';
@@ -14,6 +14,7 @@ export interface Itoken {
 }
 @Injectable()
 export class AuthService {
+  private readonly loggerService = new Logger();
   constructor(
     private jwtService: JwtService,
     private usersService: UsersService,
@@ -21,22 +22,18 @@ export class AuthService {
 
   // ! Old authentification without Google
   async checkUser(email: string, password: string): Promise<UserDto> {
-    console.log('☢ Service -> checkUser ☢ ');
+    this.loggerService.log('☢ Service -> checkUser ☢ ');
     const user: UserDto = await this.usersService.findOnebyEmail(email);
     if (user) {
       const isMatch: boolean = await bcrypt.compare(password, user.password);
       if (isMatch) {
-        console.log('✅ Service -> checkUser  success ✅');
+        this.loggerService.log('✅ Service -> checkUser  success ✅');
         return user;
       } else {
-        const err = new WrongPassword();
-        console.log(err);
-        throw err;
+        throw new WrongPassword();
       }
     } else {
-      const err = new UserNotFound(email);
-      console.log(err);
-      throw err;
+      throw new UserNotFound(email);
     }
   }
 
@@ -49,25 +46,23 @@ export class AuthService {
   }
 
   async registerUser(userDatas: UserDto): Promise<UserDto> {
-    console.log('☢ Service -> registerUser ☢ ');
+    this.loggerService.log('☢ Service -> registerUser ☢ ');
     const userCheck: UserDto = await this.usersService.findOnebyEmail(
       userDatas.email,
     );
     if (userCheck) {
-      const err = new UserAlreadyExist(userDatas.email);
-      console.log(err);
-      throw err;
+      throw new UserAlreadyExist(userDatas.email);
     }
     const user: UserDto = await this.usersService.create({
       ...userDatas,
       admin: false,
     });
-    console.log('✅ Service -> registerUser  success ✅');
+    this.loggerService.log('✅ Service -> registerUser  success ✅');
     return user;
   }
 
   async loginGoogle(token: string): Promise<any> {
-    console.log('👌 Authentification Via google 👌');
+    this.loggerService.log('👌 Authentification Via google 👌');
     const upsert = (array: Array<any>, item: any) => {
       const i = array.findIndex((_item) => _item.email === item.email);
       if (i > -1) array[i] = item;
@@ -97,7 +92,7 @@ export class AuthService {
       user = await this.usersService.findOnebyEmail(email);
     }
     upsert(users, { name, email, picture, given_name, family_name, sub });
-    console.log('✅ Authentification Via google  success ✅');
+    this.loggerService.log('✅ Authentification Via google  success ✅');
     return {
       name,
       admin: user.admin,

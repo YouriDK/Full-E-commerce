@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, Types } from 'mongoose';
+import { CreateItemDto } from './dto/create-item.dto';
 import { ItemDto } from './dto/item.dto';
 
 export type ItemDocument = Item & Document;
@@ -18,8 +19,8 @@ export class Item {
   @Prop({ required: true })
   public image: string;
 
-  @Prop({ required: true })
-  public product: string;
+  @Prop({ required: true, ref: 'products' })
+  public product: Types.ObjectId;
 
   @Prop()
   public order_id: string;
@@ -28,19 +29,12 @@ export class Item {
     // * Something hehe
   }
 
-  public fill(item: {
-    name: string;
-    quantity: number;
-    price: number;
-    image: string;
-    product: string;
-    order_id?: string;
-  }): ItemDto {
+  public hydrate(item: CreateItemDto): ItemDto {
     this.name = item.name;
     this.quantity = item.quantity;
     this.price = item.price;
     this.image = item.image;
-    this.product = item.product;
+    this.product = new Types.ObjectId(item.product);
     if (item.order_id) {
       this.order_id = item.order_id;
     }

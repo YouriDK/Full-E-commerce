@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Post, Request, Res } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Request,
+  Res,
+  Logger,
+} from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import path from 'path';
 import { AppService } from './app.service';
@@ -6,6 +14,7 @@ import { AuthService } from './auth/auth.service';
 @ApiTags('Application')
 @Controller()
 export class AppController {
+  private readonly loggerService = new Logger();
   constructor(
     private readonly appService: AppService,
     private authService: AuthService,
@@ -13,14 +22,18 @@ export class AppController {
 
   @Get()
   getHello(@Res() res: any): string {
-    console.log('PATH', __dirname, '../../frontend/build/index.html');
+    this.loggerService.log(
+      'PATH',
+      __dirname,
+      '../../frontend/build/index.html',
+    );
     res.sendFile(path.join(__dirname, '../../frontend/build/index.html'));
     return this.appService.getStart();
   }
   @Get('paypal')
   @ApiResponse({ status: 200, description: 'Get Access to pay with paypal' })
   getIdPaypal(): string {
-    console.log('💲Get Paypal Intel💲');
+    this.loggerService.log('💲Get Paypal Intel💲');
     return process.env.PAYPAL_CLIENT_ID || 'sb';
   }
   @Post('/login')
@@ -30,7 +43,7 @@ export class AppController {
     description: 'Check token to connect with google',
   })
   public async login(@Request() req: any, @Body() Body: any) {
-    console.log('⛔ Controller -> login ⛔');
+    this.loggerService.log('⛔ Controller -> login ⛔');
     const token = Body.token;
     const userInfo: any = await this.authService.loginGoogle(token);
 

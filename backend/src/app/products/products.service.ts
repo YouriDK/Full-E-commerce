@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { ProductDto, UpdateProductDto } from './dto/product.dto';
 import { Product, ProductDocument } from './product.schema';
@@ -12,54 +12,47 @@ import {
 
 @Injectable()
 export class ProductsService {
+  private readonly loggerService = new Logger();
   constructor(
     @InjectModel(Product.name)
     private product: Model<ProductDocument>,
   ) {}
   async create(ProductDto: ProductDto): Promise<ProductDto> {
-    console.log('⚜ Service -> Create product ⚜');
-    const product = await new Product().fill(ProductDto);
+    this.loggerService.log('⚒ Service -> Create product ⚒');
+    const product = await new Product().hydrate(ProductDto);
     const newProduct = new this.product(product);
     if (!newProduct) {
-      const err = new CreationProductFailed();
-      console.log(err);
-      throw err;
+      throw new CreationProductFailed();
     }
-    console.log('✅ Service -> Create product success ✅');
+    this.loggerService.log('✅ Service -> Create product success ✅');
     return newProduct.save();
   }
 
   async findAll() {
-    console.log('⚜ Service -> Get all Product ⚜');
+    this.loggerService.log('⚒ Service -> Get all Product ⚒');
     const products = await this.product.find();
     if (!products) {
-      const err = new ProductListNotFound();
-      console.log(err);
-      throw err;
+      throw new ProductListNotFound();
     }
-    console.log('✅ Service -> Get all Product success ✅');
+    this.loggerService.log('✅ Service -> Get all Product success ✅');
     return products;
   }
 
   async findOne(id: string) {
-    console.log('⚜ Service -> Get a Product ⚜');
+    this.loggerService.log('⚒ Service -> Get a Product ⚒');
     const product = await this.product.findOne({ _id: id });
     if (!product) {
-      const err = new ProductNotFound(id);
-      console.log(err);
-      throw err;
+      throw new ProductNotFound(id);
     }
-    console.log('✅ Service -> Get a Product success ✅');
+    this.loggerService.log('✅ Service -> Get a Product success ✅');
     return product;
   }
 
   async update(id: string, ProductDto: UpdateProductDto) {
-    console.log('⚜ Service -> update a Product ⚜');
+    this.loggerService.log('⚒ Service -> update a Product ⚒');
     const product = await this.product.findOne({ _id: id });
     if (!product) {
-      const err = new ProductNotFound(id);
-      console.log(err);
-      throw err;
+      throw new ProductNotFound(id);
     }
     try {
       await this.product.updateOne(
@@ -77,19 +70,17 @@ export class ProductsService {
         },
       );
     } catch (error) {
-      const err = new UpdateProductFailed(id);
-      console.log(err);
-      throw err;
+      throw new UpdateProductFailed(id);
     }
-    console.log('✅ Service -> update a Product success ✅');
+    this.loggerService.log('✅ Service -> update a Product success ✅');
     return await this.product.findById(id);
   }
 
   async remove(id: string) {
-    console.log('⚜ Service -> Delete a Product ⚜');
+    this.loggerService.log('⚒ Service -> Delete a Product ⚒');
     const product = await this.product.deleteOne({ _id: id });
     // TODO do a check to throw new if needed
-    console.log('✅ Service -> Delete a Product success ✅');
+    this.loggerService.log('✅ Service -> Delete a Product success ✅');
     return product;
   }
 }

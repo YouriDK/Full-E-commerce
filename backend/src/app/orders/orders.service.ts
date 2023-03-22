@@ -1,13 +1,13 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { ItemDto } from '../item/dto/item.dto';
+import { Ioptions } from 'src/utils';
+import { CreateItemDto } from '../item/dto/create-item.dto';
 import { ItemService } from '../item/item.service';
-import { PaymentResultDto } from '../payment-results/dto/payment-result.dto';
+import { CreatePaymentResultDto } from '../payment-results/dto/create-payment-result.dto';
 import { PaymentResultService } from '../payment-results/payment-results.service';
-import { ShippingAddressDto } from '../shipping-address/dto/shipping-address.dto';
 import { ShippingAddressService } from '../shipping-address/shipping-address.service';
-import { UsersService } from '../users/users.service';
+import { CreateOrderDto } from './dto/create-order.dto';
 import { OrderDto, UpdateOrderDto } from './dto/order.dto';
 import {
   CreationOrderFailed,
@@ -18,46 +18,54 @@ import {
 import { Order, OrderDocument } from './order.schema';
 @Injectable()
 export class OrdersService {
+  private readonly loggerService = new Logger();
   constructor(
     @InjectModel(Order.name)
     private order: Model<OrderDocument>,
     private itemService: ItemService,
     private paymentResultService: PaymentResultService,
     private shippingAddressService: ShippingAddressService,
-    private userService: UsersService,
   ) {}
-  async create(orderDatas: OrderDto): Promise<Order> {
-    // * Good to GO !
+  async create(orderDatas: CreateOrderDto): Promise<Order> {
     // ! Ajouter le Create at & UpdatedAt
-    console.log('⚜ Service -> Create order... ⚜');
-    console.log('⚜ Create Items... ⚜');
+    this.loggerService.log('⚒ OrdersService -> Creating order... ⚒');
+    this.loggerService.log('⚒ Create Items... ⚒');
     // * Check if it's an item or string
-    const item_list =
-      orderDatas.order_items[0] && orderDatas.order_items[0] instanceof Object
-        ? await Promise.all(
-            (orderDatas.order_items as ItemDto[]).map(
-              async (item: ItemDto): Promise<string> =>
-                (
-                  await this.itemService.create(item)
-                )._id,
-            ),
-          )
-        : orderDatas.order_items;
-    console.log('✅ Items  ✅ ');
-    console.log('⚜ Create Shipping... ⚜');
-    const shippingAdd =
-      orderDatas.shipping_address instanceof String
-        ? orderDatas.shipping_address
-        : (
-            await this.shippingAddressService.create(
-              orderDatas.shipping_address as ShippingAddressDto,
-            )
-          )._id;
-    console.log('✅ Shipping  ✅ ');
-    console.log('⚜ Create Order instance... ⚜');
-
+    let itemList: string[] = [];
+    for (const item of orderDatas.order_items as CreateItemDto[]) {
+      const itemCreation = await this.itemService.create(item);
+      if (itemCreation) {
+        itemList.push(`${itemCreation._id}`);
+      }
+    }
+    //  ! CHECK WHEN IT COULD BE STRING
+    // orderDatas.order_items[0] && orderDatas.order_items[0] instanceof Object
+    //   ? await Promise.all(
+    //       (orderDatas.order_items as ItemDto[]).map(
+    //         async (item: CreateItemDto): Promise<string> =>
+    //           (
+    //             await this.itemService.create(item)
+    //           )._id,
+    //       ),
+    //     )
+    //   : orderDatas.order_items;
+    this.loggerService.log('✅ Items  ✅ ');
+    this.loggerService.log('⚒ Create Shipping... ⚒');
+    const shippingAdd = (
+      await this.shippingAddressService.create(orderDatas.shipping_address)
+    )._id;
+    // ! Check why dat
+    // orderDatas.shipping_address instanceof String
+    //   ? orderDatas.shipping_address
+    //   : (
+    //       await this.shippingAddressService.create(
+    //         orderDatas.shipping_address as ShippingAddressDto,
+    //       )
+    //     )._id;
+    this.loggerService.log('✅ Shipping  ✅ ');
+    this.loggerService.log('⚒ Create Order instance... ⚒');
     const orderRealDatas: OrderDto = {
-      order_items: item_list,
+      order_items: itemList,
       shipping_address: shippingAdd,
       shipping_price: orderDatas.shipping_price,
       payment_method: orderDatas.payment_method,
@@ -73,82 +81,78 @@ export class OrdersService {
       createdAt: orderDatas.createdAt ?? new Date(Date.now()),
       updatedAt: orderDatas.updatedAt ?? null,
     };
-    console.log('orderRealDatas', orderRealDatas);
-    const order = await new Order().fill(orderRealDatas);
+    const order = await new Order().hydrate(orderRealDatas);
     const new_order = new this.order(order);
     if (!new_order) {
-      const err = new CreationOrderFailed();
-      console.log(err);
-      throw err;
+      throw new CreationOrderFailed();
     }
 
     // * Update the other intels
-    await Promise.all(
-      (item_list as string[]).map(async (id: string) => {
-        return await this.itemService.update(id, { order_id: new_order._id });
-      }),
-    );
+    for (const item of itemList) {
+      await this.itemService.update(item, { order_id: new_order._id });
+    }
+
     await this.shippingAddressService.update(shippingAdd as string, {
       order_id: new_order._id,
     });
-    console.log('✅ Service -> Create Order success ✅');
+    const newOrderSaved = new_order.save();
+    this.loggerService.log('✅ OrdersService -> Create Order success ✅');
 
-    return new_order.save();
+    return newOrderSaved;
   }
 
-  async findAll(): Promise<OrderDto[]> {
-    console.log('⚜ Service -> Get all Orders... ⚜');
-    const orders = await this.order.find();
+  async getAll(options?: Ioptions): Promise<OrderDocument[]> {
+    this.loggerService.log('⚒ OrdersService -> Get all Orders... ⚒');
+    const orders = await this.order
+      .find()
+      .populate('order_items')
+      .populate('shipping_address')
+      .populate('payment_result')
+      .limit(options?.limit ?? 10000000);
+
     if (!orders) {
-      const err = new OrderListFailed();
-      console.log(err);
-      throw err;
+      throw new OrderListFailed();
     }
-    console.log('⚜ Service -> Filling Orders... ⚜');
-    const ordersFilled = await Promise.all(
-      orders.map(async (order: OrderDto) => await this.fill(order)),
-    );
-    console.log('✅ Service -> Get list Order success ✅');
-    return ordersFilled;
-  }
-  async findSome(userID: string): Promise<OrderDto[]> {
-    console.log('⚜ Service -> Get Orders from specific user... ⚜');
-    const orders = await this.order.find({ user: userID });
-    if (!orders) {
-      const err = new OrderListFailed();
-      console.log(err);
-      throw err;
-    }
-    console.log('⚜ Service -> Filling Orders... ⚜');
-    const ordersFilled = await Promise.all(
-      orders.map(async (order: OrderDto) => await this.fill(order)),
-    );
-    console.log('✅ Service -> Get list Order success ✅');
-    return ordersFilled;
+    this.loggerService.log('✅ OrdersService -> Get list Order success ✅');
+    return orders;
   }
 
-  async findOne(id: string): Promise<OrderDto> {
-    console.log('⚜ Service -> Get a Order ⚜');
-    const order = await this.order.findOne({ _id: id });
+  // TODO Fusionner FindAll & FindSome
+  async findSome(userID: string): Promise<OrderDocument[]> {
+    this.loggerService.log(
+      '⚒ OrdersService -> Get Orders from specific user... ⚒',
+    );
+    const orders = await this.order
+      .find({ user: userID })
+      .populate('order_items')
+      .populate('shipping_address')
+      .populate('payment_result');
+    if (!orders) {
+      throw new OrderListFailed();
+    }
+    this.loggerService.log('✅ OrdersService -> Get list Order success ✅');
+    return orders;
+  }
+
+  async findOne(id: string): Promise<OrderDocument> {
+    this.loggerService.log('⚒ OrdersService -> Get a Order ⚒');
+    const order = await this.order
+      .findOne({ _id: id })
+      .populate('order_items')
+      .populate('shipping_address')
+      .populate('payment_result');
     if (!order) {
-      const err = new OrderNotFound(id);
-      console.log(err);
-      throw err;
+      throw new OrderNotFound(id);
     }
-    console.log('⚜ Service -> Filling Order... ⚜');
-    const order_filled = await this.fill(order);
-    console.log('✅ Service -> Get a Order success ✅');
-    return order_filled;
+    return order;
   }
 
   async update(id: string, orderDatas: UpdateOrderDto) {
     // TODO Appeler chaque object pour modifier
-    console.log('⚜ Service -> Update a Order ⚜');
+    this.loggerService.log('⚒ OrdersService -> Update a Order ⚒');
     const order = await this.order.findOne({ _id: id });
     if (!order) {
-      const err = new OrderNotFound(id);
-      console.log(err);
-      throw err;
+      throw new OrderNotFound(id);
     }
     try {
       await this.order.updateOne(
@@ -172,21 +176,16 @@ export class OrdersService {
         },
       );
     } catch (error) {
-      console.log(error);
-      const err = new UpdateOrderFailed(id);
-      console.log(err);
-      throw err;
+      throw new UpdateOrderFailed(id);
     }
-    console.log('✅ Service -> update a Order success ✅');
+    this.loggerService.log('✅ OrdersService -> update a Order success ✅');
     return await this.order.findById(id);
   }
-  async pay(id: string, modeyDatas: PaymentResultDto) {
-    console.log('⚜ Service -> Pay an Order ⚜');
+  async pay(id: string, modeyDatas: CreatePaymentResultDto) {
+    this.loggerService.log('⚒ OrdersService -> Pay an Order ⚒');
     const order = await this.order.findOne({ _id: id });
     if (!order) {
-      const err = new OrderNotFound(id);
-      console.log(err);
-      throw err;
+      throw new OrderNotFound(id);
     }
 
     try {
@@ -200,21 +199,16 @@ export class OrdersService {
         },
       );
     } catch (error) {
-      console.log(error);
-      const err = new UpdateOrderFailed(id);
-      console.log(err);
-      throw err;
+      throw new UpdateOrderFailed(id);
     }
-    console.log('✅ Service -> Pay an Order success ✅');
+    this.loggerService.log('✅ OrdersService -> Pay an Order success ✅');
     return await this.order.findById(id);
   }
   async deliver(id: string) {
-    console.log('⚜ Service -> Deliver an Order ⚜');
+    this.loggerService.log('⚒ OrdersService -> Deliver an Order ⚒');
     const order = await this.order.findOne({ _id: id });
     if (!order) {
-      const err = new OrderNotFound(id);
-      console.log(err);
-      throw err;
+      throw new OrderNotFound(id);
     }
     try {
       await this.order.updateOne(
@@ -225,72 +219,38 @@ export class OrdersService {
         },
       );
     } catch (error) {
-      const err = new UpdateOrderFailed(id);
-      console.log(err);
-      throw err;
+      throw new UpdateOrderFailed(id);
     }
-    console.log('✅ Service -> Deliver an Order success ✅');
+    this.loggerService.log('✅ OrdersService -> Deliver an Order success ✅');
     return await this.order.findById(id);
   }
 
-  async remove(id: string) {
-    console.log('⚜ Service -> Delete an order ⚜');
+  async remove(id: string): Promise<void> {
+    this.loggerService.log('⚒ OrdersService -> Delete an order ⚒');
     const order = await this.order.findById(id);
-    console.log('⚜ Service -> Deleting item list... ⚜');
-    const delete_orders_items = await Promise.all(
-      (order.order_items as string[]).map(
-        async (id: string) => await this.itemService.remove(id),
-      ),
-    );
-    console.log('✅ Service -> Delete a item list ✅', delete_orders_items);
-    const delete_shipping_stuff = await this.shippingAddressService.remove(
-      order.shipping_address as string,
-    );
-    console.log('⚜ Service -> Deleted ⚜', delete_shipping_stuff);
-    if (order.payment_result) {
-      console.log('⚜ Service -> Deleting payment_result... ⚜');
-      await this.paymentResultService.remove(order.payment_result as string);
+    this.loggerService.log('⚒ OrdersService -> Deleting item list... ⚒');
+    for (const orderItemId of order.order_items) {
+      await this.itemService.remove(`${orderItemId}`);
     }
-    const order_deleted = await this.order.deleteOne({ _id: id });
+
+    // const delete_orders_items = await Promise.all(
+    //   (order.order_items as string[]).map(
+    //     async (id: string) => await this.itemService.remove(id),
+    //   ),
+    // );
+    // this.loggerService.log('✅ OrdersService -> Delete a item list ✅', delete_orders_items);
+    await this.shippingAddressService.remove(`${order.shipping_address}`);
+    // const delete_shipping_stuff = await this.shippingAddressService.remove(
+    //   order.shipping_address as string,
+    // );
+    // this.loggerService.log('⚒ OrdersService -> Deleted ⚒', delete_shipping_stuff);
+    if (order.payment_result) {
+      this.loggerService.log('⚒ OrdersService -> Deleting payment_result... ⚒');
+      await this.paymentResultService.remove(`${order.payment_result}`);
+    }
+    // const order_deleted = await this.order.deleteOne({ _id: id });
     // TODO do a check to throw new if needed
-    console.log('✅ Service -> Delete a order success ✅');
-    return order_deleted;
-  }
-
-  private async fill(order: OrderDto) {
-    const item_list = await Promise.all(
-      (order.order_items as string[]).map(
-        async (item: string) => await this.itemService.findOne(item),
-      ),
-    );
-    const shipping = await this.shippingAddressService.findOne(
-      order.shipping_address as string,
-    );
-    const userName = (await this.userService.findOne(order.user)).name;
-    let payment_resultFilled = null;
-    if (order.payment_result) {
-      payment_resultFilled = await this.paymentResultService.findOne(
-        order.payment_result as string,
-      );
-    }
-
-    return {
-      _id: order._id,
-      order_items: item_list,
-      shipping_address: shipping,
-      payment_result: payment_resultFilled ?? order.payment_result,
-      shipping_price: order.shipping_price,
-      payment_method: order.payment_method,
-      items_price: order.items_price,
-      tax_price: order.tax_price,
-      total_price: order.total_price,
-      user: userName,
-      isPaid: order.isPaid,
-      isDelivered: order.isDelivered,
-      paidAt: order.paidAt,
-      deliveredAt: order.deliveredAt,
-      createdAt: order.createdAt,
-      updatedAt: order.updatedAt,
-    };
+    this.loggerService.log('✅ OrdersService -> Delete a order success ✅');
+    // return order_deleted;
   }
 }

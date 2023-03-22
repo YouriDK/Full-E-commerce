@@ -45,7 +45,7 @@ export class Product {
     // * Something hehe
   }
 
-  public fill(wf: {
+  public hydrate(product: {
     name: string;
     image: string;
     brand: string;
@@ -56,15 +56,15 @@ export class Product {
     rating: number;
     numReviews: number;
   }): any {
-    this.name = wf.name;
-    this.image = wf.image;
-    this.brand = wf.brand;
-    this.category = wf.category;
-    this.price = wf.price;
-    this.countInStock = wf.countInStock;
-    this.description = wf.description;
-    this.rating = wf.rating;
-    this.numReviews = wf.numReviews;
+    this.name = product.name;
+    this.image = product.image;
+    this.brand = product.brand;
+    this.category = product.category;
+    this.price = product.price;
+    this.countInStock = product.countInStock;
+    this.description = product.description;
+    this.rating = product.rating;
+    this.numReviews = product.numReviews;
     return this;
   }
 }

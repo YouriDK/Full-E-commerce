@@ -8,13 +8,16 @@ import {
   Post,
   Put,
   Req,
+  Logger,
 } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { CreateOrderDto } from './dto/create-order.dto';
 import { OrderDto, UpdateOrderDto } from './dto/order.dto';
 import { OrdersService } from './orders.service';
 @ApiTags('Orders')
 @Controller('orders')
 export class OrdersController {
+  private readonly loggerService = new Logger();
   constructor(private readonly ordersService: OrdersService) {}
 
   @Post()
@@ -22,8 +25,8 @@ export class OrdersController {
     status: 200,
     description: 'Create an order after a purchase',
   })
-  async create(@Body() createOrderDto: OrderDto, @Req() req: any) {
-    console.log('🤞 Controllers -> Create orders 🤞');
+  async create(@Body() createOrderDto: CreateOrderDto, @Req() req: any) {
+    this.loggerService.log('🤞 OrdersController -> Creating order 🤞');
     return await this.ordersService.create({
       user: req.user._id,
       ...createOrderDto,
@@ -35,17 +38,20 @@ export class OrdersController {
     status: 200,
     description: 'Get list of all orders',
   })
-  async findAll() {
-    console.log('🤞 Controllers -> Find all orders 🤞Params');
-    return await this.ordersService.findAll();
+  async getAll() {
+    this.loggerService.log('🤞 OrdersController -> Find all orders 🤞');
+    return await this.ordersService.getAll();
   }
+
   @Get('/mine/:id')
   @ApiResponse({
     status: 200,
     description: 'Get order from user whose logged',
   })
   async findOrdersformUser(@Req() req: any) {
-    console.log('🤞 Controllers -> Find all orders from a specific user');
+    this.loggerService.log(
+      '🤞 OrdersController -> Find all orders from a specific user 🤞',
+    );
     return await this.ordersService.findSome(req.user._id);
   }
 
@@ -55,7 +61,7 @@ export class OrdersController {
     description: 'Get specific order from id',
   })
   async findOne(@Param() params: any) {
-    console.log('🤞 Controllers -> Find a order 🤞');
+    this.loggerService.log('🤞 OrdersController -> Find a order 🤞');
     return await this.ordersService.findOne(params.id);
   }
 
@@ -65,7 +71,7 @@ export class OrdersController {
     description: 'Update specific order from id',
   })
   async update(@Param() params: any, @Body() updateOrderDto: UpdateOrderDto) {
-    console.log('🤞 Controllers -> Update order 🤞');
+    this.loggerService.log('🤞 OrdersController -> Update order 🤞');
     return await this.ordersService.update(params.id, updateOrderDto);
   }
 
@@ -75,7 +81,7 @@ export class OrdersController {
     description: 'Delete specific order from id',
   })
   async remove(@Param() params: any) {
-    console.log('🤞 Controllers -> Delete order 🤞');
+    this.loggerService.log('🤞 OrdersController -> Delete order 🤞');
     return await this.ordersService.remove(params.id);
   }
 
@@ -85,7 +91,7 @@ export class OrdersController {
     description: 'Change payment status of  a specific order from id',
   })
   async pay(@Param() params: any, @Body() moneyDatas: any, @Req() req: any) {
-    console.log('🤞 Controllers -> Pay order 🤞');
+    this.loggerService.log('🤞 OrdersController -> Pay order 🤞');
     return await this.ordersService.pay(params.id, {
       status: moneyDatas.status,
       email_address: req.user.email,
@@ -100,12 +106,12 @@ export class OrdersController {
     description: 'Change deliver status of  a specific order from id',
   })
   async deliver(@Param() params: any) {
-    console.log('🤞 Controllers -> Deliver order 🤞');
+    this.loggerService.log('🤞 OrdersController -> Deliver order 🤞');
     return await this.ordersService.deliver(params.id);
   }
   // @Get('/mine')
   // async ownOrder(@Req() params: any) {
-  //   console.log('🤞 Controllers -> Deliver order 🤞');
+  //   this.loggerService.log('🤞 OrdersController -> Deliver order 🤞');
   //   return await this.ordersService.deliver(params.id);
   // }
 }

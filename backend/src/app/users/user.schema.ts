@@ -20,7 +20,7 @@ export class User {
     // * Something hehe
   }
 
-  public fill(user: {
+  public hydrate(user: {
     name: string;
     email: string;
     password: string;

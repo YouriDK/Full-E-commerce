@@ -1,4 +1,3 @@
-import { PartialType } from '@nestjs/mapped-types';
 import {
   IsBoolean,
   IsDate,
@@ -7,6 +6,8 @@ import {
   IsOptional,
   IsString,
 } from 'class-validator';
+import { CreateItemDto } from 'src/app/item/dto/create-item.dto';
+import { CreateShippingAddressDto } from 'src/app/shipping-address/dto/create-shipping-address.dto';
 
 /* // info Old name : qty to replace in DB
  * orderItems -> order_items
@@ -18,10 +19,10 @@ import {
  * taxPrice -> tax_price
  * totalPrice -> total_price
  */
-export class OrderDto {
+export class CreateOrderDto {
   @IsOptional() public _id?: string;
-  @IsNotEmpty() public order_items: string[];
-  @IsNotEmpty() public shipping_address!: string;
+  @IsNotEmpty() public order_items: CreateItemDto[];
+  @IsNotEmpty() public shipping_address!: CreateShippingAddressDto;
   @IsNumber() public shipping_price!: number;
   @IsString() public payment_method!: string;
   @IsNumber() public items_price!: number;
@@ -35,29 +36,4 @@ export class OrderDto {
   @IsOptional() public updatedAt?: Date;
   @IsDate() public createdAt!: Date;
   @IsOptional() public payment_result?: string;
-
-  public constructor(order: OrderDto) {
-    this.order_items = order.order_items;
-    this.shipping_address = order.shipping_address;
-    this.shipping_price = order.shipping_price;
-    this.payment_method = order.payment_method;
-    this.items_price = order.items_price;
-    this.tax_price = order.tax_price;
-    this.total_price = order.total_price;
-    this.user = order.user;
-    this.isPaid = order.isPaid;
-    this.isDelivered = order.isDelivered;
-    this.paidAt = order.paidAt;
-    this.deliveredAt = order.deliveredAt;
-    if (order.payment_result) {
-      this.payment_result = order.payment_result;
-    }
-    if (order._id) {
-      this._id = order._id;
-    }
-  }
-}
-
-export class UpdateOrderDto extends PartialType(OrderDto) {
-  id: string;
 }

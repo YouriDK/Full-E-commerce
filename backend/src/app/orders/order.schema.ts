@@ -1,18 +1,16 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
-import { ItemDto } from '../item/dto/item.dto';
-import { PaymentResultDto } from '../payment-results/dto/payment-result.dto';
-import { ShippingAddressDto } from '../shipping-address/dto/shipping-address.dto';
+import { Document, Types } from 'mongoose';
+import { OrderDto } from './dto/order.dto';
 
 export type OrderDocument = Order & Document;
 
 @Schema()
 export class Order {
-  @Prop({ required: true })
-  public order_items: string[] | ItemDto[];
+  @Prop({ required: true, type: [Types.ObjectId], ref: 'items' })
+  public order_items: Types.ObjectId[];
 
-  @Prop({ required: true, type: String || ShippingAddressDto })
-  public shipping_address: ShippingAddressDto | string;
+  @Prop({ required: true, type: Types.ObjectId, ref: 'shippingaddresses' })
+  public shipping_address: Types.ObjectId;
 
   @Prop({ required: true })
   public payment_method: string;
@@ -49,32 +47,19 @@ export class Order {
 
   @Prop()
   public deliveredAt: Date;
-  @Prop({ type: String || PaymentResultDto })
-  public payment_result?: PaymentResultDto | string;
+
+  @Prop({ required: true, type: Types.ObjectId, ref: 'paymentresults' })
+  public payment_result?: Types.ObjectId;
 
   public constructor() {
     // * Something hehe
   }
 
-  public fill(order: {
-    order_items: ItemDto[] | string[];
-    shipping_address: ShippingAddressDto | string;
-    shipping_price: number;
-    payment_method: string;
-    items_price: number;
-    tax_price: number;
-    total_price: number;
-    user: string;
-    isPaid: boolean;
-    isDelivered: boolean;
-    paidAt: Date;
-    deliveredAt: Date;
-    createdAt: Date;
-    updatedAt?: Date;
-    payment_result?: PaymentResultDto | string;
-  }): any {
-    this.order_items = order.order_items;
-    this.shipping_address = order.shipping_address;
+  public hydrate(order: OrderDto): any {
+    this.order_items = order.order_items.map(
+      (orderItem) => new Types.ObjectId(orderItem),
+    );
+    this.shipping_address = new Types.ObjectId(order.shipping_address);
     this.shipping_price = order.shipping_price;
     this.payment_method = order.payment_method;
     this.items_price = order.items_price;
@@ -85,7 +70,7 @@ export class Order {
     this.isDelivered = order.isDelivered;
     this.paidAt = order.paidAt;
     this.deliveredAt = order.deliveredAt;
-    this.payment_result = order?.payment_result;
+    this.payment_result = new Types.ObjectId(order?.payment_result);
     this.updatedAt = order?.updatedAt;
     this.createdAt = order?.createdAt;
     return this;

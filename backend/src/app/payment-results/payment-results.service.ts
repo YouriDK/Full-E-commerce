@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { PaymentResult, PaymentResultDocument } from './payment-results.schema';
 import { Model } from 'mongoose';
+import { CreatePaymentResultDto } from './dto/create-payment-result.dto';
 import {
   PaymentResultDto,
   UpdatePaymentResultDto,
@@ -12,57 +12,61 @@ import {
   PaymentResultNotFound,
   UpdatePaymentResultFailed,
 } from './payment-result.error';
+import { PaymentResult, PaymentResultDocument } from './payment-results.schema';
 @Injectable()
 export class PaymentResultService {
+  private readonly loggerService = new Logger();
   constructor(
     @InjectModel(PaymentResult.name)
     private paymentResult: Model<PaymentResultDocument>,
   ) {}
 
-  async create(PaymentResultDto: PaymentResultDto): Promise<PaymentResultDto> {
-    console.log('⚜ Service -> Create PaymentResult ⚜');
-    const paymentResult = await new PaymentResult().fill(PaymentResultDto);
+  async create(
+    PaymentResultDto: CreatePaymentResultDto,
+  ): Promise<PaymentResultDto> {
+    this.loggerService.log('⚒ PaymentResultService -> Create PaymentResult ⚒');
+    const paymentResult = new PaymentResult().hydrate(PaymentResultDto);
     const newPaymentResult = new this.paymentResult(paymentResult);
     if (!newPaymentResult) {
-      const err = new CreationPaymentResultFailed();
-      console.log(err);
-      throw err;
+      throw new CreationPaymentResultFailed();
     }
-    console.log('✅ Service -> Create PaymentResult success ✅');
+    this.loggerService.log(
+      '✅ PaymentResultService -> Create PaymentResult success ✅',
+    );
     return newPaymentResult.save();
   }
 
   async findAll() {
-    console.log('⚜ Service -> Get all PaymentResult ⚜');
+    this.loggerService.log('⚒ PaymentResultService -> Get all PaymentResult ⚒');
     const paymentResults = await this.paymentResult.find();
     if (!paymentResults) {
-      const err = new PaymentResultListNotFound();
-      console.log(err);
-      throw err;
+      throw new PaymentResultListNotFound();
     }
-    console.log('✅ Service -> Get all PaymentResult success ✅');
+    this.loggerService.log(
+      '✅ PaymentResultService -> Get all PaymentResult success ✅',
+    );
     return paymentResults;
   }
 
   async findOne(id: string) {
-    console.log('⚜ Service -> Get a PaymentResult ⚜');
+    this.loggerService.log('⚒ PaymentResultService -> Get a PaymentResult ⚒');
     const paymentResult = await this.paymentResult.findOne({ _id: id });
     if (!paymentResult) {
-      const err = new PaymentResultNotFound(id);
-      console.log(err);
-      throw err;
+      throw new PaymentResultNotFound(id);
     }
-    console.log('✅ Service -> Get a PaymentResult success ✅');
+    this.loggerService.log(
+      '✅ PaymentResultService -> Get a PaymentResult success ✅',
+    );
     return paymentResult;
   }
 
   async update(id: string, PaymentResultDto: UpdatePaymentResultDto) {
-    console.log('⚜ Service -> update a PaymentResult ⚜');
+    this.loggerService.log(
+      '⚒ PaymentResultService -> update a PaymentResult ⚒',
+    );
     const paymentResult = await this.paymentResult.findOne({ _id: id });
     if (!paymentResult) {
-      const err = new PaymentResultNotFound(id);
-      console.log(err);
-      throw err;
+      throw new PaymentResultNotFound(id);
     }
     try {
       await this.paymentResult.updateOne(
@@ -74,19 +78,23 @@ export class PaymentResultService {
         },
       );
     } catch (error) {
-      const err = new UpdatePaymentResultFailed(id);
-      console.log(err);
-      throw err;
+      throw new UpdatePaymentResultFailed(id);
     }
-    console.log('✅ Service -> update a PaymentResult success ✅');
+    this.loggerService.log(
+      '✅ PaymentResultService -> update a PaymentResult success ✅',
+    );
     return await this.paymentResult.findById(id);
   }
 
   async remove(id: string) {
-    console.log('⚜ Service -> Delete a PaymentResult ⚜');
+    this.loggerService.log(
+      '⚒ PaymentResultService -> Delete a PaymentResult ⚒',
+    );
     const paymentResult = await this.paymentResult.deleteOne({ _id: id });
     // TODO do a check to throw new if needed
-    console.log('✅ Service -> Delete a PaymentResult success ✅');
+    this.loggerService.log(
+      '✅ PaymentResultService -> Delete a PaymentResult success ✅',
+    );
     return paymentResult;
   }
 }

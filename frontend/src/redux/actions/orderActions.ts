@@ -31,7 +31,7 @@ export const createOrder =
       const {
         userSignin: { userInfo },
       } = getState();
-
+      console.log('ORDER -> ', order);
       const { data } = await Axios.post('/orders', order, {
         headers: {
           Authorization: `Bearer ${userInfo.token}`,

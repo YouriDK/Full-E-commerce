@@ -1,17 +1,16 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { Allow, IsNumber, IsString } from 'class-validator';
-
+import { Types } from 'mongoose';
 export class ItemDto {
   @IsString() public _id?: string;
   @IsString() public name!: string;
   @IsNumber() public quantity!: number; // info Old name : qty to replace in DB
   @IsNumber() public price!: number;
   @IsString() public image!: string;
-  @IsString() public product!: string;
+  public product!: Types.ObjectId;
   @Allow() public order_id?: string;
 
   public constructor(item: ItemDto) {
-    // this._id = workflow._id;
     if (item._id) {
       this._id = item._id;
     }

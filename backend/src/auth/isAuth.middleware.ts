@@ -1,4 +1,4 @@
-import { Injectable, NestMiddleware } from '@nestjs/common';
+import { Injectable, NestMiddleware, Logger } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { OAuth2Client } from 'google-auth-library';
 import { UsersService } from '../app/users/users.service';
@@ -6,14 +6,15 @@ import { TokenInvalidError, TokenMissing } from './auth.error';
 
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
+  private readonly loggerService = new Logger();
   constructor(private readonly userService: UsersService) {}
   async use(req: Request | any, res: Response, next: () => void) {
-    console.log("🥱 Who are you ? Let's see 🥱");
+    this.loggerService.log("🥱 Who are you ? Let's see 🥱");
     const auth = req.headers.authorization;
 
     // * 2 Check : one for local one for Google and if one of them is good we keep going
     if (!auth) {
-      console.log("❌ Something ain't right my boy ❌");
+      this.loggerService.log("❌ Something ain't right my boy ❌");
       throw new TokenMissing();
     }
     const token = auth.slice(7, auth.length); // * Bearer XXXXX =>  on se débarasse de Bearer
@@ -29,10 +30,10 @@ export class AuthMiddleware implements NestMiddleware {
       req.user = user;
     } catch (error: any) {
       const err = new TokenInvalidError();
-      console.log(err);
+      this.loggerService.log(err);
       throw err;
     }
-    console.log('💯 You may pass -> 💯');
+    this.loggerService.log('💯 You may pass -> 💯');
     next();
     return;
   }
