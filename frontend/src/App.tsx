@@ -20,14 +20,14 @@ import { setMobileView } from './redux/actions/userActions';
 import { AppDispatch } from './redux/store';
 
 const App: FC<any> = (): JSX.Element => {
-  const [isMobile, setIsMobile] = useState<boolean>(false);
+  const [, setIsMobile] = useState<boolean>(false);
   const userSignin = useSelector((state: any) => state.userSignin);
   const { userInfo } = userSignin;
   const dispatch: AppDispatch = useDispatch();
   useEffect(() => {
     setIsMobile(window.innerWidth < 769);
     dispatch(setMobileView(window.innerWidth < 769));
-  }, [dispatch, window.innerWidth]);
+  }, [dispatch]);
   return (
     <>
       <div className='grid-container'>
