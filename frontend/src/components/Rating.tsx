@@ -1,7 +1,8 @@
 import { FC } from 'react';
-
-const Rating: FC<any> = (props: any): JSX.Element => {
-  const { rating } = props;
+interface RatingProps {
+  rating: number;
+}
+const Rating: FC<any> = ({ rating }: RatingProps): JSX.Element => {
   return (
     <div className='rating'>
       <span>

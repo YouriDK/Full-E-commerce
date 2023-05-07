@@ -38,7 +38,6 @@ const removeFromCart = (productId: any) => (dispatch: any, getState: any) => {
   localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
 };
 const saveShipping = (data: any) => (dispatch: any) => {
-  console.log('DATA', data);
   dispatch({ type: CART_SAVE_SHIPPING, payload: data });
   localStorage.setItem('shipping_address', JSON.stringify(data));
 };

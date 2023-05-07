@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import {
   deliverOrder,
   detailsOrder,
@@ -16,15 +16,16 @@ import {
 } from '../redux/constants/orderConstant';
 import MesssageBox from '../components/MesssageBox';
 import { Button } from 'reactstrap';
+import { AppDispatch } from '../redux/store';
 export interface DisplayDataProps {
   title: string;
   value: string;
 }
-const OrderScreen: FC<any> = (props: any): JSX.Element => {
+const OrderScreen: FC<any> = (): JSX.Element => {
   const [sdkReady, setSdkReady] = useState(false);
   const isMobile = useSelector((state: any) => state.isMobile.isMobile);
+  const params = useParams();
 
-  const orderId = props.match.params.id;
   const orderDetails = useSelector((state: any) => state.orderDetails);
   const userSignin = useSelector((state: any) => state.userSignin);
   const { userInfo } = userSignin;
@@ -37,14 +38,13 @@ const OrderScreen: FC<any> = (props: any): JSX.Element => {
     error: errorDeliver,
     success: successDeliver,
   } = orderDeliver;
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
+    const orderId = params.OrderId;
     // ! Pour avoir la commande actuel il faut actualiser la page donc :
     if (order !== undefined) {
-      console.log('GET Order');
       if (order._id !== orderId) {
-        console.log('GET ROder 5555');
         dispatch(detailsOrder(orderId));
       }
     }
@@ -79,9 +79,8 @@ const OrderScreen: FC<any> = (props: any): JSX.Element => {
         }
       }
     }
-    console.log('order', order);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, order, orderId, sdkReady, successPay, successDeliver]);
+  }, [dispatch, order, sdkReady, successPay, successDeliver]);
 
   const successPaymentHandler = (paymentResult: any) => {
     dispatch(payOrder(order, paymentResult));

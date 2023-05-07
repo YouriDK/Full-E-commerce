@@ -6,26 +6,27 @@ import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MesssageBox';
 import { googleLogin } from '../redux/actions/userActions';
 import { sleep } from '../utils';
+import { AppDispatch } from '../redux/store';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-const SignInScreen: FC<any> = (props: any): JSX.Element => {
+const SignInScreen: FC<any> = (): JSX.Element => {
   const [fail, setFail] = useState<any>();
-
+  const letsGoTo = useNavigate();
+  const location = useLocation();
   // * Permet d'aller chercher les informations dans store avec le bon reducer
   const userSignin = useSelector((state: any) => state.userSignin);
   const { userInfo, loading, error } = userSignin;
 
   // * Rediriger après un checkout
-  const redirect = props.location.search
-    ? props.location.search.split('=')[1]
-    : '/';
+  const redirect = location.search ? `/${location.search.split('=')[1]}` : '/';
 
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
     if (userInfo) {
-      props.history.push(redirect);
+      letsGoTo(redirect);
     }
-  }, [props.history, redirect, userInfo]);
+  }, [letsGoTo, redirect, userInfo]);
 
   const submitHandler = (e: any) => {
     e.preventDefault();
@@ -35,7 +36,6 @@ const SignInScreen: FC<any> = (props: any): JSX.Element => {
     dispatch(googleLogin(googleData));
   };
   const failGoogleLogin = (error: any) => {
-    console.log('Failed ->', error);
     setFail('Failed');
     sleep(2000);
     setFail(null);

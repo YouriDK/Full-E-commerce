@@ -1,4 +1,9 @@
-import { applyMiddleware, combineReducers, createStore, compose } from 'redux';
+import {
+  applyMiddleware,
+  combineReducers,
+  legacy_createStore as createStore,
+  compose,
+} from 'redux';
 
 import {
   productListReducer,
@@ -28,6 +33,7 @@ import { cartReducers } from './reducers/cartReducers';
 
 // * Middleware pour React
 import thunk from 'redux-thunk';
+import { useDispatch } from 'react-redux';
 
 /*
  * Permet de récupérer les infos stockées dans les cookies
@@ -78,10 +84,9 @@ const reducer = combineReducers({
 
 // TODO comprendre la compose
 const composeEnhancer = compose;
-const store = createStore(
+export const store = createStore(
   reducer,
   initialState as any,
   composeEnhancer(applyMiddleware(thunk))
 );
-
-export default store;
+export type AppDispatch = typeof store.dispatch;

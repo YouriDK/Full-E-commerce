@@ -15,9 +15,12 @@ import {
   listProducts,
   saveProduct,
 } from '../redux/actions/productActions';
+import { AppDispatch } from '../redux/store';
+import { useNavigate } from 'react-router-dom';
 
-const ProductsScreen: FC<any> = (props: any): JSX.Element => {
+const ProductsScreen: FC<any> = (): JSX.Element => {
   // const intl = useIntl();
+  const letsGoTo = useNavigate();
   const [modalVisible, setModalVisible] = useState(false);
   const [id, setId] = useState('');
   const productSave = useSelector((state: any) => state.productSave);
@@ -32,7 +35,7 @@ const ProductsScreen: FC<any> = (props: any): JSX.Element => {
     error: errorSave,
   } = productSave;
 
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
   useEffect(() => {
     if (successSave) setModalVisible(false);
     dispatch(listProducts());
@@ -71,7 +74,7 @@ const ProductsScreen: FC<any> = (props: any): JSX.Element => {
     convertFileToBase64(acceptedFiles[0]);
   };
   const deleteHandler = (product: any) => {
-    dispatch(deleteProduct(product._id));
+    dispatch(product._id);
   };
   const formik = useFormik({
     initialValues: {
@@ -98,12 +101,12 @@ const ProductsScreen: FC<any> = (props: any): JSX.Element => {
       numReviews: Yup.number(),
     }),
     onSubmit: async (values: any) => {
-      dispatch(
-        saveProduct({
+      dispatch({
+        type: saveProduct({
           _id: id,
           ...values,
-        })
-      );
+        }),
+      });
     },
   });
 
@@ -123,7 +126,7 @@ const ProductsScreen: FC<any> = (props: any): JSX.Element => {
         <Button
           className='button secondary'
           onClick={() =>
-            modalVisible ? setModalVisible(false) : props.history.push('/')
+            modalVisible ? setModalVisible(false) : letsGoTo('/')
           }
         >
           Back

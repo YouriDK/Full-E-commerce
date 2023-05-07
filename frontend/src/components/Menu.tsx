@@ -1,12 +1,13 @@
 import { FC, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Categories, texte } from '../data';
 import { switchCategoyProduct } from '../redux/actions/productActions';
 import { signout } from '../redux/actions/userActions';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 
 import { MdManageAccounts } from 'react-icons/md';
+import { AppDispatch } from '../redux/store';
 interface MenuDataProps {
   to: string;
   className: string;
@@ -16,10 +17,10 @@ const Menu: FC<any> = (): JSX.Element => {
   const cart = useSelector((state: any) => state.cart);
   const isMobile = useSelector((state: any) => state.isMobile.isMobile);
   const { cartItems } = cart;
-  const dispatch = useDispatch();
-  const history = useHistory();
-  const moveTo: any = (moveTo: string) => {
-    history.push(moveTo);
+  const dispatch: AppDispatch = useDispatch();
+  const letsGoTo = useNavigate();
+  const moveTo: any = (url: string) => {
+    letsGoTo(url);
   };
   const userSignin = useSelector((state: any) => state.userSignin);
   const [categories, setCategories] = useState('All');

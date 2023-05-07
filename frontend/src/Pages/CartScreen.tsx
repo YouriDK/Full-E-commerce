@@ -1,34 +1,35 @@
-import React, { FC, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { Button } from 'reactstrap';
-import { addToCart, removeFromCart } from '../redux/actions/cartActions';
-import EmptyCard from '../components/EmptyCard';
+import { FC, useEffect } from 'react';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
-import { texte } from '../data';
 import { BsTrash } from 'react-icons/bs';
-import queryString from 'query-string';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { Button } from 'reactstrap';
+import EmptyCard from '../components/EmptyCard';
+import { texte } from '../data';
+import { addToCart, removeFromCart } from '../redux/actions/cartActions';
+import { AppDispatch } from '../redux/store';
 
-const CartScreen: FC<any> = (props: any): JSX.Element => {
+const CartScreen: FC<any> = (): JSX.Element => {
   const cart = useSelector((state: any) => state.cart);
   const { cartItems } = cart;
-  const parsed = queryString.parse(props.location.search);
-  const productId = parsed.id;
+  const letsGoTo = useNavigate();
+  const [params] = useSearchParams();
   const isMobile = useSelector((state: any) => state.isMobile.isMobile);
-  const quantity = parsed.quantity ?? 1;
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
   const removeFromCardHandler = (productId: string) => {
     dispatch(removeFromCart(productId));
   };
   const checkoutHandler = () => {
-    props.history.push('/signin?redirect=shipping');
+    letsGoTo('/signin?redirect=shipping');
   };
 
   useEffect(() => {
-    if (productId) {
-      dispatch(addToCart(productId, quantity));
+    const ProductId = params.get('ProductId');
+    const quantity = params.get('quantity');
+    if (ProductId) {
+      dispatch(addToCart(ProductId, quantity));
     }
-  }, [dispatch, productId, quantity]);
+  }, [dispatch]);
 
   return (
     <>
@@ -87,7 +88,9 @@ const CartScreen: FC<any> = (props: any): JSX.Element => {
                         index % 2 === 0 ? 'lightbg' : 'primary'
                       }`}
                       onChange={(e) =>
-                        dispatch(addToCart(item.product, e.target.value))
+                        dispatch({
+                          type: addToCart(item.product, e.target.value),
+                        })
                       }
                     >
                       {[...(Array(item.countInStock).keys() as any)].map(

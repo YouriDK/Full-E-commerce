@@ -2,21 +2,23 @@ import React, { FC, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { savePayment } from '../redux/actions/cartActions';
 import CheckoutSteps from '../components/CheckOutStep';
+import { AppDispatch } from '../redux/store';
+import { useNavigate } from 'react-router-dom';
 
-const PaymentScreen: FC<any> = (props: any): JSX.Element => {
+const PaymentScreen: FC<any> = (): JSX.Element => {
   const cart = useSelector((state: any) => state.cart);
   const isMobile = useSelector((state: any) => state.isMobile.isMobile);
-
+  const letsGoTo = useNavigate();
   const { shipping_address } = cart;
   if (!shipping_address.address) {
-    props.history.push('/shipping');
+    letsGoTo('/shipping');
   }
   const [payment_method, setpayment_method] = useState('Paypal');
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
   const submitHandler = (e: any) => {
     e.preventDefault();
     dispatch(savePayment(payment_method));
-    props.history.push('/placeorder');
+    letsGoTo('/placeorder');
   };
   return (
     <div>

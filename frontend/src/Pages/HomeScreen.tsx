@@ -6,6 +6,7 @@ import { listProducts } from '../redux/actions/productActions';
 import Product from '../components/Product';
 import { ProductProps } from '../data';
 import { Pagination } from '@mui/material';
+import { AppDispatch } from '../redux/store';
 
 const HomeScreen: FC<any> = (): JSX.Element => {
   const productList = useSelector((state: any) => state.productList);
@@ -14,7 +15,7 @@ const HomeScreen: FC<any> = (): JSX.Element => {
   const [currentCage, setCurrentCage] = useState(1);
   const { products, loading, error } = productList;
   const ITEMS_MAX = isMobile ? 5 : 13;
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
   const handlePage = (e: any, value: number) => {
     setCurrentCage(value);
   };

@@ -1,15 +1,18 @@
 # Description
+
 ```
 Interface ReactJS/Typescript en évolution continue avec les dernières bonnes pratiques acquises par le developpeur...
 
-Fonctionnalités du site : 
+Fonctionnalités du site :
 - Système de suivi de livraison
 - Vitrine produits
 - Gestion de profil
 - Système de client/admin
 - Achat en ligne
 ```
-# Connection Database : 
+
+# Connection Database :
+
 ```
 Pour connecter à la base de données en local:
 Il faut définir l'url donc :
@@ -25,7 +28,9 @@ Il faut définir l'url donc :
 9 - Ensuite on crée le schema de construction
 10 - Puis la Route
 ```
+
 # Dans le store :
+
 ```
  Création du middleware
 
@@ -40,12 +45,15 @@ Il faut définir l'url donc :
 ```
 
 # Deploy (Issues...)
+
 ```
 - Bien regarder les élements dans le package.json (les builds et scripts)
 - Il a fallu rajouter Amazona dans le chemin ( server.js) , je pense que c'est parce là j'ai connecté avec Git en non en CLI (FINI ça )
 - Prévoir bien une config dev et une config prod
 ```
+
 # Push
+
 ```
  - git add .
  - git push heroku master
@@ -57,6 +65,18 @@ Il faut définir l'url donc :
  - Rediriger après expiration token
 ```
 
+# Changes
 
+Les lib on changées donc il a fallui adapter les lib et les changement de la lib
 
+###### Release changes
 
+Il a fallut :
+npm i -g npm-check-updates
+ncu -u
+npm install
+Pour upgrade toutes les libs
+
+Changer useHistory to useNavigate
+Enlever les props de navigation
+Refonte du routing

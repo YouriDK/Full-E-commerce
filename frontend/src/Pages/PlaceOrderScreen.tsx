@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { createOrder } from '../redux/actions/orderActions';
 import CheckoutSteps from '../components/CheckOutStep';
 import { ORDER_CREATE_RESET } from '../redux/constants/orderConstant';
@@ -8,18 +8,20 @@ import LoadingBox from '../components/LoadingBox';
 
 import MesssageBox from '../components/MesssageBox';
 import { DisplayDataProps } from './OrderScreen';
+import { AppDispatch } from '../redux/store';
 
-const PlaceOrderScreen: FC<any> = (props: any): JSX.Element => {
+const PlaceOrderScreen: FC<any> = (): JSX.Element => {
   const cart = useSelector((state: any) => state.cart);
   // * Il conserve dans cart pour écrire directement dedans ( Faster )
   const isMobile = useSelector((state: any) => state.isMobile.isMobile);
 
+  const letsGoTo = useNavigate();
   const toPrice = (num: any) => Number(num.toFixed(2)); // 5.123 => "5.12" => 5.12
   cart.items_price = toPrice(
     cart.cartItems.reduce((a: any, c: any) => a + c.quantity * c.price, 0)
   );
   if (!cart.payment_method) {
-    props.history.push('/payment');
+    letsGoTo('/payment');
   }
   const orderCreate = useSelector((state: any) => state.orderCreate);
   const { loading, success, order, error } = orderCreate;
@@ -27,7 +29,7 @@ const PlaceOrderScreen: FC<any> = (props: any): JSX.Element => {
   cart.tax_price = toPrice(0.15 * cart.items_price);
   cart.total_price = cart.items_price + cart.shipping_price + cart.tax_price;
 
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
   const placeOrderHandler = () => {
     dispatch(createOrder({ ...cart, order_items: cart.cartItems }));
   };
@@ -35,10 +37,9 @@ const PlaceOrderScreen: FC<any> = (props: any): JSX.Element => {
   useEffect(() => {
     if (success) {
       dispatch({ type: ORDER_CREATE_RESET });
-      props.history.push(`/order/${order._id}`);
+      letsGoTo(`/order/${order._id}`);
     }
-    console.log('order', order);
-  }, [dispatch, order, props.history, success]);
+  }, [dispatch, letsGoTo, order, success]);
 
   const displayData: DisplayDataProps[] = [
     { title: 'Name', value: cart.shipping_address.name },

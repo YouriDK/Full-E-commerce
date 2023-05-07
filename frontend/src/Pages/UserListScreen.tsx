@@ -6,11 +6,12 @@ import MesssageBox from '../components/MesssageBox';
 import { texte } from '../data';
 import { BsCheckLg } from 'react-icons/bs';
 import { GiCancel } from 'react-icons/gi';
+import { AppDispatch } from '../redux/store';
 
 const UserListScreen: FC<any> = (): JSX.Element => {
   const userList = useSelector((state: any) => state.userList);
   const { loading, error, users } = userList;
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
   const isMobile = useSelector((state: any) => state.isMobile.isMobile);
   useEffect(() => {
     dispatch(listUsers());

@@ -6,12 +6,14 @@ import LoadingBox from '../components/LoadingBox';
 import MesssageBox from '../components/MesssageBox';
 import { texte } from '../data';
 import { listOrderMine } from '../redux/actions/orderActions';
+import { AppDispatch } from '../redux/store';
+import { useNavigate } from 'react-router-dom';
 
-const OrderHistoryScreen: FC<any> = (props: any): JSX.Element => {
+const OrderHistoryScreen: FC<any> = (): JSX.Element => {
   const orderMineList = useSelector((state: any) => state.orderMineList);
   const { orders, loading, error } = orderMineList;
-  const dispatch = useDispatch();
-
+  const dispatch: AppDispatch = useDispatch();
+  const letsGoTo = useNavigate();
   useEffect(() => {
     dispatch(listOrderMine());
   }, [dispatch]);
@@ -57,7 +59,7 @@ const OrderHistoryScreen: FC<any> = (props: any): JSX.Element => {
               <td className='table-td'>
                 <>
                   <Button
-                    onClick={() => props.history.push(`/order/${order._id}`)}
+                    onClick={() => letsGoTo(`/order/${order._id}`)}
                     className='primary'
                   >
                     <FcViewDetails size={20} />
@@ -71,4 +73,5 @@ const OrderHistoryScreen: FC<any> = (props: any): JSX.Element => {
     </div>
   );
 };
+
 export default OrderHistoryScreen;

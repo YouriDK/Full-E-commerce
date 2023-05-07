@@ -9,17 +9,19 @@ import { ORDER_DELETE_RESET } from '../redux/constants/orderConstant';
 import { texte } from '../data';
 import { ImWrench } from 'react-icons/im';
 import { Pagination } from '@mui/material';
+import { AppDispatch } from '../redux/store';
+import { useNavigate } from 'react-router-dom';
 
-const OrderListScreen: FC<any> = (props: any): JSX.Element => {
+const OrderListScreen: FC<any> = (): JSX.Element => {
   const orderList = useSelector((state: any) => state.orderList);
   const { loading, error, orders } = orderList;
+  const letsGoTo = useNavigate();
   const [currentCage, setCurrentCage] = useState(1);
   const isMobile = useSelector((state: any) => state.isMobile.isMobile);
   const ITEMS_MAX = isMobile ? 11 : 21;
   const orderDelete = useSelector((state: any) => state.orderDelete);
   const { error: errorDelete, success: successDelete } = orderDelete;
-
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
   useEffect(() => {
     dispatch({ type: ORDER_DELETE_RESET });
     dispatch(listOrders());
@@ -88,7 +90,7 @@ const OrderListScreen: FC<any> = (props: any): JSX.Element => {
                 <td className='table-td'>
                   <>
                     <Button
-                      onClick={() => props.history.push(`/order/${order._id}`)}
+                      onClick={() => letsGoTo(`/order/${order._id}`)}
                       className='primary'
                     >
                       <ImWrench size={20} />

@@ -1,29 +1,31 @@
-import React, { useEffect, FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
+import { AiOutlineCheck } from 'react-icons/ai';
+import { BsFillArrowLeftCircleFill } from 'react-icons/bs';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Button } from 'reactstrap';
-import { detailsProduct } from '../redux/actions/productActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MesssageBox';
 import Rating from '../components/Rating';
 import '../css/productPage.css';
 import { secondColor, texte } from '../data';
-import { BsFillArrowLeftCircleFill } from 'react-icons/bs';
-import { AiOutlineCheck } from 'react-icons/ai';
-const ProductScreen: FC<any> = (props: any): JSX.Element => {
+import { detailsProduct } from '../redux/actions/productActions';
+import { AppDispatch } from '../redux/store';
+const ProductScreen: FC<any> = (): JSX.Element => {
   const [quantity, setquantity] = useState(1);
-
+  const params = useParams();
+  const letsGoTo = useNavigate();
   const productDetails = useSelector((state: any) => state.productDetails);
   const isMobile = useSelector((state: any) => state.isMobile.isMobile);
   const { product, loading, error } = productDetails;
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
   useEffect(() => {
-    dispatch(detailsProduct(props.match.params.id));
-  }, [dispatch, props.match.params.id]);
+    if (params.ProductId) {
+      dispatch(detailsProduct(params.ProductId));
+    }
+  }, [dispatch, params]);
   const handleAddtoCart = () => {
-    props.history.push(
-      '/cart?id=' + props.match.params.id + '&quantity=' + quantity
-    );
+    letsGoTo(`/cart?ProductId=${params.ProductId}&quantity=${quantity}`);
   };
   return loading ? (
     <LoadingBox />

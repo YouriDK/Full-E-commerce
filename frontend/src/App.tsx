@@ -1,7 +1,6 @@
 import { FC, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { Route } from 'react-router-dom';
-import AdminRoute from './components/AdminRoute';
+import { useDispatch, useSelector } from 'react-redux';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import Menu from './components/Menu';
 
 import CartScreen from './Pages/CartScreen';
@@ -18,10 +17,13 @@ import ShippingScreen from './Pages/ShippingScreen';
 import SignInScreen from './Pages/SignInScreen';
 import UserListScreen from './Pages/UserListScreen';
 import { setMobileView } from './redux/actions/userActions';
+import { AppDispatch } from './redux/store';
 
-const App: FC<any> = (props: any): JSX.Element => {
+const App: FC<any> = (): JSX.Element => {
   const [isMobile, setIsMobile] = useState<boolean>(false);
-  const dispatch = useDispatch();
+  const userSignin = useSelector((state: any) => state.userSignin);
+  const { userInfo } = userSignin;
+  const dispatch: AppDispatch = useDispatch();
   useEffect(() => {
     setIsMobile(window.innerWidth < 769);
     dispatch(setMobileView(window.innerWidth < 769));
@@ -31,27 +33,43 @@ const App: FC<any> = (props: any): JSX.Element => {
       <div className='grid-container'>
         <Menu />
         <main>
-          <div>
-            <Route path='/payment' component={PaymentScreen} />
-            <Route path='/placeorder' component={PlaceOrderScreen} />
-            <Route path='/cart' exact={true} component={CartScreen} />
-            <Route path='/products' component={ProductsScreen} />
-            <Route path='/shipping' component={ShippingScreen} />
-            <Route path='/product/:id' component={ProductScreen} />
-            <Route path='/signin' component={SignInScreen} />
-            <Route path='/orderhistory' component={OrderHistoryScreen} />
-            <Route path='/order/:id' component={OrderScreen} />
-            <AdminRoute
+          <Routes>
+            <Route path='/payment' Component={PaymentScreen} />
+            <Route path='/placeorder' Component={PlaceOrderScreen} />
+            <Route path='/cart' Component={CartScreen} />
+            <Route path='/products' Component={ProductsScreen} />
+            <Route path='/shipping' Component={ShippingScreen} />
+            <Route path='/product/:ProductId' Component={ProductScreen} />
+            <Route path='/signin' Component={SignInScreen} />
+            <Route path='/orderhistory' Component={OrderHistoryScreen} />
+            <Route path='/order/:OrderId' Component={OrderScreen} />
+            <Route
               path='/orderlist'
-              component={OrderListScreen}
-            ></AdminRoute>
-            <AdminRoute
+              element={
+                userInfo && userInfo.admin ? (
+                  <OrderListScreen />
+                ) : (
+                  <Navigate to='/signin' />
+                )
+              }
+            >
+              {' '}
+            </Route>
+            <Route
               path='/userlist'
-              component={UserListScreen}
-            ></AdminRoute>
+              element={
+                userInfo && userInfo.admin ? (
+                  <UserListScreen />
+                ) : (
+                  <Navigate to='/signin' />
+                )
+              }
+            >
+              {' '}
+            </Route>
 
-            <Route path='/' exact={true} component={HomeScreen} />
-          </div>
+            <Route path='/' Component={HomeScreen} />
+          </Routes>
         </main>
       </div>
     </>

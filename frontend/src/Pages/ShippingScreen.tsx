@@ -1,24 +1,25 @@
-import React, { useState, FC } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Button } from 'reactstrap';
-import { saveShipping } from '../redux/actions/cartActions';
-import CheckoutSteps from '../components/CheckOutStep';
-
 import { useFormik } from 'formik';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FC } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { Button } from 'reactstrap';
 import * as Yup from 'yup';
-const ShippingScreen: FC<any> = (props: any): JSX.Element => {
+import CheckoutSteps from '../components/CheckOutStep';
+import { saveShipping } from '../redux/actions/cartActions';
+import { AppDispatch } from '../redux/store';
+const ShippingScreen: FC<any> = (): JSX.Element => {
   const userSignin = useSelector((state: any) => state.userSignin);
   const isMobile = useSelector((state: any) => state.isMobile.isMobile);
+  const letsGoTo = useNavigate();
   const { userInfo } = userSignin;
   if (!userInfo) {
-    props.history.push('/signin');
+    letsGoTo('/signin');
   }
 
   const cart = useSelector((state: any) => state.cart);
   const { shipping_address } = cart;
 
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
 
   const formik = useFormik({
     initialValues: {
@@ -42,7 +43,7 @@ const ShippingScreen: FC<any> = (props: any): JSX.Element => {
     }),
     onSubmit: async (values: any) => {
       dispatch(saveShipping({ ...values }));
-      props.history.push('/payment');
+      letsGoTo('/payment');
     },
   });
   return (

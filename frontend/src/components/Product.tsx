@@ -3,11 +3,13 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { ProductProps, texte } from '../data';
 import Rating from './Rating';
-interface Props {
+interface ProducComponentsProps {
   key?: string;
   product: ProductProps;
 }
-const Product: FC<Props> = ({ product }: Props): JSX.Element => {
+const Product: FC<ProducComponentsProps> = ({
+  product,
+}: ProducComponentsProps): JSX.Element => {
   const isMobile = useSelector((state: any) => state.isMobile.isMobile);
   return (
     <div className='page-wrapper'>
