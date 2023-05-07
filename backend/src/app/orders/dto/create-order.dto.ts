@@ -6,8 +6,8 @@ import {
   IsOptional,
   IsString,
 } from 'class-validator';
-import { CreateItemDto } from 'src/app/item/dto/create-item.dto';
-import { CreateShippingAddressDto } from 'src/app/shipping-address/dto/create-shipping-address.dto';
+import { CreateItemDto } from '../../item/dto/create-item.dto';
+import { CreateShippingAddressDto } from '../../shipping-address/dto/create-shipping-address.dto';
 
 /* // info Old name : qty to replace in DB
  * orderItems -> order_items
