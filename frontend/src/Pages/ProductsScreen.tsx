@@ -74,7 +74,7 @@ const ProductsScreen: FC<any> = (): JSX.Element => {
     convertFileToBase64(acceptedFiles[0]);
   };
   const deleteHandler = (product: any) => {
-    dispatch(product._id);
+    dispatch(deleteProduct(product._id));
   };
   const formik = useFormik({
     initialValues: {

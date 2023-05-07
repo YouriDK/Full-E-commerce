@@ -29,7 +29,7 @@ const CartScreen: FC<any> = (): JSX.Element => {
     if (ProductId) {
       dispatch(addToCart(ProductId, quantity));
     }
-  }, [dispatch]);
+  }, [dispatch, params]);
 
   return (
     <>

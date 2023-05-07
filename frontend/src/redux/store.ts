@@ -33,7 +33,6 @@ import { cartReducers } from './reducers/cartReducers';
 
 // * Middleware pour React
 import thunk from 'redux-thunk';
-import { useDispatch } from 'react-redux';
 
 /*
  * Permet de récupérer les infos stockées dans les cookies
