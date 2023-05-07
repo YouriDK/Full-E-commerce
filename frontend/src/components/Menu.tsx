@@ -105,8 +105,8 @@ const Menu: FC<any> = (): JSX.Element => {
             )}
 
             <ul className='dropdown-content'>
-              {MenuData.map((propsMenu: MenuDataProps) => (
-                <li>
+              {MenuData.map((propsMenu: MenuDataProps, index: number) => (
+                <li key={index}>
                   <Link to={propsMenu.to} className={propsMenu.className}>
                     {' '}
                     {propsMenu.title}

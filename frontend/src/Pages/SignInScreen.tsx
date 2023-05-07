@@ -1,13 +1,12 @@
-import React, { FC, useEffect, useState } from 'react';
-import GoogleLogin from 'react-google-login';
+import { FC, useEffect, useState } from 'react';
+import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button } from 'reactstrap';
+import { useLocation, useNavigate } from 'react-router-dom';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MesssageBox';
 import { googleLogin } from '../redux/actions/userActions';
-import { sleep } from '../utils';
 import { AppDispatch } from '../redux/store';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { sleep } from '../utils';
 
 const SignInScreen: FC<any> = (): JSX.Element => {
   const [fail, setFail] = useState<any>();
@@ -46,40 +45,28 @@ const SignInScreen: FC<any> = (): JSX.Element => {
     <MessageBox variant='danger' error={error} />
   ) : (
     <div>
-      <form className='form' onSubmit={submitHandler}>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-
+      <form
+        className='form'
+        onSubmit={submitHandler}
+        style={{ float: 'right' }}
+      >
         {fail ? (
           <MessageBox variant='danger' text={fail} />
         ) : (
           <div>
-            <GoogleLogin
+            <GoogleOAuthProvider
               clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID || ''}
-              render={(renderProps) => (
-                <Button
-                  onClick={renderProps.onClick}
-                  style={{ textAlign: 'center', alignItems: 'middle' }}
-                  className='primary'
-                  disabled={renderProps.disabled}
-                >
-                  Log in with Google
-                </Button>
-              )}
-              buttonText='Log in with Google'
-              onSuccess={successGoogleLogin}
-              onFailure={failGoogleLogin}
-              cookiePolicy={'single_host_origin'}
-            ></GoogleLogin>
+            >
+              <GoogleLogin
+                onSuccess={successGoogleLogin}
+                onError={() => failGoogleLogin}
+                type='standard'
+                logo_alignment='center'
+                theme='outline'
+                size='large'
+                width='100%'
+              ></GoogleLogin>
+            </GoogleOAuthProvider>
           </div>
         )}
       </form>

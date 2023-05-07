@@ -18,7 +18,7 @@ export const googleLogin = (googleData: any) => async (dispatch: any) => {
   dispatch({ type: GOOGLE_SIGNIN_REQUEST, payload: { googleData } });
   try {
     const { data } = await Axios.post('/login', {
-      token: googleData.tokenId,
+      token: googleData.credential,
     });
     dispatch({ type: GOOGLE_SIGNIN_SUCCESS, payload: data });
     localStorage.setItem('userInfo', JSON.stringify(data));
