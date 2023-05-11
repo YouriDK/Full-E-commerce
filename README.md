@@ -1,40 +1,50 @@
-**Création d'un site fonctionnel E-commerce opérationnel**
+# Functionnal E-commerce website ( XshopX )
 
-# Techno
-```
-* React, Nest, Typescript , Redux
-```
+### Stack
 
+```
+> Database : MongoDB
+> Backend : NestJS - Typescript
+> Frontend : React - Typescript - Redux
+> Deployment environnement : Heroku
 
-# Pour deployer sur heroku
-```
- git add .
- git commit -am "make it better"
- git push heroku master
- (Maintenant , il faut mettre sur la branche production et faire le deploy)
-```
-# Lancer en local
-```
-- Back : nest start
-- Front : npm start
-```
-# Evo
-```
--Barre de recherche Order
-- Pagination Orders
 ```
 
-# Tache Techniques en cours
+### Main evolutions througth time
+
 ```
-    Almost Done
-    Remplacer en base tout les type string des id par des vrais Schema.Types.ObjectId
-    Mettre en palce les références pour construire les éléments automatiquement avec popluate
-    Mettre en place la pagination des orders en front et en back ( envisager la pagination des produits)
-    Etudier les routes pour faire le plus de choses possible en BDD et non en back
-    Changer terme fill par hydrate
-    Gros du taf : populate -> https://mongoosejs.com/docs/populate.html
-    Refaire les DTO ...
-    Check la structure   :
-        -  Paymentresult necessaire ?
-    changer les console et mettre des logger
+ > Javascript to Typescript
+ > Redisign of the graphic
+ > Google authentification
+ > NodeJS to NestJS
+ > Refactoring code strucutre
+ > Storage of product's pictures directly in database
+ > Optimisation database queries
+ > Restructure of the database
+ > Implement basic responsive
+ > Add Documentation (swagger)
+ > Update libraries package.json (ex : React 18)
+
+
+```
+
+### More infos
+
+To get more technicals infos about this project :
+Check the two others readMe available the folders frontend & backend
+
+### Main Features
+
+```
+> Display products
+> AUthentification with google
+> Payment system (Paypal)
+```
+
+### Currently
+
+```
+> Adding payment system (stripe)
+> Optimisation React Components
+
 ```

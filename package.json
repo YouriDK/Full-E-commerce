@@ -1,6 +1,6 @@
 {
   "name": "shopx",
-  "version": "3.0.0",
+  "version": "3.5.0",
   "description": "E-Shop MERN Technology",
   "main": "index.tsx",
   "scripts": {
