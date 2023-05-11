@@ -27,6 +27,11 @@
 
 ```
 
+### More infos
+
+To get more technicals infos about this project :
+Check the two others readMe available the folders frontend & backend
+
 ### Main Features
 
 ```
