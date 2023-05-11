@@ -1,15 +1,16 @@
-**Functionnal E-commerce website**
+# Functionnal E-commerce website ( XshopX )
 
-# Stack
+### Stack
 
 ```
 > Database : MongoDB
 > Backend : NestJS - Typescript
 > Frontend : React - Typescript - Redux
 > Deploy environnement : Heroku
+
 ```
 
-# Main evolutions througth time
+### Main evolutions througth time
 
 ```
  > Javascript to Typescript
@@ -20,10 +21,13 @@
  > Storage of product's pictures directly in database
  > Optimisation database queries
  > Restructure of the database
+ > Implement basic responsive
+ > Add Documentation (swagger)
+ > Update libraries ( ex : React 18 )
 
 ```
 
-# Main Features
+### Main Features
 
 ```
 > Display products
@@ -31,7 +35,7 @@
 > Payment system (Paypal)
 ```
 
-# Currently
+### Currently
 
 ```
 > Adding payment system (stripe)
