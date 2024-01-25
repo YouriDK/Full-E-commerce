@@ -11,6 +11,7 @@ import { ImWrench } from 'react-icons/im';
 import { Pagination } from '@mui/material';
 import { AppDispatch } from '../redux/store';
 import { useNavigate } from 'react-router-dom';
+import { signout } from '../redux/actions/userActions';
 
 const OrderListScreen: FC<any> = (): JSX.Element => {
   const orderList = useSelector((state: any) => state.orderList);
@@ -21,11 +22,20 @@ const OrderListScreen: FC<any> = (): JSX.Element => {
   const ITEMS_MAX = isMobile ? 11 : 21;
   const orderDelete = useSelector((state: any) => state.orderDelete);
   const { error: errorDelete, success: successDelete } = orderDelete;
+  const signoutHandler = () => {
+    dispatch(signout());
+    letsGoTo('/#signout');
+  };
   const dispatch: AppDispatch = useDispatch();
   useEffect(() => {
     dispatch({ type: ORDER_DELETE_RESET });
     dispatch(listOrders());
   }, [dispatch, successDelete]);
+  useEffect(() => {
+    if (error && error.redirection) {
+      signoutHandler();
+    }
+  }, [error]);
   const deleteHandler = (order: any) => {
     if (window.confirm('Are you sure to delete ?')) {
       dispatch(deleteOrder(order._id));
@@ -57,13 +67,8 @@ const OrderListScreen: FC<any> = (): JSX.Element => {
             .slice((currentCage - 1) * ITEMS_MAX, currentCage * ITEMS_MAX - 1)
             .map((order: any) => (
               <tr className='table-tr' key={order._id}>
-                {!isMobile && (
-                  <td className='table-td font-secondary large xbold'>
-                    {order._id}
-                  </td>
-                )}
                 <td className='table-td font-secondary large xbold'>
-                  {order.user}
+                  {order.user.email}
                 </td>
                 {!isMobile && (
                   <td className='table-td font-secondary large xbold'>
@@ -83,7 +88,7 @@ const OrderListScreen: FC<any> = (): JSX.Element => {
                 {!isMobile && (
                   <td className='table-td font-secondary large xbold'>
                     {order.isDelivered
-                      ? order.deliveredAt.substring(1, 10)
+                      ? order.deliveredAt.substring(0, 10)
                       : texte.Ordre.notdeli.en}
                   </td>
                 )}

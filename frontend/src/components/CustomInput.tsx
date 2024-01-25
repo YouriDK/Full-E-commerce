@@ -12,6 +12,7 @@ interface InputProps {
   checked?: boolean;
   options?: string[];
 }
+// TODO Séparer en trois Composant plutôt
 const CustomInput: FC<InputProps> = ({
   required,
   checked,

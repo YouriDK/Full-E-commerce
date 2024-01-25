@@ -9,6 +9,7 @@ import LoadingBox from '../components/LoadingBox';
 import MesssageBox from '../components/MesssageBox';
 import { DisplayDataProps } from './OrderScreen';
 import { AppDispatch } from '../redux/store';
+import { signout } from '../redux/actions/userActions';
 
 const PlaceOrderScreen: FC<any> = (): JSX.Element => {
   const cart = useSelector((state: any) => state.cart);
@@ -40,6 +41,16 @@ const PlaceOrderScreen: FC<any> = (): JSX.Element => {
       letsGoTo(`/order/${order._id}`);
     }
   }, [dispatch, letsGoTo, order, success]);
+
+  const signoutHandler = () => {
+    dispatch(signout());
+    letsGoTo('/#signout');
+  };
+  useEffect(() => {
+    if (error && error.redirection) {
+      signoutHandler();
+    }
+  }, [error]);
 
   const displayData: DisplayDataProps[] = [
     { title: 'Name', value: cart.shipping_address.name },

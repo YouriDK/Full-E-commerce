@@ -5,7 +5,6 @@ import { Categories, texte } from '../data';
 import { switchCategoyProduct } from '../redux/actions/productActions';
 import { signout } from '../redux/actions/userActions';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
-
 import { MdManageAccounts } from 'react-icons/md';
 import { AppDispatch } from '../redux/store';
 interface MenuDataProps {

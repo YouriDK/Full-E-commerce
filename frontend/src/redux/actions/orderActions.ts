@@ -90,7 +90,7 @@ export const listOrderMine = () => async (dispatch: any, getState: any) => {
     userSignin: { userInfo },
   } = getState();
   try {
-    const { data } = await Axios.get(`/orders/mine/${userInfo.id}`, {
+    const { data } = await Axios.get(`/orders/mine/${userInfo._id}`, {
       headers: {
         Authorization: `Bearer ${userInfo.token}`,
       },

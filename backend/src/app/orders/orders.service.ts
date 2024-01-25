@@ -108,6 +108,7 @@ export class OrdersService {
       .populate('order_items')
       .populate('shipping_address')
       .populate('payment_result')
+      .populate('user')
       .limit(options?.limit ?? 10000000);
 
     if (!orders) {
@@ -122,11 +123,14 @@ export class OrdersService {
     this.loggerService.log(
       '⚒ OrdersService -> Get Orders from specific user... ⚒',
     );
+    console.log('❤ ~ OrdersService ~ findSome ~ userID->', userID);
     const orders = await this.order
       .find({ user: userID })
       .populate('order_items')
       .populate('shipping_address')
+      .populate('user')
       .populate('payment_result');
+    this.loggerService.log('✅ orders  ,', orders);
     if (!orders) {
       throw new OrderListFailed();
     }

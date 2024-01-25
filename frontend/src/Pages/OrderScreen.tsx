@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import {
   deliverOrder,
   detailsOrder,
@@ -8,7 +8,7 @@ import {
 } from '../redux/actions/orderActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MesssageBox';
-import { PayPalButton } from 'react-paypal-button-v2';
+import { PayPalButton, PaypalOptions } from 'react-paypal-button-v2';
 import Axios from 'axios';
 import {
   ORDER_DELIVER_RESET,
@@ -17,15 +17,17 @@ import {
 import MesssageBox from '../components/MesssageBox';
 import { Button } from 'reactstrap';
 import { AppDispatch } from '../redux/store';
+import { signout } from '../redux/actions/userActions';
 export interface DisplayDataProps {
   title: string;
   value: string;
 }
+
 const OrderScreen: FC<any> = (): JSX.Element => {
   const [sdkReady, setSdkReady] = useState(false);
   const isMobile = useSelector((state: any) => state.isMobile.isMobile);
   const params = useParams();
-
+  const paypalOptions: PaypalOptions = { disableFunding: 'card' };
   const orderDetails = useSelector((state: any) => state.orderDetails);
   const userSignin = useSelector((state: any) => state.userSignin);
   const { userInfo } = userSignin;
@@ -81,7 +83,16 @@ const OrderScreen: FC<any> = (): JSX.Element => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, order, sdkReady, successPay, successDeliver]);
-
+  const letsGoTo = useNavigate();
+  const signoutHandler = () => {
+    dispatch(signout());
+    letsGoTo('/#signout');
+  };
+  useEffect(() => {
+    if (error && error.redirection) {
+      signoutHandler();
+    }
+  }, [error]);
   const successPaymentHandler = (paymentResult: any) => {
     dispatch(payOrder(order, paymentResult));
   };
@@ -220,6 +231,7 @@ const OrderScreen: FC<any> = (): JSX.Element => {
             ) : (
               <PayPalButton
                 amount={order.total_price}
+                options={paypalOptions}
                 onSuccess={successPaymentHandler}
               />
             )}

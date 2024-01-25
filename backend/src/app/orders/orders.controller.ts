@@ -48,11 +48,11 @@ export class OrdersController {
     status: 200,
     description: 'Get order from user whose logged',
   })
-  async findOrdersformUser(@Req() req: any) {
+  async findOrdersformUser(@Param() params: any) {
     this.loggerService.log(
       '🤞 OrdersController -> Find all orders from a specific user 🤞',
     );
-    return await this.ordersService.findSome(req.user._id);
+    return await this.ordersService.findSome(params.id);
   }
 
   @Get(':id')

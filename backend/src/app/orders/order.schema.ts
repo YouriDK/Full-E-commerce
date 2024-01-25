@@ -1,15 +1,18 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
 import { OrderDto } from './dto/order.dto';
+import { User } from '../users/user.schema';
+import { ShippingAddress } from '../shipping-address/shipping-address.schema';
+import { Item } from '../item/item.schema';
 
 export type OrderDocument = Order & Document;
 
 @Schema()
 export class Order {
-  @Prop({ required: true, type: [Types.ObjectId], ref: 'items' })
+  @Prop({ required: true, type: [Types.ObjectId], ref: Item.name })
   public order_items: Types.ObjectId[];
 
-  @Prop({ required: true, type: Types.ObjectId, ref: 'shippingaddresses' })
+  @Prop({ required: true, type: Types.ObjectId, ref: ShippingAddress.name })
   public shipping_address: Types.ObjectId;
 
   @Prop({ required: true })
@@ -27,8 +30,8 @@ export class Order {
   @Prop({ required: true })
   public total_price: number;
 
-  @Prop({ required: true, default: 0 })
-  public user: string;
+  @Prop({ required: true, type: Types.ObjectId, ref: User.name })
+  public user: Types.ObjectId;
 
   @Prop({ required: true, default: false })
   public isPaid: boolean;
@@ -65,7 +68,7 @@ export class Order {
     this.items_price = order.items_price;
     this.tax_price = order.tax_price;
     this.total_price = order.total_price;
-    this.user = order.user;
+    this.user = new Types.ObjectId(order.user);
     this.isPaid = order.isPaid;
     this.isDelivered = order.isDelivered;
     this.paidAt = order.paidAt;

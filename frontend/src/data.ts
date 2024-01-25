@@ -32,8 +32,8 @@ export const texte = {
       en: ['Items', 'Shipping', 'Tax', 'Order Total'],
     },
     order_list: {
-      fr: ['ID', 'CLIENT', 'DATE', 'TOTAL', 'PAIEMENT', 'LIVRAISON', 'ACTIONS'],
-      en: ['ID', 'USER', 'DATE', 'TOTAL', 'PAID', 'DELIVERED', 'ACTIONS'],
+      fr: ['CLIENT', 'DATE', 'TOTAL', 'PAIEMENT', 'LIVRAISON', 'ACTIONS'],
+      en: ['CUSTOMER', 'DATE', 'TOTAL', 'PAID', 'DELIVERED', 'ACTIONS'],
     },
     order_list_mine: {
       fr: ['ID', 'DATE', 'TOTAL', 'PAIEMENT', 'LIVRAISON', 'ACTIONS'],

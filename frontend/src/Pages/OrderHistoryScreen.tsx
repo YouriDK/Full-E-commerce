@@ -8,15 +8,23 @@ import { texte } from '../data';
 import { listOrderMine } from '../redux/actions/orderActions';
 import { AppDispatch } from '../redux/store';
 import { useNavigate } from 'react-router-dom';
+import { signout } from '../redux/actions/userActions';
 
 const OrderHistoryScreen: FC<any> = (): JSX.Element => {
   const orderMineList = useSelector((state: any) => state.orderMineList);
   const { orders, loading, error } = orderMineList;
   const dispatch: AppDispatch = useDispatch();
   const letsGoTo = useNavigate();
+  const signoutHandler = () => {
+    dispatch(signout());
+    letsGoTo('/#signout');
+  };
   useEffect(() => {
     dispatch(listOrderMine());
-  }, [dispatch]);
+    if (error && error.redirection) {
+      signoutHandler();
+    }
+  }, [dispatch, error]);
 
   return loading ? (
     <LoadingBox />

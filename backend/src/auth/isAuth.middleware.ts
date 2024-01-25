@@ -24,13 +24,19 @@ export class AuthMiddleware implements NestMiddleware {
         idToken: token,
         audience: process.env.REACT_APP_GOOGLE_CLIENT_ID,
       });
+
       const user = await this.userService.findOnebyEmail(
         ticket.getPayload()?.email,
       );
       req.user = user;
     } catch (error: any) {
+      console.log(error);
       const err = new TokenInvalidError();
-      this.loggerService.log(err);
+      // res.redirect('/signin');
+      this.loggerService.log("❌ Something ain't right my boy ❌");
+      if (error.message.includes('Token used too late')) {
+        throw new TokenInvalidError('Token used too late');
+      }
       throw err;
     }
     this.loggerService.log('💯 You may pass -> 💯');

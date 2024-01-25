@@ -19,12 +19,13 @@ const MesssageBox: FC<MesssageBoxProps> = ({
   notext,
   error,
 }: MesssageBoxProps): JSX.Element => {
-  const mistake: ErrorProps = error?.response?.data ?? {
+  const mistake: ErrorProps = error ?? {
     title: '',
     status: '',
     type: 0,
     response: '',
   };
+
   return error ? (
     <Alert
       color={variant}

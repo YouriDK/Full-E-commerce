@@ -1,6 +1,7 @@
 # XshopX Frontend Part
 
 ### Stack
+
 ```
 > ReactJS
 > TypeScript
@@ -8,27 +9,29 @@
 > Reactstrap
 
 ```
+
 # Main features
+
 ```
-> Système de suivi de livraison
-> Vitrine produits
-> Gestion de profil
-> Système de client/admin
-> Achat en ligne
+> E-commerce website features
+
 ```
+
 ### Evolutions througth time
+
 ```
 > Javascript to typescript
 > Add workflow payment
 > Display categories products
-> Creation admin part
+> Admin section creation
 > Change console log to logger
-> OPtimisation React Components
+> React Components optimisation
 > Upgrade version of package.json libraries
- > Implement forms ( Formik & Yup )
+> Implement forms ( Formik & Yup )
 ```
 
 ### Currently & TODO
+
 ```
-> Redirect when token expired
+> Stripe
 ```

@@ -4,6 +4,7 @@ import { savePayment } from '../redux/actions/cartActions';
 import CheckoutSteps from '../components/CheckOutStep';
 import { AppDispatch } from '../redux/store';
 import { useNavigate } from 'react-router-dom';
+import { signout } from '../redux/actions/userActions';
 
 const PaymentScreen: FC<any> = (): JSX.Element => {
   const cart = useSelector((state: any) => state.cart);
@@ -20,6 +21,7 @@ const PaymentScreen: FC<any> = (): JSX.Element => {
     dispatch(savePayment(payment_method));
     letsGoTo('/placeorder');
   };
+
   return (
     <div>
       {!isMobile && <CheckoutSteps step={2} />}

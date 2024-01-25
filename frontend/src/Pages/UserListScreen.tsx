@@ -1,12 +1,13 @@
 import { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { listUsers } from '../redux/actions/userActions';
+import { listUsers, signout } from '../redux/actions/userActions';
 import LoadingBox from '../components/LoadingBox';
 import MesssageBox from '../components/MesssageBox';
 import { texte } from '../data';
 import { BsCheckLg } from 'react-icons/bs';
 import { GiCancel } from 'react-icons/gi';
 import { AppDispatch } from '../redux/store';
+import { useNavigate } from 'react-router-dom';
 
 const UserListScreen: FC<any> = (): JSX.Element => {
   const userList = useSelector((state: any) => state.userList);
@@ -16,6 +17,16 @@ const UserListScreen: FC<any> = (): JSX.Element => {
   useEffect(() => {
     dispatch(listUsers());
   }, [dispatch]);
+  const letsGoTo = useNavigate();
+  const signoutHandler = () => {
+    dispatch(signout());
+    letsGoTo('/#signout');
+  };
+  useEffect(() => {
+    if (error && error.redirection) {
+      signoutHandler();
+    }
+  }, [error]);
 
   return loading ? (
     <LoadingBox />
