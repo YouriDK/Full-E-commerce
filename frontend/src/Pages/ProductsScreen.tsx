@@ -7,6 +7,7 @@ import { Button } from 'reactstrap';
 import * as Yup from 'yup';
 
 import Dropzone from 'react-dropzone';
+import { useNavigate } from 'react-router-dom';
 import LoadingBox from '../components/LoadingBox';
 import MesssageBox from '../components/MesssageBox';
 import { Categories, texte } from '../data';
@@ -16,7 +17,6 @@ import {
   saveProduct,
 } from '../redux/actions/productActions';
 import { AppDispatch } from '../redux/store';
-import { useNavigate } from 'react-router-dom';
 
 const ProductsScreen: FC<any> = (): JSX.Element => {
   // const intl = useIntl();
@@ -101,12 +101,12 @@ const ProductsScreen: FC<any> = (): JSX.Element => {
       numReviews: Yup.number(),
     }),
     onSubmit: async (values: any) => {
-      dispatch({
-        type: saveProduct({
+      dispatch(saveProduct({
           _id: id,
           ...values,
         }),
-      });
+      );
+
     },
   });
 

@@ -28,6 +28,7 @@ const listProducts = () => async (dispatch: any) => {
 
 const saveProduct =
   (product: ProductProps) => async (dispatch: Function, getState: Function) => {
+    console.trace("HERE")
     try {
       dispatch({ type: PRODUCT_SAVE_REQUEST, payload: product });
 

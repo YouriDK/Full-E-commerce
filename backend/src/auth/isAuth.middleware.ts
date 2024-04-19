@@ -33,7 +33,7 @@ export class AuthMiddleware implements NestMiddleware {
       console.log(error);
       const err = new TokenInvalidError();
       // res.redirect('/signin');
-      this.loggerService.log("❌ Something ain't right my boy ❌");
+      this.loggerService.error("❌ Something ain't right my boy ❌");
       if (error.message.includes('Token used too late')) {
         throw new TokenInvalidError('Token used too late');
       }
