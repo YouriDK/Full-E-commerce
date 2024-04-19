@@ -1,23 +1,25 @@
-import React, { FC, useEffect, useState } from 'react';
+import Axios from 'axios';
+import { FC, useEffect, useState } from 'react';
+import { PayPalButton, PaypalOptions } from 'react-paypal-button-v2';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Button } from 'reactstrap';
+import LoadingBox from '../components/LoadingBox';
+import {
+  default as MessageBox,
+  default as MesssageBox,
+} from '../components/MesssageBox';
 import {
   deliverOrder,
   detailsOrder,
   payOrder,
 } from '../redux/actions/orderActions';
-import LoadingBox from '../components/LoadingBox';
-import MessageBox from '../components/MesssageBox';
-import { PayPalButton, PaypalOptions } from 'react-paypal-button-v2';
-import Axios from 'axios';
+import { signout } from '../redux/actions/userActions';
 import {
   ORDER_DELIVER_RESET,
   ORDER_PAY_RESET,
 } from '../redux/constants/orderConstant';
-import MesssageBox from '../components/MesssageBox';
-import { Button } from 'reactstrap';
 import { AppDispatch } from '../redux/store';
-import { signout } from '../redux/actions/userActions';
 export interface DisplayDataProps {
   title: string;
   value: string;
@@ -27,7 +29,10 @@ const OrderScreen: FC<any> = (): JSX.Element => {
   const [sdkReady, setSdkReady] = useState(false);
   const isMobile = useSelector((state: any) => state.isMobile.isMobile);
   const params = useParams();
-  const paypalOptions: PaypalOptions = { disableFunding: 'card' };
+  const paypalOptions: PaypalOptions = {
+    disableFunding: 'card',
+    clientId: process.env.REACT_APP_PAYPAL_CLIENT_ID,
+  };
   const orderDetails = useSelector((state: any) => state.orderDetails);
   const userSignin = useSelector((state: any) => state.userSignin);
   const { userInfo } = userSignin;
@@ -81,20 +86,21 @@ const OrderScreen: FC<any> = (): JSX.Element => {
         }
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, order, sdkReady, successPay, successDeliver]);
+  }, [dispatch, order, sdkReady, successPay, successDeliver, params.OrderId]);
   const letsGoTo = useNavigate();
-  const signoutHandler = () => {
-    dispatch(signout());
-    letsGoTo('/#signout');
-  };
+
   useEffect(() => {
+    const signoutHandler = () => {
+      dispatch(signout());
+      letsGoTo('/#signout');
+    };
     if (error && error.redirection) {
       signoutHandler();
     }
-  }, [error]);
+  }, [dispatch, error, letsGoTo]);
   const successPaymentHandler = (paymentResult: any) => {
     dispatch(payOrder(order, paymentResult));
+    setSdkReady(false);
   };
   const deliverHandler = () => {
     dispatch(deliverOrder(order._id));

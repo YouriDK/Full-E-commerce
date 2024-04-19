@@ -1,12 +1,15 @@
+import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 import { FC, useState } from 'react';
+import { AiOutlineShoppingCart } from 'react-icons/ai';
+import { MdManageAccounts } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { Categories, texte } from '../data';
 import { switchCategoyProduct } from '../redux/actions/productActions';
-import { signout } from '../redux/actions/userActions';
-import { AiOutlineShoppingCart } from 'react-icons/ai';
-import { MdManageAccounts } from 'react-icons/md';
+import { googleLogin, signout } from '../redux/actions/userActions';
 import { AppDispatch } from '../redux/store';
+import { sleep } from '../utils';
+import MesssageBox from './MesssageBox';
 interface MenuDataProps {
   to: string;
   className: string;
@@ -16,11 +19,13 @@ const Menu: FC<any> = (): JSX.Element => {
   const cart = useSelector((state: any) => state.cart);
   const isMobile = useSelector((state: any) => state.isMobile.isMobile);
   const { cartItems } = cart;
+  const [fail, setFail] = useState<any>();
   const dispatch: AppDispatch = useDispatch();
   const letsGoTo = useNavigate();
   const moveTo: any = (url: string) => {
     letsGoTo(url);
   };
+
   const userSignin = useSelector((state: any) => state.userSignin);
   const [categories, setCategories] = useState('All');
   const { userInfo } = userSignin;
@@ -28,6 +33,15 @@ const Menu: FC<any> = (): JSX.Element => {
     dispatch(switchCategoyProduct(handleCat));
     setCategories(handleCat);
   };
+  const successGoogleLogin = (googleData: any) => {
+    dispatch(googleLogin(googleData));
+  };
+  const failGoogleLogin = () => {
+    setFail('Failed');
+    sleep(2000);
+    setFail(null);
+  };
+
   const MenuData: MenuDataProps[] = [
     { to: '/dashboard', className: 'font-secondary large', title: 'Dashboard' },
     { to: '/orderlist', className: 'font-secondary large', title: 'Orders' },
@@ -45,7 +59,7 @@ const Menu: FC<any> = (): JSX.Element => {
       className='row'
       style={{
         display: isMobile ? 'flex' : '',
-        justifyContent: isMobile ? 'space-around' : '',
+        justifyContent: isMobile ? 'space-between' : '',
         flexWrap: 'nowrap',
       }}
     >
@@ -63,12 +77,12 @@ const Menu: FC<any> = (): JSX.Element => {
 
       <div
         style={{
-          display: isMobile ? 'flex' : '',
+          display: 'flex',
           justifyContent: isMobile ? 'space-around' : '',
           flexWrap: 'nowrap',
         }}
       >
-        <div className='dropdown'>
+        <div className='dropdown' style={{ padding: '1rem' }}>
           <Link to='#' className='font-secondary xlarge'>
             {categories === 'All' ? 'Category' : categories}
           </Link>
@@ -90,10 +104,13 @@ const Menu: FC<any> = (): JSX.Element => {
         {'  '}
 
         {userInfo && userInfo.admin && (
-          <div className='dropdown font-secondary xlarge'>
+          <div
+            className='dropdown font-secondary xlarge'
+            style={{ padding: '1rem' }}
+          >
             {isMobile ? (
               <Link to='#admin'>
-                <MdManageAccounts size={25} />
+                <MdManageAccounts size={25} style={{ margin: '1rem' }} />
               </Link>
             ) : (
               <Link to='#admin'>
@@ -120,6 +137,7 @@ const Menu: FC<any> = (): JSX.Element => {
             <AiOutlineShoppingCart
               size={25}
               color={cartItems.length > 0 ? 'red' : 'white'}
+              style={{ margin: '1rem' }}
             />
           ) : (
             <span className='font-secondary xlarge'>{texte.Cart.cart.en}</span>
@@ -129,7 +147,7 @@ const Menu: FC<any> = (): JSX.Element => {
           )}
         </Link>
         {userInfo ? (
-          <div className='dropdown'>
+          <div className='dropdown' style={{ padding: '1rem' }}>
             <Link to='#' className='font-secondary xlarge'>
               {userInfo.given_name ? userInfo.given_name : userInfo.name}{' '}
             </Link>
@@ -159,11 +177,25 @@ const Menu: FC<any> = (): JSX.Element => {
               </li>
             </ul>
           </div>
+        ) : fail ? (
+          <MesssageBox variant='danger' text={fail} />
         ) : (
-          <Link to='/signin' className='font-secondary xlarge'>
-            {' '}
-            {texte.Terms.sign.en}
-          </Link>
+          <div style={{ padding: '1.5rem 1rem' }}>
+            <GoogleOAuthProvider
+              clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID || ''}
+            >
+              <GoogleLogin
+                onSuccess={successGoogleLogin}
+                onError={() => failGoogleLogin}
+                type={isMobile ? 'icon' : 'standard'}
+                logo_alignment='center'
+                theme='outline'
+                size='medium'
+                width='50%'
+                text='signin_with'
+              ></GoogleLogin>
+            </GoogleOAuthProvider>
+          </div>
         )}
       </div>
     </header>

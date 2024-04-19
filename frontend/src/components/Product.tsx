@@ -49,7 +49,11 @@ const Product: FC<ProducComponentsProps> = ({
 
               <a
                 className='cart'
-                href={'/cart?id=' + product._id + '&quantity=' + 1}
+                href={
+                  product.countInStock === 0
+                    ? '/product/' + product._id
+                    : '/cart?ProductId=' + product._id + '&quantity=' + 1
+                }
               >
                 <span className='price'>{product.price}</span>
                 <span className='add-to-cart'>

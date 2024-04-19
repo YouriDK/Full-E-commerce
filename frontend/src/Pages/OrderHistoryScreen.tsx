@@ -15,16 +15,17 @@ const OrderHistoryScreen: FC<any> = (): JSX.Element => {
   const { orders, loading, error } = orderMineList;
   const dispatch: AppDispatch = useDispatch();
   const letsGoTo = useNavigate();
-  const signoutHandler = () => {
-    dispatch(signout());
-    letsGoTo('/#signout');
-  };
+
   useEffect(() => {
+    const signoutHandler = () => {
+      dispatch(signout());
+      letsGoTo('/#signout');
+    };
     dispatch(listOrderMine());
     if (error && error.redirection) {
       signoutHandler();
     }
-  }, [dispatch, error]);
+  }, [dispatch, error, letsGoTo]);
 
   return loading ? (
     <LoadingBox />

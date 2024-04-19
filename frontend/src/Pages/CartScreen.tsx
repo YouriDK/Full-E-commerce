@@ -17,6 +17,7 @@ const CartScreen: FC<any> = (): JSX.Element => {
   const isMobile = useSelector((state: any) => state.isMobile.isMobile);
   const dispatch: AppDispatch = useDispatch();
   const removeFromCardHandler = (productId: string) => {
+    console.log('DELETE ', productId);
     dispatch(removeFromCart(productId));
   };
   const checkoutHandler = () => {
@@ -29,7 +30,7 @@ const CartScreen: FC<any> = (): JSX.Element => {
     if (ProductId) {
       dispatch(addToCart(ProductId, quantity));
     }
-  }, [dispatch, params]);
+  }, [cartItems, dispatch, params]);
 
   return (
     <>
@@ -51,12 +52,20 @@ const CartScreen: FC<any> = (): JSX.Element => {
               {!isMobile && (
                 <tr
                   className='table-tr '
-                  style={{ display: 'flex', flexDirection: 'row' }}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                  }}
                 >
                   {texte.Cart.tab.en.map((td: string) => (
                     <td
                       key={td}
                       className='table-td font-secondary xlarge xbold'
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                      }}
                     >
                       {td}
                     </td>
@@ -68,7 +77,11 @@ const CartScreen: FC<any> = (): JSX.Element => {
                 <tr
                   className='table-tr'
                   key={index}
-                  style={{ display: 'flex', flexDirection: 'row' }}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                  }}
                 >
                   <td className='table-td'>
                     <img src={item.image} alt={item.name} className='small' />
@@ -88,9 +101,7 @@ const CartScreen: FC<any> = (): JSX.Element => {
                         index % 2 === 0 ? 'lightbg' : 'primary'
                       }`}
                       onChange={(e) =>
-                        dispatch({
-                          type: addToCart(item.product, e.target.value),
-                        })
+                        dispatch(addToCart(item.product, e.target.value))
                       }
                     >
                       {[...(Array(item.countInStock).keys() as any)].map(

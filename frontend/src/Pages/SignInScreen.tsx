@@ -27,10 +27,6 @@ const SignInScreen: FC<any> = (): JSX.Element => {
     }
   }, [letsGoTo, redirect, userInfo]);
 
-  const submitHandler = (e: any) => {
-    e.preventDefault();
-  };
-
   const successGoogleLogin = (googleData: any) => {
     dispatch(googleLogin(googleData));
   };
@@ -43,33 +39,25 @@ const SignInScreen: FC<any> = (): JSX.Element => {
     <LoadingBox />
   ) : error ? (
     <MessageBox variant='danger' error={error} />
+  ) : fail ? (
+    <MessageBox variant='danger' text={fail} />
   ) : (
-    <div>
-      <form
-        className='form'
-        onSubmit={submitHandler}
-        style={{ float: 'right' }}
-      >
-        {fail ? (
-          <MessageBox variant='danger' text={fail} />
-        ) : (
-          <div>
-            <GoogleOAuthProvider
-              clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID || ''}
-            >
-              <GoogleLogin
-                onSuccess={successGoogleLogin}
-                onError={() => failGoogleLogin}
-                type='standard'
-                logo_alignment='center'
-                theme='outline'
-                size='large'
-                width='100%'
-              ></GoogleLogin>
-            </GoogleOAuthProvider>
-          </div>
-        )}
-      </form>
+    <div style={{ width: '100%', height: '70%', left: 'auto' }}>
+      <div style={{ width: '10%', height: '10%', margin: '300px auto' }}>
+        <GoogleOAuthProvider
+          clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID || ''}
+        >
+          <GoogleLogin
+            onSuccess={successGoogleLogin}
+            onError={() => failGoogleLogin}
+            type='standard'
+            logo_alignment='center'
+            theme='outline'
+            size='large'
+            width='100%'
+          ></GoogleLogin>
+        </GoogleOAuthProvider>
+      </div>
     </div>
   );
 };

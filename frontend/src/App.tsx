@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import Menu from './components/Menu';
@@ -12,7 +12,6 @@ import PaymentScreen from './Pages/PaymentScreen';
 import PlaceOrderScreen from './Pages/PlaceOrderScreen';
 import ProductScreen from './Pages/ProductScreen';
 import ProductsScreen from './Pages/ProductsScreen';
-
 import ShippingScreen from './Pages/ShippingScreen';
 import SignInScreen from './Pages/SignInScreen';
 import UserListScreen from './Pages/UserListScreen';
@@ -20,14 +19,20 @@ import { setMobileView } from './redux/actions/userActions';
 import { AppDispatch } from './redux/store';
 
 const App: FC<any> = (): JSX.Element => {
-  const [, setIsMobile] = useState<boolean>(false);
   const userSignin = useSelector((state: any) => state.userSignin);
   const { userInfo } = userSignin;
   const dispatch: AppDispatch = useDispatch();
   useEffect(() => {
-    setIsMobile(window.innerWidth < 769);
-    dispatch(setMobileView(window.innerWidth < 769));
+    window.addEventListener('resize', () =>
+      dispatch(setMobileView(window.innerWidth < 769))
+    );
+    return () => {
+      window.removeEventListener('resize', () =>
+        dispatch(setMobileView(window.innerWidth < 769))
+      );
+    };
   }, [dispatch]);
+
   return (
     <>
       <div className='grid-container'>

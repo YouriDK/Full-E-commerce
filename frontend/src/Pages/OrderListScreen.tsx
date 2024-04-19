@@ -22,20 +22,21 @@ const OrderListScreen: FC<any> = (): JSX.Element => {
   const ITEMS_MAX = isMobile ? 11 : 21;
   const orderDelete = useSelector((state: any) => state.orderDelete);
   const { error: errorDelete, success: successDelete } = orderDelete;
-  const signoutHandler = () => {
-    dispatch(signout());
-    letsGoTo('/#signout');
-  };
+
   const dispatch: AppDispatch = useDispatch();
   useEffect(() => {
     dispatch({ type: ORDER_DELETE_RESET });
     dispatch(listOrders());
   }, [dispatch, successDelete]);
   useEffect(() => {
+    const signoutHandler = () => {
+      dispatch(signout());
+      letsGoTo('/#signout');
+    };
     if (error && error.redirection) {
       signoutHandler();
     }
-  }, [error]);
+  }, [dispatch, error, letsGoTo]);
   const deleteHandler = (order: any) => {
     if (window.confirm('Are you sure to delete ?')) {
       dispatch(deleteOrder(order._id));

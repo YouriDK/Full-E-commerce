@@ -42,15 +42,15 @@ const PlaceOrderScreen: FC<any> = (): JSX.Element => {
     }
   }, [dispatch, letsGoTo, order, success]);
 
-  const signoutHandler = () => {
-    dispatch(signout());
-    letsGoTo('/#signout');
-  };
   useEffect(() => {
+    const signoutHandler = () => {
+      dispatch(signout());
+      letsGoTo('/#signout');
+    };
     if (error && error.redirection) {
       signoutHandler();
     }
-  }, [error]);
+  }, [dispatch, error, letsGoTo]);
 
   const displayData: DisplayDataProps[] = [
     { title: 'Name', value: cart.shipping_address.name },
@@ -89,7 +89,7 @@ const PlaceOrderScreen: FC<any> = (): JSX.Element => {
             <table className='table'>
               <tbody>
                 {displayData.map((data: DisplayDataProps) => (
-                  <tr className='table-tr'>
+                  <tr className='table-tr' key={data.value}>
                     <td className='table-td font-secondary large xbold'>
                       {data.title}
                     </td>
@@ -163,8 +163,8 @@ const PlaceOrderScreen: FC<any> = (): JSX.Element => {
               <div className='header'>Order Summary</div>
               <table className='table'>
                 <tbody>
-                  {tableDatas.map((data: DisplayDataProps) => (
-                    <tr className='table-tr'>
+                  {tableDatas.map((data: DisplayDataProps, index: number) => (
+                    <tr className='table-tr' key={index}>
                       <td className='table-td font-secondary large xbold'>
                         {data.title}
                       </td>
