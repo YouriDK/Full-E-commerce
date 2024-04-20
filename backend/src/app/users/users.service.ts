@@ -48,7 +48,7 @@ export class UsersService {
     if (!user) {
       const err = new UserNotFound(email);
       console.log(err);
-      throw err;
+      return null;
     }
     console.log('✅ Service -> login user checking email....success ✅');
     return user;

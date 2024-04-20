@@ -17,8 +17,8 @@ const CartScreen: FC<any> = (): JSX.Element => {
   const isMobile = useSelector((state: any) => state.isMobile.isMobile);
   const dispatch: AppDispatch = useDispatch();
   const removeFromCardHandler = (productId: string) => {
-    console.log('DELETE ', productId);
     dispatch(removeFromCart(productId));
+    letsGoTo('/cart');
   };
   const checkoutHandler = () => {
     letsGoTo('/signin?redirect=shipping');
@@ -30,7 +30,7 @@ const CartScreen: FC<any> = (): JSX.Element => {
     if (ProductId) {
       dispatch(addToCart(ProductId, quantity));
     }
-  }, [cartItems, dispatch, params]);
+  }, [cartItems, params]);
 
   return (
     <>

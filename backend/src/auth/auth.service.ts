@@ -83,6 +83,7 @@ export class AuthService {
     let user: UserDto = await this.usersService.findOnebyEmail(email);
 
     if (!user) {
+      this.loggerService.log('👌 Create the new user 👌');
       await this.usersService.create({
         name: given_name,
         email: email,
