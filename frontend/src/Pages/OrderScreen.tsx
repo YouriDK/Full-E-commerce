@@ -1,4 +1,3 @@
-import Axios from 'axios';
 import { FC, useEffect, useState } from 'react';
 import { PayPalButton, PaypalOptions } from 'react-paypal-button-v2';
 import { useDispatch, useSelector } from 'react-redux';
@@ -27,6 +26,7 @@ export interface DisplayDataProps {
 
 const OrderScreen: FC<any> = (): JSX.Element => {
   const [sdkReady, setSdkReady] = useState(false);
+  const letsGoTo = useNavigate();
   const isMobile = useSelector((state: any) => state.isMobile.isMobile);
   const params = useParams();
   const paypalOptions: PaypalOptions = {
@@ -56,17 +56,19 @@ const OrderScreen: FC<any> = (): JSX.Element => {
       }
     }
     const addPayPalScript = async () => {
-      const { data } = await Axios.get('/paypal');
-
-      // * Il faut créer un script pour utiliser Paypal
-      const script = document.createElement('script');
-      script.type = 'text/javascript';
-      script.src = `https://www.paypal.com/sdk/js?client-id=${data}`;
-      script.async = true;
-      script.onload = () => {
-        setSdkReady(true);
-      };
-      document.body.appendChild(script); // *  Ajout du script dans la page HTML en dernier
+      try {
+        // * Il faut créer un script pour utiliser Paypal
+        const script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = `https://www.paypal.com/sdk/js?client-id=${process.env.REACT_APP_PAYPAL_CLIENT_ID}`;
+        script.async = true;
+        script.onload = () => {
+          setSdkReady(true);
+        };
+        document.body.appendChild(script); // *  Ajout du script dans la page HTML en dernier
+      } catch (error) {
+        console.trace('ERROR -> ', error);
+      }
     };
     if (
       !order ||
@@ -82,12 +84,19 @@ const OrderScreen: FC<any> = (): JSX.Element => {
         if (!window.paypal) {
           addPayPalScript();
         } else {
-          setSdkReady(true);
+          setSdkReady(false);
         }
       }
     }
-  }, [dispatch, order, sdkReady, successPay, successDeliver, params.OrderId]);
-  const letsGoTo = useNavigate();
+  }, [
+    dispatch,
+    order,
+    sdkReady,
+    successPay,
+    successDeliver,
+    params.OrderId,
+    letsGoTo,
+  ]);
 
   useEffect(() => {
     const signoutHandler = () => {
