@@ -47,9 +47,9 @@ const Product: FC<ProducComponentsProps> = ({
                 <div className='h-bg-inner'></div>
               </div>
 
-              <a
+              <Link
                 className='cart'
-                href={
+                to={
                   product.countInStock === 0
                     ? '/product/' + product._id
                     : '/cart?ProductId=' + product._id + '&quantity=' + 1
@@ -61,7 +61,7 @@ const Product: FC<ProducComponentsProps> = ({
                     {texte.Panier.add.en}
                   </span>
                 </span>
-              </a>
+              </Link>
             </div>
           </div>
         </div>

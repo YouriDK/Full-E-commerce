@@ -34,13 +34,6 @@ import { cartReducers } from './reducers/cartReducers';
 // * Middleware pour React
 import thunk from 'redux-thunk';
 
-/*
- * Permet de récupérer les infos stockées dans les cookies
- * const cartItems = Cookie.getJSON("cartItems") || [];
- * const userInfo = Cookie.getJSON("userInfo") || null;
- *
- * ON remplace les cookies par LocalStorage mais ce ne serait pas une solution fiable pour la production
- */
 const initialState = {
   userSignin: {
     userInfo: localStorage.getItem('userInfo')

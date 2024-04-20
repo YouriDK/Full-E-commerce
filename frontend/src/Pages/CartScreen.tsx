@@ -16,6 +16,7 @@ const CartScreen: FC<any> = (): JSX.Element => {
   const [params] = useSearchParams();
   const isMobile = useSelector((state: any) => state.isMobile.isMobile);
   const dispatch: AppDispatch = useDispatch();
+
   const removeFromCardHandler = (productId: string) => {
     dispatch(removeFromCart(productId));
     letsGoTo('/cart');
@@ -30,7 +31,7 @@ const CartScreen: FC<any> = (): JSX.Element => {
     if (ProductId) {
       dispatch(addToCart(ProductId, quantity));
     }
-  }, [cartItems, params]);
+  }, [dispatch, params]);
 
   return (
     <>

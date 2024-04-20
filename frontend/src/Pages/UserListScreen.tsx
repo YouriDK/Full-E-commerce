@@ -18,15 +18,16 @@ const UserListScreen: FC<any> = (): JSX.Element => {
     dispatch(listUsers());
   }, [dispatch]);
   const letsGoTo = useNavigate();
-  const signoutHandler = () => {
-    dispatch(signout());
-    letsGoTo('/#signout');
-  };
+
   useEffect(() => {
+    const signoutHandler = () => {
+      dispatch(signout());
+      letsGoTo('/#signout');
+    };
     if (error && error.redirection) {
       signoutHandler();
     }
-  }, [error]);
+  }, [dispatch, error, letsGoTo]);
 
   return loading ? (
     <LoadingBox />
